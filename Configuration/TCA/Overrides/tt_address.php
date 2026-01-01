@@ -19,6 +19,7 @@ unset(
 // Optional: Entferne auch die Spalten-Konfiguration, falls vorhanden
 unset($GLOBALS['TCA']['tt_address']['columns']['sys_language_uid']);
 unset($GLOBALS['TCA']['tt_address']['columns']['l10n_parent']);
+unset($GLOBALS['TCA']['tt_address']['columns']['l10n_diffsource']);
 
 $llg = 'LLL:EXT:publicrelations/Resources/Private/Language/locallang_db.xlf:tx_publicrelations_general';
 $ll = 'LLL:EXT:publicrelations/Resources/Private/Language/locallang_db.xlf:tt_address';
@@ -351,7 +352,7 @@ $tmp_publicrelations_columns = [
             'type' => 'text',
             'cols' => 40,
             'rows' => 3,
-            'eval' => 'trim',
+            'eval' => 'trim,lower',
         ],
     ],
     'email_bcc' => [
@@ -361,7 +362,7 @@ $tmp_publicrelations_columns = [
             'type' => 'text',
             'cols' => 40,
             'rows' => 3,
-            'eval' => 'trim',
+            'eval' => 'trim,lower',
         ],
     ],
 ];
@@ -409,6 +410,8 @@ $GLOBALS['TCA']['tt_address']['columns']['image']['config']['allowed'] = 'common
 $GLOBALS['TCA']['tt_address']['columns']['personally']['config']['readOnly'] = true;
 $GLOBALS['TCA']['tt_address']['columns']['mailing_no_html']['config']['readOnly'] = true;
 $GLOBALS['TCA']['tt_address']['columns']['birthday']['config']['format'] = 'date';
+
+$GLOBALS['TCA']['tt_address']['columns']['email']['config']['eval'] = 'lower';
 
 $GLOBALS['TCA']['tt_address']['columns']['categories']['config'] = [
     'type' => 'select',
