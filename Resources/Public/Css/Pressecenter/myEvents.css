@@ -1,0 +1,13 @@
+.event-filter {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border: 2px solid transparent;
+}
+.event-filter:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.event-filter.active-filter {
+    border-color: var(--mdb-primary);
+    background-color: var(--mdb-primary-bg-subtle);
+}

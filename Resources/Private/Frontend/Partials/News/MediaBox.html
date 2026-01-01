@@ -1,0 +1,57 @@
+<div class="card p-2 mb-4">
+    <div class="card-body">
+      <h6 class="fw-bold border-start border-primary border-3 ps-2 mb-4">Pressefotos</h6>
+  
+      <f:for each="{media}" as="file">
+        <div class="d-flex align-items-start mb-3 position-relative">
+            <!-- Thumbnail mit Overlay-Icon -->
+            <div class="flex-shrink-0 me-3 position-relative" style="width: 64px; height: 64px;">
+              <a href="{file.originalResource.publicUrl}" download target="_blank" class="d-block position-relative">
+                <f:image image="{file}" class="rounded img-fluid w-100 h-100 object-fit-cover" cropVariant="thumb" alt="{file.originalResource.title}" />
+                <span class="position-absolute top-50 start-50 translate-middle badge bg-primary text-white rounded-circle p-2" title="Download">
+                  <i class="fas fa-download"></i>
+                </span>
+              </a>
+            </div>
+          
+            <!-- Infos -->
+            <div class="flex-grow-1 small">
+              <p class="mb-1">
+                <strong>{file.originalResource.title}</strong><br/>
+                <f:if condition="{file.originalResource.description}">
+                  {file.originalResource.description}<br/>
+                </f:if>
+                <f:if condition="{file.originalResource.properties.copyright}">
+                  <span class="text-muted">© {file.originalResource.properties.copyright}</span>
+                </f:if>
+              </p>
+            </div>
+        </div>
+      </f:for>
+  
+      <!-- Weiterführende Links zu Pressedownloads -->
+      <div class="mt-4 small">
+        <f:if condition="{news.campaigns}">
+          <f:for each="{news.campaigns}" as="campaign" iteration="ci">
+            <f:if condition="{campaign.mediagroups}">
+              <p class="mb-1">
+                <f:link.action action="show" controller="Campaign" arguments="{campaign: campaign}" class="text-dark fw-bold" section="pressematerial">
+                  Weitere Pressedownloads zu {campaign.title}.
+                </f:link.action>
+              </p>
+            </f:if>
+          </f:for>
+        </f:if>
+  
+        <f:if condition="{news.client.mediagroups}">
+          <p class="mb-0">
+            <f:link.action action="show" controller="Client" arguments="{client: news.client}" class="text-dark fw-bold" section="pressematerial">
+              Weitere allgemeine Pressedownloads zum Kunden.
+            </f:link.action>
+          </p>
+        </f:if>
+      </div>
+  
+    </div>
+  </div>
+  

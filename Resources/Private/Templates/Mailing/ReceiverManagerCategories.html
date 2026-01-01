@@ -1,0 +1,130 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Mailer" />
+
+<f:section name="buttons">
+<f:link.action action="show" controller="Mailing" arguments="{mailing:mailing}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#times"></use></svg>Abbrechen</f:link.action>
+</f:section>
+
+<f:section name="content">
+    <h1>Empfängermanager <small>Schritt 2 von 3</small></h1>
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <h2>Detailauswahl</h2>
+    <f:form action="receiverManagerSummary" enctype="multipart/form-data" name="receiver" object="{receiver}" arguments="{mailing:mailing}" class="js-prevent-enter-submit">
+    <f:form.hidden property="listType" value="{receiver.listType}" />
+
+    <f:if condition="{receiver.listType} == 'internal' || {receiver.listType} == 'client'">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="selectGuest"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg>Kontaktauswahl</label>
+          <div class="input-group">
+            <!-- Dein Select-Element, das in ein tomselect Dropdown umgewandelt wird -->
+            <f:form.select 
+              class="form-control select-contact"
+              id="contactSelect" 
+              property="manualReceiver" 
+              multiple="multiple" 
+              style="width: 100%;" 
+              data="{
+                  contacts-nomailing: 'false', 
+                  contacts-maxresults: '20', 
+                  contacts-client: '{client}',
+                  include-special-options: 'false'
+              }" 
+              placeholder="Kontakt suchen..." />
+          </div>
+        </div>
+
+        <f:form.submit value="Auswahl bestätigen und weiter zur Übersicht" class="btn btn-success" />
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="row g-3 align-items-center mb-4">
+            <div class="col">
+                <input placeholder="Suche" class="form-control form-control-sm filter-table" 
+                      data-filter-table="lists" 
+                      data-filter-counter="lists-counter" 
+                      data-filter-not="1" 
+                      type="search" />
+            </div>
+            <div class="col-auto">
+                <div class="form-control-plaintext" id="lists-counter" data-counter-label="Verteiler">
+                    {mailinglists->f:count()} von {mailinglists->f:count()} Verteiler
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped table-hover" id="lists">
+          <thead>
+            <tr>
+              <th><input type="checkbox" class="checkbox-toggle-all"></th>
+              <th>Verteiler</th>
+            </tr>
+          </thead>
+          <tbody>
+            <f:render partial="RecursiveMailingLists" arguments="{lists: mailingLists, level: 0}" />
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </f:if>
+
+    <f:if condition="{receiver.listType} == 'event'">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="selectGuest"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg>Eventauswahl ('+archiv' gibt auch vergangene Termine aus)</label>
+                <div class="input-group">
+                  <f:form.select id="selectEvents" 
+                      class="form-control select-event"
+                      property="event"
+                      placeholder="Nach Event suchen..." />
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="selectGuest"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#filter"></use></svg>Gästetyp</label>
+                <div class="input-group">
+                    <f:form.select class="form-control tomselect-generic" data="{select2-id: 'accreditation-select-type'}" id="selectType" property="guestType">
+                    <f:form.select.option value="">Sämtliche Gästetypen</f:form.select.option>
+                    <f:form.select.option value="1">VIP</f:form.select.option>
+                    <f:form.select.option value="6">Talent</f:form.select.option>
+                    <f:form.select.option value="2">Presse</f:form.select.option>
+                    <f:form.select.option value="3">Gewinnspiel</f:form.select.option>
+                    <f:form.select.option value="4">Füllkarten</f:form.select.option>
+                    <f:form.select.option value="5">Personal</f:form.select.option>
+                    </f:form.select>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#star"></use></svg>Facie</label>
+                <div class="form-check">
+                    <f:form.checkbox class="form-check-input mt-0" id="checkFacie" property="facie" value="1" />
+                    <label class="form-check-label" for="checkFacie">Ja/Nein</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#ticket"></use></svg>Tickets</label>
+                <div class="form-check">
+                    <f:form.textfield class="form-control mt-0 w-100" id="tickets" property="tickets" />
+                </div>
+            </div>
+        </div>
+    </div>
+    </f:if>
+
+    <div class="col-12"><f:form.submit value="Auswahl bestätigen und weiter zur Übersicht" class="btn btn-success" /></div>
+
+    </f:form>
+
+</f:section>
+</html>

@@ -1,0 +1,71 @@
+<f:layout name="Checkin" />
+
+<f:section name="buttons">
+</f:section>
+
+<f:section name="shortcuts">
+<f:link.action action="show" arguments="{event:event}" class="btn btn-default btn-sm"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+<h1>Checkin</h1>
+<f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+<div id="event-status-container" data-event-uid="{event.uid}" data-refresh-url="{f:uri.action(action:'refreshEventStatus', controller:'Ajax', arguments:{event: event})}">
+  <div class="d-flex mb-2">
+    <div>
+      <p class="mb-0"><span class="badge badge-primary">{event.type.title}</span></p>
+      <h2 class="my-0">{event.title} <small class="fw-normal">am {f:format.date(date:'{event.date}', format:'%d.%m.%Y um %H:%M Uhr')}</small></h2>
+    </div>
+    <div class="d-flex justify-content-end ms-auto mt-auto">
+        <div class="form-check form-switch mb-0">
+            <input class="form-check-input" type="checkbox" role="switch" id="toggleAutoRefresh" checked>
+            <label class="form-check-label" for="toggleAutoRefresh">
+                <small>Auto-Refresh (30s)</small>
+            </label>
+        </div>
+    </div>
+  </div>
+
+  <div id="event-status-content">
+      <f:render partial="Checkin/StatusDetails" arguments="{_all}" />
+  </div>
+</div>
+
+<h3>Gästeliste</h3>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div class="flex-grow-1 me-3">
+    <div class="input-group" style="width: 100%;">
+      <span class="input-group-text">
+        <svg class="icon icon-sm text-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#search"></use></svg>
+      </span>
+      <input type="search" id="guestlist-search" class="form-control" placeholder="Akkreditierung suchen...">
+    </div>
+  </div>
+  <div class="d-flex align-items-center">
+    <div class="p-2 text-end"> <small class="text-muted">
+      <span id="guestlist-count">0</span> Einträge</small>
+    </div>
+    <div class="p-2">
+      <div class="form-check form-switch mb-0">
+        <input class="form-check-input" type="checkbox" role="switch" id="guestlist-sort-toggle">
+        <label class="form-check-label" for="guestlist-sort-toggle"><small>Nach Status sortieren</small></label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="table-responsive" id="guestlist-table">
+</div>
+
+<div class="modal fade mdb" id="accreditationDetailModal" tabindex="-1" aria-labelledby="accreditationDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg"> <div class="modal-content">
+        <div class="modal-header" style="background-color: var(--bs-light) !important;">
+          <h5 class="modal-title" id="accreditationDetailModalLabel">Akkreditierungsdetails</h5>
+          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close" style="margin-top: 0 !important; margin-left: auto !important;"></button>
+        </div>
+        <div class="modal-body" id="accreditationDetailModalBody">
+          </div>
+      </div>
+    </div>
+</div>
+</f:section>

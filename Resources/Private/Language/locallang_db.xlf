@@ -1,0 +1,1587 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:publicrelations/Resources/Private/Language/locallang_db" date="2020-08-06T11:01:46Z" product-name="publicrelations">
+		<header/>
+		<body>
+			<trans-unit id="group.pressroom">
+				<source>Pressroom</source>
+			</trans-unit>
+
+			<trans-unit id="tx_publicrelations_general.pagetree" resname="tx_publicrelations_general.pagetree">
+				<source>Public Relations Items</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.general" resname="tx_publicrelations_general.tab.general">
+				<source>General</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.additional" resname="tx_publicrelations_general.tab.additional">
+				<source>Additional</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.internal" resname="tx_publicrelations_general.tab.internal">
+				<source>Internal</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.campaigns" resname="tx_publicrelations_general.tab.campaigns">
+				<source>Campaigns</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.news" resname="tx_publicrelations_general.tab.news">
+				<source>News</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.media" resname="tx_publicrelations_general.tab.media">
+				<source>Media</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.events" resname="tx_publicrelations_general.tab.events">
+				<source>Events</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.seo" resname="tx_publicrelations_general.tab.seo">
+				<source>SEO</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.email" resname="tx_publicrelations_general.tab.email">
+				<source>E-Mail</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.accreditation" resname="tx_publicrelations_general.tab.accreditation">
+				<source>Accreditations</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.invitations" resname="tx_publicrelations_general.tab.invitations">
+				<source>Invitations</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.logs" resname="tx_publicrelations_general.tab.logs">
+				<source>Logs</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.automation" resname="tx_publicrelations_general.tab.automation">
+				<source>Automation</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.checkin" resname="tx_publicrelations_general.tab.checkin">
+				<source>Check-In</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.content" resname="tx_publicrelations_general.tab.content">
+				<source>Content</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.mails" resname="tx_publicrelations_general.tab.mails">
+				<source>Mails</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.tab.layout" resname="tx_publicrelations_general.tab.layout">
+				<source>Layout</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.palettes.general" resname="tx_publicrelations_general.palettes.general">
+				<source>Basics</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.palettes.additional" resname="tx_publicrelations_general.palettes.additional">
+				<source>Additional</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.palettes.header" resname="tx_publicrelations_general.palettes.header">
+				<source>Header</source>
+			</trans-unit>
+			<trans-unit id="palette.sender" resname="palette.sender">
+				<source>Sender Configuration</source>
+			</trans-unit>
+			<trans-unit id="palette.content" resname="palette.content">
+				<source>Content</source>
+			</trans-unit>
+			<trans-unit id="palette.senderinfo" resname="palette.senderinfo">
+				<source>Senderinformation [global for Invitation]</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.palettes.layout" resname="tx_publicrelations_general.palettes.layout">
+				<source>Layout-Variables</source>
+			</trans-unit>
+			<trans-unit id="palette.options" resname="palette.options">
+				<source>Options</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.select" resname="tx_publicrelations_general.field.select">
+				<source>Please select...</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.logo" resname="tx_publicrelations_general.field.logo">
+				<source>Logo</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.logo_email" resname="tx_publicrelations_general.field.logo_email">
+				<source>Mailing-Crop</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.image" resname="tx_publicrelations_general.field.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.media" resname="tx_publicrelations_general.field.media">
+				<source>Media</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.covers" resname="tx_publicrelations_general.field.covers">
+				<source>Cover Images</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.slug" resname="tx_publicrelations_general.field.slug">
+				<source>Slug</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.slug_locked" resname="tx_publicrelations_general.field.slug_locked">
+				<source>Lock Slug</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.seo_title" resname="tx_publicrelations_general.field.seo_title">
+				<source>SEO Title</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.seo_description" resname="tx_publicrelations_general.field.seo_description">
+				<source>SEO Description</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.location" resname="tx_publicrelations_general.field.location">
+				<source>Location</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.links" resname="tx_publicrelations_general.field.links">
+				<source>Links</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.contacts" resname="tx_publicrelations_general.field.contacts">
+				<source>Contacts</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.internal_notes" resname="tx_publicrelations_general.field.internal_notes">
+				<source>Internal Notes</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.client" resname="tx_publicrelations_general.field.client">
+				<source>Client</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.campaigns" resname="tx_publicrelations_general.field.campaigns">
+				<source>Campaigns</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.campaign" resname="tx_publicrelations_general.field.campaign">
+				<source>Campaign</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.news" resname="tx_publicrelations_general.field.news">
+				<source>News</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.mediagroups" resname="tx_publicrelations_general.field.mediagroups">
+				<source>Mediagroups</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.event" resname="tx_publicrelations_general.field.event">
+				<source>Event</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.events" resname="tx_publicrelations_general.field.events">
+				<source>Events</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.accreditation" resname="tx_publicrelations_general.field.accreditation">
+				<source>Accreditation</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.address" resname="tx_publicrelations_general.field.address">
+				<source>External Contact</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.field.logs" resname="tx_publicrelations_general.field.logs">
+				<source>Logs</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_general.description.overwrite" resname="tx_publicrelations_general.description.overwrite">
+				<source>Overwrite selections row by row. Empty row doesn't overwrite the selection. Additional rows are possible.</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client" resname="tx_publicrelations_domain_model_client">
+				<source>Client</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.types" resname="tx_publicrelations_domain_model_client.types">
+				<source>Client Types</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.activities" resname="tx_publicrelations_domain_model_client.activities">
+				<source>Activities</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.name" resname="tx_publicrelations_domain_model_client.name">
+				<source>Client Name</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.short_name" resname="tx_publicrelations_domain_model_client.short_name">
+				<source>Short Name</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.also_known_as" resname="tx_publicrelations_domain_model_client.also_known_as">
+				<source>Also Known As</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.shortinfo" resname="tx_publicrelations_domain_model_client.shortinfo">
+				<source>Shortinfo</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.top" resname="tx_publicrelations_domain_model_client.top">
+				<source>Top Client</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.archive" resname="tx_publicrelations_domain_model_client.archive">
+				<source>Activate Archive</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.sort" resname="tx_publicrelations_domain_model_client.sort">
+				<source>Sorting</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.sort.0" resname="tx_publicrelations_domain_model_client.sort.0">
+				<source>Eventsorting</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.sort.1" resname="tx_publicrelations_domain_model_client.sort.1">
+				<source>alphabetical sorting</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.sort.2" resname="tx_publicrelations_domain_model_client.sort.2">
+				<source>manual sorting</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.description" resname="tx_publicrelations_domain_model_client.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.since" resname="tx_publicrelations_domain_model_client.since">
+				<source>Since</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.until" resname="tx_publicrelations_domain_model_client.until">
+				<source>Until</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.phone" resname="tx_publicrelations_domain_model_client.phone">
+				<source>Phone</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.email" resname="tx_publicrelations_domain_model_client.email">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_campaign" resname="tx_publicrelations_domain_model_campaign">
+				<source>Campaign</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_campaign.client" resname="tx_publicrelations_domain_model_campaign.client">
+				<source>Client</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_campaign.type" resname="tx_publicrelations_domain_model_campaign.type">
+				<source>Campaign Type</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_campaign.title" resname="tx_publicrelations_domain_model_campaign.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_campaign.subtitle" resname="tx_publicrelations_domain_model_campaign.subtitle">
+				<source>Subtitle</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_campaign.description" resname="tx_publicrelations_domain_model_campaign.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_campaign.location_note" resname="tx_publicrelations_domain_model_campaign.location_note">
+				<source>Location Note</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_campaign.location_manual" resname="tx_publicrelations_domain_model_campaign.location_manual">
+				<source>Location Manual</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_campaign.location_manual.description" resname="tx_publicrelations_domain_model_campaign.location_manual.description">
+				<source>Name a Location without Address. !It overwrites a set "Location"!</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_campaign.openend" resname="tx_publicrelations_domain_model_campaign.openend">
+				<source>Campaign is openend</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_campaign.openend.description" resname="tx_publicrelations_domain_model_campaign.openend.description">
+				<source>Campaigns normally hide if there's no upcoming Event - here you can overwrite that setting. It will be listet as long as "openend" is set or there's an upcoming Event.</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_campaign.contacts.description" resname="tx_publicrelations_domain_model_campaign.contacts.description">
+				<source>You can overwrite the Contacts of the assigned Client.
+								The priority of Contacts is 1. Campaign - 2. Client</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_campaign.archive_date" resname="tx_publicrelations_domain_model_campaign.archive_date">
+				<source>Archive Date</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_campaign.archive_date.description" resname="tx_publicrelations_domain_model_campaign.archive_date.description">
+				<source>Set the date when the Campaign should be listet in the Client's Archive. Please be aware that the Client's archive has to be activated in the Client's record, otherwise there's no effect on the date!</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_news" resname="tx_publicrelations_domain_model_news">
+				<source>News</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_news.date" resname="tx_publicrelations_domain_model_news.date">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_news.retention_date" resname="tx_publicrelations_domain_model_news.retention_date">
+				<source>Retention Date</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_news.retention_info" resname="tx_publicrelations_domain_model_news.retention_info">
+				<source>Retention Info</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_news.title" resname="tx_publicrelations_domain_model_news.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_news.text" resname="tx_publicrelations_domain_model_news.text">
+				<source>Text</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_news.content_elements" resname="tx_publicrelations_domain_model_news.content_elements">
+				<source>Content Elements</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_news.contacts.description" resname="tx_publicrelations_domain_model_news.contacts.description">
+				<source>You can overwrite the Contacts of the assigned Campaigns and Client.
+								The priority of Contacts is 1. News - 2. Campaign (ONLY if just one is assigned) - 3. Client</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event" resname="tx_publicrelations_domain_model_event">
+				<source>Event</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.date" resname="tx_publicrelations_domain_model_event.date">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.date_fulltime" resname="tx_publicrelations_domain_model_event.date_fulltime">
+				<source>Date Fulltime</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.title" resname="tx_publicrelations_domain_model_event.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.type" resname="tx_publicrelations_domain_model_event.type">
+				<source>Event-Type</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.accreditation" resname="tx_publicrelations_domain_model_event.accreditation">
+				<source>Accreditation</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.accreditation.allowed" resname="tx_publicrelations_domain_model_event.accreditation.allowed">
+				<source>allowed</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.accreditation.prohibited" resname="tx_publicrelations_domain_model_event.accreditation.prohibited">
+				<source>prohibited</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.accreditations" resname="tx_publicrelations_domain_model_event.accreditations">
+				<source>Accreditations</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.canceled" resname="tx_publicrelations_domain_model_event.canceled">
+				<source>Canceled</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.private" resname="tx_publicrelations_domain_model_event.private">
+				<source>Private</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.online" resname="tx_publicrelations_domain_model_event.online">
+				<source>Online</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.online.0" resname="tx_publicrelations_domain_model_event.online.0">
+				<source>offline</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.online.1" resname="tx_publicrelations_domain_model_event.online.1">
+				<source>online</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.overwrite_theaterevent" resname="tx_publicrelations_domain_model_event.overwrite_theaterevent">
+				<source>Overwrite Theaterevent</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.overwrite_theaterevent.0" resname="tx_publicrelations_domain_model_event.overwrite_theaterevent.0">
+				<source>fetch eventtype</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.overwrite_theaterevent.1" resname="tx_publicrelations_domain_model_event.overwrite_theaterevent.1">
+				<source>theaterevent</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.overwrite_theaterevent.2" resname="tx_publicrelations_domain_model_event.overwrite_theaterevent.2">
+				<source>other event</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.duration" resname="tx_publicrelations_domain_model_event.duration">
+				<source>Duration in Minutes</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.duration_approx" resname="tx_publicrelations_domain_model_event.duration_approx">
+				<source>Duration is approx.</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.duration_with_break" resname="tx_publicrelations_domain_model_event.duration_with_break">
+				<source>Duration with break</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.opening" resname="tx_publicrelations_domain_model_event.opening">
+				<source>Official Opening</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.checkin" resname="tx_publicrelations_domain_model_event.checkin">
+				<source>Check-In</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.checkin.0" resname="tx_publicrelations_domain_model_event.checkin.0">
+				<source>blocked</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.checkin.1" resname="tx_publicrelations_domain_model_event.checkin.1">
+				<source>unblocked</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.type_overwrite" resname="tx_publicrelations_domain_model_event.type_overwrite">
+				<source>Type Overwrite</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.notes_overwrite" resname="tx_publicrelations_domain_model_event.notes_overwrite">
+				<source>Notes Overwrite</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.notes_manual" resname="tx_publicrelations_domain_model_event.notes_manual">
+				<source>Notes Manual</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.invitation_subject" resname="tx_publicrelations_domain_model_event.invitation_subject">
+				<source>Manual Invitation Subject</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.invitation_from" resname="tx_publicrelations_domain_model_event.invitation_from">
+				<source>Invitation From-Text</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.invitation_from.description" resname="tx_publicrelations_domain_model_event.invitation_from.description">
+				<source>Text after: Dear {FirstName},</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.invitation_from_personally" resname="tx_publicrelations_domain_model_event.invitation_from_personally">
+				<source>Invitation From-Text Personally</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.invitation_from_personally.description" resname="tx_publicrelations_domain_model_event.invitation_from_personally.description">
+				<source>Text after: Dear {FirstName},</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.invitation_text" resname="tx_publicrelations_domain_model_event.invitation_text">
+				<source>Invitation Mail-Text</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.invitation_text_personally" resname="tx_publicrelations_domain_model_event.invitation_text_personally">
+				<source>Invitation Mail-Text Personally</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.invitation_image" resname="tx_publicrelations_domain_model_event.invitation_image">
+				<source>Invitation Image</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.invitation_logo" resname="tx_publicrelations_domain_model_event.invitation_logo">
+				<source>Invitation Logo Overwrite</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.invitation_report_stop" resname="tx_publicrelations_domain_model_event.invitation_report_stop">
+				<source>Invitation Report Stop (in Hours)</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.invitation_report_stop.description" resname="tx_publicrelations_domain_model_event.invitation_report_stop.description">
+				<source>Change Invitation Report Stop Time. Default is 24 Hours. It's possible to add and sub Hours.</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.invitation_notes_required" resname="tx_publicrelations_domain_model_event.invitation_notes_required">
+				<source>Invitation Note Required?</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.invitation_notes_title" resname="tx_publicrelations_domain_model_event.invitation_notes_title">
+				<source>Invitation Note Title</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.invitation_notes_description" resname="tx_publicrelations_domain_model_event.invitation_notes_description">
+				<source>Invitation Note Description</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.location_note" resname="tx_publicrelations_domain_model_event.location_note">
+				<source>Location Note</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.notes" resname="tx_publicrelations_domain_model_event.notes">
+				<source>Notes</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.old_event" resname="tx_publicrelations_domain_model_event.old_event">
+				<source>Old Event</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.new_event" resname="tx_publicrelations_domain_model_event.new_event">
+				<source>New Event</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.manual_confirmation" resname="tx_publicrelations_domain_model_event.manual_confirmation">
+				<source>Manual Confirmation</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.tickets_quota" resname="tx_publicrelations_domain_model_event.tickets_quota">
+				<source>Tickets Quota</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.waiting_quota" resname="tx_publicrelations_domain_model_event.waiting_quota">
+				<source>Waiting Quota</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_event.additional_fields" resname="tx_publicrelations_domain_model_event.additional_fields">
+				<source>Additional Fields</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.title" resname="tx_publicrelations_domain_model_invitation.title">
+				<source>System Title</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.subject" resname="tx_publicrelations_domain_model_invitation.subject">
+				<source>Manual Invitation Subject</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.from" resname="tx_publicrelations_domain_model_invitation.from">
+				<source>Invitation From-Text</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.from.description" resname="tx_publicrelations_domain_model_invitation.from.description">
+				<source>Text after: Dear {FirstName},</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.from_personally" resname="tx_publicrelations_domain_model_invitation.from_personally">
+				<source>Invitation From-Text Personally</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.from_personally.description" resname="tx_publicrelations_domain_model_invitation.from_personally.description">
+				<source>Text after: Dear {FirstName},</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.blank" resname="tx_publicrelations_domain_model_invitation.blank">
+				<source>Blank Template</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.no_event_overview" resname="tx_publicrelations_domain_model_invitation.no_event_overview">
+				<source>No Event Overview</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.contents" resname="tx_publicrelations_domain_model_invitation.contents">
+				<source>Invitation Content Blocks</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.contents_personally" resname="tx_publicrelations_domain_model_invitation.contents_personally">
+				<source>Personally Invitation Content Blocks</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.image" resname="tx_publicrelations_domain_model_invitation.image">
+				<source>Invitation Image</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.no_salutation" resname="tx_publicrelations_domain_model_invitation.no_salutation">
+				<source>Show Salutation</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.feedback_date" resname="tx_publicrelations_domain_model_invitation.feedback_date">
+				<source>Feedback until Date</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.description.feedback_date" resname="tx_publicrelations_domain_model_invitation.description.feedback_date">
+				<source>Default: 2 Weeks before Event date -> fixed on Friday of this week</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.no_signature" resname="tx_publicrelations_domain_model_invitation.no_signature">
+				<source>Show Signature</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.no_header" resname="tx_publicrelations_domain_model_invitation.no_header">
+				<source>Show Header</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.header" resname="tx_publicrelations_domain_model_invitation.header">
+				<source>Header-Image</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.logo" resname="tx_publicrelations_domain_model_invitation.logo">
+				<source>Invitation Logo Overwrite</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.attachment" resname="tx_publicrelations_domain_model_invitation.attachment">
+				<source>Attachment</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.alt_sender" resname="tx_publicrelations_domain_model_invitation.alt_sender">
+				<source>Alternative Sender</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.alt_template" resname="tx_publicrelations_domain_model_invitation.alt_template">
+				<source>Alternative Template</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.from_name" resname="tx_publicrelations_domain_model_invitation.from_name">
+				<source>From Name</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.reply_name" resname="tx_publicrelations_domain_model_invitation.reply_name">
+				<source>Reply Name</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.reply_email" resname="tx_publicrelations_domain_model_invitation.reply_email">
+				<source>Reply Email</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.invitation_title_overwrite" resname="tx_publicrelations_domain_model_invitation.invitation_title_overwrite">
+				<source>Invitation Title Overwrite (Standard: Invitation)</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.invitation_subtitle_overwrite" resname="tx_publicrelations_domain_model_invitation.invitation_subtitle_overwrite">
+				<source>Invitation Subtitle Overwrite (Standard: Eventtitle)</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.invitation_header_overwrite" resname="tx_publicrelations_domain_model_invitation.invitation_header_overwrite">
+				<source>Invitation Header Overwrite (Standard: Personal Invitation)</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.report_stop" resname="tx_publicrelations_domain_model_invitation.report_stop">
+				<source>Invitation Report Stop (in Hours)</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.report_stop.description" resname="tx_publicrelations_domain_model_invitation.report_stop.description">
+				<source>Change Invitation Report Stop Time. Default is 24 Hours. It's possible to add and sub Hours.</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.notes_required" resname="tx_publicrelations_domain_model_invitation.notes_required">
+				<source>Invitation Note Required?</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.notes_title" resname="tx_publicrelations_domain_model_invitation.notes_title">
+				<source>Invitation Note Title</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.notes_description" resname="tx_publicrelations_domain_model_invitation.notes_description">
+				<source>Invitation Note Description</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.type" resname="tx_publicrelations_domain_model_invitation.type">
+				<source>Template Type</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitation.variants" resname="tx_publicrelations_domain_model_invitation.variants">
+				<source>Mail Variants</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield" resname="tx_publicrelations_domain_model_additionalfield">
+				<source>Additional Field</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.position" resname="tx_publicrelations_domain_model_additionalfield.position">
+				<source>Position</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.position.0" resname="tx_publicrelations_domain_model_additionalfield.position.0">
+				<source>Notes</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.position.1" resname="tx_publicrelations_domain_model_additionalfield.position.1">
+				<source>Column</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.label" resname="tx_publicrelations_domain_model_additionalfield.label">
+				<source>Label</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.description" resname="tx_publicrelations_domain_model_additionalfield.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.icon" resname="tx_publicrelations_domain_model_additionalfield.icon">
+				<source>Icon</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.type" resname="tx_publicrelations_domain_model_additionalfield.type">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.type.0" resname="tx_publicrelations_domain_model_additionalfield.type.0">
+				<source>Checkbox</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.type.1" resname="tx_publicrelations_domain_model_additionalfield.type.1">
+				<source>Textfield</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.type.2" resname="tx_publicrelations_domain_model_additionalfield.type.2">
+				<source>Textarea</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.type.3" resname="tx_publicrelations_domain_model_additionalfield.type.3">
+				<source>Options Select</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.type.4" resname="tx_publicrelations_domain_model_additionalfield.type.4">
+				<source>Options Select (Multiple)</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.type.5" resname="tx_publicrelations_domain_model_additionalfield.type.5">
+				<source>Options Radiobutton</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.type.6" resname="tx_publicrelations_domain_model_additionalfield.type.6">
+				<source>Options on Pax</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.options" resname="tx_publicrelations_domain_model_additionalfield.options">
+				<source>Options</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.required" resname="tx_publicrelations_domain_model_additionalfield.required">
+				<source>Required</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.summary" resname="tx_publicrelations_domain_model_additionalfield.summary">
+				<source>Summary</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.accreditation" resname="tx_publicrelations_domain_model_additionalfield.accreditation">
+				<source>Accreditation</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.invitation" resname="tx_publicrelations_domain_model_additionalfield.invitation">
+				<source>Invitation</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalfield.confirmation" resname="tx_publicrelations_domain_model_additionalfield.confirmation">
+				<source>Visible in Accreditation</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalanswer" resname="tx_publicrelations_domain_model_additionalanswer">
+				<source>Additional Answer</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalanswer.value" resname="tx_publicrelations_domain_model_additionalanswer.value">
+				<source>Value</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalanswer.type" resname="tx_publicrelations_domain_model_additionalanswer.type">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalanswer.accreditation" resname="tx_publicrelations_domain_model_additionalanswer.accreditation">
+				<source>Accreditation</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_additionalanswer.field" resname="tx_publicrelations_domain_model_additionalanswer.field">
+				<source>Field</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_link" resname="tx_publicrelations_domain_model_link">
+				<source>Link</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_link.url" resname="tx_publicrelations_domain_model_link.url">
+				<source>Url</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_link.title" resname="tx_publicrelations_domain_model_link.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_link.type" resname="tx_publicrelations_domain_model_link.type">
+				<source>Link-Type</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_location" resname="tx_publicrelations_domain_model_location">
+				<source>Location</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_location.name" resname="tx_publicrelations_domain_model_location.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_location.notes" resname="tx_publicrelations_domain_model_location.notes">
+				<source>Notes</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_location.street" resname="tx_publicrelations_domain_model_location.street">
+				<source>Street</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_location.additional" resname="tx_publicrelations_domain_model_location.additional">
+				<source>Additional</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_location.zip" resname="tx_publicrelations_domain_model_location.zip">
+				<source>Zip</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_location.city" resname="tx_publicrelations_domain_model_location.city">
+				<source>City</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_location.type_overwrite" resname="tx_publicrelations_domain_model_location.type_overwrite">
+				<source>Type Overwrite</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_location.country" resname="tx_publicrelations_domain_model_location.country">
+				<source>Country</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_location.internal_notes" resname="tx_publicrelations_domain_model_location.internal_notes">
+				<source>Internal Notes</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mediagroup" resname="tx_publicrelations_domain_model_mediagroup">
+				<source>Media Group</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mediagroup.title" resname="tx_publicrelations_domain_model_mediagroup.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mediagroup.media" resname="tx_publicrelations_domain_model_mediagroup.media">
+				<source>Media</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mediagroup.links" resname="tx_publicrelations_domain_model_mediagroup.links">
+				<source>Links</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_contact" resname="tx_publicrelations_domain_model_contact">
+				<source>Contact</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_contact.types" resname="tx_publicrelations_domain_model_contact.types">
+				<source>Contact Types</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_contact.types_overwrite" resname="tx_publicrelations_domain_model_contact.types_overwrite">
+				<source>Types Overwrite</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_contact.staff" resname="tx_publicrelations_domain_model_contact.staff">
+				<source>Staff</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation" resname="tx_publicrelations_domain_model_accreditation">
+				<source>Accreditation</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.palettes.accreditationData" resname="tx_publicrelations_domain_model_accreditation.palettes.accreditationData">
+				<source>Accreditation Data</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.palettes.journalist" resname="tx_publicrelations_domain_model_accreditation.palettes.journalist">
+				<source>Journalist</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.status" resname="tx_publicrelations_domain_model_accreditation.status">
+				<source>Status</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.status.pending" resname="tx_publicrelations_domain_model_accreditation.status.pending">
+				<source>Pending</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.status.approved" resname="tx_publicrelations_domain_model_accreditation.status.approved">
+				<source>Approved</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.status.checkedin" resname="tx_publicrelations_domain_model_accreditation.status.checkedin">
+				<source>Checked-In</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.status.rejected" resname="tx_publicrelations_domain_model_accreditation.status.rejected">
+				<source>Rejected</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.status.waiting" resname="tx_publicrelations_domain_model_accreditation.status.waiting">
+				<source>Waiting</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.invitation_status" resname="tx_publicrelations_domain_model_accreditation.invitation_status">
+				<source>Invitation Status</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.invitation_status.prepared" resname="tx_publicrelations_domain_model_accreditation.invitation_status.prepared">
+				<source>Prepared</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.invitation_status.invited" resname="tx_publicrelations_domain_model_accreditation.invitation_status.invited">
+				<source>Invited</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.invitation_status.reminded" resname="tx_publicrelations_domain_model_accreditation.invitation_status.reminded">
+				<source>Reminded</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.invitation_status.pushed" resname="tx_publicrelations_domain_model_accreditation.invitation_status.pushed">
+				<source>Pushed</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.invitation_status.reported" resname="tx_publicrelations_domain_model_accreditation.invitation_status.reported">
+				<source>Reported</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.type" resname="tx_publicrelations_domain_model_accreditation.type">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.type.manual" resname="tx_publicrelations_domain_model_accreditation.type.manual">
+				<source>Manual</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.type.request" resname="tx_publicrelations_domain_model_accreditation.type.request">
+				<source>Request</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.type.invitation" resname="tx_publicrelations_domain_model_accreditation.type.invitation">
+				<source>Invitation</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.guest_type" resname="tx_publicrelations_domain_model_accreditation.guest_type">
+				<source>Guest Type</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.guest_type.vip" resname="tx_publicrelations_domain_model_accreditation.guest_type.vip">
+				<source>VIP</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.guest_type.press" resname="tx_publicrelations_domain_model_accreditation.guest_type.press">
+				<source>Press</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.guest_type.winner" resname="tx_publicrelations_domain_model_accreditation.guest_type.winner">
+				<source>Winner</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.guest_type.filler" resname="tx_publicrelations_domain_model_accreditation.guest_type.filler">
+				<source>Filler</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.guest_type.staff" resname="tx_publicrelations_domain_model_accreditation.guest_type.staff">
+				<source>Staff</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.guest_type.talent" resname="tx_publicrelations_domain_model_accreditation.guest_type.talent">
+				<source>Talent</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.facie" resname="tx_publicrelations_domain_model_accreditation.facie">
+				<source>Facie</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.gender" resname="tx_publicrelations_domain_model_accreditation.gender">
+				<source>Gender</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.gender.x" resname="tx_publicrelations_domain_model_accreditation.gender.x">
+				<source>other</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.gender.f" resname="tx_publicrelations_domain_model_accreditation.gender.f">
+				<source>female</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.gender.m" resname="tx_publicrelations_domain_model_accreditation.gender.m">
+				<source>male</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.title" resname="tx_publicrelations_domain_model_accreditation.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.first_name" resname="tx_publicrelations_domain_model_accreditation.first_name">
+				<source>First Name</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.middle_name" resname="tx_publicrelations_domain_model_accreditation.middle_name">
+				<source>Middle Name</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.last_name" resname="tx_publicrelations_domain_model_accreditation.last_name">
+				<source>Last Name</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.email" resname="tx_publicrelations_domain_model_accreditation.email">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.phone" resname="tx_publicrelations_domain_model_accreditation.phone">
+				<source>Phone</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.request_note" resname="tx_publicrelations_domain_model_accreditation.request_note">
+				<source>Request Note</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.dsgvo" resname="tx_publicrelations_domain_model_accreditation.dsgvo">
+				<source>DSGVO</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.ip" resname="tx_publicrelations_domain_model_accreditation.ip">
+				<source>IP Address</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.medium" resname="tx_publicrelations_domain_model_accreditation.medium">
+				<source>Medium</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.tickets_wish" resname="tx_publicrelations_domain_model_accreditation.tickets_wish">
+				<source>wished Tickets</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.tickets_approved" resname="tx_publicrelations_domain_model_accreditation.tickets_approved">
+				<source>approved Tickets</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.tickets_received" resname="tx_publicrelations_domain_model_accreditation.tickets_approved">
+				<source>received Tickets</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.notes_received" resname="tx_publicrelations_domain_model_accreditation.tickets_approved">
+				<source>Handover Notes</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.program" resname="tx_publicrelations_domain_model_accreditation.program">
+				<source>Program</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.pass" resname="tx_publicrelations_domain_model_accreditation.pass">
+				<source>Pass</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.seats" resname="tx_publicrelations_domain_model_accreditation.seats">
+				<source>Seats</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.tickets" resname="tx_publicrelations_domain_model_accreditation.tickets">
+				<source>Tickets</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.notes" resname="tx_publicrelations_domain_model_accreditation.notes">
+				<source>Notes</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.notes_select" resname="tx_publicrelations_domain_model_accreditation.notes_select">
+				<source>Notes to select</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.photographer" resname="tx_publicrelations_domain_model_accreditation.photographer">
+				<source>Photographer</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.camerateam" resname="tx_publicrelations_domain_model_accreditation.camerateam">
+				<source>Camerateam</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.event" resname="tx_publicrelations_domain_model_accreditation.event">
+				<source>Event</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.guest" resname="tx_publicrelations_domain_model_accreditation.guest">
+				<source>Guest</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.medium_type" resname="tx_publicrelations_domain_model_accreditation.medium_type">
+				<source>Medium Type</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.logs" resname="tx_publicrelations_domain_model_accreditation.logs">
+				<source>Logs</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.internal_notes" resname="tx_publicrelations_domain_model_accreditation.internal_notes">
+				<source>Internal Notes</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.duplicate_of">
+				<source>Duplicate Of</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.is_master">
+				<source>Is master record</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accreditation.distribution_job" resname="tx_publicrelations_domain_model_accreditation.distribution_job">
+				<source>Distribution Job (Blocks Processing)</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_log" resname="tx_publicrelations_domain_model_log">
+				<source>Log</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_log.function" resname="tx_publicrelations_domain_model_log.function">
+				<source>Function</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_log.code" resname="tx_publicrelations_domain_model_log.code">
+				<source>Code</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_log.subject" resname="tx_publicrelations_domain_model_log.subject">
+				<source>Subject</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_log.notes" resname="tx_publicrelations_domain_model_log.notes">
+				<source>Notes</source>
+			</trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_log.message">
+                <source>Nachricht</source>
+            </trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_syscategory" resname="tx_publicrelations_domain_model_syscategory">
+				<source>Sys Category</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_syscategory.icon" resname="tx_publicrelations_domain_model_syscategory.icon">
+				<source>Icon</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_syscategory.svg" resname="tx_publicrelations_domain_model_syscategory.svg">
+				<source>Svg</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_syscategory.svg.description" resname="tx_publicrelations_domain_model_syscategory.svg.description">
+				<source>Use one of the following Lines and replace "iconcode":
+								Codes: https://www.glyphicons.com/sets/basic/
+
+								glyphicons-basics.svg#iconcode
+								glyphicons-halflings.svg#iconcode
+								glyphicons-filetypes.svg#iconcode
+								brand-icons.svg#iconcode - iconcode is brandname f.e. "youtube"
+				</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_syscategory.plural" resname="tx_publicrelations_domain_model_syscategory.plural">
+				<source>Plural</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_syscategory.css_class" resname="tx_publicrelations_domain_model_syscategory.css_class">
+				<source>CSS Class</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_syscategory.schedule" resname="tx_publicrelations_domain_model_syscategory.schedule">
+				<source>Schedule Category?</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_syscategory.theaterevent" resname="tx_publicrelations_domain_model_syscategory.theaterevent">
+				<source>Theaterevent?</source>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_extbase_type.Tx_Publicrelations_SysCategory" resname="sys_category.tx_extbase_type.Tx_Publicrelations_SysCategory">
+				<source>Public Relations SysCategory</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide" resname="tx_publicrelations_domain_model_slide">
+				<source>Slide</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.type" resname="tx_publicrelations_domain_model_slide.type">
+				<source>Event-Type</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.type.0" resname="tx_publicrelations_domain_model_slide.type.0">
+				<source>Manual</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.type.1" resname="tx_publicrelations_domain_model_slide.type.1">
+				<source>Link to Client</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.type.2" resname="tx_publicrelations_domain_model_slide.type.2">
+				<source>Link to Campaign</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.type.3" resname="tx_publicrelations_domain_model_slide.type.3">
+				<source>Link to News</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.image" resname="tx_publicrelations_domain_model_slide.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.title_overwrite" resname="tx_publicrelations_domain_model_slide.title_overwrite">
+				<source>Title Overwrite</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.subtitle_overwrite" resname="tx_publicrelations_domain_model_slide.subtitle_overwrite">
+				<source>Subtitle Overwrite</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.works_overwrite" resname="tx_publicrelations_domain_model_slide.works_overwrite">
+				<source>Works Overwrite</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.no_works" resname="tx_publicrelations_domain_model_slide.no_works">
+				<source>No Works</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.logo_overwrite" resname="tx_publicrelations_domain_model_slide.logo_overwrite">
+				<source>Logo Overwrite</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.works" resname="tx_publicrelations_domain_model_slide.works">
+				<source>Works</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.buttons" resname="tx_publicrelations_domain_model_slide.buttons">
+				<source>Buttons</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.client" resname="tx_publicrelations_domain_model_slide.client">
+				<source>Client</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.campaign" resname="tx_publicrelations_domain_model_slide.campaign">
+				<source>Campaign</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.news" resname="tx_publicrelations_domain_model_slide.news">
+				<source>News</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.manual" resname="tx_publicrelations_domain_model_slide.manual">
+				<source>Manual Link</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_slide.internal_notes" resname="tx_publicrelations_domain_model_slide.internal_notes">
+				<source>Internal Notes</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing" resname="tx_publicrelations_domain_model_mailing">
+				<source>Mailing</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.blank" resname="tx_publicrelations_domain_model_mailing.blank">
+				<source>Blank Template</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.type" resname="tx_publicrelations_domain_model_mailing.type">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.title" resname="tx_publicrelations_domain_model_mailing.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.subject" resname="tx_publicrelations_domain_model_mailing.subject">
+				<source>Subject</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.preview" resname="tx_publicrelations_domain_model_mailing.preview">
+				<source>Preview</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.alt_sender" resname="tx_publicrelations_domain_model_mailing.alt_sender">
+				<source>Alternative Sender</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.alt_template" resname="tx_publicrelations_domain_model_mailing.alt_template">
+				<source>Alternative Template</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.reply_name" resname="tx_publicrelations_domain_model_mailing.reply_name">
+				<source>Reply Name</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.reply_email" resname="tx_publicrelations_domain_model_mailing.reply_email">
+				<source>Reply Email</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.no_salutation" resname="tx_publicrelations_domain_model_mailing.no_salutation">
+				<source>Show Salutation</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.no_signature" resname="tx_publicrelations_domain_model_mailing.no_signature">
+				<source>Show Signature</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.no_logo" resname="tx_publicrelations_domain_model_mailing.no_logo">
+				<source>Show Logo</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.no_header" resname="tx_publicrelations_domain_model_mailing.no_header">
+				<source>Show Header</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.header" resname="tx_publicrelations_domain_model_mailing.header">
+				<source>Header-Image</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.personally" resname="tx_publicrelations_domain_model_mailing.personally">
+				<source>Personally Mailing</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.contents" resname="tx_publicrelations_domain_model_mailing.contents">
+				<source>Contents</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.attachments" resname="tx_publicrelations_domain_model_mailing.attachments">
+				<source>attachments</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.status" resname="tx_publicrelations_domain_model_mailing.status">
+				<source>Status</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.status.0" resname="tx_publicrelations_domain_model_mailing.status.0">
+				<source>Prepared</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.status.1" resname="tx_publicrelations_domain_model_mailing.status.1">
+				<source>Receiver Set</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.status.2" resname="tx_publicrelations_domain_model_mailing.status.2">
+				<source>Mailing Planed</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.status.3" resname="tx_publicrelations_domain_model_mailing.status.3">
+				<source>Partly Sent</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.status.-1" resname="tx_publicrelations_domain_model_mailing.status.-1">
+				<source>Sent Complete</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.test" resname="tx_publicrelations_domain_model_mailing.test">
+				<source>Test Sent</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.planed" resname="tx_publicrelations_domain_model_mailing.planed">
+				<source>Planed</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.started" resname="tx_publicrelations_domain_model_mailing.started">
+				<source>Started</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.sent" resname="tx_publicrelations_domain_model_mailing.sent">
+				<source>Sent</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.mails" resname="tx_publicrelations_domain_model_mailing.mails">
+				<source>Mails</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mailing.attachment" resname="tx_publicrelations_domain_model_mailing.attachment">
+				<source>Attachment</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content" resname="tx_publicrelations_domain_model_content">
+				<source>Content</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.type" resname="tx_publicrelations_domain_model_content.type">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.type.0" resname="tx_publicrelations_domain_model_content.type.0">
+				<source>Manual Text</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.type.1" resname="tx_publicrelations_domain_model_content.type.1">
+				<source>HTML</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.type.2" resname="tx_publicrelations_domain_model_content.type.2">
+				<source>News</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.type.3" resname="tx_publicrelations_domain_model_content.type.3">
+				<source>Event</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.type.4" resname="tx_publicrelations_domain_model_content.type.4">
+				<source>Media</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.type.5" resname="tx_publicrelations_domain_model_content.type.5">
+				<source>List</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.type.6" resname="tx_publicrelations_domain_model_content.type.6">
+				<source>Accreditation Link</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.type.7" resname="tx_publicrelations_domain_model_content.type.7">
+				<source>Mailing Image</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.type.8" resname="tx_publicrelations_domain_model_content.type.8">
+				<source>Facie-List</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.type.9" resname="tx_publicrelations_domain_model_content.type.9">
+				<source>Event-Info</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.type.10" resname="tx_publicrelations_domain_model_content.type.10">
+				<source>Report-Link</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.type.11" resname="tx_publicrelations_domain_model_content.type.11">
+				<source>Salutation</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.listtype" resname="tx_publicrelations_domain_model_content.listtype">
+				<source>Listtype</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.content" resname="tx_publicrelations_domain_model_content.content">
+				<source>Content</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.padding" resname="tx_publicrelations_domain_model_content.padding">
+				<source>padding</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.color" resname="tx_publicrelations_domain_model_content.color">
+				<source>color</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.bgcolor" resname="tx_publicrelations_domain_model_content.bgcolor">
+				<source>bgcolor</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.content_element" resname="tx_publicrelations_domain_model_content.content_element">
+				<source>Content Element</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.image" resname="tx_publicrelations_domain_model_content.image">
+				<source>Mailing Image</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.image_full_width" resname="tx_publicrelations_domain_model_content.image_full_width">
+				<source>Full Width Image</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.media" resname="tx_publicrelations_domain_model_content.media">
+				<source>Media</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.news_media" resname="tx_publicrelations_domain_model_content.news_media">
+				<source>Hide News Media</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.event_link" resname="tx_publicrelations_domain_model_content.event_link">
+				<source>Hide Accreditation Link</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.event_title" resname="tx_publicrelations_domain_model_content.event_title">
+				<source>Override Event Title</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.event_date" resname="tx_publicrelations_domain_model_content.event_date">
+				<source>Override Event Date</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.event_location" resname="tx_publicrelations_domain_model_content.event_location">
+				<source>Override Event Location</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_content.event_description" resname="tx_publicrelations_domain_model_content.event_description">
+				<source>Override Event Description</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mail" resname="tx_publicrelations_domain_model_mail">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mail.type" resname="tx_publicrelations_domain_model_mail.type">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mail.type.0" resname="tx_publicrelations_domain_model_mail.type.0">
+				<source>prepared</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mail.type.1" resname="tx_publicrelations_domain_model_mail.type.1">
+				<source>sent</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mail.type.-1" resname="tx_publicrelations_domain_model_mail.type.-1">
+				<source>error</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mail.code" resname="tx_publicrelations_domain_model_mail.code">
+				<source>Code</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mail.receiver" resname="tx_publicrelations_domain_model_mail.receiver">
+				<source>Receiver</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mail.email" resname="tx_publicrelations_domain_model_mail.email">
+				<source>Receiver Email Address</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mail.subject" resname="tx_publicrelations_domain_model_mail.subject">
+				<source>Subject</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mail.content" resname="tx_publicrelations_domain_model_mail.content">
+				<source>Content</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mail.sent" resname="tx_publicrelations_domain_model_mail.sent">
+				<source>Sent</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_mail.opened" resname="tx_publicrelations_domain_model_mail.opened">
+				<source>Opened</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_pressroom.name" resname="tx_publicrelations_pressroom.name">
+				<source>Pressroom</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_pressroom.description" resname="tx_publicrelations_pressroom.description">
+				<source>Plugin to output actual Press Data from Database.</source>
+			</trans-unit>
+			<trans-unit id="tt_address.personally" resname="tt_address.personally">
+				<source>Personally Mailing</source>
+			</trans-unit>
+			<trans-unit id="tt_address.special_title" resname="tt_address.special_title">
+				<source>Special Title</source>
+			</trans-unit>
+			<trans-unit id="tt_address.mailing_exclude" resname="tt_address.mailing_exclude">
+				<source>Exclude from Mailings</source>
+			</trans-unit>
+			<trans-unit id="tt_address.mailing_no_html" resname="tt_address.mailing_no_html">
+				<source>Mailings without HTML</source>
+			</trans-unit>
+			<trans-unit id="tt_address.contact_types" resname="tt_address.contact_types">
+				<source>Contact Types</source>
+			</trans-unit>
+
+            <trans-unit id="tx_publicrelations_domain_model_socialprofile">
+                <source>Social Media Profile</source>
+                <target>Social-Media-Profil</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_socialprofile.type">
+                <source>Type</source>
+                <target>Typ</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_socialprofile.handle">
+                <source>Handle / Profile Name</source>
+                <target>Handle / Profilname</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_socialprofile.follower">
+                <source>Follower</source>
+                <target>Follower</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_socialprofile.follower_updated">
+                <source>Follower Last Updated</source>
+                <target>Follower zuletzt aktualisiert</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_socialprofile.notes">
+                <source>Notes</source>
+                <target>Notizen</target>
+            </trans-unit>
+
+            <trans-unit id="tx_publicrelations_domain_model_contactgroup">
+                <source>Contact Group</source>
+                <target>Kontaktgruppe</target>
+            </trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_contactgroup.type" resname="tx_publicrelations_domain_model_contactgroup.type">
+				<source>Typ</source>
+				<target>Type</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_contactgroup.type.select" resname="tx_publicrelations_domain_model_contactgroup.type.select">
+				<source>-- Bitte auswählen --</source>
+				<target>-- Please select --</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_contactgroup.type.print" resname="tx_publicrelations_domain_model_contactgroup.type.print">
+				<source>Print</source>
+				<target>Print</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_contactgroup.type.tv" resname="tx_publicrelations_domain_model_contactgroup.type.tv">
+				<source>TV</source>
+				<target>TV</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_contactgroup.type.radio" resname="tx_publicrelations_domain_model_contactgroup.type.radio">
+				<source>Radio</source>
+				<target>Radio</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_contactgroup.type.show" resname="tx_publicrelations_domain_model_contactgroup.type.show">
+				<source>Format / Sendung</source>
+				<target>Format / Show</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_contactgroup.type.podcast" resname="tx_publicrelations_domain_model_contactgroup.type.podcast">
+				<source>Podcast</source>
+				<target>Podcast</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_contactgroup.type.blog" resname="tx_publicrelations_domain_model_contactgroup.type.blog">
+				<source>Blog / Online Magazin</source>
+				<target>Blog / Online Magazine</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_contactgroup.type.corporation" resname="tx_publicrelations_domain_model_contactgroup.type.corporation">
+				<source>Konzern / Unternehmen</source>
+				<target>Corporation / Company</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_contactgroup.type.agency" resname="tx_publicrelations_domain_model_contactgroup.type.agency">
+				<source>Agentur</source>
+				<target>Agency</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_contactgroup.type.marketing" resname="tx_publicrelations_domain_model_contactgroup.type.marketing">
+				<source>Marketing / Abteilung</source>
+				<target>Marketing / Department</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_contactgroup.type.other" resname="tx_publicrelations_domain_model_contactgroup.type.other">
+				<source>Sonstiges</source>
+				<target>Other</target>
+			</trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_contactgroup.name">
+                <source>Name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_contactgroup.description">
+                <source>Description</source>
+                <target>Beschreibung</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_contactgroup.logo">
+                <source>Logo</source>
+                <target>Logo</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_contactgroup.parent">
+                <source>Parent Group</source>
+                <target>Übergeordnete Gruppe</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_contactgroup.contacts">
+                <source>Contacts</source>
+                <target>Kontakte</target>
+            </trans-unit>
+            <trans-unit id="tt_address.tx_publicrelations_contactgroups">
+                 <source>Contact Groups</source>
+                 <target>Kontaktgruppen</target>
+            </trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_accessclient">
+                <source>Client Access</source>
+                <target>Client-Zugriffsrechte</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_accessclient.client">
+                <source>Client</source>
+                <target>Zugeordneter Kunde</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_accessclient.fe_users">
+                <source>Assigned Frontend Users</source>
+                <target>Zugeordnete Frontend-Benutzer</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_accessclient.fe_usergroups">
+                <source>Assigned Frontend User Groups</source>
+                <target>Zugeordnete Frontend-Benutzergruppen</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_access_client.view_clippings">
+				<source>View clippings</source>
+				<target>Sichtbarkeit: Clippings</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_access_client.view_contacts">
+				<source>View contacts</source>
+				<target>Sichtbarkeit: Kontakte</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_access_client.edit_contacts">
+				<source>Edit contacts</source>
+				<target>Berechtigung: Kontakte bearbeiten</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_access_client.delete_contacts">
+				<source>Delete contacts</source>
+				<target>Berechtigung: Kontakte löschen</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_access_client.view_media">
+				<source>View media</source>
+				<target>Sichtbarkeit: Medien</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_access_client.view_news">
+				<source>View news</source>
+				<target>Sichtbarkeit: News</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_access_client.view_events">
+				<source>View events</source>
+				<target>Sichtbarkeit: Events</target>
+			</trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_accessclient.advanced_events">
+                 <source>Advanced event permissions</source>
+                 <target>Erweiterte Event-Berechtigungen</target>
+            </trans-unit>
+
+            <trans-unit id="tx_publicrelations_domain_model_accessevent">
+                <source>Event Access</source>
+                <target>Event-Zugriffsrechte</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_accessevent.event">
+                 <source>Event</source>
+                 <target>Event</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_accessevent.accesslevel">
+                 <source>Access Level</source>
+                 <target>Zugriffslevel</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_accessevent.accesslevel.view">
+                 <source>View guests</source>
+                 <target>Gäste nur ansehen</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_accessevent.accesslevel.edit">
+                 <source>Edit guests</source>
+                 <target>Gäste bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_accessevent.accesslevel.manage">
+                 <source>Manage guests</source>
+                 <target>Gäste verwalten (hinzufügen/löschen)</target>
+            </trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant" resname="tx_publicrelations_domain_model_invitationvariant">
+				<source>Invitation Variant</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.code" resname="tx_publicrelations_domain_model_invitationvariant.code">
+				<source>Code (Internal Type)</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.code.invite" resname="tx_publicrelations_domain_model_invitationvariant.code.invite">
+				<source>Invite</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.code.remind" resname="tx_publicrelations_domain_model_invitationvariant.code.remind">
+				<source>Remind</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.code.push" resname="tx_publicrelations_domain_model_invitationvariant.code.push">
+				<source>Push</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.code.approve" resname="tx_publicrelations_domain_model_invitationvariant.code.approve">
+				<source>Approve</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.code.reject" resname="tx_publicrelations_domain_model_invitationvariant.code.reject">
+				<source>Reject</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.code.waiting" resname="tx_publicrelations_domain_model_invitationvariant.code.waiting">
+				<source>Waiting</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.code.pending" resname="tx_publicrelations_domain_model_invitationvariant.code.pending">
+				<source>Pending</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.code.approve_after_waiting" resname="tx_publicrelations_domain_model_invitationvariant.code.approve_after_waiting">
+				<source>Approve (after Waiting)</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.code.reject_after_waiting" resname="tx_publicrelations_domain_model_invitationvariant.code.reject_after_waiting">
+				<source>Reject (after Waiting)</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.html" resname="tx_publicrelations_domain_model_invitationvariant.html">
+				<source>HTML File (Path)</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.subject" resname="tx_publicrelations_domain_model_invitationvariant.subject">
+				<source>Subject</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.from_name" resname="tx_publicrelations_domain_model_invitationvariant.from_name">
+				<source>Alternative Sender (Name)</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.reply_email" resname="tx_publicrelations_domain_model_invitationvariant.reply_email">
+				<source>Reply-To E-Mail</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.reply_name" resname="tx_publicrelations_domain_model_invitationvariant.reply_name">
+				<source>Reply-To Name</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.preheader" resname="tx_publicrelations_domain_model_invitationvariant.preheader">
+				<source>Preheader (max. 100 chars)</source>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_invitationvariant.attachments">
+				<source>Attachments</source>
+				<target>Anhänge</target>
+			</trans-unit>
+            <trans-unit id="tabs.permissions">
+                <source>Permissions</source>
+                <target>Berechtigungen</target>
+            </trans-unit>
+            <trans-unit id="tabs.advanced_events">
+                <source>Advanced Events</source>
+                <target>Erweiterte Events</target>
+            </trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.tab.access">
+				<source>Access Control</source>
+				<target>Zugriffsrechte</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_client.access_rights">
+				<source>Access definitions for this client</source>
+				<target>Zugriffs-Definitionen für diesen Kunden</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_report">
+                <source>Report / Clipping</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.client">
+                <source>Kunde</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.campaign">
+                <source>Projekt</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.date">
+                <source>Datum</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.title">
+                <source>Titel</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.status">
+                <source>Status</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.notes">
+                <source>Notizen</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.type">
+                <source>Typ</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.files">
+                <source>Dateien</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.links">
+                <source>Links</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.logs">
+                <source>Logs</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.medium">
+                <source>Medium</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.department">
+                <source>Ressort</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.media_type">
+                <source>Medientyp</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.publication_frequency">
+                <source>Erscheinungsweise</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.publication_id">
+                <source>Ausgabe</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.page_number">
+                <source>Seite</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.reach">
+                <source>Reichweite</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.ad_value">
+                <source>Werbewert</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.apa_guid">
+                <source>APA GUID</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.apa_link">
+                <source>APA Link</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.clippingroute">
+                <source>Clipping Route</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.reported">
+                <source>Versendet</source>
+            </trans-unit>
+            <trans-unit id="tx_publicrelations_domain_model_report.approval_token">
+                <source>Freigabe Token</source>
+            </trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_report.subtitle" resname="tx_publicrelations_domain_model_report.subtitle">
+				<source>Subtitle</source>
+				<target>Unterüberschrift</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_report.content" resname="tx_publicrelations_domain_model_report.content">
+				<source>Content</source>
+				<target>Inhalt (HTML)</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_report.data" resname="tx_publicrelations_domain_model_report.data">
+				<source>Raw Data (JSON)</source>
+				<target>Roh-Daten (JSON)</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_clippingroute" resname="tx_publicrelations_domain_model_clippingroute">
+				<source>Clipping Route</source>
+				<target>Clipping-Route</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_clippingroute.keyword" resname="tx_publicrelations_domain_model_clippingroute.keyword">
+				<source>Keyword (Trigger)</source>
+				<target>Schlagwort (Trigger)</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_clippingroute.client" resname="tx_publicrelations_domain_model_clippingroute.client">
+				<source>Client</source>
+				<target>Kunde</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_clippingroute.project" resname="tx_publicrelations_domain_model_clippingroute.project">
+				<source>Project (Campaign)</source>
+				<target>Projekt (Kampagne)</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_clippingroute.drive" resname="tx_publicrelations_domain_model_clippingroute.drive">
+				<source>Drive Link</source>
+				<target>Drive-Link</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_clippingroute.send_immediate" resname="tx_publicrelations_domain_model_clippingroute.send_immediate">
+				<source>Immediate Send</source>
+				<target>Sofort-Versand aktiv</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_clippingroute.to_emails" resname="tx_publicrelations_domain_model_clippingroute.to_emails">
+				<source>Recipients (To)</source>
+				<target>Empfänger (An)</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_clippingroute.cc_emails" resname="tx_publicrelations_domain_model_clippingroute.cc_emails">
+				<source>Recipients (CC)</source>
+				<target>Empfänger (CC)</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_clippingroute.bcc_emails" resname="tx_publicrelations_domain_model_clippingroute.bcc_emails">
+				<source>Recipients (BCC)</source>
+				<target>Empfänger (BCC)</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_clippingroute.tabs.email" resname="tx_publicrelations_domain_model_clippingroute.tabs.email">
+				<source>Email Distribution</source>
+				<target>E-Mail-Verteiler</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_clippingroute.tabs.links" resname="tx_publicrelations_domain_model_clippingroute.tabs.links">
+				<source>Links</source>
+				<target>Verknüpfungen</target>
+			</trans-unit>
+			<trans-unit id="tx_publicrelations_domain_model_clippingroute.palette.recipients" resname="tx_publicrelations_domain_model_clippingroute.palette.recipients">
+				<source>Recipients</source>
+				<target>Empfänger</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

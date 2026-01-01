@@ -1,0 +1,151 @@
+<!doctype html>
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:v="urn:schemas-microsoft-com:vml"
+    xmlns:o="urn:schemas-microsoft-com:office:office"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true" >
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;600;800&display=swap');
+
+        :root {
+          --dark: #1F1F1F;
+          --white: #FFFFFF;
+          --primary: #8c0014;
+          --grey: #6b6b6b;
+        }
+
+        body {font-family: 'Dosis', 'Helvetiva', sans-serif;}
+        body,
+        table,
+        td,
+        p,
+        a {
+            font-family: 'Dosis', 'Helvetiva', sans-serif;
+        }
+        p {
+          font-size: 1rem;
+          color: var(--dark);
+        }
+        h1 {
+          font-size: 1.5rem;
+          font-weight: 800;
+          color: var(--primary);
+          font-family: 'Dosis', 'Helvetiva', sans-serif;
+        }
+        strong {font-weight: 600;}
+        stronger {font-weight: 800;}
+        a {
+          text-decoration: none !important;
+          font-weight: 600 !important;
+          color: #8c0014;
+        }
+
+        .templateContainer {
+            max-width: 600px !important;
+            background: #ffffff;
+        }
+    </style>
+</head>
+<body style="margin:0; font-family: 'Dosis', 'Helvetiva', sans-serif;">
+<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+  <tbody>
+    <tr>
+      <td align="center" valign="top" id="bodyCell" style="background-color:#1F1F1F">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tbody>
+            <tr>
+              <td align="center" valign="top" id="templateHeader" style="background-color: #1F1F1F">
+                  <table align="center" border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                      <tr>
+                        <td valign="top" class="headerContainer">
+                          <table border="0" cellpadding="0" cellspacing="0" width="100%" class="textBlock" style="min-width:100%;">
+                            <tbody class="textBlockOuter">
+                              <tr>
+                                <td valign="top" class="textBlockInner" style="padding-top:0px;">
+                                  <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="textContentContainer">
+                                    <tbody>
+                                      <tr>
+                                        <td valign="top" class="image" align="center" style="padding-bottom: 30px; text-align: center;">
+                                          <img src="https://www.allegria.at/fileadmin/templates/img/MIELE_Logo.png" alt="Miele Gesellschaft m.b.H." width="auto" height="70px">
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" id="templateBody">
+                  <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px !important; background: #ffffff;">
+                    <tbody>
+                      <tr>
+                        <td valign="top" class="bodyContainer">
+                          <table border="0" cellpadding="0" cellspacing="0" width="100%" class="textBlock" style="min-width:100%;">
+                            <tbody class="textBlockOuter">
+                              <tr>
+                                <td valign="top" class="textBlockInner" style="padding: 36px 0px;">
+                                  <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="textContentContainer">
+                                    <tbody>
+                                      <tr>
+                                        <td valign="top" class="textContent">
+                                          <f:render partial="ContentMiele2023" arguments="{_all}" />
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" id="templateFooter">
+                  <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px !important; background: #ffffff;">
+                    <tbody>
+                      <tr>
+                        <td valign="top" class="footerContainer">
+                          <table border="0" cellpadding="0" cellspacing="0" width="100%" class="textBlock" style="min-width:100%;">
+                            <tbody class="textBlockOuter"><tr><td valign="top" class="textBlockInner">
+                              <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="textContentContainer">
+                                <tbody>
+                                  <f:render partial="FooterMiele" arguments="{_all}" />
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

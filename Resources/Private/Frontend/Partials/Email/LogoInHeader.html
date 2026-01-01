@@ -1,0 +1,16 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:switch expression="{template}">
+  <f:case value="DefaultEmail">
+    <f:link.typolink absolute="1" parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={accreditation.event.client.uid}" target="_blank"><f:image image="{f:if(condition:'{accreditation.invitationType.logo}', then:'{accreditation.invitationType.logo}', else:'{accreditation.event.client.logo}')}" cropVariant="email" maxWidth="100" maxHeight="100" absolute="1" style="margin-top: -20px; margin-bottom: 10px;" /></f:link.typolink></br>
+  </f:case>
+  <f:case value="OhneAllegria">
+    <f:link.typolink absolute="1" parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={accreditation.event.client.uid}" target="_blank"><f:image image="{f:if(condition:'{accreditation.invitationType.logo}', then:'{accreditation.invitationType.logo}', else:'{accreditation.event.client.logo}')}" cropVariant="email" maxWidth="100" maxHeight="100" absolute="1" style="margin-top: -20px; margin-bottom: 10px;" /></f:link.typolink></br>
+  </f:case>
+  <f:case value="KulturformatEmail">
+    <f:link.typolink absolute="1" parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={accreditation.event.client.uid}" target="_blank"><f:image src="presse/Kulturformat_Logo.jpg" alt="KULTURFORMAT" height="auto" width="200" absolute="1" absolute="1" style="margin-top: -20px; margin-bottom: 10px;" /></f:link.typolink></br>
+  </f:case>
+  <f:defaultCase>
+    <f:if condition="{accreditation.invitationType.logo}"><f:link.typolink absolute="1" parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={accreditation.event.client.uid}" target="_blank"><f:image image="{accreditation.invitationType.logo}" cropVariant="email" maxWidth="100" maxHeight="100" absolute="1" style="margin-top: -20px; margin-bottom: 10px;" /></f:link.typolink></br></f:if>
+  </f:defaultCase>
+</f:switch>
+</html>

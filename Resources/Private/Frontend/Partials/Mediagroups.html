@@ -1,0 +1,75 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+
+<div class="alert alert-white anchor" id="pressematerial">
+  <h2 class="h4 mt-2 mb-3"><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#thumbnails-small"></use></svg> Pressematerial</h2>
+  <div class="accordion" id="pressmaterial">
+    <f:for each="{mediagroups}" as="mediagroup" iteration="i">
+      <f:if condition="{mediagroup.media}">
+      <div class="card">
+        <a class="card-header bg-primary text-white text-decoration-none fw-bold {f:if(condition:'!{i.index}', else:'collapsed')}" id="heading{i.cycle}" role="button" data-bs-toggle="collapse" href="#collapse{i.cycle}" aria-expanded="{f:if(condition:'!{i.index}', then:'false', else:'true')}" aria-controls="collapse{i.cycle}">
+          <div class="row flex-nowrap">
+            <div class="col-6 col-md-8 col-lg-9 col-xl-10 text-truncate me-auto">
+              <svg class="icon fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#thumbnails-list"></use></svg> {mediagroup.title}
+            </div>
+            <div class="col ms-auto text-end">
+              <span class="badge bg-light text-dark me-3 d-none d-md-inline-block">{mediagroup.media->f:count()} {f:if(condition:'{mediagroup.media->f:count()}>1', then:'Dateien', else:'Datei')}</span><svg class="icon fill-white collapse-icon"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#chevron-up"></use></svg>
+            </div>
+          </div>
+        </a>
+
+        <div id="collapse{i.cycle}" class="collapse {f:if(condition:'!{i.index}', then:'show')}" aria-labelledby="heading{i.cycle}" data-bs-parent="#pressmaterial">
+          <div class="card-body">
+            <div class="row">
+              <f:for each="{mediagroup.media}" as="file" iteration="fi">
+              <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                <div class="img-thumbnail mb-3">
+                  <div data-bs-toggle="popover" data-bs-trigger="hover click" data-bs-placement="bottom" data-bs-html="true" title="{file.originalResource.title}" data-bs-content="{file.originalResource.description->f:format.nl2br()}<br><small>&#169; {f:if(condition:'{file.originalResource.properties.copyright}', then:'{file.originalResource.properties.copyright}', else:'{client.name}')}</small>">
+                    <div class="ratio" style="--bs-aspect-ratio: 66%;">
+                      <div class="text-center my-auto">
+                        <f:switch expression="{file.originalResource.properties.type}">
+                          <f:case value="3"><f:image src="1:/marketing/ALLEGRIA_Sound-Datei.jpg" class="h-auto w-auto" style="max-width:100%; max-height:100%;" alt="{file.originalResource.title}" absolute="1" /></f:case>
+                          <f:case value="4"><f:image src="1:/marketing/ALLEGRIA_Video-Datei.jpg" class="h-auto w-auto" style="max-width:100%; max-height:100%;" alt="{file.originalResource.title}" absolute="1" /></f:case>
+                          <f:case value="5"><f:image src="1:/marketing/ALLEGRIA_Dokumente.png" class="h-auto w-auto" style="max-width:100%; max-height:100%;" alt="{file.originalResource.title}" absolute="1" /></f:case>
+                          <f:defaultCase><f:image image="{file}" class="h-auto w-auto" style="max-width:100%; max-height:100%;" alt="{file.originalResource.title}" maxHeight="500" maxWidth="500" /></f:defaultCase>
+                        </f:switch>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="alert bg-light mb-0 px-1">
+                    <p class="small mb-0">
+                      <f:switch expression="{file.originalResource.properties.type}">
+                        <f:case value="3"><p class="small">{file.originalResource.name}</p></f:case>
+                        <f:case value="4"><p class="small">{file.originalResource.name}</p></f:case>
+                        <f:case value="5"><p class="small">{file.originalResource.name}</p></f:case>
+                      </f:switch>
+                      <span class="badge bg-dark text-white p-1">&#169;</span> {f:if(condition:'{file.originalResource.properties.copyright}', then:'{file.originalResource.properties.copyright}', else:'{client.name}')}<br>
+                      <svg class="icon icon-sm me-1 fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#file"></use></svg>{file.originalResource.mimeType},{file.originalResource.extension}
+                    </p>
+                      <f:if condition="{file.originalResource.properties.type}==2">
+                        <div class="d-flex small mb-3">
+                          <div><svg class="icon icon-sm me-1 fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#circle-info"></use></svg></div>
+                          <div>
+                            {file.originalResource.properties.width}x{file.originalResource.properties.height}{file.originalResource.properties.unit} ({file.originalResource.properties.color_space})<br>
+                            {file.originalResource.size->f:format.bytes(decimals: 2, decimalSeparator: ',', thousandsSeparator: '.')}
+
+                          </div>
+                        </div>
+                        </f:if>
+
+                    <div class="text-center"><a class="btn btn-dark btn-sm" href="{file.originalResource.publicUrl}" download target="_blank"><svg class="icon icon-sm me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#cloud-download"></use></svg>Download</a></div>
+                  </div>
+                </div>
+              </div>
+              </f:for>
+            </div>
+          </div>
+        </div>
+      </div>
+      </f:if>
+    </f:for>
+  </div>
+</div>

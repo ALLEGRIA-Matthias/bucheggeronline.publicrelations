@@ -1,0 +1,87 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Etiketten Druck</title>
+    <style>
+        @page {
+            margin: 0;
+            size: A4;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20mm 0; /* Anpassen für oberen/unteren Rand */
+        }
+        .etikett {
+            width: 70mm;
+            height: 36mm;
+            float: left;
+            margin-right: 5mm; /* Rechter Rand zwischen Etiketten */
+            margin-bottom: 15mm; /* Unterer Rand zwischen Etiketten */
+            box-sizing: border-box;
+            padding: 5mm;
+            page-break-inside: avoid;
+        }
+        .etikett:nth-child(3n) {
+            margin-right: 0; /* Kein rechter Rand nach jedem dritten Etikett */
+        }
+        @media print {
+            .etikett {
+                page-break-inside: avoid;
+            }
+            /* Verstecke alles außer der .druckbereich-Klasse */
+            body * {
+                visibility: hidden;
+            }
+            .druckbereich, .druckbereich * {
+                visibility: visible;
+            }
+            .druckbereich {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <button onclick="druckeEtiketten()">Etiketten drucken</button>
+
+    <div class="druckbereich">
+    <f:for each="{guests}" as="guest" iteration="gId">
+        <div class="etikett">
+            <h2>{guest.fullName}</h2>
+            <p>Event-Details hier...</p>
+        </div>
+        <!-- Nach jedem 24. Etikett einen Seitenumbruch erzwingen -->
+        <f:if condition="{gId.count}%24">
+            <f:then>
+                <div style="page-break-after: always;"></div>
+            </f:then>
+        </f:if>
+    </f:for>
+    </div>
+
+    <script>
+        function druckeEtiketten() {
+            var druckInhalt = $(.'druckbereich').innerHTML;
+            var druckFenster = window.open('', '_blank', 'width=800,height=600');
+            druckFenster.document.write('<html><head><title>Druckvorschau</title>');
+            // Füge hier notwendiges CSS hinzu
+            druckFenster.document.write('</head><body >');
+            druckFenster.document.write(druckInhalt);
+            druckFenster.document.write('</body></html>');
+            druckFenster.document.close();
+            druckFenster.print();
+        }
+    </script>
+</body>
+</html>
+      

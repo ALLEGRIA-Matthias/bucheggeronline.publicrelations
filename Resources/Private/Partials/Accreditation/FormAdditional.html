@@ -1,0 +1,283 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+<f:if condition="{accreditation.event.additionalFields}">
+<div class="alert alert-warning">
+  <h4>Zusatzabfragen</h4>
+  <div class="row">
+    <f:if condition="{edit}">
+    <f:then>
+      <f:for each="{accreditation.event.additionalFields}" as="field" iteration="fi">
+
+      <f:if condition="{field.type}==0">
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="field{field.uid}"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{field.icon}"></use></svg> {field.label}</label>
+          <div class="form-check">
+            <f:form.checkbox
+              class="form-check-input mt-0"
+              id="field{field.uid}"
+              name="additionalAnswers[{field.uid}]"
+              value="1"
+              checked="<f:spaceless>
+                      <f:if condition='{accreditation.additionalAnswers}'>
+                      <f:for each='{accreditation.additionalAnswers}' as='answer' iteration='ai'>
+                        <f:if condition='{answer.field.uid}=={field.uid}'>{answer.value}</f:if>
+                      </f:for>
+                      </f:if>
+                      </f:spaceless>"
+            />
+            <label class="form-check-label" for="checkFacie">Ja/Nein</label>
+          </div>
+        </div>
+      </div>
+      </f:if>
+
+      <f:if condition="{field.type}==1">
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="field{field.uid}"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{field.icon}"></use></svg> {field.label}</label>
+          <div class="form-check">
+            <f:form.textfield
+              class="form-control mt-0"
+              id="field{field.uid}"
+              name="additionalAnswers[{field.uid}]"
+              value="<f:spaceless>
+                <f:if condition='{accreditation.additionalAnswers}'>
+                <f:for each='{accreditation.additionalAnswers}' as='answer' iteration='ai'>
+                  <f:switch expression='{field.tye}'>
+                    <f:case value='4'><f:if condition='{answer.field.uid}=={field.uid}'><f:for each='{answer.value}' as='val'>{val},</f:for></f:if></f:case>
+                    <f:defaultCase><f:if condition='{answer.field.uid}=={field.uid}'>{answer.value}</f:if></f:defaultCase>
+                  </f:switch>
+                </f:for>
+                </f:if>
+                </f:spaceless>"
+            />
+          </div>
+        </div>
+      </div>
+      </f:if>
+
+      <f:if condition="{field.type}==3 || {field.type}==4">
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="field{field.uid}"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{field.icon}"></use></svg> {field.label}</label>
+          <div class="input-group mb-3">
+            <f:form.select
+              class="form-control tomselect-generic"
+              data="{select2-id: 'field{field.uid}'}"
+              id="selectNotes"
+              name="additionalAnswers[{field.uid}]"
+              optionsAfterContent="1"
+              options="{field.options}"
+              optionValueField="value"
+              optionLabelField="label"
+              multiple="{f:if(condition: '{field.type}==4', then: '1', else, '0')}"
+              value="<f:spaceless>
+                      <f:if condition='{accreditation.additionalAnswers}'>
+                      <f:for each='{accreditation.additionalAnswers}' as='answer' iteration='ai'>
+                        <f:switch expression='{field.tye}'>
+                          <f:case value='4'><f:if condition='{answer.field.uid}=={field.uid}'><f:for each='{answer.value}' as='val'>{val},</f:for></f:if></f:case>
+                          <f:defaultCase><f:if condition='{answer.field.uid}=={field.uid}'>{answer.value}</f:if></f:defaultCase>
+                        </f:switch>
+                      </f:for>
+                      </f:if>
+                      </f:spaceless>"
+            >
+              <f:if condition="{field.type}==3"><f:form.select.option value="">{f:if(condition:'{field.required}', then: 'Bitte', else: 'Optional')} auswählen</f:form.select.option></f:if>
+            </f:form.select>
+          </div>
+        </div>
+      </div>
+      </f:if>
+
+      <f:if condition="{field.type}==6">
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label class="font-weight-bold"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{field.icon}"></use></svg> {field.label}</label>
+          <f:for each="{field.options}" as="option" iteration="oi">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><f:if condition="{option.icon}"><svg class="icon icon-sm fill-gold mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{option.icon}"></use></svg></f:if>{option.label}</span>
+            </div>
+            <f:form.textfield
+              class="form-control proveMax"
+              id="field{field.uid}.{option.value}"
+              name="additionalAnswers[{field.uid}][{option.value}]"
+              type="number"
+              value="<f:spaceless>
+                      <f:if condition='{accreditation.additionalAnswers->f:count()}'>
+                      <f:then>
+                      <f:for each='{accreditation.additionalAnswers}' as='answer' iteration='ai'>
+                        <f:if condition='{answer.field.uid}=={field.uid}'>
+                          <f:for each='{answer.value}' as='value'>
+                            <f:if condition='{value.key}=={option.value}'>{value.value}</f:if>
+                          </f:for>
+                        </f:if>
+                      </f:for>
+                      </f:then>
+                      <f:else>0</f:else>
+                      </f:if>
+                      </f:spaceless>"
+              additionalAttributes="{min:'{f:if(condition:\'{option.min}\', then:\'{option.min}\', else:\'0\')}', max:'{option.max}'}"
+              data="{collection:'{field.uid}', prove-target:'#inputTicketsApproved'}"
+            />
+          </div>
+          </f:for>
+        </div>
+      </div>
+      </f:if>
+
+      </f:for>
+    </f:then>
+    <f:else>
+      <f:if condition="{disabled}">
+      <f:then>
+        <f:for each="{event.additionalFields}" as="field" iteration="fi">
+
+        <f:if condition="{field.type}==0">
+        <div class="col-12 col-md-4">          
+          <div class="form-group">
+            <label for="field{field.uid}"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{field.icon}"></use></svg> {field.label}</label>
+            <div class="form-check">
+              <f:form.checkbox
+                class="form-check-input mt-0"
+                id="field{field.uid}"
+                name="additionalAnswers[{field.uid}]"
+                value="1"
+                checked="false"
+              />
+              <label class="form-check-label" for="checkFacie">Ja/Nein</label>
+            </div>
+          </div>
+        </div>
+        </f:if>
+
+        <f:if condition="{field.type}==3 || {field.type}==4">
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="field{field.uid}"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{field.icon}"></use></svg> {field.label}</label>
+            <div class="input-group mb-3">
+              <f:form.select
+                class="form-control tomselect-generic"
+                data="{select2-id: 'field{field.uid}'}"
+                id="selectNotes"
+                name="additionalAnswers[{field.uid}]"
+                optionsAfterContent="1"
+                options="{field.options}"
+                optionValueField="value"
+                optionLabelField="label"
+                multiple="{f:if(condition: '{field.type}==4', then: '1', else, '0')}"
+              >
+                <f:if condition="{field.type}==3"><f:form.select.option value="">{f:if(condition:'{field.required}', then: 'Bitte', else: 'Optional')} auswählen</f:form.select.option></f:if>
+              </f:form.select>
+            </div>
+          </div>
+        </div>
+        </f:if>
+
+        <f:if condition="{field.type}==6">
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label class="font-weight-bold"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{field.icon}"></use></svg> {field.label}</label>
+            <f:for each="{field.options}" as="option" iteration="oi">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><f:if condition="{option.icon}"><svg class="icon icon-sm fill-gold mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{option.icon}"></use></svg></f:if>{option.label}</span>
+              </div>
+              <f:form.textfield class="form-control proveMax" id="field{field.uid}.{option.value}" property="additionalAnswers.{field.uid}.{option.value}" type="number" value="0" additionalAttributes="{min:'{f:if(condition:\'{option.min}\', then:\'{option.min}\', else:\'0\')}', max:'{option.max}'}" data="{collection:'{field.uid}', prove-target:'#inputTicketsApproved'}" data="{disable-target:'field{field.uid}'}" disabled="1" />
+            </div>
+            </f:for>
+          </div>
+        </div>
+        </f:if>
+
+        </f:for>
+      </f:then>
+      <f:else>
+        <f:for each="{event.additionalFields}" as="field" iteration="fi">
+
+        <f:if condition="{field.type}==0">
+        <div class="col-12 col-md-4">
+          <div class="form-check">
+            <label for="field{field.uid}" class="form-check-label" for="field{field.uid}"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{field.icon}"></use></svg> {field.label}</label>
+            <div class="mb-3">
+              <f:form.checkbox
+                class="form-check-input"
+                id="field{field.uid}"
+                name="additionalAnswers[{field.uid}]"
+                value="1"
+                checked="false"
+              />
+            </div>
+          </div>
+        </div>
+        </f:if>
+
+        <f:if condition="{field.type}==1">
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+              <label for="field{field.uid}"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{field.icon}"></use></svg> {field.label}</label>
+              <div class="form-check">
+                <f:form.textfield
+                  class="form-control mt-0"
+                  id="field{field.uid}"
+                  name="additionalAnswers[{field.uid}]"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          </f:if>
+
+        <f:if condition="{field.type}==3 || {field.type}==4">
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="field{field.uid}"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{field.icon}"></use></svg> {field.label}</label>
+            <div class="input-group mb-3">
+              <f:form.select
+                class="form-control tomselect-generic"
+                data="{select2-id: 'field{field.uid}'}"
+                id="selectNotes"
+                name="additionalAnswers[{field.uid}]"
+                optionsAfterContent="1"
+                options="{field.options}"
+                optionValueField="value"
+                optionLabelField="label"
+                multiple="{f:if(condition: '{field.type}==4', then: '1', else, '0')}"
+              >
+                <f:if condition="{field.type}==3"><f:form.select.option value="">{f:if(condition:'{field.required}', then: 'Bitte', else: 'Optional')} auswählen</f:form.select.option></f:if>
+              </f:form.select>
+            </div>
+          </div>
+        </div>
+        </f:if>
+
+        <f:if condition="{field.type}==6">
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label class="font-weight-bold"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{field.icon}"></use></svg> {field.label}</label>
+            <f:for each="{field.options}" as="option" iteration="oi">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><f:if condition="{option.icon}"><svg class="icon icon-sm fill-gold mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{option.icon}"></use></svg></f:if>{option.label}</span>
+              </div>
+              <f:form.textfield class="form-control" id="field{field.uid}.{option.value}" name="additionalAnswers[{field.uid}][{option.value}]" type="number" value="0" additionalAttributes="{min:'{f:if(condition:\'{option.min}\', then:\'{option.min}\', else:\'0\')}', max:'{option.max}'}" />
+            </div>
+            </f:for>
+          </div>
+        </div>
+        </f:if>
+
+        </f:for>
+      </f:else>
+      </f:if>
+    </f:else>
+    </f:if>
+  </div>
+</div>
+</f:if>
+</html>

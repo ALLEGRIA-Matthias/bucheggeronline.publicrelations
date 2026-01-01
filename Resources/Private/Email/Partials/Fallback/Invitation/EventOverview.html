@@ -1,0 +1,85 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+  xmlns:acdist="http://typo3.org/ns/Allegria/AcDistribution/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+<f:if condition="!{onlyAccreditationLink}">
+<f:if condition="{accreditation.invitationType.image}">
+<div style="width:100%; text-align:center;">
+  <f:switch expression="{accreditation.invitationType.image.originalResource.extension}">
+    <f:case value="gif"><img src="https://www.allegria.at{accreditation.invitationType.image.originalResource.publicUrl}" style="max-width:530px;height:auto;"></f:case>
+    <f:defaultCase><acdist:absoluteImage image="{accreditation.invitationType.image}" maxWidth="500" maxHeight="300" /></f:defaultCase>
+  </f:switch>
+</div>
+</f:if>
+<h3 style="margin-top:20px">Terminübersicht</h3>
+<table style="margin-bottom:20px">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;" width="80px">Termin</td>
+      <td><strong>{event.title}</strong></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Datum</td>
+      <td><strong><f:if condition="{event.dateFulltime}"><f:then>{mb:dateFormatLocal(date:'{event.date}', type:'day')}, {event.date->f:format.date(format:'%d.%m.%Y')}</f:then><f:else>{mb:dateFormatLocal(date:'{event.date}', type:'day')}, {event.date->f:format.date(format:'%d.%m.%Y um %k.%M Uhr')}</f:else></f:if></strong></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Location</td>
+      <td>
+        <f:if condition="{event.online}">
+          <f:then><f:if condition="{event.locationNote}"><f:then>{event.locationNote}</f:then><f:else>Online</f:else></f:if></f:then>
+          <f:else>
+            <strong>{event.location.name}</strong><br/>
+            <f:if condition="{event.location.street}">{event.location.street}, </f:if><f:if condition="{event.location.zip}">{event.location.zip} </f:if><f:if condition="{event.location.city}">{event.location.city}</f:if>
+          </f:else>
+        </f:if>
+      </td>
+    </tr>
+    <f:if condition="{approved}">
+    <f:if condition="{event.theaterevent}">
+      <f:then>
+        <tr>
+          <td style="vertical-align: top;" width="100px">Hinterlegung auf</td>
+          <td style="vertical-align: top;">{accreditation.guestOutput.firstName} {accreditation.guestOutput.lastName}</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">Personen</td>
+          <td>{accreditation.ticketsApproved} <f:if condition="{accreditation.ticketsApproved}>1"><f:then>Personen</f:then><f:else>Person</f:else></f:if></td>
+        </tr>
+      </f:then>
+      <f:else>
+        <tr>
+          <td style="vertical-align: top;">Personen</td>
+          <td>{accreditation.ticketsApproved} <f:if condition="{accreditation.ticketsApproved}>1"><f:then>Personen</f:then><f:else>Person</f:else></f:if></td>
+        </tr>
+      </f:else>
+    </f:if>
+    <f:if condition="{event.additionalFields}">
+    <f:for each="{event.additionalFields}" as="field" iteration="fi">
+    <f:if condition="{field.confirmation}">
+    <f:for each="{accreditation.additionalAnswers}" as="answer" iteration="ai">
+      <f:if condition="{answer.field.uid}=={field.uid}">
+        <tr>
+          <td style="vertical-align: top;" width="150px">{field.label}</td>
+          <td><strong>{answer.value}</strong></td>
+        </tr>
+      </f:if>
+    </f:for>
+    </f:if>
+    </f:for>
+    </f:if>
+    </f:if>
+  </tbody>
+</table>
+</f:if>
+<f:if condition="{invitationLink}">
+<h5 style="margin-top:30px; color:#C60000; text-align: center;">Rückmeldung zur Einladung geben</h5>
+<p style="margin-top:0px; font-weight:bold; text-align: center;">Wir bitten <a href="###TICKET_LINK### style="font-weight: bold;">hier um Ihre Zu- oder Absage</a> via Link.</p>
+</f:if>
+<f:if condition="{accreditationLink}">
+<h3>Akkreditierung</h3>
+<p>
+  Wir bitten um Akkreditierung unter folgendem Link <acdist:absoluteLink parameter="39#event" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={event.client.uid}&event-id={event.uid}" target="_blank"><f:uri.typolink parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={event.client.uid}"/></a> .
+</f:if>
+</html>

@@ -1,0 +1,412 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&display=swap");
+:root {
+    --primary: #efb72e;
+    --secondary: #c2e2f1;
+    --success: #91E25E;
+    --info: #c2e2f1;
+    --warning: #FF9C39;
+    --danger: #C60000;
+    --light: #f2f4f0;
+    --dark: #030305;
+}
+p {
+    margin:10px 0;
+    padding:0;
+}
+table {
+    border-collapse:collapse;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    display:block;
+    margin:0;
+    padding:0;
+}
+img,
+a img {
+    border:0;
+    height:auto;
+    outline:none;
+    text-decoration:none;
+}
+body,
+#bodyTable,
+#bodyCell {
+    height:100%;
+    margin:0;
+    padding:0;
+    width:100%;
+}
+#outlook a {
+    padding:0;
+}
+img {
+    -ms-interpolation-mode:bicubic;
+}
+table {
+    mso-table-lspace:0pt;
+    mso-table-rspace:0pt;
+}
+.ReadMsgBody {
+    width:100%;
+}
+.ExternalClass {
+    width:100%;
+}
+p,
+a,
+td {
+    mso-line-height-rule:exactly;
+}
+a[href^=tel],
+a[href^=sms] {
+    color:inherit;
+    cursor:default;
+    text-decoration:none;
+}
+p,
+a,
+td,
+body,
+table,
+blockquote {
+    font-family:'Quicksand', Helvetica, Arial, Verdana, sans-serif;
+    -ms-text-size-adjust:100%;
+    -webkit-text-size-adjust:100%;
+}
+.ExternalClass,
+.ExternalClass p,
+.ExternalClass td,
+.ExternalClass div,
+.ExternalClass span,
+.ExternalClass font {
+    line-height:100%;
+}
+a[x-apple-data-detectors]{
+    color:inherit !important;
+    text-decoration:none !important;
+    font-size:inherit !important;
+    font-family:inherit !important;
+    font-weight:inherit !important;
+    line-height:inherit !important;
+}
+
+.templateContainer {
+    max-width:600px !important;
+}
+a.button {
+    display:block;
+}
+.image,.retinaImage {
+    vertical-align:bottom;
+}
+.textContent {
+    word-break:break-word;
+}
+.textContent img {
+    height:auto !important;
+}
+.dividerBlock {
+    table-layout:fixed !important;
+}
+h1 {
+    color:#222222;
+    font-family:'Quicksand', Helvetica, Arial, Verdana, sans-serif;
+    font-size:40px;
+    font-style:normal;
+    font-weight:bold;
+    line-height:150%;
+    letter-spacing:normal;
+    text-align:center;
+}
+h2 {
+    color:#222222;
+    font-family:'Quicksand', Helvetica, Arial, Verdana, sans-serif;
+    font-size:34px;
+    font-style:normal;
+    font-weight:bold;
+    line-height:150%;
+    letter-spacing:normal;
+    text-align:left;
+}
+h3, h5 {
+    color:#444444;
+    font-family:'Quicksand', Helvetica, Arial, Verdana, sans-serif;
+    font-size:22px;
+    font-style:normal;
+    font-weight:bold;
+    line-height:150%;
+    letter-spacing:normal;
+    text-align:left;
+}
+h4 {
+    color:#999999;
+    font-family:'Quicksand', Helvetica, Arial, Verdana, sans-serif;
+    font-size:20px;
+    font-style:italic;
+    font-weight:normal;
+    line-height:1;
+    letter-spacing:normal;
+    text-align:left;
+    margin: 0;
+}
+h6 {
+    color:var(--dark);
+    font-family:'Quicksand', Helvetica, Arial, Verdana, sans-serif;
+    font-size:14px;
+    font-style:normal;
+    font-weight:bold;
+    text-transform:uppercase;
+    line-height:125%;
+    letter-spacing:normal;
+    text-align:left;
+}
+.subtitle {
+  font-size: 10px;
+  margin: 0;
+}
+.danger {
+  color: #C60000;
+}
+#templateHeader {
+    background-image:none;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:cover;
+    border-top:0;
+    border-bottom:0;
+    padding-top:36px;
+    padding-bottom:0;
+}
+.headerContainer {
+    background-color:#ffffff;
+    background-image:none;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:cover;
+    border-top:1px none ;
+    border-bottom:0;
+    padding-top:36px;
+    padding-bottom:36px;
+}
+.headerContainer .textContent,
+.headerContainer .textContent p {
+    color:#808080;
+    font-family:'Quicksand', Helvetica, Arial, Verdana, sans-serif;
+    font-size:16px;
+    line-height:150%;
+    text-align:left;
+}
+.headerContainer .textContent a,
+.headerContainer .textContent p a {
+    color:#538bb3;
+    font-weight:normal;
+    text-decoration:underline;
+}
+#templateBody {
+    background-color:#f2f2f2;
+    background-image:none;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:cover;
+    border-top:0;
+    border-bottom:0;
+    padding-top:0;
+    padding-bottom:0;
+}
+.bodyContainer {
+    background-color:#ffffff;
+    background-image:none;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:cover;
+    border-top:0;
+    border-bottom:0;
+    padding-top:0;
+    padding-bottom:18px;
+}
+.bodyContainer .textContent,
+.bodyContainer .textContent p {
+    color: var(--dark);
+    font-family:'Quicksand', Helvetica, Arial, Verdana, sans-serif;
+    font-size:14px;
+    line-height:150%;
+    text-align:left;
+}
+.bodyContainer .textContent a,
+.bodyContainer .textContent p a {
+    color:#538bb3;
+    font-weight:normal;
+    text-decoration:underline;
+}
+#templateFooter{
+    background-color:#f2f2f2;
+    background-image:none;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:cover;
+    border-top:1px none ;
+    border-bottom:0;
+    padding-top:0;
+    padding-bottom:36px;
+}
+.footerContainer{
+    background-image:none;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:cover;
+    border-top:0;
+    border-bottom:0;
+    padding-top:30px;
+    padding-bottom:30px;
+}
+.footerContainer .textContent,
+.footerContainer .textContent p {
+    color:#FFFFFF;
+    font-family:'Quicksand', Helvetica, Arial, Verdana, sans-serif;
+    font-size:12px;
+    line-height:150%;
+    text-align:center;
+}
+.footerContainer .textContent a,
+.footerContainer .textContent p a {
+    color:#FFFFFF;
+    font-weight:normal;
+    text-decoration:underline;
+}
+.small {
+  font-size: 10px !important;
+}
+@media only screen and (min-width:768px){
+    .templateContainer {
+        width:600px !important;
+    }
+}
+@media only screen and (max-width: 480px){
+    body,
+    table,
+    td,
+    p,
+    a {
+        -webkit-text-size-adjust:none !important;
+    }
+    body {
+        width:100% !important;
+        min-width:100% !important;
+    }
+    h1 {
+        font-size:30px !important;
+        line-height:125% !important;
+    }
+    h2 {
+        font-size:26px !important;
+        line-height:125% !important;
+    }
+    h3,h5 {
+        font-size:20px !important;
+        line-height:150% !important;
+    }
+    h4 {
+        font-size:18px !important;
+        line-height:150% !important;
+    }
+    .headerContainer .textContent,
+    .headerContainer .textContent p {
+        font-size:16px !important;
+        line-height:150% !important;
+    }
+    .bodyContainer .textContent,
+    .bodyContainer .textContent p {
+        font-size:16px !important;
+        line-height:150% !important;
+    }
+}
+
+
+
+
+.fill-dark {
+  fill: var(--dark) !important;
+}
+
+svg.icon {
+  max-height: 100px;
+  max-width: 100px;
+  height: 20px;
+  width: 20px;
+  fill: var(--primary);
+}
+
+svg.icon-sm {
+  height: 15px;
+  width: 15px;
+  margin-top: -3px;
+}
+
+body {
+  padding-top: 0px !important;
+}
+
+@media print {
+
+  html {
+    height: auto !important;
+    overflow: inherit !important;
+  }
+
+  .module-body {
+    padding-top: 0px !important;
+  }
+
+  .badge svg {
+    fill: var(--dark) !important;
+  }
+
+  .badge {
+    color: var(--dark);
+    background-color: inherit;
+    border-radius: 10px;
+    border: solid 1px var(--dark);
+  }
+  
+  .d-print-none {
+    display: none !important;
+  }
+
+  .d-print-inline {
+    display: inline !important;
+  }
+
+  .d-print-inline-block {
+    display: inline-block !important;
+  }
+
+  .d-print-block {
+    display: block !important;
+  }
+
+  .d-print-table {
+    display: table !important;
+  }
+
+  .d-print-table-row {
+    display: table-row !important;
+  }
+
+  .d-print-table-cell {
+    display: table-cell !important;
+  }
+
+  .d-print-flex {
+    display: flex !important;
+  }
+
+  .d-print-inline-flex {
+    display: inline-flex !important;
+  }
+
+}

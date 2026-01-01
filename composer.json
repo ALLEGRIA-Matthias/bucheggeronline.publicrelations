@@ -1,0 +1,32 @@
+{
+    "name": "buchegger-online/publicrelations",
+    "type": "typo3-cms-extension",
+    "description": "Professional Public Relations Management Extension for TYPO3. Includes QR-Code integration and agency-specific workflows.",
+    "authors": [
+        {
+            "name": "Matthias Buchegger",
+            "email": "matthias@allegria.at",
+            "role": "Developer"
+        }
+    ],
+	"require": {
+        "php": ">=8.3",
+        "typo3/cms-core": "^13.4",
+		"endroid/qr-code": "^4.3.5"
+	},
+    "autoload": {
+        "psr-4": {
+            "BucheggerOnline\\Publicrelations\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BucheggerOnline\\Publicrelations\\Tests\\": "Tests"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "publicrelations"
+        }
+    }
+}

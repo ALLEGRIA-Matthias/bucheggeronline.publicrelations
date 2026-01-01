@@ -1,0 +1,72 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Eventcenter" />
+
+<f:section name="buttons">
+<f:link.action action="show" controller="Event" arguments="{event:event}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#times"></use></svg>Abbrechen</f:link.action>
+</f:section>
+
+<f:section name="content">
+    <h1>Einladungsmanager <small>3 von 3</small></h1>
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <h2>Übersicht</h2>
+    <f:form action="create" enctype="multipart/form-data" name="invitations" object="{invitations}" arguments="{event:event}" class="js-invitation-form">
+    <f:form.hidden name="formType" value="invitationManager" />
+    <f:form.hidden property="guestType" value="{invitations.guestType}" />
+    <f:form.hidden property="listType" value="{invitations.listType}" />
+    <f:form.hidden property="ticketsWish" value="{invitations.ticketsWish}" />
+    <f:form.hidden property="invitationType" value="{invitations.invitationType}" />
+    <f:form.hidden property="selectedGuestUids" value="" />
+
+    <p>
+      <strong>Gästetyp: </strong><f:switch expression="{invitations.guestType}"><f:case value="1">Promis</f:case><f:case value="2">Presse</f:case></f:switch><br/>
+      <strong>Vorauswahl: </strong> {invitations.receiver->f:count()} Kontakte
+    </p>
+
+    <div class="form-inline mb-4">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <input placeholder="Suche" class="form-control form-control-sm filter-table" 
+                          data-filter-table="mailinglists" 
+                          data-filter-counter="mailinglists-counter" 
+                          data-filter-not="1" 
+                          type="search" />
+                </div>
+                <div class="form-group">
+                  <div class="form-control-plaintext" id="mailinglists-counter" data-counter-label="Kontakte">{mailingLists->f:count()} von {mailingLists->f:count()} Kontakte</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-fit">
+      <table class="table table-striped table-hover" id="mailinglists">
+        <thead>
+          <tr>
+            <th><input type="checkbox" class="checkbox-toggle-all" checked></th>
+            <th>Name</th>
+            <th>E-Mail</th>
+          </tr>
+        </thead>
+        <tbody id="mailinglists-to-filter">
+        <f:for each="{invitations.receiver -> v:iterator.sort(sortBy: 'last_name')}" as="receiver" iteration="ri">
+          <tr>
+            <td width="30px">
+              <input type="checkbox" name="guest.{receiver.uid}" class="guest-checkbox" data-uid="{receiver.uid}" checked="checked" />
+            </td>
+            <td><f:format.trim>{receiver.first_name} <f:if condition="{receiver.middle_name}">{receiver.middle_name} </f:if>{receiver.last_name}</f:format.trim><f:if condition="{receiver.company}"> [{receiver.company}]</f:if></td>
+            <td>{receiver.email}</td>
+          </tr>
+        </f:for>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-12"><f:form.submit value="Einladungen generieren" class="btn btn-success" /></div>
+
+    </f:form>
+</f:section>
+</html>

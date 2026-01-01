@@ -1,0 +1,22 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+  xmlns:acdist="http://typo3.org/ns/Allegria/AcDistribution/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+<f:if condition="{accreditation.invitationType.uid}!=162">
+<p>
+  <f:if condition="{altSender} || {accreditation.invitationType.altSender}">
+    <f:then>
+      Liebe Grüße<br/>
+      <f:if condition="{accreditation.invitationType.altSender}"><f:then>{accreditation.invitationType.altSender}</f:then><f:else>{altSender}</f:else></f:if>
+    </f:then>
+    <f:else>
+      Liebe Grüße<br/>
+      <strong>{staff}</strong><br/>
+      <f:if condition="{template}!='Message'">{settings.company.name}</f:if>
+    </f:else>
+  </f:if>
+</p>
+</f:if>
+</html>

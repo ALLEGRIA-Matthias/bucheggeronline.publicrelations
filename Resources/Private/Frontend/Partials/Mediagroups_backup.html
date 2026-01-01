@@ -1,0 +1,71 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+
+<div class="alert alert-white anchor" id="pressematerial">
+  <h2 class="h4 mt-2 mb-3"><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#thumbnails-small"></use></svg> Pressematerial</h2>
+  <div class="accordion" id="pressmaterial">
+    <f:for each="{mediagroups}" as="mediagroup" iteration="i">
+      <f:if condition="{mediagroup.media}">
+      <div class="card">
+        <a class="card-header bg-primary text-white text-decoration-none fw-bold {f:if(condition:'!{i.index}', else:'collapsed')}" id="heading{i.cycle}" role="button" data-bs-toggle="collapse" href="#collapse{i.cycle}" aria-expanded="{f:if(condition:'!{i.index}', then:'false', else:'true')}" aria-controls="collapse{i.cycle}">
+          <div class="row flex-nowrap">
+            <div class="col-6 col-md-8 col-lg-9 col-xl-10 text-truncate me-auto">
+              <svg class="icon fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#thumbnails-list"></use></svg> {mediagroup.title}
+            </div>
+            <div class="col ms-auto text-end">
+              <span class="badge bg-light text-dark me-3 d-none d-md-inline-block">{mediagroup.media->f:count()} {f:if(condition:'{mediagroup.media->f:count()}>1', then:'Dateien', else:'Datei')}</span><svg class="icon fill-white collapse-icon"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#chevron-up"></use></svg>
+            </div>
+          </div>
+        </a>
+
+        <div id="collapse{i.cycle}" class="collapse {f:if(condition:'!{i.index}', then:'show')}" aria-labelledby="heading{i.cycle}" data-bs-parent="#pressmaterial">
+          <div class="card-body table-responsive">
+            <table class="table table-sm table-borderless table-hover">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Bezeichnung</th>
+                  <th scope="col">Copyright</th>
+                  <th scope="col">Format</th>
+                  <th scope="col">Auflösung</th>
+                  <th scope="col">Größe</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <f:for each="{mediagroup.media}" as="file" iteration="fi">
+                  <f:if condition="{file.originalResource.properties.type}==2 || {file.originalResource.properties.type}==4">
+                  <f:then>
+                  <tr data-bs-toggle="popover" title="Foto-Vorschau" data-bs-html="true" data-bs-trigger="hover" data-bs-placement="left" fallbackPlacements="['left', 'top', 'bottom']" data-bs-content='<f:image image="{file}" maxWidth="400" maxHeight="400" absolute="true" title="{file.originalResource.title->f:format.htmlentities()}" alt="{file.originalResource.title->f:format.htmlentities()}" />' class="clickable">
+                  </f:then>
+                  <f:else>
+                  <tr>
+                  </f:else>
+                  </f:if>
+                    <td class="align-middle" scope="row">
+                      <div class="pc-download-thumb">
+                        <div class="h-100 d-flex">
+                          <f:image image="{file}" class="mx-auto my-auto" alt="{file.originalResource.title}" maxHeight="100" maxWidth="100" />
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle">{file.originalResource.title}<f:if condition="{file.originalResource.title} && {file.originalResource.description}"><br/></f:if><div class="small">{file.originalResource.description->f:format.nl2br()}</div></td>
+                    <td class="align-middle">{f:if(condition:'{file.originalResource.properties.copyright}', then:'{file.originalResource.properties.copyright}', else:'{client.name}')}</td>
+                    <td class="align-middle">{file.originalResource.mimeType}<br/>{file.originalResource.extension}</td>
+                    <td class="align-middle">{file.originalResource.properties.width}x{file.originalResource.properties.height}{file.originalResource.properties.unit}<br/>{file.originalResource.properties.color_space}</td>
+                    <td class="align-middle">{file.originalResource.size->f:format.bytes(decimals: 2, decimalSeparator: '.', thousandsSeparator: ',')}</td>
+                    <td class="align-middle"><a href="{file.originalResource.publicUrl}" download target="_blank"><svg class="icon fill-primary"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#square-download"></use></svg></a></td>
+                  </tr>
+                </f:for>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      </f:if>
+    </f:for>
+  </div>
+</div>

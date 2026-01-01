@@ -1,0 +1,190 @@
+<f:asset.css
+    identifier="pressecenter-mycontacts-style"
+    href="EXT:publicrelations/Resources/Public/Css/Pressecenter/myContacts.css" />
+
+    <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+    <h1 class="d-flex justify-content-between align-items-baseline">
+        <span>Meine Kontakte</span>
+        <span class="h5">[{f:if(condition:client.shortName,then:client.shortName,else:client.name)}]</span>
+    </h1>
+
+    <div id="contacts-container" data-client-uid="{client.uid}">
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Kontakte Gesamt</h5>
+                        <p class="card-text fs-3" id="total-contacts-count">...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Mailinglisten</h5>
+                        <p class="card-text fs-3" id="total-mailinglists-count">...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Gefilterte Kontakte</h5>
+                        <p class="card-text fs-3" id="filtered-contacts-count">...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <h5>Mailinglisten</h5>
+                <div class="list-group" id="mailinglist-filter">
+                    </div>
+            </div>
+
+            <div class="col-md-10">
+                <div class="d-flex justify-content-between mb-4">
+                    <div class="form-outline flex-grow-1" data-mdb-input-init>
+                        <input type="text" id="contact-search-input" class="form-control" />
+                        <label class="form-label" for="contact-search-input">Kontakte durchsuchen...</label>
+                    </div>
+                    <button class="btn btn-primary shadow-0 ms-3 text-nowrap" id="create-new-contact-button">
+                        <i class="fas fa-plus me-2"></i>Neuer Kontakt
+                    </button>
+                </div>
+
+                <div id="datatable-contacts"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactModalLabel">Kontakt bearbeiten</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="contact-form">
+                        <input type="hidden" id="contact-uid" name="uid">
+
+                        <h6 class="mb-3">Name</h6>
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <select id="contact-gender" name="gender" class="form-select" data-mdb-select-init>
+                                    <option value="f">Frau</option>
+                                    <option value="m">Herr</option>
+                                    <option value="v">Divers</option>
+                                </select>
+                                <label class="form-label select-label" for="contact-gender">Anrede</label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input type="text" id="contact-title" name="title" class="form-control" />
+                                    <label class="form-label" for="contact-title">Titel</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input type="text" id="contact-title_suffix" name="title_suffix" class="form-control" />
+                                    <label class="form-label" for="contact-title_suffix">Titel (nachgestellt)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input type="text" id="contact-first_name" name="first_name" class="form-control" />
+                                    <label class="form-label" for="contact-first_name">Vorname</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input type="text" id="contact-middle_name" name="middle_name" class="form-control" />
+                                    <label class="form-label" for="contact-middle_name">Zweiter Vorname</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input type="text" id="contact-last_name" name="last_name" class="form-control" />
+                                    <label class="form-label" for="contact-last_name">Nachname</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <h6 class="mb-3">Firma</h6>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input type="text" id="contact-company" name="company" class="form-control" />
+                                    <label class="form-label" for="contact-company">Firma</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input type="text" id="contact-position" name="position" class="form-control" />
+                                    <label class="form-label" for="contact-position">Position</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <hr class="my-4">
+
+                        <h6 class="mb-3">Kontaktdaten</h6>
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input type="email" id="contact-email" name="email" class="form-control" />
+                                    <label class="form-label" for="contact-email">E-Mail</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input type="tel" id="contact-phone" name="phone" class="form-control" />
+                                    <label class="form-label" for="contact-phone">Telefon</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input type="tel" id="contact-mobile" name="mobile" class="form-control" />
+                                    <label class="form-label" for="contact-mobile">Mobil</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div id="duplicate-check-area" class="mt-4 border-top pt-3 d-none">
+                        <h6>Mögliche Duplikate gefunden:</h6>
+                        <div id="duplicate-list" class="mb-3" style="max-height: 200px; overflow-y: auto;"></div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" id="confirm-no-duplicate" />
+                            <label class="form-check-label" for="confirm-no-duplicate">
+                                Ich habe die Liste geprüft und bestätige, dass dies kein Duplikat ist und der Kontakt neu angelegt werden soll.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Abbrechen</button>
+                    <button type="button" id="save-contact-button" class="btn btn-primary">Speichern</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container" class="toast-container position-fixed bottom-0 start-0 p-3"></div>
+
+    <f:asset.script
+        identifier="pressecenter-mycontacts"
+        src="EXT:publicrelations/Resources/Public/JavaScript/Pressecenter/myContacts.js"
+        type="module"
+        position="footer" />
+
+</html>

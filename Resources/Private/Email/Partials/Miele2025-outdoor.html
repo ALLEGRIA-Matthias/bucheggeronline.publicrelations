@@ -1,0 +1,508 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+
+<f:section name="preview">
+    <!-- Visually Hidden Preheader Text : BEGIN -->
+    <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: 'Roboto Slab', sans-serif">
+    <f:switch expression="{content}">
+        <f:case value="invite">Miele Österreich lädt ein: Exklusive Miele Preview OUTDOOR COOKING am 26.08.2025. Ihre persönliche Einladung!</f:case>
+        <f:case value="remind">Nicht verpassen! Miele Österreich lädt ein: Exklusive Miele Preview OUTDOOR COOKING am 26.08.2025. Ihre persönliche Einladung!</f:case>
+        <f:case value="push">Letzte Chance! Miele Österreich lädt ein: Exklusive Miele Preview OUTDOOR COOKING am 26.08.2025. Ihre persönliche Einladung!</f:case>
+        <f:case value="approve">Wie schön, dass wir Sie bei der exklusiven Miele Preview OUTDOOR COOKING am 26.08.2025 begrüßen dürfen.</f:case>
+        <f:case value="reject">Schade, dass es nicht klappt. Miele Österreich würde sich freuen, Sie bald bei einer anderen Gelegenheit begrüßen zu dürfen.</f:case>
+    </f:switch>
+    </div>
+    <!-- Visually Hidden Preheader Text : END --> 
+</f:section>
+
+<f:section name="headline">
+    <f:switch expression="{content}">
+        <f:case value="invite">Einladung zur exklusiven Miele Preview</f:case>
+        <f:case value="remind"><strong>Erinnerung zur</strong><br>Einladung zur exklusiven Miele Preview</f:case>
+        <f:case value="push"><strong>Finale Erinnerung zur</strong><br>Einladung zur exklusiven Miele Preview</f:case>
+        <f:case value="approve">Wir freuen uns über die Zusage!</f:case>
+        <f:case value="reject">Schade,<br>dass es diesmal nicht klappt.</f:case>
+    </f:switch>
+</f:section>
+
+<f:section name="content">
+    <f:switch expression="{content}">
+        <f:case value="approve">
+            <!-- Zusage : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: center; font-family: 'Dosis', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #555555;">
+                    <h1 style="font-family: 'Dosis', sans-serif; color: #A60E1F; font-size: 1.8rem; font-weight: 700; text-align: center; text-transform: uppercase; margin-bottom: 30px;"><f:format.raw><f:render section="headline" arguments="{_all}" /></f:format.raw></h1>
+                    <p style="margin-top: 0; font-weight: 500;">
+                        Wie schön, dass wir Sie mit auf Gut Böckel nehmen dürfen.<br><strong>Ihr Platz ist hiermit reserviert.</strong>
+                    </p>
+                    <h2 style="font-family: 'Dosis', sans-serif; color: #A60E1F; font-size: 1.4rem; font-weight: 500; text-align: center; margin-top: 50px;"><strong>Wichtig:</strong><br>Wir brauchen noch einige Daten zur Reisebuchung.</h2>
+                    <p>Um Ihre An- und Abreise planen und buchen zu können brauchen wir noch einige Daten von Ihnen, dazu bitten wir folgendes Formular auszufüllen. Wir kümmern uns dann direkt um die Buchung der Reise.</p>
+                    <!-- Button : Begin -->
+                    <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto; padding: 10px 20px;">
+                        <tr>
+                            <td style="border-radius: 0px; background: #A60E1F; color: #ffffff; text-align: center;" class="button-td">
+                                <a href="https://forms.gle/CNDrvM38wwFQ72eo8" target="_blank" style="display: inline-block; background-color: #A60E1F; font-family: 'Dosis', sans-serif; font-weight: 700; color: white; text-decoration: none; padding: 5px 15px; margin: 0px auto; font-size: 1rem; border-radius: 0px;">
+                                    Jetzt Reisedaten bekanntgeben
+                                </a>
+                            </td>
+                        </tr>
+                    </table>         
+                    <!-- Button : END -->
+                </td>
+            </tr>
+            <!-- Zusage : END -->
+
+            <f:render section="eventinfo" arguments="{_all}" />
+            <f:render section="program" arguments="{_all}" />
+            <f:render section="sperrfrist" arguments="{_all}" />
+            <f:render section="greetings" />
+        </f:case>
+        <f:case value="reject">
+            <!-- Absage : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: center; font-family: 'Dosis', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #555555;">
+                    <h1 style="font-family: 'Dosis', sans-serif; color: #A60E1F; font-size: 1.8rem; font-weight: 700; text-align: center; text-transform: uppercase; margin-bottom: 50px;"><f:format.raw><f:render section="headline" arguments="{_all}" /></f:format.raw></h1>
+                    <p style="margin-top: 0; margin-bottom: 0px; font-weight: 500;">
+                        Miele Austria bedankt sich für die,<br>
+                        wenn auch negative, Rückmeldung.
+                    </p>
+                    <p>Umfassendes Pressematerial zum Thema erhalten Sie natürlich dennoch nach der Pressereise elektronisch. Sollten noch Fragen offen sein, können Sie sich jederzeit an <strong>Mario Reiner</strong> unter <a style="color: #1F1F1F;" href="mailto:mario@allegria.at"><strong>mario@allegria.at</strong></a> wenden.</p>
+                    <p style="border-top: #A60E1F solid 1px; display: inline-block; padding: 10px; margin-bottom: 0; margin-top: 40px; min-width: 100px;">&nbsp;</p>
+                    <p><img src="https://www.allegria.at/fileadmin/marketing/miele/Miele-2025_Foto-Outdoor.png" width="400" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 350px; height: auto; margin-bottom: 30px; margin-top: 0px"></p>
+                    <p style="margin-top: 0px;">
+                        Besuchen Sie gerne auch unsere Website.
+                    </p>
+
+                    <!-- Button : Begin -->
+                    <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto; padding: 10px 20px;">
+                        <tr>
+                            <td style="border-radius: 0px; background: #A60E1F; color: #ffffff; text-align: center;" class="button-td">
+                                <a href="https://www.miele.at" target="_blank" style="display: inline-block; background-color: #A60E1F; font-family: 'Dosis', sans-serif; font-weight: 400; color: white; text-decoration: none; padding: 5px 15px; margin: 0px auto; font-size: 1rem; border-radius: 0px;">
+                                    Zur Website
+                                </a>
+                            </td>
+                        </tr>
+                    </table>         
+                    <!-- Button : END -->
+                </td>
+            </tr>
+            <!-- Absage : END -->
+        </f:case>
+        <f:case value="waiting">
+        </f:case>
+        <f:case value="pending">
+        </f:case>
+        <f:case value="reject_after_waiting">
+        </f:case>
+        <f:case value="approve_after_waiting">
+        </f:case>
+        <f:defaultCase>
+            <f:render section="header" arguments="{_all}" />
+            <!-- Einladung Einleitung : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: left; font-family: 'Dosis', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+                    <h2 style="font-family: 'Dosis', sans-serif; color: #A60E1F; font-size: 1.4rem; font-weight: 500; text-align: center;"><f:format.raw><f:render section="headline" arguments="{_all}" /></f:format.raw></h2>
+                    <h1 style="font-family: 'Dosis', sans-serif; color: #A60E1F; font-size: 1.8rem; font-weight: 700; text-align: center; text-transform: uppercase; margin-bottom: 50px;">Outdoor Cooking</h1>
+                    <f:variable name="gender" value="{accreditation.guestOutput.gender}" />
+                    <f:variable name="lastName" value="{accreditation.guestOutput.lastName}" />
+
+                    <p>
+                    <f:switch expression="{gender}">
+                        <f:case value="f">Sehr geehrte Frau {lastName},</f:case>
+                        <f:case value="m">Sehr geehrter Herr {lastName},</f:case>
+                        <f:defaultCase>Sehr geehrte Damen und Herren,</f:defaultCase>
+                    </f:switch>
+                    </p>
+
+                    <p style="margin-bottom: 0;">es wird Zeit, nach draußen zu gehen – let‘s go outside. Deshalb laden wir Sie herzlich zur <strong>exklusiven Preview Outdoor Cooking</strong> auf Gut Böckel in Rödinghausen ein.</p>
+                </td>
+            </tr>
+            <!-- Einladung Einleitung : BEGIN --> 
+            <f:render section="eventinfo" arguments="{_all}" />
+            <f:render section="program" arguments="{_all}" />
+            <f:render section="sperrfrist" arguments="{_all}" />
+            <!-- Rückmeldung 1 : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: center; font-family: 'Dosis', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+                    <f:render section="btn" arguments="{_all}" />
+                    <p style="font-size: 0.8rem;">
+                        Um Rückmeldung wird <strong>bis spätestens <f:if condition="{accreditation.invitationType.feedbackDate}"><f:then>{mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'d')}, {accreditation.invitationType.feedbackDate->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'month', lang: 'at')} {accreditation.invitationType.feedbackDate->f:format.date(format:'%Y')}</f:then><f:else><f:format.date date="{accreditation.event.date->f:format.date(format:'d.m.Y')} - 2weeks friday" format="d.m.Y" /></f:else></f:if></strong> gebeten.<br>
+                        Die Einladung ist nicht übertragbar!
+                    </p>
+                </td>
+            </tr>
+            <!-- Rückmeldung 1 : BEGIN --> 
+            <f:render section="ansprechpartner" arguments="{_all}" />
+            <!-- Rückmeldung 2 : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: 'Dosis', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+                    <p>
+                        Wir danken Ihnen für Ihre Rückmeldung<br>
+                        <strong style="text-decoration: underline;">bis zum <f:if condition="{accreditation.invitationType.feedbackDate}"><f:then>{mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'d')}, {accreditation.invitationType.feedbackDate->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'month', lang: 'at')} {accreditation.invitationType.feedbackDate->f:format.date(format:'%Y')}</f:then><f:else><f:format.date date="{accreditation.event.date->f:format.date(format:'d.m.Y')} - 2weeks friday" format="d.m.Y" /></f:else></f:if></strong> und freuen uns auf Ihre Teilnahme.<br>
+                    </p>
+                </td>
+            </tr>
+            <!-- Rückmeldung 2 : BEGIN --> 
+            <f:render section="greetings" />
+        </f:defaultCase>
+    </f:switch>
+</f:section>
+
+<f:section name="greetings">
+    <!-- Gruesse : BEGIN -->
+    <tr>
+        <td style="padding: 40px; text-align: center; font-family: 'Dosis', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+            <p>
+                Beste Grüße<br>
+                <strong>Mario Reiner</strong>, Allegria Communications<br>
+                für Miele Österreich
+            </p>
+            <p style="margin-bottom: 0; margin-top: 30px;"><a href="https://www.miele.at" target="_blank" style="color: #A60E1F; text-decoration: none; font-size: 1.4rem; font-weight: 700;">www.miele.at</a></p>
+        </td>
+    </tr>
+    <!-- Gruesse : BEGIN --> 
+</f:section>
+
+<f:section name="info">
+    <f:switch expression="{content}">
+        <f:case value="invite"><f:render section="programContent" arguments="{_all}" /></f:case>
+        <f:case value="remind"><f:render section="programContent" arguments="{_all}" /></f:case>
+        <f:case value="push"><f:render section="programContent" arguments="{_all}" /></f:case>
+        <f:case value="approve"><f:render section="programContent" arguments="{_all}" /></f:case>
+        <f:case value="approve_after_waiting"><f:render section="programContent" arguments="{_all}" /></f:case>
+    </f:switch>
+</f:section>
+
+<f:section name="header">
+    <tr>
+        <td bgcolor="#D8C9B4" valign="middle" style="text-align: center; padding-bottom: 20px;">
+            <img src="https://www.allegria.at/fileadmin/marketing/miele/Miele-2025_Header.png" alt="Let's go Outside!" border="0" align="center" style="width: 90%; max-width: 400px; height: auto; margin: 0;">
+        </td>
+    </tr>
+</f:section>
+
+<f:section name="eventinfo">
+<!-- Eventinfo : BEGIN -->
+<tr>
+    <td bgcolor="#8C0014" dir="ltr" align="center" valign="top" width="100%" style="padding: 30px;"><table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+        <td width="50%" class="stack-column-center"><table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+            <td dir="ltr" valign="top" style="padding: 0 10px;"><img src="https://www.allegria.at/fileadmin/marketing/miele/Miele-2025_Foto-Outdoor.png" width="230" alt="Miele | Let's go Outside!" border="1" class="fluid center-on-narrow" style="border-color: white;"></td>
+            </tr>
+            </table></td>
+        <td width="50%" class="stack-column-center"><table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td dir="ltr" valign="top" style="font-family: 'Dosis', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: white; padding: 10px; text-align: left;" class="center-on-narrow">
+                    <strong style="text-transform: uppercase;">Datum</strong><br>
+                    {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}, {accreditation.event.date->f:format.date(format:'%k:%M')} – <f:format.date date="{accreditation.event.date->f:format.date(format:'%k.%M')} + {accreditation.event.duration} minutes" format="%k.%M" /> Uhr<br>
+                    <span style="font-size: 0.8rem;">(inkl. Abendveranstaltung und Abendessen)</span><br>
+                    <br>
+                    <strong style="text-transform: uppercase;">Ort</strong><br>
+                    {accreditation.event.location.name}<br>
+                    {accreditation.event.location.street}, {accreditation.event.location.city} (DE)                    
+                </td>
+            </tr>
+            </table></td>
+        </tr>
+    </table></td>
+</tr>
+<!-- Eventinfo : END --> 
+</f:section>
+
+<f:section name="program">
+<!-- Programm : BEGIN -->
+<tr>
+    <td style="padding: 40px; text-align: center; font-family: 'Dosis', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #555555;">
+        <h3 style="font-family: 'Dosis', sans-serif; color: #1F1F1F; font-size: 1.2rem; font-weight: 500; max-width: 80%; margin:auto;">Erhalten Sie exklusive Einblicke in unsere neuste Outdoor Cooking Produktinnovation und tauschen Sie sich vor Ort mit Vertretern von Miele aus.</h3>
+        <p style="border-top: #1F1F1F solid 1px; display: inline-block; padding: 10px; margin-bottom: 0; margin-top: 40px; min-width: 100px;">&nbsp;</p>
+        <h2 style="font-family: 'Dosis', sans-serif; color: #A60E1F; font-size: 1.4rem; font-weight: 700; text-align: center; margin-bottom: 30px; margin-top: 0;">Programm & Gesprächspartner</h2>
+        <p style="max-width: 90%; margin: auto; margin-bottom: 15px;"><strong>Dr. Axel Kniehl</strong>, Geschäftsführer für Marketing and Sales, <strong>Dr. Stefan Breit</strong>, Geschäftsführer Technik, und <strong>Christian Gerwens</strong>, Senior Vice President der Vertriebsregion DACH und Geschäftsführer der Vertriebsgesellschaft Deutschland, freuen sich darauf, Ihnen unser neuestes Highlight zu präsentieren und einen gemeinsamen Blick auf die Outdoor-Neuheiten von Miele zu werfen. Seien Sie unter den Ersten, die unsere Innovationen bereits vor der IFA in Berlin exklusiv in dieser besonders stilvollen Atmosphäre erleben.</p>
+        <p style="max-width: 90%; margin: auto;">Im Verlauf des Tages stehen Ihnen neben <strong>Dr. Axel Kniehl</strong>, <strong>Dr. Stefan Breit</strong> und <strong>Christian Gerwens</strong> auch <strong>Dr. Markus Miele</strong>, Geschäftsführender Gesellschafter, sowie <strong>Gernot Trettenbrein</strong>, Senior Vice President der Business Unit New Growth Factory, für Interviews und Gespräche zur Verfügung.</p>
+    </td>
+</tr>
+<!-- Programm : END --> 
+</f:section>
+
+<f:section name="sperrfrist">
+<!-- Programm : BEGIN -->
+<tr>
+    <td bgcolor="#A60E1F" style="padding: 40px; text-align: center; font-family: 'Dosis', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #FFFFFF;">
+        <h3 style="font-family: 'Dosis', sans-serif; font-size: 1.2rem; max-width: 80%; margin-left: auto; margin-right: auto;">Sperrfrist</h3>
+        <p style="max-width: 80%; margin-left: auto; margin-right: auto;">Beachten Sie, dass die Berichterstattung und Veröffentlichungen einer <strong>Sperrfrist</strong> bis zum <strong>3. September 2025 – 11 Uhr</strong> unterliegen</p>
+        <p style="margin-left: auto; margin-right: auto; margin-bottom: 0; max-width: 80%;">Bitte geben Sie uns eine Rückmeldung zu Ihrer Teilnahme und im nächsten Schritt (Bestätigungs-Email nach Zusage) Ihren Interview-Präferenzen. Wir versuchen, Ihre Wünsche bestmöglich zu berücksichtigen.</p>
+    </td>
+</tr>
+<!-- Programm : END --> 
+</f:section>
+
+<f:section name="ansprechpartner">
+<!-- Programm : BEGIN -->
+<tr>
+    <td bgcolor="#FFFFFF" style="padding: 0 40px; text-align: center; font-family: 'Dosis', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #FFFFFF;">
+        <div style="background-color: #1F1F1F; width: 100%; max-width: 80%; margin-left: auto; margin-right: auto; padding: 40px;">
+            <h3 style="font-family: 'Dosis', sans-serif; font-size: 1.4rem; margin-top: 0;">Infos & Ansprechpartner</h3>
+            <p>Im Rahmen der Einladung organisieren wir gerne <strong>Ihre Anreise per Bahn oder Flugzeug sowie eine Übernachtung</strong>. <strong>Die Reisekosten übernimmt Miele</strong>.</p>
+            <p><strong> Weitere Informationen</strong> dazu erhalten Sie nach Ihrer Anmeldung.</p>
+            <p style="margin-bottom: 30px;">Bei Fragen erreichen Sie uns telefonisch unter <strong><a style="color: #FFFFFF;" href="tel:004314790260">+43 1 479 02 60</a></strong> oder per E-Mail an <a style="color: #FFFFFF;" href="mailto:mario@allegria.at"><strong>mario@allegria.at</strong></a>.</p>
+            <f:render section="btn-red" arguments="{_all}" />
+        </div>
+    </td>
+</tr>
+<!-- Programm : END --> 
+</f:section>
+
+<f:section name="ticketinfo">
+    <div style="background: #A60E1F; border: 1px solid #A60E1F; border-radius: 0px; padding: 15px; text-align: center; margin-bottom: 10px; margin-left: 10%; margin-right: 10%;">
+        <p style="margin: 0; font-family: 'Dosis', sans-serif; font-size: 1.4rem; color: #FFFFFF; font-weight: 600; text-transform: uppercase;">{accreditation.guestOutput.fullName}</p>
+        <p style="margin-top: 0; color: #FFFFFF; font-family: 'Dosis', sans-serif; font-size: 1.2rem; font-weight: 400; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+        <p style="margin: 0; margin-top: 10px; font-family: 'Dosis', sans-serif; font-size: 0.65rem; color: #FFFFFF;">
+            <span style="font-size: 0.8rem;">Akkreditierung Nr. <strong style="font-weight: 600;">#{accreditation.uid}</strong> versandt am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr.</span><br>
+            *diese Bestätigung ist nicht übertragbar</p>
+    </div>
+    
+    <h2 style="font-size: 1.4rem; text-transform: uppercase; margin-bottom: 0; margin-top: 40px; font-weight: 600;">Krank oder verhindert?</h2>
+    <p style="margin-top: 0; margin-bottom: 5px; font-weight: 300;">
+        Bitte lassen Sie uns via E-Mail wissen,<br>
+        sollten Sie wider Erwarten nicht zur Veranstaltung kommen können.
+    </p>
+    <p style="margin: 27px 0px 0px 0px"><a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank" style="background: #A60E1F; padding: 7px 14px; color: #FFFFFF; font-weight: 500; text-decoration: none;">E-Mail senden</a></p>
+
+</f:section>
+
+<f:section name="programContent">
+<!-- Background Color with Text : BEGIN -->
+<tr>
+    <td bgcolor="#A60E1F" valign="middle" style="text-align: center;">
+    
+    <div>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Dosis', sans-serif; font-size: 1rem; font-weight: 500; mso-height-rule: exactly; line-height: 1.25; color: #FFFFFF;">
+                <p style="border-top: #ffffff solid 1px; display: inline-block; padding: 10px">Die Köchinnen</p>
+                
+                <!-- Three Even Columns : BEGIN -->
+                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                        <td width="33.33%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                            <td style="padding: 0px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/miele/Miele-femalechefs_portrait-Stefanie-Sonnleitner.png" width="500" height="450" alt="Stefanie Sonnleitner" border="0" class="fluid" style="max-width: 90%; height: auto;"></td>
+                            </tr>
+                            <tr>
+                            <td style="font-family: 'Dosis', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.2; color: #FFFFFF; padding: 10px 10px 10px; text-align: center;" class="center-on-narrow">
+                                <span style="font-weight: 600; font-size: 1rem;">Stefanie Sonnleitner</span><br>
+                                <span style="font-weight: 300;">Bio Hotel Daberer</span></td>
+                            </tr>
+                            </table></td>
+                        <td width="33.33%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                            <td style="padding: 0px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/miele/Miele-femalechefs_portrait-Nina-Meyer.png" width="500" height="450" alt="Nina Meyer" border="0" class="fluid" style="max-width: 90%; height: auto;"></td>
+                            </tr>
+                            <tr>
+                            <td style="font-family: 'Dosis', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.2; color: #FFFFFF; padding: 10px 10px 10px; text-align: center;" class="center-on-narrow">
+                                <span style="font-weight: 600; font-size: 1rem;">Nina Meyer</span><br>
+                                <span style="font-weight: 300;">Hotel Ifenblick</span></td>
+                            </tr>
+                            </table></td>
+                        <td width="33.33%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                            <td style="padding: 0px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/miele/Miele-femalechefs_portrait-Clara-Aue.png" width="500" height="450" alt="Clara Aue" border="0" class="fluid" style="max-width: 90%; height: auto;"></td>
+                            </tr>
+                            <tr>
+                            <td style="font-family: 'Dosis', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.2; color: #FFFFFF; padding: 10px 10px 10px; text-align: center;" class="center-on-narrow">
+                                <span style="font-weight: 600; font-size: 1rem;">Clara Aue</span><br>
+                                <span style="font-weight: 300;">Biohotel Gralhof</span></td>
+                            </tr>
+                            </table></td>
+                        </tr>
+                </table>
+                <!-- Three Even Columns : END -->
+
+                <!-- Three Even Columns : BEGIN -->
+                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                    <td width="33.33%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                        <td style="padding: 0px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/miele/Miele-femalechefs_portrait-Sandra-Scheidl.png" width="500" height="450" alt="Sandra Scheidl" border="0" class="fluid" style="max-width: 90%; height: auto;"></td>
+                        </tr>
+                        <tr>
+                        <td style="font-family: 'Dosis', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.2; color: #FFFFFF; padding: 10px 10px 10px; text-align: center;" class="center-on-narrow">
+                            <span style="font-weight: 600; font-size: 1rem;">Sandra Scheidl</span><br>
+                            <span style="font-weight: 300;">Culinary Arts</span></td>
+                        </tr>
+                        </table></td>
+                    <td width="33.33%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                        <td style="padding: 0px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/miele/Miele-femalechefs_portrait-Lisa-Machian.png" width="500" height="450" alt="Lisa Machian" border="0" class="fluid" style="max-width: 90%; height: auto;"></td>
+                        </tr>
+                        <tr>
+                        <td style="font-family: 'Dosis', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.2; color: #FFFFFF; padding: 10px 10px 10px; text-align: center;" class="center-on-narrow">
+                            <span style="font-weight: 600; font-size: 1rem;">Lisa Machian</span><br>
+                            <span style="font-weight: 300;">Café Cache</span></td>
+                        </tr>
+                        </table></td>
+                    <td width="33.33%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                        <td style="padding: 0px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/miele/Miele-femalechefs_portrait-Viktoria-Fahringer.png" width="500" height="450" alt="Viktoria Fahringer" border="0" class="fluid" style="max-width: 90%; height: auto;"></td>
+                        </tr>
+                        <tr>
+                        <td style="font-family: 'Dosis', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.2; color: #FFFFFF; padding: 10px 10px 10px; text-align: center;" class="center-on-narrow">
+                            <span style="font-weight: 600; font-size: 1rem;">Viktoria Fahringer</span><br>
+                            <span style="font-weight: 300;">Hotel Viktorias Home</span></td>
+                        </tr>
+                        </table></td>
+                    </tr>
+                </table>
+                <!-- Three Even Columns : END -->
+            </td>
+            </tr>
+        </table>
+        </div>
+    
+    </td>
+</tr>
+<tr>
+    <td bgcolor="#FFFFFF" valign="middle" style="text-align: center;">
+    
+    <div>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Dosis', sans-serif; font-size: 1rem; font-weight: 500; mso-height-rule: exactly; line-height: 1.25; color: #A60E1F;">
+                <p style="border-top: #A60E1F solid 1px; display: inline-block; padding: 10px">Die Produzentinnen</p>
+                
+                <!-- Three Even Columns : BEGIN -->
+                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td align="center" valign="top" style="padding: 10px;"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                            <td class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+                                <tr>
+                                <td style="font-family: 'Dosis', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.2; color: #1F1F1F; padding: 10px 10px 10px; text-align: center;" class="center-on-narrow">
+                                    <p>
+                                        <span style="font-weight: 600; font-size: 1rem;">Sirkka Hammer</span><br>
+                                        <span style="font-weight: 300;">Wiener Miso</span>
+                                    </p>
+                                    <p style="margin-top:30px;">
+                                        <span style="font-weight: 600; font-size: 1rem;">Greti Mayer</span><br>
+                                        <span style="font-weight: 300;">Kimchi, sustainable food design</span>
+                                    </p>
+                                    <p style="margin-top:30px;">
+                                        <span style="font-weight: 600; font-size: 1rem;">Marlene Kelnreiter</span><br>
+                                        <span style="font-weight: 300;">Ziegenkäse aus Almmilch</span>
+                                    </p>
+                                </td>
+                              </tr>
+                              </table></td>
+                            <td class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+                                <tr>
+                                <td style="font-family: 'Dosis', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.2; color: #1F1F1F; padding: 10px 10px 10px; text-align: center;" class="center-on-narrow">
+                                    <p>
+                                        <span style="font-weight: 600; font-size: 1rem;">Amelie Seilern-Aspang</span><br>
+                                        <span style="font-weight: 300;">Schloss Litschau Karpfen Kaviar</span>
+                                    </p>
+                                    <p style="margin-top:30px;">
+                                        <span style="font-weight: 600; font-size: 1rem;">Renate Höglinger</span><br>
+                                        <span style="font-weight: 300;">Biofleisch mit Hofschlachtung</span>
+                                    </p>
+                                    <p style="margin-top:30px;">
+                                        <span style="font-weight: 600; font-size: 1rem;">Julia Leisch-Reinthaler</span><br>
+                                        <span style="font-weight: 300;">Kräutermanufaktur</span>
+                                    </p>
+                                </td>
+                              </tr>
+                              </table></td>
+                          </tr>
+                          </table></td>
+                      </tr>
+                </table>
+                <!-- Three Even Columns : END -->
+            </td>
+            </tr>
+        </table>
+        </div>
+    
+    </td>
+</tr>
+
+<tr>
+    <td bgcolor="#A60E1F" valign="middle" style="text-align: center;">
+    
+    <div>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Dosis', sans-serif; font-size: 1rem; font-weight: 500; mso-height-rule: exactly; line-height: 1.25; color: #FFFFFF;">
+                <p style="border-top: #ffffff solid 1px; display: inline-block; padding: 10px">Die Gastgeberin</p>
+                
+                <!-- Three Even Columns : BEGIN -->
+                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                        <td width="33.33%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                            <td style="padding: 0px; text-align: center">&nbsp;</td>
+                            </tr>
+                            </table></td>
+                        <td width="33.33%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                            <td style="padding: 0px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/miele/Miele-femalechefs_portrait-Karin-Stoettinger.png" width="500" height="450" alt="Karin Stöttinger" border="0" class="fluid" style="max-width: 90%; height: auto;"></td>
+                            </tr>
+                            <tr>
+                            <td style="font-family: 'Dosis', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.2; color: #FFFFFF; padding: 10px 10px 10px; text-align: center;" class="center-on-narrow">
+                                <span style="font-weight: 600; font-size: 1rem;">Karin Stöttinger</span><br>
+                                <span style="font-weight: 300;">Initiatorin Female Chefs</span></td>
+                            </tr>
+                            </table></td>
+                        <td width="33.33%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                            <td style="padding: 0px; text-align: center">&nbsp;</td>
+                            </tr>
+                            </table></td>
+                        </tr>
+                </table>
+                <!-- Three Even Columns : END -->
+            </td>
+            </tr>
+        </table>
+        </div>
+    
+    </td>
+</tr>
+<!-- Background Color with Text : END --> 
+</f:section>
+
+<f:section name="btn">
+    <f:if condition="{content}=='invite' || {content}=='remind' || {content}=='push'">
+        <!-- Button : Begin -->
+        <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto; padding: 0px 20px;">
+            <tr>
+                <td style="border-radius: 0px; background: #1F1F1F; text-align: center;" class="button-td">
+                    <a href="###FEEDBACK_LINK###"
+                        style="background: #1F1F1F; border: 15px solid #1F1F1F; padding: 0 0px;color: #ffffff; font-family: 'Dosis, sans-serif; font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; border-radius: 0px; font-weight: bold;">
+                        Jetzt Rückmelden
+                    </a>
+                </td>
+            </tr>
+            </table>   
+        <!-- Button : END -->
+    </f:if>
+</f:section>
+
+<f:section name="btn-red">
+    <f:if condition="{content}=='invite' || {content}=='remind' || {content}=='push'">
+        <!-- Button : Begin -->
+        <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto; padding: 0px 20px;">
+            <tr>
+                <td style="border-radius: 0px; background: #A60E1F; text-align: center;" class="button-td">
+                    <a href="###FEEDBACK_LINK###"
+                        style="background: #A60E1F; border: 15px solid #A60E1F; padding: 0 0px;color: #ffffff; font-family: 'Dosis, sans-serif; font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; border-radius: 0px; font-weight: bold;">
+                        Jetzt Rückmelden
+                    </a>
+                </td>
+            </tr>
+            </table>   
+        <!-- Button : END -->
+    </f:if>
+</f:section>
+
+</html>

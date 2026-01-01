@@ -1,0 +1,6 @@
+################
+### SETTINGS ###
+################
+settings.javascripts {
+    contacts = JavaScript/Contacts.js?v=1.0
+}

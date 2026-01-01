@@ -1,0 +1,16 @@
+mod {
+    wizards.newContentElement.wizardItems.plugins {
+        elements {
+            pressroom {
+                iconIdentifier = publicrelations-mod-eventcenter
+                title = LLL:EXT:publicrelations/Resources/Private/Language/locallang_db.xlf:tx_publicrelations_pressroom.name
+                description = LLL:EXT:publicrelations/Resources/Private/Language/locallang_db.xlf:tx_publicrelations_pressroom.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = publicrelations_pressroom
+                }
+            }
+        }
+        show = *
+    }
+}

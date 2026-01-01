@@ -1,0 +1,15 @@
+################
+### SETTINGS ###
+################
+settings.files {
+    javascripts {
+        contacts = JavaScript/Contacts.js?v=1.0
+        events = JavaScript/Events.js?v=1.1
+        general = JavaScript/scripts.js?v=1.0
+    }
+    css {
+        general = Css/styles.css?v=1.0
+        bootstrap = Css/bootstrap_allegria_required.css?v=1.0
+        mailing = Css/mailing.css?v=1.0
+    }
+}

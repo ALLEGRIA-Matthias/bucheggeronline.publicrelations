@@ -1,0 +1,48 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+    <f:asset.css identifier="pressecenter-myevents-style" href="EXT:publicrelations/Resources/Public/Css/Pressecenter/myEvents.css" />
+
+    <h1 class="d-flex justify-content-between align-items-baseline">
+        <span>Meine Events</span>
+        <span class="h5">[{f:if(condition:client.shortName,then:client.shortName,else:client.name)}]</span>
+    </h1>
+
+    <div id="events-container" data-client-uid="{client.uid}">
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card event-filter active-filter" data-filter="upcoming">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Events</h5>
+                        <p class="card-text fs-3" id="count-upcoming">...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card event-filter" data-filter="upcoming_with_guests">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Events mit Gästen</h5>
+                        <p class="card-text fs-3" id="count-upcoming-with-guests">...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card event-filter" data-filter="archived">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Archiv</h5>
+                        <p class="card-text fs-3" id="count-archived">...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="datatable-events"></div>
+
+    </div>
+
+    <div id="toast-container" class="toast-container position-fixed bottom-0 start-0 p-3"></div>
+
+    <f:asset.script
+        identifier="pressecenter-myevents"
+        src="EXT:publicrelations/Resources/Public/JavaScript/Pressecenter/myEvents.js"
+        type="module"
+        position="footer" />
+</html>

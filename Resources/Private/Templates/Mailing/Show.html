@@ -1,0 +1,271 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Mailer" />
+
+<f:section name="buttons">
+<be:link.editRecord table="tx_publicrelations_domain_model_mailing" uid="{mailing.uid}" returnUrl="{be:moduleLink(route: 'allegria_mailer', query:'mailing={mailing.uid}&action=show&controller=Mailing')}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg><span class="ml-2 d-none d-sm-inline">Mailing bearbeiten</span></be:link.editRecord>
+<f:link.typolink parameter="69" additionalParams="&tx_publicrelations_mailview[type]=mailing&tx_publicrelations_mailview[mailing]={mailing.uid}" target="_blank" class="btn btn-default btn-sm" absolute="true"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#eye"></use></svg><span class="ml-2 d-none d-sm-inline">Vorschau</span></f:link.typolink>
+
+</f:section>
+
+<f:section name="shortcuts">
+  <f:link.action action="show" controller="Mailing" arguments="{mailing:mailing}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+<h1>Mailing-Übersicht</h1>
+
+<f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+<f:if condition="!{mailing.test} || !{mailing.mails}">
+  <f:be.infobox title="Versand noch nicht möglich!" state="-1">Der Versand wird erst möglich, wenn <strong>Empfänger ausgewählt</strong> und ein <strong>Testversand durchgeführt</strong> wurde.</f:be.infobox>
+</f:if>
+<p><span class="badge badge-info">{mailing.typeOutput}</span></p>
+<h2 class="mt-0">{mailing.subjectOutput}</h2>
+<div class="table-fit">
+  <table class="table table-hover">
+    <tr>
+      <th class="align-top" width="100px">Status</th>
+      <td>
+        <f:if condition="{mailing.status}==0"><span class="badge badge-danger">{mailing.statusOutput}</span></f:if>
+        <f:if condition="{mailing.status}>0"><span class="badge badge-warning">{mailing.statusOutput}</span></f:if>
+        <f:if condition="{mailing.status}<0"><span class="badge badge-success">{mailing.statusOutput}</span></f:if>
+      </td>
+    </tr>
+    <tr>
+      <th class="align-top" width="100px">Anredeform</th>
+      <td>
+        <f:if condition="{mailing.personally}"><f:then>per Du</f:then><f:else>per Sie</f:else></f:if>
+      </td>
+    </tr>
+    <tr>
+      <th class="align-top" width="100px">Kunde</th>
+      <td>{mailing.client.shortName}</td>
+    </tr>
+    <tr>
+      <th class="align-middle" width="100px">Ersteller</th>
+      <td style="vertical-align:middle;"><div class="d-flex"><div><be:avatar backendUser="{cruser.uid}" /></div><div class="ms-2 my-auto">{cruser.realName}</div></div></td>
+    </tr>
+    <tr>
+      <th class="align-top" width="100px">Erstellt am</th>
+      <td>{mailing.crdate->f:format.date(format:'%e. %B %Y um %H:%M Uhr')}</td>
+    </tr>
+    <tr>
+      <th class="align-top" width="100px">Letzte Änderung</th>
+      <td>{mailing.tstamp->f:format.date(format:'%e. %B %Y um %H:%M Uhr')}</td>
+    </tr>
+    <tr>
+      <th class="align-top" width="100px">Versand<svg class="icon icon-sm fill-warning ml-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#play"></use></svg></th>
+      <td><f:if condition="{mailing.started}"><f:then>{mailing.started->f:format.date(format:'%e. %B %Y um %H:%M:%S Uhr')}</f:then><f:else>Versand noch nicht gestartet</f:else></f:if></td>
+    </tr>
+    <tr>
+      <th class="align-top" width="100px">Versand<svg class="icon icon-sm fill-success ml-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#stop"></use></svg></th>
+      <td><f:if condition="{mailing.sent}"><f:then>{mailing.sent->f:format.date(format:'%e. %B %Y um %H:%M:%S Uhr')}</f:then><f:else>Versand noch nicht abgeschlossen</f:else></f:if></td>
+    </tr>
+  </table>
+</div>
+
+<h2>Empfänger</h2>
+<div role="tabpanel">
+  <ul class="nav nav-tabs t3js-tabs" role="tablist" id="tabs-mailing" data-store-last-tab="1">
+    <f:if condition="{mailsToSend}">
+    <li role="presentation" class="nav-item t3js-tabmenu-item">
+      <button
+        type="button"
+        class="nav-link active"
+        data-bs-toggle="tab"
+        data-bs-target="#tabs-mailing-send"
+        aria-controls="tabs-mailing-send"
+        role="tab"
+      >
+      Vorbereitet<span class="badge {f:if(condition:'{mailsToSend->f:count()}>0', then:'danger')} ml-2">{mailsToSend->f:count()}</span>
+      </button>
+    </li>
+    </f:if>
+    <li role="presentation" class="nav-item t3js-tabmenu-item">
+      <button
+        type="button"
+        class="nav-link {f:if(condition:'!{mailsToSend}', then:'active')}"
+        data-bs-toggle="tab"
+        data-bs-target="#tabs-mailing-sent"
+        aria-controls="tabs-mailing-sent"
+        role="tab"
+      >
+      Versandt<span class="badge {f:if(condition:'{sentMails->f:count()}>0', then:'bg-success')} ml-2">{sentMails->f:count()}</span>
+      </button>
+    </li>
+    <f:if condition="{errors}">
+    <li role="presentation" class="nav-item t3js-tabmenu-item text-white">
+      <button
+        type="button"
+        class="nav-link bg-danger text-white"
+        data-bs-toggle="tab"
+        data-bs-target="#tabs-mailing-errors"
+        aria-controls="tabs-mailing-errors"
+        role="tab"
+      >
+      Fehlermeldungen<span class="badge ml-2">{errors->f:count()}</span>
+      </button>
+    </li>
+    </f:if>
+  </ul>
+  <div class="tab-content">
+    <f:if condition="{mailsToSend}">
+    <div role="tabpanel" class="tab-pane {f:if(condition:'{mailsToSend}', then:'active')}" id="tabs-mailing-send">
+      <div class="panel">
+        <div class="panel-body">
+          <div class="row g-3 align-items-center mb-4">
+              <div class="col">
+                  <input placeholder="Suche" class="form-control form-control-sm filter-table" 
+                        data-filter-table="mailsToSend" 
+                        data-filter-counter="mailsToSend-counter" 
+                        data-filter-not=""  
+                        data-filter-only="" 
+                        type="search" />
+              </div>
+              <div class="col-auto">
+                  <div class="form-control-plaintext d-inline" id="mailsToSend-counter" data-counter-label="Empfänger:innen">
+                      {mailings->f:count()} von {mailings->f:count()} Empfänger:innen
+                  </div>
+                  <div class="btn-group pull-right-sm ms-2">
+                  </div>
+              </div>
+          </div>
+          <div class="table-fit">
+            <table class="table table-striped table-hover" id="mailsToSend">
+              <thead>
+                <tr>
+                  <th data-filterable width="150px">Status</th>
+                  <th data-filterable width="350px">Empfänger</th>
+                  <th data-filterable width="75px">Sie/Du</th>
+                  <th data-filterable>E-Mail-Adresse</th>
+                  <th data-sort-method="none"></th>
+                </tr>
+              </thead>
+              <tbody id="mails-to-filter">
+                <f:for each="{mailsToSend}" as="mail" iteration="i">
+                <tr>
+                  <td><span class="badge badge-danger">{mail.typeOutput}</span></td>
+                  <td>{mail.receiver.fullName} <f:if condition="{mail.receiver.company}">• {mail.receiver.company}</f:if></td>
+                  <td><f:if condition="{mail.receiver.personally}"><f:then>Du</f:then><f:else>Sie</f:else></f:if></td>
+                  <td>{mail.receiver.email}</td>
+                  <td align="right">
+                    <f:link.typolink parameter="69" additionalParams="&tx_publicrelations_mailview[type]=mail&tx_publicrelations_mailview[mail]={mail.uid}" target="_blank" class="btn btn-default btn-sm" absolute="true"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#eye"></use></svg></f:link.typolink>
+                    <f:link.action controller="Mail" action="delete" class="btn btn-sm btn-danger" arguments="{mail:mail}"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#bin"></use></svg></f:link.action>
+                  </td>
+                </tr>
+                </f:for>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    </f:if>
+    <div role="tabpanel" class="tab-pane {f:if(condition:'!{mailsToSend}', then:'active')}" id="tabs-mailing-sent">
+      <div class="panel">
+        <div class="panel-body">
+          <div class="row g-3 align-items-center mb-4">
+              <div class="col">
+                  <input placeholder="Suche" class="form-control form-control-sm filter-table" 
+                        data-filter-table="mailsSent" 
+                        data-filter-counter="mailsSent-counter" 
+                        data-filter-not=""  
+                        data-filter-only="" 
+                        type="search" />
+              </div>
+              <div class="col-auto">
+                  <div class="form-control-plaintext d-inline" id="mailsSent-counter" data-counter-label="Empfänger:innen">
+                      {sentMails->f:count()} von {sentMails->f:count()} Empfänger:innen
+                  </div>
+                  <div class="btn-group pull-right-sm ms-2">
+                    <f:link.action controller="Mailing" action="receiverManager" class="btn btn-gold btn-sm font-weight-bold" arguments="{mailing:mailing}"><svg class="icon icon-sm fill-dark mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-group"></use></svg>Empfänger hinzufügen</f:link.action>
+                  </div>
+              </div>
+          </div>
+          <div class="table-fit">
+            <table class="table table-striped table-hover" id="mailsSent">
+              <thead>
+                <tr>
+                  <th data-filterable width="150px">Status</th>
+                  <th data-filterable width="350px">Empfänger</th>
+                  <th data-filterable width="75px">Sie/Du</th>
+                  <th data-filterable>E-Mail-Adresse</th>
+                </tr>
+              </thead>
+              <tbody id="sent-to-filter">
+                <f:for each="{sentMails}" as="mail" iteration="i">
+                <tr>
+                  <td><span class="badge badge-success">{mail.typeOutput}</span></td>
+                  <td>{mail.receiver.fullName} <f:if condition="{mail.receiver.company}">• {mail.receiver.company}</f:if></td>
+                  <td><f:if condition="{mail.receiver.personally}"><f:then>Du</f:then><f:else>Sie</f:else></f:if></td>
+                  <td>{mail.receiver.email}</td>
+                </tr>
+                </f:for>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <f:if condition="{errors}">
+    <div role="tabpanel" class="tab-pane" id="tabs-mailing-errors">
+      <div class="panel">
+        <div class="panel-body">
+          <div class="row g-3 align-items-center mb-4">
+              <div class="col">
+                  <input placeholder="Suche" class="form-control form-control-sm filter-table" 
+                        data-filter-table="mailsError" 
+                        data-filter-counter="mailsError-counter" 
+                        data-filter-not=""  
+                        data-filter-only="" 
+                        type="search" />
+              </div>
+              <div class="col-auto">
+                  <div class="form-control-plaintext d-inline" id="mailsError-counter" data-counter-label="Empfänger:innen">
+                      {errors->f:count()} von {errors->f:count()} Empfänger:innen
+                  </div>
+                  <div class="btn-group pull-right-sm ms-2">
+                  </div>
+              </div>
+          </div>
+          <div class="table-fit">
+            <table class="table table-striped table-hover" id="mailsError">
+              <thead>
+                <tr>
+                  <th data-filterable width="150px">Status</th>
+                  <th data-filterable width="350px">Empfänger</th>
+                  <th data-filterable width="75px">Sie/Du</th>
+                  <th data-filterable>E-Mail-Adresse</th>
+                  <th data-sort-method="none"></th>
+                </tr>
+              </thead>
+              <tbody id="mails-to-filter">
+                <f:for each="{errors}" as="mail" iteration="i">
+                <tr>
+                  <td><span class="badge badge-danger">{mail.typeOutput}</span></td>
+                  <td>{mail.receiver.fullName} <f:if condition="{mail.receiver.company}">• {mail.receiver.company}</f:if></td>
+                  <td><f:if condition="{mail.receiver.personally}"><f:then>Du</f:then><f:else>Sie</f:else></f:if></td>
+                  <td>{mail.receiver.email}</td>
+                  <td align="right">
+                    <f:link.typolink parameter="69" additionalParams="&tx_publicrelations_mailview[type]=mail&tx_publicrelations_mailview[mail]={mail.uid}" target="_blank" class="btn btn-default btn-sm" absolute="true"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#eye"></use></svg></f:link.typolink>
+                    <f:link.action controller="Mailing" action="sendMails" class="btn btn-sm btn-default font-weight-bold" arguments="{mailing:mailing, mail:mail, resend:'1'}"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#reload"></use></svg>Kopie senden</f:link.action>
+                  </td>
+                </tr>
+                </f:for>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    </f:if>
+  </div>
+</div>
+
+</f:section>
+</html>

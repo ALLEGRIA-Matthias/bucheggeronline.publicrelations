@@ -1,0 +1,65 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<div class="alert alert-default" role="alert">
+  <h4>Optionen</h4>
+
+  <div class="row">
+    <div class="col-12 col-md-2">
+      <div class="form-group">
+        <label for="inputDuration"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#hourglass"></use></svg>Dauer (in Minuten)</label>
+        <div class="input-group w-100">
+          <f:form.textfield class="form-control" id="inputDuration" property="duration" value="0" type="number" data="{disable-target:'duration'}" disabled="{f:if(condition:'{disabled}', then:'1')}" />
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-2">
+      <div class="form-group">
+        <label><span class="badge badge-gold mr-1">~</span>Dauer (ungefähr)</label>
+        <div class="form-check">
+          <f:form.checkbox class="form-check-input mt-0" id="checkDurationApprox" property="durationApprox" value="1" data="{disable-target:'durationApprox'}" disabled="{f:if(condition:'{disabled}', then:'1')}" />
+          <label class="form-check-label" for="checkDurationApprox">Ja/Nein</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-2">
+      <div class="form-group">
+        <label><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pause"></use></svg>Dauer inkl. Pause</label>
+        <div class="form-check">
+          <f:form.checkbox class="form-check-input mt-0" id="checkDurationWithBreak" property="durationWithBreak" value="1" data="{disable-target:'durationWithBreak'}" disabled="{f:if(condition:'{disabled}', then:'1')}" />
+          <label class="form-check-label" for="checkDurationWithBreak">Ja/Nein</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 {f:if(condition:'{disabled}', then:'col-md-3', else:'col-md-6')}">
+      <div class="form-group">
+        <label for="selectNotes"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#square-info"></use></svg>Termin-Hinweise</label>
+        <div class="input-group w-100">
+          <f:form.select class="form-control tomselect-generic" id="selectNotes" property="notes" optionsAfterContent="1" options="{notes}" optionValueField="uid" optionLabelField="title" multiple="1" data="{disable-target:'notes'}" disabled="{f:if(condition:'{disabled}', then:'1')}" />
+        </div>
+      </div>
+    </div>
+
+    <f:if condition="{disabled}">
+      <div class="col-12 col-md-3">
+        <div class="form-group">
+          <label><svg class="icon fill-danger mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#square-alert"></use></svg>Vorhandene Hinweise überschreiben?</label>
+          <div class="form-check">
+            <f:form.checkbox class="form-check-input mt-0" id="checkNotesSelectOverwrite" property="notesOverwrite" value="1" checked="1" data="{disable-target:'notes'}" disabled="1" />
+            <label class="form-check-label" for="checkNotesSelectOverwrite">Ja/Nein</label>
+          </div>
+        </div>
+      </div>
+    </f:if>
+
+  </div>
+</div>
+
+</html>

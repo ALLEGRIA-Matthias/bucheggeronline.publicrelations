@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:publicrelations/Resources/Private/Language/locallang_be" date="2020-08-06T11:01:46Z" product-name="publicrelations">
+		<header/>
+		<body>
+			<trans-unit id="extmng.staffPid" resname="extmng.staffPid">
+				<source>Page ID for Staff</source>
+				<target state="translated">Page ID für Mitarbeiter</target>
+			</trans-unit>
+			<trans-unit id="extmng.journalistsPid" resname="extmng.journalistsPid">
+				<source>Page ID for Journalists</source>
+				<target state="translated">Page ID für Journalist*innen</target>
+			</trans-unit>
+			<trans-unit id="extmng.celebPid" resname="extmng.celebPid">
+				<source>Page ID for Celebrities</source>
+			</trans-unit>
+			<trans-unit id="extmng.mailingListsPid" resname="extmng.mailingListsPid">
+				<source>Page ID for Mailing Lists</source>
+			</trans-unit>
+			<trans-unit id="extmng.busPid" resname="extmng.busPid">
+				<source>Page ID for Bus-Company Addresses</source>
+			</trans-unit>
+			<trans-unit id="extmng.associationPid" resname="extmng.associationPid">
+				<source>Page ID for Staff Associtation Addresses</source>
+			</trans-unit>
+			<trans-unit id="extmng.newsletterPid" resname="extmng.newsletterPid">
+				<source>Page ID for Newsletter Addresses</source>
+			</trans-unit>
+			<trans-unit id="extmng.clientPid" resname="extmng.clientPid">
+				<source>Page ID for Clients</source>
+			</trans-unit>
+			<trans-unit id="extmng.contactPid" resname="extmng.contactPid">
+				<source>Page ID for Contacts</source>
+			</trans-unit>
+			<trans-unit id="extmng.mediagroups" resname="extmng.mediagroups">
+				<source>Mediagroups: Grouplist seperated with semicolons ";"</source>
+			</trans-unit>
+			<trans-unit id="extmng.mailingtypes" resname="extmng.mailingtypes">
+				<source>Mailing Types: Grouplist seperated with semicolons ";"</source>
+			</trans-unit>
+			<trans-unit id="extmng.emailTemplates" resname="extmng.emailTemplates">
+				<source>E-Mail Templates: Grouplist seperated with semicolons ";"</source>
+			</trans-unit>
+			<trans-unit id="extmng.emailFromAddress" resname="extmng.emailFromAddress">
+				<source>Send Mails from that email Address</source>
+			</trans-unit>
+			<trans-unit id="extmng.emailFromName" resname="extmng.emailFromName">
+				<source>Send Mails with that Name</source>
+			</trans-unit>
+			<trans-unit id="extmng.emailToAddress" resname="extmng.emailToAddress">
+				<source>Send Mails (Copies) to that email Address</source>
+			</trans-unit>
+			<trans-unit id="extmng.emailReplyName" resname="extmng.emailReplyName">
+				<source>Send Mail Replies to</source>
+			</trans-unit>
+			<trans-unit id="extmng.emailReplyAddress" resname="extmng.emailReplyAddress">
+				<source>Send Mail Replies to that email Address</source>
+			</trans-unit>
+			<trans-unit id="extmng.emailToName" resname="extmng.emailToName">
+				<source>Send Mails (Copies) as</source>
+			</trans-unit>
+			<trans-unit id="extmng.accreditationStop" resname="extmng.accreditationStop">
+				<source>Stop Accreditation X Minutes before Event-Start</source>
+			</trans-unit>
+			<trans-unit id="extmng.invitationReportStop" resname="extmng.invitationReportStop">
+				<source>Stop Invitation Reports X Hours before Event-Start</source>
+			</trans-unit>
+			<trans-unit id="extmng.clientRootUid" resname="extmng.clientRootUid">
+				<source>Category Root UID for Clients</source>
+				<target state="translated">Kategoriestamm ID für Kunden</target>
+			</trans-unit>
+			<trans-unit id="extmng.campaignRootUid" resname="extmng.campaignRootUid">
+				<source>Category Root UID for Campaigns</source>
+				<target state="translated">Kategoriestamm ID für Produkte</target>
+			</trans-unit>
+			<trans-unit id="extmng.newsRootUid" resname="extmng.newsRootUid">
+				<source>Category Root UID for News</source>
+				<target state="translated">Kategoriestamm ID für News</target>
+			</trans-unit>
+			<trans-unit id="extmng.eventRootUid" resname="extmng.eventRootUid">
+				<source>Category Root UID for Events</source>
+				<target state="translated">Kategoriestamm ID für Termine</target>
+			</trans-unit>
+			<trans-unit id="extmng.eventNoteRootUid" resname="extmng.eventNoteRootUid">
+				<source>Category Root UID for Event Notes</source>
+				<target state="translated">Kategoriestamm ID für Terminnotizen</target>
+			</trans-unit>
+			<trans-unit id="extmng.contactRootUid" resname="extmng.contactRootUid">
+				<source>Category Root UID for Contacts</source>
+				<target state="translated">Kategoriestamm ID für Ansprechpartner</target>
+			</trans-unit>
+			<trans-unit id="extmng.linkRootUid" resname="extmng.linkRootUid">
+				<source>Category Root UID for Links</source>
+				<target state="translated">Kategoriestamm ID für Links</target>
+			</trans-unit>
+			<trans-unit id="extmng.accreditationNotesRootUid" resname="extmng.accreditationNotesRootUid">
+				<source>Category Root UID for Accrediation Notes</source>
+				<target state="translated">Kategoriestamm ID für Akkreditierungshinweise</target>
+			</trans-unit>
+			<trans-unit id="extmng.mediumRootUid" resname="extmng.mediumRootUid">
+				<source>Category Root UID for Mediums</source>
+				<target state="translated">Kategoriestamm ID für Medien</target>
+			</trans-unit>
+			<trans-unit id="extmng.slideWorkRootUid" resname="extmng.slideWorkRootUid">
+				<source>Category Root UID for Slides</source>
+			</trans-unit>
+			<trans-unit id="extmng.journalistsRootUid" resname="extmng.journalistsRootUid">
+				<source>Category Root UID for Journalists</source>
+			</trans-unit>
+			<trans-unit id="extmng.celebRootUid" resname="extmng.celebRootUid">
+				<source>Category Root UID for Celebrities</source>
+			</trans-unit>
+			<trans-unit id="extmng.mailingListsRootUid" resname="extmng.mailingListsRootUid">
+				<source>Category Root UID for Mailing Lists</source>
+			</trans-unit>
+			<trans-unit id="extmng.contactTypesRootUid" resname="extmng.contactTypesRootUid">
+				<source>Category Root UID for Contact Types</source>
+			</trans-unit>
+			<trans-unit id="extmng.invitationRemindAfter" resname="extmng.invitationRemindAfter">
+				<source>Remind receiver of invitation after X days</source>
+			</trans-unit>
+			<trans-unit id="extmng.invitationPushAfter" resname="extmng.invitationPushAfter">
+				<source>Push receiver of invitation after X days</source>
+			</trans-unit>
+			<trans-unit id="extmng.invitationCancelAfter" resname="extmng.invitationCancelAfter">
+				<source>Cancel invitation after X days</source>
+			</trans-unit>
+			<trans-unit id="extmng.importerPid" resname="extmng.importerPid">
+				<source>PID für imported contacts</source>
+			</trans-unit>
+			<trans-unit id="extmng.importableColumns" resname="extmng.importableColumns">
+				<source>List of importable Columns für contacts (comma seperated)</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

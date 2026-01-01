@@ -1,0 +1,485 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+
+<f:section name="preheader">
+    <!-- Visually Hidden Preheader Text : BEGIN -->
+    <div style="display:none; font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">
+    <f:switch expression="{content}">
+        <f:case value="invitation">Ihre persönliche Einladung zur Premiere der Wachaufestspiele.</f:case>
+        <f:case value="remind">Nicht verpassen: Ihre persönliche Einladung der Wachaufestspiele.</f:case>
+        <f:case value="push">Letzte Chance: Ihre persönliche Einladung der Wachaufestspiele.</f:case>
+        <f:case value="approve">Wie schön, dass wir Sie demnächst bei den Wachaufestspielen begrüßen dürfen.</f:case>
+        <f:case value="reject">Schade, dass es nicht klappt. Die Wachaufestspiele würden sich über einen baldigen Besuch freuen.</f:case>
+    </f:switch>
+    </div>
+    <!-- Visually Hidden Preheader Text : END --> 
+</f:section>
+
+<f:section name="gastgeber">
+    <tr>
+        <td style="padding: 10px 40px; text-align: center; font-family: 'PT Sans Narrow', sans-serif; background-color: #F2F2F2;">
+            <p style="font-size: 0.8rem;">
+                <a href="https://www.wachaufestspiele.com/" target="_blank"><img src="https://www.allegria.at/fileadmin/marketing/wachaufestspiele/WACHAU-2025_Kopfzeile-Wachau.png" style="width: auto; height: 60px;" title="WACHAUFESTSPIELE | Komödie in Weissenkirchen"></a>&nbsp;
+                <a href="https://www.vbnoe.at/" target="_blank"><img src="https://www.allegria.at/fileadmin/marketing/wachaufestspiele/WACHAU-2024_Kopfzeile-VKB.png" style="width: auto; height: 70px;" title="VOLKSBANK Niederösterreich"></a><br>
+                Die Wachau Festspiele und der Gastgeber des Abends Volksbank Niederösterreich laden sehr herzlich zur Premiere.
+            </p>
+        </td>
+    </tr>
+</f:section>
+
+<f:section name="content">
+    <f:switch expression="{content}">
+        <f:case value="approve">
+            <!-- 1 Column Approval : BEGIN -->
+            <tr>
+                <td style="padding: 40px 60px; padding-bottom: 0; text-align: center; font-family: 'PT Sans Narrow', sans-serif;">
+                    <h1 style="font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; color: #FCB900; font-size: 1.8rem; line-height: 1.2;">Wir freuen uns auf Ihr Kommen!</h1>
+                    <p>Folgend finden Sie die Reservierungsdaten.</p>
+                    <div style="background: #FFFFFF; border: 2px solid #191919; border-radius: 15px; padding: 15px; text-align: center; margin-bottom: 10px;">
+                        <p style="margin: 0; font-family: 'PT Sans Narrow', sans-serif; font-size: 1.6rem; color: #FCB900; font-weight: 700;">{accreditation.guestOutput.fullName}</p>
+                        <p style="margin-top: 0; color: #191919; font-family: 'PT Sans Narrow', sans-serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+                        <p style="margin: 0; margin-top: 10px; font-family: 'PT Sans Narrow', sans-serif; font-size: 0.65rem; color: #000000;"><span style="font-size: 0.8rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong></span><br>Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr gesendet.</p>
+                    </div>
+                    <p style="font-size: 1rem;">Die Ausgabe der Karten findet ab <f:format.date date="{accreditation.event.date->f:format.date(format:'%k.%M')} - 1 hour" format="%k.%M Uhr" /> am Empfang statt.</p>
+                    <f:render section="pressmaterial" arguments="{_all}" />
+                </td>
+            </tr>
+            <!-- 1 Column Approval : END -->
+            <f:render section="eventinfo" arguments="{_all}" />
+            <!-- 1 Column Feedback : BEGIN -->
+            <tr>
+                <td style="padding: 20px 40px; text-align: center; font-family: 'PT Sans Narrow', sans-serif;">
+                    <h2 style="margin-top: 0px; margin-bottom: 0; font-family: 'PT Sans Narrow', sans-serif; font-size: 1.4rem; text-transform: uppercase;">Krank oder verhindert?</h2>
+                    <p style="margin: 0; font-family: 'PT Sans Narrow', sans-serif; font-size: 0.75rem;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider Erwarten nicht zur Premiere kommen können.</p>
+                    <p style="margin: 27px 0px 0px 0px"><a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}%20in%20{accreditation.event.location.city->f:format.htmlentities()}" target="_blank" style="background: #FCB900; padding: 7px 14px; color: #000000; font-weight: 500; text-decoration: none;">Email senden</a></p>
+                </td>
+            </tr>
+            <!-- 1 Column Feedback : END -->
+        
+            <!-- gelbe Trennlinie 2 -->
+            <tr><td style="padding: 20px 50px;"><hr style=" border-top: 2px solid #FCB900; "></td></tr>
+
+        </f:case>
+        <f:case value="reject">
+            <!-- 1 Column Rejection : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: 'PT Sans Narrow', sans-serif;">
+                    <h1 style="font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; color: #FCB900; font-size: 1.8rem; line-height: 1.2;">Schade, dass es nicht klappt!</h1>
+                    <p style="font-family: 'PT Sans Narrow', sans-serif; text-align: center; font-weight: 100; font-size: 1rem; margin: 5px 0px 40px 0px">
+                        Danke für die, wenn auch negative, Rückmeldung.<br>Wir hoffen Sie bei einer der nächsten Veranstaltungen <span style="white-space: nowrap;">begrüßen zu dürfen</span>.
+                    </p>
+                    <f:switch expression="{accreditation.event.campaign.uid}">
+                        <f:case value="285">
+                            <h2 style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 600; font-size: 1.6rem; text-align: center; color: #191919; margin-bottom: 0; line-height: 1.2;">Von wegen Mariandl!</h2>
+                            <p style="font-family: 'PT Sans Narrow', sans-serif; text-align: center; font-weight: 100; font-size: 1rem; margin-bottom: 0px; line-height: 1.2;">
+                                nur von 18. Juli bis 26. August<br>
+                                im Rahmen der Wachaufestspiele 2023
+                            </p>
+                        </f:case>
+                        <f:case value="286">
+                            <h2 style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 600; font-size: 1.6rem; text-align: center; color: #191919; margin-bottom: 0; line-height: 1.2;">Der Brandner Kaspar und das ewig' Leben</h2>
+                            <p style="font-family: 'PT Sans Narrow', sans-serif; text-align: center; font-weight: 100; font-size: 1rem; margin-bottom: 0px; line-height: 1.2;">
+                                nur von 1. bis 9. September<br>
+                                im Rahmen der Wachaufestspiele 2023
+                            </p>
+                        </f:case>
+                        <f:case value="438">
+                            <h2 style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 600; font-size: 1.6rem; text-align: center; color: #191919; margin-bottom: 0; line-height: 1.2;">Hexenzeit in der Wachau</h2>
+                            <p style="font-family: 'PT Sans Narrow', sans-serif; text-align: center; font-weight: 100; font-size: 1rem; margin-bottom: 0px; line-height: 1.2;">
+                                nur von 16. Juli bis 25. August<br>
+                                im Rahmen der Wachaufestspiele 2024
+                            </p>
+                        </f:case>
+                        <f:defaultCase>
+                            <f:if condition="({accreditation.invitationType.contents.1.type}==1 || {accreditation.invitationType.contents.1.type}==12) && {accreditation.invitationType.contents.1.content}">
+                                <f:then>{accreditation.invitationType.contents.1.content->f:format.raw()}</f:then>
+                                <f:else>
+                                    Bitte als Typ "HTML" oder "HTML mit Fluid" in "CONTENT 2" eintragen:
+                                    <div style="
+                                        font-family: monospace !important;!i;!;
+                                        background-color: lightgrey;
+                                        padding: 20px;">
+                                        <f:format.printf>
+                                            <h2 style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 600; font-size: 1.6rem; text-align: center; color: #191919; margin-bottom: 0; line-height: 1.2;">Hexenzeit in der Wachau</h2>
+                                            <p style="font-family: 'PT Sans Narrow', sans-serif; text-align: center; font-weight: 100; font-size: 1rem; margin-bottom: 0px; line-height: 1.2;">
+                                                nur von 16. Juli bis 25. August<br>
+                                                im Rahmen der Wachaufestspiele 2024
+                                            </p>
+                                        </f:format.printf>
+                                    </div>
+                                </f:else>
+                            </f:if>
+                        </f:defaultCase>
+                    </f:switch>
+                </td>
+            </tr>
+            <!-- 1 Column Rejection : END -->
+
+        </f:case>
+        <f:case value="waiting">
+            <!-- 1 Column Rejection : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: 'PT Sans Narrow', sans-serif;">
+                    <p style="font-size: 0.8rem;">– Dies ist eine automatisch generierte Nachricht –</p>
+                    <h1 style="font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; color: #FCB900; font-size: 1.8rem; line-height: 1.2;">Die Nachfrage ist riesig!</h1>
+                    <p style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Die Wachaufestspiele bedanken sich für die unglaublich großartige Nachfrage.</p>
+                    <p style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;"><strong>Die Ticket-Kontingente sind aktuell bedauerlicherweise komplett erschöpft.</strong></p>
+                    <p style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir prüfen derzeit eine Erweiterung der Kontingente und melden uns schnellstmöglich mit einer konkreten Rückmeldung.</p>
+                    <p style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir bedanken uns für das Verständnis.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Rejection : END -->
+        </f:case>
+        <f:case value="waitingOK">
+            <!-- 1 Column Approval : BEGIN -->
+            <tr>
+                <td style="padding: 40px 60px; padding-bottom: 0; text-align: center; font-family: 'PT Sans Narrow', sans-serif;">
+                    <h1 style="font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; color: #FCB900; font-size: 1.8rem; line-height: 1.2;">Danke für's Warten!</h1>
+                    <p>Wir freuen uns sehr Sie in der Wachau begrüßen zu können, folgend finden Sie die Reservierungsdaten.</p>
+                    <div style="background: #FFFFFF; border: 2px solid #191919; border-radius: 15px; padding: 15px; text-align: center; margin-bottom: 10px;">
+                        <p style="margin: 0; font-family: 'PT Sans Narrow', sans-serif; font-size: 1.6rem; color: #FCB900; font-weight: 700;">{accreditation.guestOutput.fullName}</p>
+                        <p style="margin-top: 0; color: #191919; font-family: 'PT Sans Narrow', sans-serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+                        <p style="margin: 0; margin-top: 10px; font-family: 'PT Sans Narrow', sans-serif; font-size: 0.65rem; color: #000000;"><span style="font-size: 0.8rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong></span><br>Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr gesendet.</p>
+                    </div>
+                    <p style="font-size: 1rem;">Die Ausgabe der Karten findet ab <f:format.date date="{accreditation.event.date->f:format.date(format:'%k.%M')} - 1 hour" format="%k.%M Uhr" /> am Empfang statt.</p>
+                    <f:render section="pressmaterial" arguments="{_all}" />
+                </td>
+            </tr>
+            <!-- 1 Column Approval : END -->
+            <f:render section="eventinfo" arguments="{_all}" />
+            <!-- 1 Column Feedback : BEGIN -->
+            <tr>
+                <td style="padding: 20px 40px; text-align: center; font-family: 'PT Sans Narrow', sans-serif;">
+                    <h2 style="margin-top: 0px; margin-bottom: 0; font-family: 'PT Sans Narrow', sans-serif; font-size: 1.4rem; text-transform: uppercase;">Krank oder verhindert?</h2>
+                    <p style="margin: 0; font-family: 'PT Sans Narrow', sans-serif; font-size: 0.75rem;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider Erwarten nicht zur Premiere kommen können.</p>
+                    <p style="margin: 27px 0px 0px 0px"><a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}%20in%20{accreditation.event.location.city->f:format.htmlentities()}" target="_blank" style="background: #FCB900; padding: 7px 14px; color: #000000; font-weight: 500; text-decoration: none;">Email senden</a></p>
+                </td>
+            </tr>
+            <!-- 1 Column Feedback : END -->
+        
+            <!-- gelbe Trennlinie 2 -->
+            <tr><td style="padding: 20px 50px;"><hr style=" border-top: 2px solid #FCB900; "></td></tr>
+
+        </f:case>
+        <f:case value="waitingNO">
+            <!-- 1 Column Rejection : BEGIN -->
+            <tr>
+                <td style="padding: 40px 60px; padding-bottom: 0; text-align: center; font-family: 'PT Sans Narrow', sans-serif;">
+                    <h1 style="font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; color: #FCB900; font-size: 1.8rem; line-height: 1.2;">Die Nachfrage ist riesig!</h1>
+                    <p style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir sind von der ernormen Nachfrage überwältigt!<br><strong>Danke für Ihr Interesse.</strong></p>
+                    <p style="color: #FCB900; font-family: 'PT Sans Narrow', sans-serif; font-weight: 700; text-align: center; font-size: 1rem;">Umso schwerer fällt es uns Ihnen sagen zu müssen, dass wir Ihnen leider keine Tickets zur Premiere zur Verfügung stellen können.</p>
+                    <f:switch expression="{accreditation.event.campaign.uid}">
+                        <f:case value="285">
+                            <p style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir möchten Sie aber sehr gerne zu einer anderen Vorstellung, nach Ihrem Wunsch, einladen.</strong></p>
+                            <hr style="margin: 30px 60px;">
+                            <h2 style="font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; color: #FCB900; font-size: 1.4rem; line-height: 1.2; margin-bottom: 0;">Mögliche Termine</h2>
+                            <p style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 300; text-align: center; font-size: 1rem; margin-top: 0;">
+                                Montag, 17. Juli / 19:30 Uhr (VORPREMIERE)<br><br>
+                                Freitag, 21. Juli / 19:30 Uhr<br>
+                                Samstag, 22. Juli / 19:30 Uhr<br>
+                                Sonntag, 23. Juli / 18:30 Uhr<br><br>
+                                Freitag, 28. Juli / 19:30 Uhr<br>
+                                Samstag, 29. Juli / 19:30 Uhr<br>
+                                Sonntag, 30. Juli / 18:30 Uhr<br><br>
+                                Freitag, 4. August / 19:30 Uhr<br>
+                                Samstag, 5. August / 16:00 Uhr<br>
+                                Samstag, 5. August / 19:30 Uhr<br>
+                                Sonntag, 6. August / 18:30 Uhr<br><br>
+                                Freitag, 18. August / 19:30 Uhr<br>
+                                Samstag, 19. August / 16:00 Uhr<br>
+                                Samstag, 19. August / 19:30 Uhr<br>
+                                Sonntag, 20. August / 18:30 Uhr<br><br>
+                                Freitag, 25. August / 19:30 Uhr<br>
+                                Samstag, 26. August / 16:00 Uhr<br>
+                                Samstag, 26. August / 19:30 Uhr
+                            </p>
+
+                            <hr style="margin: 30px 60px;">
+                            <f:if condition="{accreditation.guestType}==4"><p style="margin-bottom: 0;">Reservieren Sie jetzt Ihre Regiekarten<br><strong style="color: #FCB900;">für jeweils € 20,-</strong><br>zu Ihrer Wunschvorstellung.</p></f:if>
+                            <p style="margin: 27px 0px 0px 0px"><a href="mailto:office@allegria.at?subject=Kartenreservierung%20zu%20Akkreditierung%20{accreditation.uid}&body=Veranstaltung%3A%20Von%20wegen%20Mariandl!%0D%0AWunschtermin%3A%20%0D%0ATickets%3A%20{accreditation.ticketsWish}" target="_blank" style="background: #FCB900; padding: 7px 14px; color: #000000; font-weight: 900; text-decoration: none;">Jetzt reservieren</a></p>
+                        </f:case>
+                        <f:case value="438">
+                            <p style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir möchten Sie aber sehr gerne zu einer anderen Vorstellung, nach Ihrem Wunsch, einladen.</strong></p>
+                            <hr style="margin: 30px 60px;">
+                            <h2 style="font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; color: #FCB900; font-size: 1.4rem; line-height: 1.2; margin-bottom: 0;">Mögliche Termine</h2>
+                            <p style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 300; text-align: center; font-size: 1rem; margin-top: 0;">
+                                Freitag, 19. Juli / 19:30 Uhr<br>
+                                Samstag, 20. Juli / 19:30 Uhr<br>
+                                Sonntag, 21. Juli / 18:30 Uhr<br><br>
+                                Freitag, 26. Juli / 19:30 Uhr<br>
+                                Samstag, 27. Juli / 19:30 Uhr<br>
+                                Sonntag, 28. Juli / 18:30 Uhr<br><br>
+                                Freitag, 2. August / 19:30 Uhr<br>
+                                Samstag, 3. August / 16:00 Uhr<br>
+                                Samstag, 3. August / 19:30 Uhr<br>
+                                Sonntag, 4. August / 18:30 Uhr<br><br>
+                                Freitag, 9. August / 19:30 Uhr<br>
+                                Samstag, 10. August / 16:00 Uhr<br>
+                                Samstag, 10. August / 19:30 Uhr<br>
+                                Sonntag, 11. August / 18:30 Uhr<br><br>
+                                Freitag, 23. August / 19:30 Uhr<br>
+                                Samstag, 24. August / 16:00 Uhr<br>
+                                Samstag, 24. August / 19:30 Uhr<br>
+                                Sonntag, 25. August / 18:30 Uhr
+                            </p>
+
+                            <hr style="margin: 30px 60px;">
+                            <f:if condition="{accreditation.guestType}==4"><p style="margin-bottom: 0;">Reservieren Sie jetzt Ihre Regiekarten<br><strong style="color: #FCB900;">für jeweils € 20,-</strong><br>zu Ihrer Wunschvorstellung.</p></f:if>
+                            <p style="margin: 27px 0px 0px 0px"><a href="mailto:office@allegria.at?subject=Kartenreservierung%20zu%20Akkreditierung%20{accreditation.uid}&body=Veranstaltung%3A%20Von%20wegen%20Mariandl!%0D%0AWunschtermin%3A%20%0D%0ATickets%3A%20{accreditation.ticketsWish}" target="_blank" style="background: #FCB900; padding: 7px 14px; color: #000000; font-weight: 900; text-decoration: none;">Jetzt reservieren</a></p>
+                        </f:case>
+                        <f:defaultCase>
+                            <f:if condition="{accreditation.invitationType.contents.2}">
+                                <f:if condition="({accreditation.invitationType.contents.2.type}==1 || {accreditation.invitationType.contents.2.type}==12) && {accreditation.invitationType.contents.2.content}">
+                                    <f:then>{accreditation.invitationType.contents.2.content->f:format.raw()}</f:then>
+                                    <f:else>
+                                        Bitte als Typ "HTML" oder "HTML mit Fluid" in "CONTENT 3" eintragen:
+                                        <div style="
+                                            font-family: monospace !important;!i;!;
+                                            background-color: lightgrey;
+                                            padding: 20px;">
+                                            <f:format.printf>
+                                                <p style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir möchten Sie aber sehr gerne zu einer anderen Vorstellung, nach Ihrem Wunsch, einladen.</p>
+                                                <hr style="margin: 30px 60px;">
+                                                <h2 style="font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; color: #FCB900; font-size: 1.4rem; line-height: 1.2; margin-bottom: 0;">Mögliche Termine</h2>
+                                                <p style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 300; text-align: center; font-size: 1rem; margin-top: 0;">
+                                                    Freitag, 19. Juli / 19:30 Uhr<br>
+                                                    Samstag, 20. Juli / 19:30 Uhr<br>
+                                                    Sonntag, 21. Juli / 18:30 Uhr<br><br>
+                                                    Freitag, 26. Juli / 19:30 Uhr<br>
+                                                    Samstag, 27. Juli / 19:30 Uhr<br>
+                                                    Sonntag, 28. Juli / 18:30 Uhr<br><br>
+                                                    Freitag, 2. August / 19:30 Uhr<br>
+                                                    Samstag, 3. August / 16:00 Uhr<br>
+                                                    Samstag, 3. August / 19:30 Uhr<br>
+                                                    Sonntag, 4. August / 18:30 Uhr<br><br>
+                                                    Freitag, 9. August / 19:30 Uhr<br>
+                                                    Samstag, 10. August / 16:00 Uhr<br>
+                                                    Samstag, 10. August / 19:30 Uhr<br>
+                                                    Sonntag, 11. August / 18:30 Uhr<br><br>
+                                                    Freitag, 23. August / 19:30 Uhr<br>
+                                                    Samstag, 24. August / 16:00 Uhr<br>
+                                                    Samstag, 24. August / 19:30 Uhr<br>
+                                                    Sonntag, 25. August / 18:30 Uhr
+                                                </p>
+                                            </f:format.printf>
+                                        </div>
+                                    </f:else>
+                                </f:if>
+                                <hr style="margin: 30px 60px;">
+                                <f:if condition="{accreditation.guestType}==4"><p style="margin-bottom: 0;">Reservieren Sie jetzt Ihre Regiekarten<br><strong style="color: #FCB900;">für jeweils € 20,-</strong><br>zu Ihrer Wunschvorstellung.</p></f:if>
+                                <p style="margin: 27px 0px 0px 0px"><a href="mailto:office@allegria.at?subject=Kartenreservierung%20zu%20Akkreditierung%20{accreditation.uid}&body=Veranstaltung%3A%20Von%20wegen%20Mariandl!%0D%0AWunschtermin%3A%20%0D%0ATickets%3A%20{accreditation.ticketsWish}" target="_blank" style="background: #FCB900; padding: 7px 14px; color: #000000; font-weight: 900; text-decoration: none;">Jetzt reservieren</a></p>
+                            </f:if>
+                        </f:defaultCase>
+                    </f:switch>
+                    
+                
+                    
+                </td>
+            </tr>
+            <!-- 1 Column Rejection : END -->
+        </f:case>
+        <f:case value="pending">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #000000;">    
+                    <h1 style="font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; color: #FCB900; font-size: 1.8rem; line-height: 1.2;">Neu auf der Warteliste!</h1>
+                    
+                    <!-- Fließtext -->			  
+                    <p style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;"><strong>{accreditation.guestOutput.name}</strong></p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+        </f:case>
+        <f:defaultCase>
+            <!-- BRIEFKUVERT -->
+            <tr>
+                <td style="padding-top: 30px;" align="center">
+                    <img style="width: 4rem;" align="center" src="https://www.allegria.at/fileadmin/marketing/wachaufestspiele/Briefkuvert.png">
+                </td>
+            </tr>
+
+            <!-- Persönliche Einladung -->
+            <tr>
+                <td style="padding: 40px 0px 10px 0px; text-align: center; font-family: 'PT Sans', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #666666;"> 
+                    
+                    
+                    <p>
+                        <f:switch expression="{content}">
+                            <f:case value="invitation"><span style="font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; color: #000000; font-size: 1.8rem; line-height: 1.2;"><f:if condition="{f:format.date(date:'now', format:'U')}<{f:format.date(date:'{accreditation.event.date->f:format.date(format:\'d.m.Y\')}-2months', format:'U')}"><f:then>Save The Date</f:then><f:else>Persönliche Einladung</f:else></f:if><br></span><br></f:case>
+                            <f:case value="remind"><span style="font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; color: #000000; font-size: 1.8rem; line-height: 1.2;">Erinnerung zur Einladung<br></span><br></f:case>
+                            <f:case value="push"><span style="font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; color: #000000; font-size: 1.8rem; line-height: 1.2;">Finale Erinnerung zur Einladung<br></span><br></f:case>
+                        </f:switch>
+                        für <br>
+                        <span style="font-family: 'PT Sans Narrow', sans-serif; font-size: 1.4rem;">{accreditation.guestOutput.fullName}</span>
+                        <f:if condition="{accreditation.guestType}==2"><br>zur redaktionellen Berichterstattung</f:if>
+                        <f:if condition="{content}=='remind' && {accreditation.event.campaign.uid}==285">
+                            <p style="padding: 30px 60px; background-color: #FCB900; color: #000000;"><span style="font-size: 1.2rem; font-weight: bold; line-height: 2;">Wir warten auf Ihre Rückmeldung</span><br>Da wir von Ihnen leider noch keine geschätzte Rückmeldung auf die Einladung zur Premiere der Wachaufestspiele am 18.7. erhalten haben und die Nachfrage nach Premierenkarten heuer so stark ist, dass nur noch ganz wenige Plätze verfügbar sind, wollten wir uns erkundigen, ob wir für Sie 1 oder 2 Tickets reservieren dürfen.<br><br>Sollte der Besuch nicht möglich sein, so würden wir aus organisatorischen Gründen um eine Absage via Link bitten.</p>
+                            <!-- Button : Begin -->
+                            <table cellspacing="0" cellpadding="0" border="0" class="center-on-narrow" align="center" style="margin: auto; text-align: center;">
+                                <tr>
+                                    <td style="border-radius: 7px; background: #666666; text-align: center;" class="button-td"><div style="text-align: center; display: inline-block;"><f:link.typolink absolute="1" parameter="38" additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}" absolute="1" additionalAttributes="{style:'background: #666666; border: 1.5px none #222222; padding: 6px 13px;color: #FFFFFF; font-family: \'PT Sans Narrow\', sans-serif; text-transform: uppercase; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 7px; font-weight: bold;'}" class="button-a">
+                                    <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->{f:if(condition:'{accreditation.guestType}==4', then:'Jetzt Karten reservieren', else:'Jetzt Zu- oder Absagen')}<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                                    </f:link.typolink></div></td>
+                                </tr>
+                            </table>
+                            <!-- Button : END -->
+                            <p style="padding: 0 60px; margin-top: 25px; font-size: 0.8rem;">Bitte beachten Sie, dass wir bereits Wartelisten führen und Ihre Bestätigung erst nach der automatisierten Wartelisten-Nachricht manuell angestoßen wird.</p>
+                        </f:if>
+                    </p>
+                    
+                </td>
+            </tr>
+
+            <f:render section="eventinfo" arguments="{_all}" />
+
+            <f:if condition="{f:format.date(date:'now', format:'U')}>{f:format.date(date:'{accreditation.event.date->f:format.date(format:\'d.m.Y\')}-2months', format:'U')}">
+                <f:then>
+                    <f:if condition="{accreditation.guestType}==4">
+                        <tr>
+                            <td style="font-family: 'PT Sans', sans-serif; color: #666666; padding: 0 40px 20px 40px; text-align: center; line-height: 1.2;">
+                                <h2 style="text-align: center;">Jetzt VIP-Karten sichern</h2>
+                                <p style="margin-bottom: 0;">Reservieren Sie jetzt Ihre VIP-Karten<br><strong style="color: #FCB900;">für jeweils € 20,-</strong><br>zur Premiere am {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}</p>
+                                <p style="font-size: 0.8rem; margin-top: 0;">*inkl. Buffet bei der Premierenfeier</p>
+                            </td>
+                        </tr>
+                    </f:if>
+
+                    <tr>
+                        <td style="font-family: 'PT Sans', sans-serif; color: #666666; padding: 0 60px 20px 60px; text-align: center; line-height: 1.2;">
+                            <f:if condition="{accreditation.event.campaign.uid} == 285"><p>Im Anschluss an die Vorstellung findet ein Premierenempfang direkt an der Spielstätte statt.</p></f:if>
+                            <p>Wir bitten um Verständnis, dass diese Einladung Ausdruck unserer persönlichen Wertschätzung an Sie ist und daher die Karten nicht übertragbar sind.</p>
+                        </td>
+                    </tr>
+                        
+                    
+                    <!--JETZT RÜCKMELDEN -->
+                    <tr>
+                    <td>
+
+                        <!-- Button : Begin -->
+                        <table cellspacing="0" cellpadding="0" border="0" class="center-on-narrow" align="center" style="margin: auto;">
+                            <tr>
+                                <td style="border-radius: 7px; background: #666666; text-align: center;" class="button-td"><f:link.typolink absolute="1" parameter="38" additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}" absolute="1" additionalAttributes="{style:'background: #666666; border: 1.5px none #222222; padding: 6px 13px;color: #FFFFFF; font-family: \'PT Sans Narrow\', sans-serif; text-transform: uppercase; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 7px; font-weight: bold;'}" class="button-a">
+                                <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->{f:if(condition:'{accreditation.guestType}==4', then:'Jetzt Karten reservieren', else:'Jetzt Zu- oder Absagen')}<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                                </f:link.typolink></td>
+                            </tr>
+                        </table>
+                        <!-- Button : END -->
+                    
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td align="center" style="font-family: 'PT Sans', sans-serif; color: #666666; font-size: 0.7rem;">
+                            <p style=" margin-top: 25px;">
+                            Um Rückmeldung wird bis <strong><f:if condition="{accreditation.invitationType.feedbackDate}"><f:then>{f:format.date(date:'{accreditation.invitationType.feedbackDate}', format:'d.m.Y')}</f:then><f:else><f:format.date date="{accreditation.event.date->f:format.date(format:'d.m.Y')} - 2weeks friday" format="d.m.Y" /></f:else></f:if></strong> gebeten. <br>
+                                <f:if condition="{accreditation.ticketsWish}">Die Einladung gilt für {f:if(condition:'{accreditation.ticketsWish}>1', then:'bis zu ')}{accreditation.ticketsWish} Person{f:if(condition:'{accreditation.ticketsWish}>1', then:'en')} und ist nicht übertragbar.</f:if>
+                            </p>
+                        </td>
+                    </tr>
+                </f:then>
+                <f:else>
+                    <tr>
+                        <td align="center" style="font-family: 'PT Sans', sans-serif; color: #666666; font-size: 1rem; padding: 40px;">
+                            <p>Bei dieser Nachricht handelt es sich um ein <strong>SAVE THE DATE</strong>.</p>
+                            <p>Die eigentliche Einladung erfolgt bis spätestens einen Monat vor Premiere via weiterer Mail. Bitte beachten Sie, dass <strong>aktuell keine Möglichkeit besteht eine Zu- oder Absage zu übermitteln</strong> – teilen Sie uns Ihre Antwort gerne nach Versand der offiziellen Einladung mit.</p>
+                        </td>
+                    </tr>
+                </f:else>
+            </f:if>
+        </f:defaultCase>
+    </f:switch>
+</f:section>
+
+<f:section name="eventinfo">
+    <!-- gelbe Trennlinie 1 -->
+    <tr><td style="padding: 20px 50px;"><hr style="border-top: 2px solid #FCB900;"></td></tr>
+        
+    <!-- Two Even Columns : BEGIN -->
+    <tr>
+        <td align="center" valign="top" style="padding: 0px;"><table cellspacing="0" cellpadding="0" border="0" width="80%">
+            <tr>
+                <td class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                    <td style="padding: 0px; text-align: center;" valign="middle" width="100%" height="100%">
+                        <f:switch expression="{accreditation.event.campaign.uid}">
+                            <f:case value="285"><img src="https://www.allegria.at/fileadmin/marketing/wachaufestspiele/Foto_von-wegen-mariandl.png" alt="alt_text" border="0" class="fluid"></f:case>
+                            <f:case value="286"><img src="https://www.allegria.at/fileadmin/marketing/wachaufestspiele/Foto_Brandner.png" alt="alt_text" border="0" class="fluid"></f:case>
+                            <f:case value="438"><img src="https://www.allegria.at/fileadmin/marketing/wachaufestspiele/Foto_Hexenzeit.png" alt="Hexenzeit in der Wachau | Wachaufestspiele 2024" border="0" class="fluid"></f:case>
+                            <f:defaultCase><f:if condition="{accreditation.invitationType.logo}">
+                                <f:then><f:image image="{accreditation.invitationType.logo}" absolute="1" width="210c" height="210c" class="fluid" alt="{accreditation.event.title}" /></f:then>
+                                <f:else><f:image image="{accreditation.event.campaign.logo}" absolute="1" width="210c" height="210c" class="fluid" alt="{accreditation.event.title}" /></f:else>
+                            </f:if></f:defaultCase>
+                        </f:switch>
+                    </td>
+                </tr>
+                    
+                </table></td>
+                <td class="stack-column-center" style="padding-left: 20px;"><table cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                    <td style="font-family: 'PT Sans', sans-serif; color: #666666; padding: 0 0px 0px; text-align: left; line-height: 1.2;" class="center-on-narrow">
+                        <f:switch expression="{accreditation.event.campaign.uid}">
+                            <f:case value="285">
+                                <p style="font-size: 0.8rem;">
+                                    <span style="font-size: 1rem; font-weight: bold;">Premiere</span><br>
+                                    <span style="color: #FCB900; font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; font-size: 1.3rem; font-weight: 100; padding-top: 60px; font-weight: bold; line-height: 1.2; ">Von wegen Mariandl!</span><br>
+                                    Komödie von Stefan Vögel<br>
+                                    Bühnenmusik von Frizz Fischer</p>
+                            </f:case>
+                            <f:case value="286">
+                                <p style="font-size: 0.8rem;">
+                                    <span style="font-size: 1rem; font-weight: bold;">Premiere</span><br>
+                                    <span style="color: #FCB900; font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; font-size: 1.3rem; font-weight: 100; padding-top: 60px; font-weight: bold; line-height: 1.2; ">Der Brandner Kaspar und das ewig' Leben</span><br>
+                                    Komödie von Kurt Wilhelm<br>
+                                    Bühnenmusik von Frizz Fischer</p>
+                            </f:case>
+                            <f:case value="438">
+                                <p style="font-size: 0.8rem;">
+                                    <span style="font-size: 1rem; font-weight: bold;">Premiere</span><br>
+                                    <span style="color: #FCB900; font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; font-size: 1.3rem; font-weight: 100; padding-top: 60px; font-weight: bold; line-height: 1.2; ">Hexenzeit in der Wachau</span><br>
+                                    Komödie mit Musik und Gesang von Susanne Felicitas Wolf</p>
+                            </f:case>
+                            <f:defaultCase>
+                                <f:if condition="({accreditation.invitationType.contents.0.type}==1 || {accreditation.invitationType.contents.0.type}==12) && {accreditation.invitationType.contents.0.content}">
+                                    <f:then>{accreditation.invitationType.contents.0.content->f:format.raw()}</f:then>
+                                    <f:else>
+                                        Bitte als Typ "HTML" oder "HTML mit Fluid" in "CONTENT 1" eintragen:
+                                        <div style="
+                                            font-family: monospace !important;!i;!;
+                                            background-color: lightgrey;
+                                            padding: 20px;">
+                                            <f:format.printf>
+                                                <p style="font-size: 0.8rem;">
+                                                    <span style="font-size: 1rem; font-weight: bold;">Premiere</span><br>
+                                                    <span style="color: #FCB900; font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; font-size: 1.3rem; font-weight: 100; padding-top: 60px; font-weight: bold; line-height: 1.2; ">Die geraubte Venus</span><br>
+                                                    Kriminalposse in 3 Akten von Gerhard Loibelsberger
+                                                </p>
+                                            </f:format.printf>
+                                        </div>
+                                    </f:else>
+                                </f:if>
+                            </f:defaultCase>
+                        </f:switch>
+                        <p style="font-size: 1rem;"><span style="font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase; color: #000000; font-size: 1.2rem; font-weight: bold; line-height: 1.2rem;:"> {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')} </span><br>
+                        <p>{accreditation.event.date->f:format.date(format:'%k.%M')} Uhr | <span style="font-size: 0.8rem; font-style: oblique;">Einlass <f:format.date date="{accreditation.event.date->f:format.date(format:'%k.%M')} - 1 hour" format="%k.%M Uhr" /><br>
+                            {accreditation.event.location.name}</span></p></p>
+                        
+                        </td>
+                </tr>
+                </table></td>
+            </tr>
+            </table>
+        </td>
+    </tr>
+        
+    <!-- gelbe Trennlinie 2 -->
+    <tr><td style="padding: 20px 50px;"><hr style=" border-top: 2px solid #FCB900; "></td></tr>
+</f:section>
+
+<f:section name="pressmaterial">
+    <f:if condition="{accreditation.guestType}==2"><h3 style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 600; font-size: 1.4rem; text-align: center; color: #FCB900;">Pressematerial</h3><p style="font-size: 0.9rem;">Pressematerial zur redaktionellen Berichterstattung finden Sie <f:link.typolink absolute="1" parameter="39#pressematerial" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={accreditation.event.campaign.uid}" absolute="1" additionalAttributes="{style:'font-family: \'PT Sans Narrow\', sans-serif; font-weight: 600; color: #036DB6;'}">HIER</f:link.typolink>!<br>Wir freuen uns auf Ihren Beitrag!</p></f:if>
+</f:section>
+
+</html>

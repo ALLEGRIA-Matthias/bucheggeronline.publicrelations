@@ -1,0 +1,54 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+  xmlns:acdist="http://typo3.org/ns/Allegria/AcDistribution/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+<f:section name="Title">
+    <title>{mailing.subject}</title>
+</f:section>
+
+<f:section name="Preview">
+    <f:if condition="{mailing.preview}">
+        <!-- Visually Hidden Preheader Text : BEGIN -->
+        <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">{mailing.preview->f:format.raw()}</div>
+        <!-- Visually Hidden Preheader Text : END -->
+    </f:if>
+</f:section>
+
+<f:section name="Header">
+    <!-- Email Header : BEGIN -->
+    <f:render partial="Fallback/HeaderNew" arguments="{type:mailing.contentType, title:mailing.contentTitle}" />
+    <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="600" class="email-container">
+        <f:if condition="!{mailing.noHeader} && {mailing.header}">
+        <!-- Hero Image, Flush : BEGIN -->
+        <tr>
+            <td class="full-width-image" align="center">
+                <acdist:absoluteImage image="{mailing.header}" maxHeight="200" maxWidth="600" additionalAttributes="{border:'0',align:'center'}" style="{width:100%,height:auto,max-width:600px,max-height:200px}" class="fluid" />
+            </td>
+        </tr>
+        <!-- Hero Image, Flush : END --> 
+        </f:if>
+        
+        <f:if condition="!{mailing.noSalutation}">
+        <!-- 1 Column Text : BEGIN -->
+        <tr>
+            <td style="padding: 40px 40px 0 40px; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305;">
+                <f:if condition="{guestOutput}">
+                    <f:then><f:render partial="Fallback/Salutation" arguments="{guestOutput:guestOutput, personally:mailing.personally}" /></f:then>
+                    <f:else><f:render partial="Fallback/SalutationNew" arguments="{contact:receiver.contact}" /></f:else>
+                </f:if>
+            </td>
+            </tr>
+        <!-- 1 Column Text : BEGIN -->
+        </f:if>
+
+    </table>
+    <!-- Email Header : END -->
+</f:section>
+
+<f:section name="Content">
+    <f:render partial="Fallback/ContentsNew" arguments="{contents:mailing.contents, receiver:receiver, mail:mail, guestOutput:guestOutput}" />
+    <f:if condition="!{mailing.noSignature}"><f:render partial="Fallback/SignatureNew" /></f:if>
+</f:section>
+</html>

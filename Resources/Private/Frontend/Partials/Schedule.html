@@ -1,0 +1,292 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:section name="list">
+<f:if condition="{client} || {campaign}">
+<f:then>
+<div class="alert bg-white anchor" id="pressetermine">
+  <h2 class="h4 mt-2 mb-3"><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg> <f:if condition="{campaign.type.uid}==15"><f:then>Spielplan</f:then><f:else>Termine</f:else></f:if><button class="btn btn-primary btn-filter ms-auto float-end fw-bold" data-filter-target="event-filter" data-filter-value="no-akkr" data-filter-status="shown"><svg class="icon fill-dark me-1" data-filter-icon="filter" style="display:none;"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#filter"></use></svg><svg class="icon fill-dark me-1" data-filter-icon="filter-off"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#filter-off"></use></svg><span class="d-none d-md-inline">Akkreditierbare Termine</span></button></h2>
+  <div class="collapse multi-collapse show" id="eventPreview">
+    <f:groupedFor each="{schedule.preview}" as="groupedEvents" groupBy="dateGroup" groupKey="groupTitle">
+      <h5 class="small mt-4">{groupTitle}</h5>
+      <f:for each="{groupedEvents}" as="event" iteration="ei">
+        <f:render section="event" arguments="{_all}"/>
+      </f:for>
+    </f:groupedFor>
+  </div>
+  <f:if condition="{schedule.events->f:count()}>5">
+  <div class="collapse multi-collapse" id="alleEvents">
+    <f:groupedFor each="{schedule.events}" as="groupedEvents" groupBy="dateGroup" groupKey="groupTitle">
+      <h5 class="small mt-4">{groupTitle}</h5>
+      <f:for each="{groupedEvents}" as="event" iteration="ei">
+        <f:render section="event" arguments="{_all}"/>
+      </f:for>
+    </f:groupedFor>
+  </div>
+  <p class="text-center">
+    <button class="btn btn-primary fw-bold collapse multi-collapse show" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="eventPreview alleEvents">Alle Termine anzeigen</button>
+    <button class="btn btn-primary fw-bold collapse multi-collapse" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="eventPreview alleEvents">Die nächsten 5 Termine</button>
+  </p>
+  </f:if>
+</div>
+</f:then>
+<f:else>
+<div class="alert bg-white anchor" id="pressetermine">
+  <h2 class="h4 mt-2 mb-3"><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg> <f:if condition="{campaign.type.uid}==15"><f:then>Spielplan</f:then><f:else>Termine</f:else></f:if><button class="btn btn-primary btn-filter ms-auto float-end fw-bold" data-filter-target="event-filter" data-filter-value="no-akkr" data-filter-status="shown"><svg class="icon fill-dark me-1" data-filter-icon="filter" style="display:none;"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#filter"></use></svg><svg class="icon fill-dark me-1" data-filter-icon="filter-off"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#filter-off"></use></svg><span class="d-none d-md-inline">Akkreditierbare Termine</span></button></h2>
+  <div class="collapse multi-collapse show" id="eventPreview">
+    <f:groupedFor each="{schedule.events}" as="groupedEvents" groupBy="dateGroup" groupKey="groupTitle">
+      <h5 class="small mt-4">{groupTitle}</h5>
+      <f:for each="{groupedEvents}" as="event" iteration="ei">
+        <f:render section="event" arguments="{_all}"/>
+      </f:for>
+    </f:groupedFor>
+  </div>
+</div>
+</f:else>
+</f:if>
+</f:section>
+
+<f:section name="event">
+<div class="alert bg-white text-decoration-none border border-light p-0 shadow-sm" role="alert" data-value="{f:if(condition: '{event.accreditationAllowed}', then: 'akkr-allowed', else: 'no-akkr')}" data-target="event-filter">
+  <div class="d-flex justify-content-between">
+    <div class="d-flex py-1 px-3 rounded-start event-date {f:if(condition:'{event.canceled} || {event.newEvent}', then:'bg-danger text-white')} {f:if(condition:'{event.opening}', then:'bg-primary text-dark')} {f:if(condition:'!{event.canceled} && !{event.newEvent} && !{event.opening}', then:'bg-light')}">
+      <span class="h6 fw-bold my-auto">{event.date->f:format.date(format: 'd.')}<span class="mt-2 mt-lg-0 ms-lg-2 fw-normal smaller d-block d-lg-inline">{event.date->f:format.date(format: 'H.i')} Uhr</span></span>
+    </div>
+    <div class="w-100 px-3 py-2 align-middle">
+      <span class="fw-bold h6 {f:if(condition:'{event.canceled} || {event.newEvent}', then:'strikethrough')}">{event.title}</span>
+      <f:if condition="{event.online}">
+        <f:then><br/><span class="fw-light smaller text-muted"><strong class="fw-bold">Location: </strong>Online-Termin</span></f:then>
+        <f:else>
+          <f:if condition="{event.location} != {client.location}"><br/><span class="fw-light smaller text-muted"><strong class="fw-bold">Location: </strong>{event.location.name} • {event.location.street}, {event.location.zip} {event.location.city}</span></f:if>
+        </f:else>
+      </f:if>
+      <div class="d-block d-md-none"><f:render section="badges" arguments="{event:event}" /></div>
+    </div>
+    <div class="align-middle d-none d-md-flex">
+      <div class="my-auto">
+        <f:render section="badges" arguments="{event:event}" />
+      </div>
+    </div>
+    <div class="">
+      <div class="btn-group h-100" role="group" aria-label="Basic example">
+        <f:if condition="{event.accreditationAllowed}">
+          <f:then>
+            <button type="button" class="btn btn-sm border border-white btn-primary" data-bs-toggle="modal" data-bs-target="#eventAccreditation{event.uid}" data-bs-trigger="focus"><svg class="icon fill-white me-1 mt-n1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-badge-lanyard"></use></svg></button>
+          </f:then>
+          <f:else>
+            <button type="button" class="btn btn-sm border border-white btn-light" data-bs-toggle="popover" data-bs-trigger="click" data-bs-html="true" data-bs-placement="left" title="Keine Akkreditierung möglich!<span class='close-popover float-end cursor-pointer' aria-label='Close'><span aria-hidden='true'>&times;</span></span>" data-bs-content="Für diesen Termin ist derzeit keine Akkreditierungsanfrage möglich. Eventuell ist das Kontingent bereits erschöpft. Gerne können Sie uns für weitere Fragen unter <a href='mailto:office@allegria.at?subject=<f:format.urlencode>Anfrage zum Termin {event.title} am {event.date->f:format.date(format:"%d.%m.%Y um %H.%M Uhr")}</f:format.urlencode>' target='_blank'>office@allegria.at</a> kontaktieren."><svg class="icon fill-white me-1 mt-n1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-badge-lanyard"></use></svg></button>
+          </f:else>
+        </f:if>
+        <f:if condition="{campaign}">
+          <f:then><button onclick="window.location.href='#pressematerial'" type="button" class="btn btn-sm btn-primary border border-white {f:if(condition:'{campaign.mediagroups}', else: 'disabled')}"><svg class="icon fill-white me-1 mt-n1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#picture"></use></svg></button></f:then>
+          <f:else><f:link.action action="show" controller="Campaign" section="pressematerial" arguments="{campaign:event.campaign}" pageUid="39" class="btn btn-sm btn-primary border border-white {f:if(condition:'{event.campaign.mediagroups}', else: 'disabled')}"><svg class="icon fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#picture"></use></svg></f:link.action></f:else>
+        </f:if>
+        <button type="button" class="btn btn-sm btn-primary border border-white {f:if(condition:'{event.ticketlink}', then: 'btn-primary', else: 'btn-light disabled')}"><svg class="icon fill-white me-1 mt-n1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#ticket"></use></svg></button>
+      </div>
+    </div>
+  </div>
+</div>
+</f:section>
+
+<f:section name="modals">
+<f:for each="{events}" as="event" iteration="i">
+<div class="modal" tabindex="-1" id="eventInfo{event.uid}">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-truncate"><svg class="icon me-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg>{event.title}</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6 class="h5 text-uppercase">Termindaten</h6>
+        <table class="table table-font-size-1">
+          <tr>
+            <th>Kunde</th>
+            <th>{event.client.name}</th>
+          </tr>
+          <f:if condition="{event.campaign}">
+          <tr>
+            <th>{event.campaign.type.title}</th>
+            <th>{event.campaign.title}</th>
+          </tr>
+          </f:if>
+          <tr>
+            <th>Termintyp</th>
+            <td>{event.type.title}</td>
+          </tr>
+          <tr>
+            <th>Betreff</th>
+            <th>{event.title}</th>
+          </tr>
+          <tr>
+            <th>Zeitpunkt</th>
+            <td><f:if condition="{event.dateFulltime}"><f:then>{event.date->f:format.date(format:'%A, %e. %B %Y')}</f:then><f:else>{event.date->f:format.date(format:'%A, %e. %B %Y um %H.%M Uhr')}</f:else></f:if></td>
+          </tr>
+          <f:if condition="{event.duration}">
+          <tr>
+            <th>Dauer</th>
+            <td>{f:if(condition:'{event.durationApprox}', then:'voraussichtlich ')}<strong>{event.duration} Minuten</strong>{f:if(condition:'{event.durationWithBreak}', then:' inkl. Pause')}</td>
+          </tr>
+          </f:if>
+          <tr>
+            <th>Ort</th>
+            <td>
+              <f:if condition="{event.locationManual}">
+                <f:then>
+                  <strong>{event.locationManual}</strong>
+                  <f:if condition="{event.locationNote}"><br/>{event.locationNote}</f:if>
+                </f:then>
+                <f:else>
+                <f:if condition="{event.location}">
+                  <strong>{event.location.name}</strong>
+                  <f:if condition="{event.location.additional}"><br/>{event.location.additional}</f:if>
+                  <br/>{event.location.street}
+                  <br/>{event.location.zip} {event.location.city}, {event.location.country.shortNameDe}
+                </f:if>
+                </f:else>
+              </f:if>
+            </td>
+          </tr>
+          <f:if condition="{event.notesOutput} || {event.notesManual}">
+          <tr>
+            <th>Hinweis</th>
+            <td>
+              <f:if condition="{event.notesOutput}">
+                <f:then>
+                  <f:if condition="{event.notesManual}">{event.notesManual}<br/></f:if>
+                  <f:for each="{event.notesOutput}" as="note" iteration="ni"><span class="badge bg-dark me-2 mb-3">{note}</span></f:for>
+                  <f:if condition="{event.accreditationAllowed}">
+                    <f:then><strong class="text-danger">Zutritt nur nach erfolgreicher Akkreditierung!</strong></f:then>
+                    <f:else><div class="alert alert-dark" role="alert">
+                      <h6 class="fw-bold text-uppercase text-danger">Derzeit keine Akkreditierung möglich!</h6>
+                      <small>Für diesen Termin ist derzeit keine Akkreditierungsanfrage möglich. Eventuell ist das Kontingent bereits erschöpft. Gerne können Sie uns für weitere Fragen unter <a class="text-dark fw-bold"href='mailto:office@allegria.at?subject=<f:format.urlencode>Anfrage zum Termin {event.title} am {event.date->f:format.date(format:"%d.%m.%Y um %H.%M Uhr")}</f:format.urlencode>' target='_blank'>office@allegria.at</a> kontaktieren.</small></div></f:else>
+                  </f:if>
+                </f:then>
+                <f:else>
+                  {event.notesManual}
+                </f:else>
+              </f:if>
+            </td>
+          </tr>
+          </f:if>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Schließen</button>
+        <f:comment><button type="button" class="btn btn-dark fw-bold"><svg class="icon me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#square-download"></use></svg>Kalendereintrag</button></f:comment>
+        <button type="button" class="btn btn-primary fw-bold" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#eventAccreditation{event.uid}" data-bs-trigger="focus" {f:if(condition:'{event.accreditationAllowed}', else:'disabled')}><svg class="icon fill-dark me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-badge-lanyard"></use></svg>Akkreditierung</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<f:if condition="{event.accreditationAllowed}">
+<div class="modal" tabindex="-1" role="dialog" id="eventAccreditation{event.uid}" aria-labelledby="eventAccreditation{event.uid}">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <f:form enctype="multipart/form-data" action="create" controller="Accreditation" name="newAccreditation" arguments="{event:event}">
+      <div class="modal-header">
+        <h5 class="modal-title text-truncate"><svg class="icon me-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg>{event.title}</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <small>Akkreditierungsanfrage zu:</small>
+        <h6 class="h5 text-uppercase fw-bold my-0">{event.title}</h6>
+        <small>
+          <svg class="icon icon-sm me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg><strong>{event.date->f:format.date(format:'%e. %B %Y, %H.%M Uhr')}</strong>
+          <svg class="icon icon-sm me-1 ms-3"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#crown"></use></svg><strong>{event.client.name}</strong><f:if condition="{event.campaign}"> • {event.campaign.title}</f:if>
+        </small>
+          <h6 class="fw-bold mt-3 mb-0">Allgemein</h6>
+          <div class="row">
+            <div class="input-group mb-2 col-md-12">
+              <f:form.textfield class="form-control" id="inputMedium" property="medium" placeholder="Name des Mediums / Berichterstattung im Namen von..." type="text" required="1" />
+            </div>
+            <div class="input-group mb-2 col-md-6">
+              <f:form.select class="form-control tomselect-generic" id="inputMediumType" property="mediumType" options="{mediumTypes}" optionsAfterContent="1" optionValueField="uid" optionLabelField="title" sortByOptionLabel="1" required="1">
+                <f:form.select.option value="">Bitte Medientyp wählen...</f:form.select.option>
+              </f:form.select>
+            </div>
+            <div class="input-group mb-2 col-md-6">
+              <f:form.select class="form-control tomselect-generic" id="inputAccreditationType" name="accreditationType" required="1">
+                <f:form.select.option value="">Akkreditierung als...</f:form.select.option>
+                <f:form.select.option value="1">Redakteur</f:form.select.option>
+                <f:form.select.option value="2">Fotograf</f:form.select.option>
+                <f:form.select.option value="3">Kamerateam</f:form.select.option>
+              </f:form.select>
+            </div>
+          </div>
+
+          <h6 class="fw-bold mt-3 mb-0">Details</h6>
+          <div class="row">
+            <div class="input-group mb-2 col-md-4">
+              <f:form.textfield class="form-control" id="inputTicketsWish" property="ticketsWish" placeholder="Anzahl der Pressekarten" required="1" type="number" value="2" additionalAttributes="{min:'1', max:'3'}" />
+            </div>
+            <div class="input-group mb-2 col-md-4">
+              <f:form.select class="form-control tomselect-generic" id="inputGender" property="gender" required="1">
+                <f:form.select.option value="">Anrede</f:form.select.option>
+                <f:form.select.option value="1">Frau</f:form.select.option>
+                <f:form.select.option value="2">Herr</f:form.select.option>
+                <f:form.select.option value="0">Divers</f:form.select.option>
+              </f:form.select>
+            </div>
+            <div class="input-group mb-2 col-md-4">
+              <f:form.textfield class="form-control" id="inputTitle" property="title" placeholder="Titel" type="text" />
+            </div>
+            <div class="input-group mb-2 col-md-6">
+              <f:form.textfield class="form-control" id="inputFirstName" property="firstName" placeholder="Vorname" type="text" required="1" />
+            </div>
+            <div class="input-group mb-2 col-md-6">
+              <f:form.textfield class="form-control" id="inputLastName" property="lastName" placeholder="Nachname" type="text" required="1" />
+            </div>
+            <div class="input-group mb-2 col-md-6">
+              <f:form.textfield class="form-control" id="inputEmail" property="email" placeholder="E-Mail Adresse" type="email" required="1" />
+            </div>
+            <div class="input-group mb-2 col-md-6">
+              <f:form.textfield class="form-control" id="inputPhone" property="phone" placeholder="Telefonnummer" type="phone" />
+            </div>
+          </div>
+
+          <h6 class="fw-bold mt-3 mb-0">Anmerkungen</h6>
+          <div class="row">
+            <div class="input-group mb-2 col-md-12">
+              <f:form.textarea class="form-control" id="inputRequestNote" property="requestNote" rows="5" />
+            </div>
+          </div>
+
+          <h6 class="fw-bold mt-3 mb-0">Datenschutz</h6>
+          <div class="input-group">
+            <div class="form-check">
+              <f:form.checkbox class="form-check-input" id="inputDSGVO" property="dsgvo" value="1" additionalAttributes="{required:'1'}" />
+              <label class="form-check-label" for="inputDSGVO">Ich habe die <f:link.page pageUid="37" target="_blank">Datenschutzbestimmungen</f:link.page> von Allegria gelesen, verstanden und bin mit der verschlüsselten Datenübermittlung und damit einhergehenden Datenspeicherung zur weiteren Bearbeitung einverstanden. Ihre IP-Adresse wird dabei aus Sicherheitsgründen übermittelt, eine Weitergabe an Dritte erfolgt nicht.</label>
+            </div>
+          </div>
+
+          <f:form.hidden property="ip" value="{ip}" />
+          <f:form.hidden property="event" value="{event.uid}" />
+          <f:form.hidden property="type" value="1" />
+          <f:form.hidden property="guestType" value="2" />
+          <f:form.hidden property="status" value="0" />
+          <f:form.hidden name="formType" value="manualFrontend" />
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Schließen</button>
+        <f:form.button type="submit" class="btn btn-primary fw-bold"><svg class="icon fill-dark me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-badge-lanyard"></use></svg>Akkreditierung einreichen</f:form.button>
+      </div>
+      </f:form>
+    </div>
+  </div>
+</div>
+</f:if>
+
+</f:for>
+</f:section>
+
+<f:section name="badges">
+  <f:if condition="{event.canceled}"><span class="badge bg-danger text-white me-2">Abgesagt</span></f:if>
+  <f:if condition="{event.newEvent}"><span class="badge bg-danger text-white me-2 clickable"data-bs-toggle="popover" data-bs-trigger="hover" data-bs-html="true" data-bs-placement="left" title="Neuer Termin" data-bs-content="Bitte beachten Sie, dass der Termin auf den <strong>{event.newEvent.date->f:format.date(format: 'd.m.Y')} um {event.newEvent.date->f:format.date(format: 'H.i')} Uhr</strong> verschoben wurde.<br/>{f:if(condition: '{event.location} == {event.newEvent.location}', then: '<strong>Die Location bleibt unverändert!</strong>', else: '<strong>NEUE LOCATION:</strong> {event.newEvent.location.name} • {event.newEvent.location.street}, {event.newEvent.location.zip} {event.newEvent.location.city}')}">Verschoben</span></f:if>
+  <f:if condition="{event.opening} && !{event.canceled} && !{event.newEvent}"><span class="badge bg-primary text-dark me-2">{event.openingOutput}</span></f:if>
+  <f:if condition="{event.notes}"><f:for each="{event.notes}" as="note"><f:if condition="{note.uid}!=45"><span class="badge bg-dark text-primary me-2">{note.title}</span></f:if></f:for></f:if>
+</f:section>

@@ -1,0 +1,268 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Contacts" />
+
+<f:section name="buttons">
+</f:section>
+
+<f:section name="shortcuts">
+    <div class="dropdown">
+        <button class="btn btn-sm btn-default" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-three-dots-vertical"></i>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><be:link.editRecord uid="{contact.uid}" table="tt_address" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', arguments:'{id:2}', query:'&action=list&controller=Contact')}" class="dropdown-item">
+                <i class="bi bi-pencil-fill"></i> Bearbeiten
+            </be:link.editRecord></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-download"></i> Exportieren (csv)</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-download"></i> Exportieren (vCard)</a></li>
+            <li><a class="dropdown-item bg-danger" href="#"><i class="bi bi-trash3"></i> Löschen</a></li>
+        </ul>
+    </div>
+    <f:link.action controller="Contact" action="show" arguments="{contact:contact}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+  <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+  <div class="row">
+    <div class="col-12 col-md-6">
+        <div class="d-flex mb-4">
+            <div class="flex-shrink-0">
+            <f:if condition="{contact.image}">
+                <f:then><f:image image="{contact.image.0}" class="img-fluid rounded-circle {f:if(condition:'{contact.facie}', then:'border border-primary border-5')}" height="150c" width="150c" cropVariant="default" /></f:then>
+                <f:else><div class="d-block rounded-circle bg-primary position-relative" style="height: 150px; width: 150px;"><div class="position-absolute translate-middle top-50 start-50 display-3 text-white">{contact.initials}</div></div></f:else>
+            </f:if>
+            </div>
+            <div class="flex-grow-1 ms-4 my-auto">
+                <div class="d-flex mb-0">
+                    <div class="flex-shrink-0"><i class="bi bi-person-badge"></i></div>
+                    <div class="flex-grow-1 ms-1">{contact.uid}</div>
+                </div>
+                <h1 class="my-0">{contact.selectedName}<f:if condition="{contact.facie}"> <i class="bi bi-camera-fill text-primary"></i></f:if></h1>
+                <p><span class="badge badge-primary">{contact.otherName}</span></p>
+                <div class="d-flex mb-0">
+                    <div class="flex-shrink-0"><i class="bi bi-bookmarks"></i></div>
+                    <div class="flex-grow-1 ms-1"><p>{contact.contactTypesOverview}</p></div>
+                </div>
+                <div class="d-flex mb-0">
+                    <div class="flex-shrink-0"><i class="bi bi-briefcase"></i></div>
+                    <div class="flex-grow-1 ms-1">
+                      <p>
+                        <f:for each="{contact.companies}" as="companySet" iteration="compId">{companySet.company.name}<f:if condition="!{compId.isLast}"><br></f:if></f:for>
+                      </p>
+                    </div>
+                </div>
+                <div class="d-flex mb-0">
+                    <div class="flex-shrink-0"><i class="bi bi-envelope-check"></i></div>
+                    <div class="flex-grow-1 ms-1"><p>
+                        <f:for each="{contact.tagsOverview}" as="tag" iteration="tagId"><span class="badge badge-info rounded-pill me-1"><i class="bi bi-tag"></i> {tag.title}</span></f:for><br>
+                        <f:for each="{contact.ressortsOverview}" as="ressort" iteration="ressortId"><span class="badge badge-info rounded-pill me-1"><i class="bi bi-pencil"></i> {ressort.title}</span></f:for></p>
+                    </div>
+                </div>
+                <div class="d-flex mb-0">
+                    <div class="flex-shrink-0"><i class="bi bi-balloon"></i></div>
+                    <div class="flex-grow-1 ms-1"><p>{contact.birthday->f:format.date(format:'d.m.Y')} [{contact.age} Jahre]</p>
+                    </div>
+                </div>
+            </div>
+          </div>
+    </div>
+    <div class="col-12 col-md-6 my-auto">
+        <div class="alert alert-info">
+            <h2 class="mt-0">Mailing-Konfiguration</h2>
+            <div class="d-flex mb-1">
+                <div class="flex-shrink-0"><i class="bi bi-send-check-fill"></i></div>
+                <div class="flex-grow-1 ms-2">Mailings <f:switch expression="{contact.mailings}"><f:case value="0"><span class="badge badge-danger">NEIN</span></f:case><f:case value="1"><span class="badge badge-success">JA</span></f:case></f:switch></div>
+            </div>
+            <div class="d-flex mb-1">
+                <div class="flex-shrink-0"><i class="bi bi-calendar-check-fill"></i></div>
+                <div class="flex-grow-1 ms-2">Einladungen <f:switch expression="{contact.invitations}"><f:case value="0"><span class="badge badge-danger">NEIN</span></f:case><f:case value="1"><span class="badge badge-success">JA</span></f:case></f:switch></div>
+            </div>
+            <div class="d-flex mb-1">
+                <div class="flex-shrink-0"><i class="bi bi-star-fill"></i></div>
+                <div class="flex-grow-1 ms-2">Kundensperren: KEINE</div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div class="alert alert-info">
+        <h2 class="mt-0">Private Kontaktdaten</h2>
+        <div class="d-flex mb-1">
+          <div class="flex-shrink-0"><i class="bi bi-envelope"></i></div>
+          <div class="flex-grow-1 ms-2">
+            <f:for each="{contact.emails}" as="email" iteration="emailId"><a href="mailto:{email.value}" target="_blank" class="text-decoration-none">{email.value}</a> [{email.type}] <i class="bi bi-clipboard2 ms-1"></i><f:if condition="!{emailId.isLast}"><br></f:if></f:for>
+          </div>
+        </div>
+        <div class="d-flex mb-1">
+          <div class="flex-shrink-0"><i class="bi bi-telephone"></i></div>
+          <div class="flex-grow-1 ms-2">
+            <f:for each="{contact.numbers}" as="number" iteration="numberId"><a href="tel:{number.numberToLink}" target="_blank" class="text-decoration-none">{number.numberToShow->f:format.raw()}</a> [{number.type}] <i class="bi bi-clipboard2 ms-1"></i><f:if condition="!{numberId.isLast}"><br></f:if></f:for>
+          </div>
+        </div>
+        <div class="d-flex mb-0">
+          <div class="flex-shrink-0"><i class="bi bi-geo-alt"></i></div>
+          <div class="flex-grow-1 ms-2">{contact.address->f:format.nl2br()}<br>{contact.zip} {contact.city}<br>{contact.country}</div>
+        </div>
+      </div>
+
+      <div class="alert alert-info">
+        <h2 class="mt-0">Tätigkeiten / Agenturen</h2>
+        <f:for each="{contact.companies}" as="companySet" iteration="compId">
+          <div class="d-flex">
+            <div class="flex-shrink-0">
+              <f:if condition="{companySet.company.logo}">
+                <f:then><f:image image="{companySet.company.logo}" class="img-fluid rounded-circle" height="80c" width="80c" /></f:then>
+                <f:else><div class="d-block rounded-circle bg-primary position-relative" style="height: 80px; width: 80px;"><div class="position-absolute translate-middle top-50 start-50 h1 text-white">{companySet.company.initials}</div></div></f:else>
+              </f:if>
+            </div>
+            <div class="flex-grow-1 ms-2 my-auto">
+              <p>
+                <strong>{companySet.company.name}</strong><br>
+                {companySet.company.address}, {companySet.company.zip} {companySet.company.city} [{companySet.company.country}]
+              </p>
+              <div class="d-flex mb-1">
+                  <div class="flex-shrink-0"><i class="bi bi-briefcase"></i></div>
+                  <div class="flex-grow-1 ms-1">{companySet.position}</div>
+              </div>
+              <div class="d-flex mb-1">
+                  <div class="flex-shrink-0"><i class="bi bi-bookmark"></i></div>
+                  <div class="flex-grow-1 ms-1"><f:for each="{companySet.contactTypes}" as="contactType" iteration="contactId">{contactType.title}<f:if condition="!{contactId.isLast}">, </f:if></f:for></div>
+              </div>
+              <div class="d-flex mb-1">
+                  <div class="flex-shrink-0"><i class="bi bi-person"></i></div>
+                  <div class="flex-grow-1 ms-1">{companySet.agent}</div>
+              </div>
+              <div class="d-flex mb-1">
+                  <div class="flex-shrink-0"><i class="bi bi-envelope"></i></div>
+                  <div class="flex-grow-1 ms-1">
+                    <f:for each="{companySet.emails}" as="email" iteration="emailId"><a href="mailto:{email.value}" target="_blank" class="text-decoration-none">{email.value}</a> [{email.type}] <i class="bi bi-clipboard2 ms-1"></i><f:if condition="!{emailId.isLast}"><br></f:if></f:for>
+                  </div>
+              </div>
+              <div class="d-flex mb-1">
+                <div class="flex-shrink-0"><i class="bi bi-telephone"></i></div>
+                <div class="flex-grow-1 ms-1">
+                  <f:for each="{companySet.numbers}" as="number" iteration="numberId"><a href="tel:{number.numberToLink}" target="_blank" class="text-decoration-none">{number.numberToShow->f:format.raw()}</a> [{number.type}] <i class="bi bi-clipboard2 ms-1"></i><f:if condition="!{numberId.isLast}"><br></f:if></f:for>
+                </div>
+              </div>
+              <div class="d-flex mb-1">
+                <div class="flex-shrink-0"><i class="bi bi-tags"></i></div>
+                <div class="flex-grow-1 ms-1"><f:for each="{companySet.tags}" as="tag" iteration="tagId"><span class="badge badge-info rounded-pill me-1">{tag.title}</span></f:for></div>
+              </div>
+              <div class="d-flex mb-0">
+                <div class="flex-shrink-0"><i class="bi bi-pen"></i></div>
+                <div class="flex-grow-1 ms-1"><f:for each="{companySet.ressorts}" as="ressort" iteration="ressortId"><span class="badge badge-info rounded-pill me-1">{ressort.title}</span></f:for></div>
+              </div>
+            </div>
+          </div>
+          <f:if condition="!{compId.isLast}"><hr style="border-top: solid 1px #65767d85;"></f:if>
+        </f:for>
+      </div>
+  
+      <div class="alert alert-info">
+        <h2 class="mt-0">Website / Blogs / Social Media</h2>
+        <div class="d-flex mb-1">
+          <div class="flex-shrink-0"><i class="bi bi-link"></i></div>
+          <div class="flex-grow-1 ms-2">{contact.www} <i class="bi bi-clipboard2 ms-1"></i></div>
+        </div>
+        <div class="d-flex mb-1">
+          <div class="flex-shrink-0"><i class="bi bi-linkedin"></i></div>
+          <div class="flex-grow-1 ms-2">{contact.linkedin} <i class="bi bi-clipboard2 ms-1"></i></div>
+        </div>
+        <div class="d-flex mb-1">
+          <div class="flex-shrink-0"><i class="bi bi-skype"></i></div>
+          <div class="flex-grow-1 ms-2">{contact.skype} <i class="bi bi-clipboard2 ms-1"></i></div>
+        </div>
+        <div class="d-flex mb-1">
+          <div class="flex-shrink-0"><i class="bi bi-twitter"></i></div>
+          <div class="flex-grow-1 ms-2">{contact.twitter} <i class="bi bi-clipboard2 ms-1"></i></div>
+        </div>
+        <div class="d-flex mb-1">
+          <div class="flex-shrink-0"><i class="bi bi-tiktok"></i></div>
+          <div class="flex-grow-1 ms-2">{contact.tiktok} <i class="bi bi-clipboard2 ms-1"></i></div>
+        </div>
+        <div class="d-flex mb-1">
+          <div class="flex-shrink-0"><i class="bi bi-facebook"></i></div>
+          <div class="flex-grow-1 ms-2">{contact.facebook} <i class="bi bi-clipboard2 ms-1"></i></div>
+        </div>
+        <div class="d-flex mb-1">
+          <div class="flex-shrink-0"><i class="bi bi-instagram"></i></div>
+          <div class="flex-grow-1 ms-2">{contact.instagram} <i class="bi bi-clipboard2 ms-1"></i></div>
+        </div>
+      </div>
+
+    </div>
+    
+    <div class="col-12 col-md-6">
+      <div class="alert alert-light">
+        <h2 class="mt-0">Notizen</h2>
+        <div class="d-flex mb-1 bg-warning text-white p-2 mb-3 rounded">
+          <div class="flex-shrink-0"><i class="bi bi-exclamation-triangle-fill"></i></div>
+          <div class="flex-grow-1 ms-2"><strong>WICHTIGER VERMERK</strong>{contact.important->f:format.raw()}</div>
+        </div>
+        <div class="d-flex mb-1">
+          <div class="flex-shrink-0"><i class="bi bi-sticky-fill"></i></div>
+          <div class="flex-grow-1 ms-2"><strong>Sonstige Notizen</strong>{contact.notes->f:format.raw()}</div>
+        </div>
+      </div>
+
+      <div class="alert alert-light">
+        <h2 class="mt-0">{countedMails} Mails</h2>
+        <div class="table-fit">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th></th>
+                    <th>Datum</th>
+                    <th>VA</th>
+                </tr>
+                <f:for each="{mails}" as="mail" iteration="mId">
+                <tr>
+                    <td><f:if condition="{mail.mailing.client.logo}"><f:image image="{mail.mailing.client.logo}" class="fluid-img rounded-circle" height="30c" width="30c" /></f:if></td>
+                    <td>{mail.sent->f:format.date(format:'d.m.Y')}</td>
+                    <td>{mail.subject->f:format.crop(maxCharacters:'35')}</td>
+                </tr>
+                </f:for>
+            </table>
+        </div>
+      </div>
+
+      <div class="alert alert-light">
+        <h2 class="mt-0">{countedAccreditations} Akkreditierungen</h2>
+        <div class="table-fit">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th></th>
+                    <th>Status</th>
+                    <th>Datum</th>
+                    <th>VA</th>
+                </tr>
+                <f:for each="{accreditations}" as="accreditation" iteration="aId">
+                <tr>
+                    <td><f:if condition="{accreditation.event.client.logo}"><f:image image="{accreditation.event.client.logo}" class="fluid-img rounded-circle" height="30c" width="30c" /></f:if></td>
+                    <td>
+                        <f:switch expression="{accreditation.status}">
+                            <f:case value="-1"><span class="badge badge-danger">abgesagt</span></f:case>
+                            <f:case value="0"><span class="badge badge-warning">offen</span></f:case>
+                            <f:case value="1"><span class="badge badge-success">zugesagt</span></f:case>
+                            <f:case value="2"><span class="badge badge-success">gekommen</span></f:case>
+                        </f:switch>
+                    </td>
+                    <td>{accreditation.event.date->f:format.date(format:'d.m.Y')}</td>
+                    <td>{accreditation.event.title->f:format.crop(maxCharacters:'25')}</td>
+                </tr>
+                </f:for>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</f:section>
+
+</html>

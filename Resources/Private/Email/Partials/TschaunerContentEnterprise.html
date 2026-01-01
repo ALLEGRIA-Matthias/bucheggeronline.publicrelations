@@ -1,0 +1,193 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+<f:switch expression="{content}">
+    <f:case value="approve">
+        <!-- 1 Column Approval : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Cabin', sans-serif;">
+                <h1 style="font-family: 'Cabin', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">{accreditation.guestOutput.fullName}</h1>
+                <p><strong>Wie schön, dass Sie kommen können.</strong><br>
+                    Folgend finden Sie die Akkeditierungsdaten.</p>
+                <div style="background: #EDEDED; border: 1px solid black; border-radius: 15px; padding: 15px; text-align: center; margin-bottom: 30px;">
+                    <p style="margin: 0; font-family: 'Cabin', sans-serif; font-size: 1.2rem; color: #6BA539; font-weight: 700;">{accreditation.guestOutput.fullName}</p>
+                    <p style="margin-top: 0; color: #191919; font-family: 'Merriweather', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+                    <p style="margin: 0; margin-top: 10px; font-family: 'Merriweather', sans-serif; font-size: 0.65rem; color: #000000;"><span style="font-size: 0.8rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong></span><br>Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr gesendet.</p>
+                </div>
+            </td>
+        </tr>
+        <!-- 1 Column Approval : END -->
+        <f:render section="eventinfo" arguments="{_all}" />
+        <!-- 1 Column Feedback : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Cabin', sans-serif;">
+                <hr style="margin: 0 0 30px 0;">
+                <h2 style="margin-top: 0px; margin-bottom: 0; font-family: 'Cabin', sans-serif; font-size: 1.4rem; text-transform: uppercase;">Krank oder verhindert?</h2>
+                <p style="margin: 0; font-family: 'Merriweather', sans-serif; font-size: 0.75rem;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider Erwarten nicht kommen können.</p>
+                <p style="margin: 27px 0px 20px 0px"><a href="mailto:office@allegria.at" target="_blank" style="background: #6BA539; padding: 7px 14px; color: #FFFFFF; font-weight: 500; text-decoration: none;">Email senden</a></p>
+                <p style="font-family: 'Merriweather', sans-serif; font-weight: 700; margin-bottom: 30px; margin-top: 30px;">Mehr Informationen finden Sie unter<br>
+                    <a href="https://www.tschauner.at" style="color: #6BA539; text-decoration: none;">www.tschauner.at</a>
+                </p>
+            </td>
+        </tr>
+        <!-- 1 Column Feedback : END -->
+    </f:case>
+    <f:case value="reject">
+        <!-- 1 Column Rejection : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Cabin', sans-serif;">
+                <h1 style="font-family: 'Cabin', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">{accreditation.guestOutput.fullName}</h1>
+                <p style="font-family: 'Cabin', sans-serif; text-align: center; font-weight: 100; font-size: 70%; margin: 5px 0px 40px 0px">
+                    Danke für die, wenn auch negative, Rückmeldung.<br>Wir hoffen Sie bei einer der nächsten Veranstaltungen wieder begrüßen zu dürfen.
+                </p>
+            </td>
+        </tr>
+        <!-- 1 Column Rejection : END -->
+    </f:case>
+    <f:case value="waiting">
+        <!-- 1 Column Rejection : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Cabin', sans-serif;">
+                <h1 style="font-family: 'Cabin', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">{accreditation.guestOutput.fullName}</h1>
+                <hr style="margin: 30px 0;">
+                <h1 style="font-family: 'Cabin', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">Die Nachfrage ist riesig!</h1>
+                <p style="font-family: 'Cabin', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Das Team der Tschauner Bühne bedankt sich für die unglaublich großartige Nachfrage.</p>
+                <p style="font-family: 'Cabin', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;"><strong>Die Ticket-Kontingente sind aktuell bedauerlicherweise komplett erschöpft.</strong></p>
+                <p style="font-family: 'Cabin', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir prüfen derzeit eine Erweiterung der Kontingente und melden uns schnellstmöglich mit einer konkreten Rückmeldung.</p>
+                <p style="font-family: 'Cabin', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir bedanken uns für das Verständnis.</p>
+            </td>
+        </tr>
+        <!-- 1 Column Rejection : END -->
+    </f:case>
+    <f:case value="approve_after_waiting">
+        <!-- 1 Column Approval : BEGIN -->
+        <tr>
+            <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: 'Bree Serif', serif;">
+                <h1 style="font-family: 'Cabin', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">{accreditation.guestOutput.fullName}</h1>
+                <hr style="margin: 0 0 30px 0;">
+                <h1 style="font-family: 'Cabin', sans-serif; font-weight: 600; font-size: 2rem; text-align: center;">Danke für's Warten!</h1>
+                <p>Wir freuen uns sehr Sie auf der Tschauner Bühne begrüßen zu können, folgend finden Sie die Reservierungsdaten.</p>
+                <div style="background: #EDEDED; border: 1px solid black; border-radius: 15px; padding: 15px; text-align: center; margin-bottom: 30px;">
+                    <p style="margin: 0; font-family: 'Cabin', sans-serif; font-size: 1.2rem; color: #6BA539; font-weight: 700;">{accreditation.guestOutput.fullName}</p>
+                    <p style="margin-top: 0; color: #191919; font-family: 'Merriweather', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+                    <p style="margin: 0; margin-top: 10px; font-family: 'Merriweather', sans-serif; font-size: 0.65rem; color: #000000;"><span style="font-size: 0.8rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong></span><br>Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr gesendet.</p>
+                </div>
+            </td>
+        </tr>
+        <!-- 1 Column Approval : END -->
+        <f:render section="eventinfo" arguments="{_all}" />
+        <!-- 1 Column Feedback : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Cabin', sans-serif;">
+                <hr style="margin: 0 0 30px 0;">
+                <h2 style="margin-top: 0px; margin-bottom: 0; font-family: 'Cabin', sans-serif; font-size: 1.4rem; text-transform: uppercase;">Krank oder verhindert?</h2>
+                <p style="margin: 0; font-family: 'Merriweather', sans-serif; font-size: 0.75rem;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider Erwarten nicht kommen können.</p>
+                <p style="margin: 27px 0px 20px 0px"><a href="mailto:office@allegria.at" target="_blank" style="background: #6BA539; padding: 7px 14px; color: #FFFFFF; font-weight: 500; text-decoration: none;">Email senden</a></p>
+                <p style="font-family: 'Merriweather', sans-serif; font-weight: 700; margin-bottom: 30px; margin-top: 30px;">Mehr Informationen finden Sie unter<br>
+                    <a href="https://www.tschauner.at" style="color: #6BA539; text-decoration: none;">www.tschauner.at</a>
+                </p>
+            </td>
+        </tr>
+        <!-- 1 Column Feedback : END -->
+    </f:case>
+    <f:case value="reject_after_waiting">
+        <!-- 1 Column Rejection : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Cabin', sans-serif;">
+                <h1 style="font-family: 'Cabin', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">{accreditation.guestOutput.fullName}</h1>
+                <hr style="margin: 30px 0;">
+                <h1 style="font-family: 'Cabin', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">Die Nachfrage ist riesig!</h1>
+                <p style="font-family: 'Cabin', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir sind von der ernormen Nachfrage überwältigt!<br><strong>Danke für Ihr Interesse.</strong></p>
+                <p style="color: #6BA539; font-family: 'Cabin', sans-serif; font-weight: 700; text-align: center; font-size: 1rem;">Umso schwerer fällt es uns Ihnen sagen zu müssen, dass wir Ihnen leider keine Tickets zur Verfügung stellen können.</p>
+                <p style="font-family: 'Cabin', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir hoffen Sie bei einer unserer nächsten Premieren wieder begrüßen zu dürfen!</p>
+            </td>
+        </tr>
+        <!-- 1 Column Rejection : END -->
+    </f:case>
+    <f:case value="pending">
+        <!-- 1 Column Text : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #000000;">
+                <h1 style="font-family: 'Cabin', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">ALLEGRIA</h1>
+                <h1 style="font-family: 'Cabin', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">Neu auf der Warteliste!</h1>
+                
+                <!-- Fließtext -->			  
+                <p style="font-family: 'Cabin', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;"><strong>{accreditation.guestOutput.name}</strong></p>
+            </td>
+        </tr>
+        <!-- 1 Column Text : END -->
+    </f:case>
+    <f:defaultCase>
+        <!-- 1 Column Name : BEGIN -->
+        <tr>
+            <td style="padding: 0 40px; text-align: center; font-family: 'Cabin', sans-serif;">
+                <h1 style="font-family: 'Cabin', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">{accreditation.guestOutput.fullName}</h1>
+            </td>
+        </tr>
+        <!-- 1 Column Name : END -->
+        <f:render section="eventinfo" arguments="{_all}" />
+        <!-- 1 Column Links : BEGIN -->
+        <tr>
+            <td style="padding: 0 40px; text-align: center; font-family: 'Cabin', sans-serif;">
+                <p width="540" style="text-align: center; background-color: white;">
+                    <a href="###TICKET_LINK### style="display: inline-block; background-color: #6BA539; font-family: 'Cabin, sans-serif; font-weight: 500; color: white; text-decoration: none; padding: 5px 15px; margin: 0px auto; font-size: 100%; border-radius: 25px;">ZU- oder ABSAGEN</a>
+                </p>
+                <p style="font-family: 'Cabin', sans-serif; text-align: center; font-weight: 100; font-size: 70%; margin: 5px 0px 40px 0px">
+                    Um Rückmeldung wird bis <span style= "font-weight: 600">23. Juni 2023</span> gebeten.<br>
+                    <f:if condition="{accreditation.guestType}==2">
+                        <f:then>
+                            Die Einladung gilt für 2 Personen und ist nicht übertragbar.<br>
+                            <strong>Herzlichen Dank für Ihre redaktionelle Berichterstattung.</strong>
+                        </f:then>
+                        <f:else>
+                            Die Einladung gilt für 2 Personen und ist nicht übertragbar.
+                        </f:else>
+                    </f:if>
+                </p>
+                <h1 style="font-family: 'Cabin', sans-serif; text-transform: uppercase; font-weight: 500; color: #6BA539; text-align: center; font-size: 140%; margin-bottom: 35px ">Wir freuen uns auf Ihren Besuch!</h1>
+            </td>
+        </tr>
+        <!-- 1 Column Links : END -->
+    </f:defaultCase>
+</f:switch>
+
+<f:section name="eventinfo">
+    <!-- Two Even Columns : BEGIN -->
+    <tr>
+        <td align="center" valign="top" style="padding: 10px;"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tr>
+            <td class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                <td style="padding: 10px; mso-height-rule: exactly;" class="center-on-narrow">
+                    <img src="https://www.allegria.at/fileadmin/marketing/tschauner/TSCHAUNER_Enterprise-Sujet.png" width="100%" height="auto" style="max-width:300px; min-width: 200px;" class="fluid">
+                </td>
+              </tr>
+              </table></td>
+            <td class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                <td style="font-family: 'Cabin', sans-serif; mso-height-rule: exactly;" class="center-on-narrow">
+                    <h1 style="font-family: 'Cabin', sans-serif; text-transform: uppercase; font-weight: 600; color: #6BA539; margin-top: 0; font-size: 1.4rem; line-height: 1;" >TSCHAUNER ENTERPRISE<br><small style="text-transform: none;">Die galaktische Stegreif Revue</small></h1>
+                
+                <p style="font-family: 'Cabin', sans-serif; font-weight: 100; font-size: 80%; line-height: 1.3;
+                    ">Der Weltraum, unendliche Weiten. Wir schreiben das Jahr 2023.<br><br>
+                    Dies sind die Abenteuer der Tschauner Enterprise. Das Raumschiff der Wiener Linien ist in fremden Galaxien unterwegs, auf der Suche nach immer neuen Energiequellen. Viele Lichtjahre von der Erde entfernt dringen die Austronauten Captain Jörg, Mr. Speck und Lieutenant Elvira in Galaxien vor, die nie ein Mensch zuvor gesehen hat.</p>
+                
+                <p style="font-family: 'Cabin', sans-serif; font-weight: 100; font-size: 80%; font-style: italic; line-height: 1.3;"> 
+                    <span style = "font-family: 'Cabin', sans-serif; text-transform: uppercase; font-weight: 500; font-style: normal;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'day')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}<br>
+                        um {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}</span>
+                        Einlass ab 18.00 Uhr
+                </p>
+                </td>
+              </tr>
+              </table></td>
+          </tr>
+          </table></td>
+      </tr>
+    <!-- Two Even Columns : END --> 
+</f:section>
+
+<f:section name="title">
+    <title>{accreditation.invitationType.subject}</title>
+</f:section>
+</html>

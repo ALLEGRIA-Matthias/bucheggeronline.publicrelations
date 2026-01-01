@@ -1,0 +1,71 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Eventcenter" />
+
+<f:section name="shortcuts">
+<f:link.action controller="Event" action="archive" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+    <h1>Terminarchiv</h1>
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <div class="form-inline mb-4">
+        <div class="row g-3 align-items-center mb-4">
+            <div class="col">
+                <input placeholder="Suche" class="form-control form-control-sm filter-table" 
+                      data-filter-table="archivedEvents" 
+                      data-filter-counter="archivedEvents-counter" 
+                      data-filter-not="1" 
+                      type="search" />
+            </div>
+            <div class="col-auto">
+                <div class="form-control-plaintext" id="archivedEvents-counter" data-counter-label="Terminen">
+                  {pagination.paginator.paginatedItems->f:count()} von {archivedEvents->f:count()} Terminen
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-fit">
+      <f:render partial="pagination" arguments="{pagination:pagination, actionName:'archive'}" />
+
+      <table class="table table-sm table-striped" id="archivedEvents">
+        <thead>
+          <tr>
+            <th data-sort-method="none" width="30px"></th>
+            <th data-filterable width="150px">Zeitpunkt</th>
+            <th data-filterable width="100px">Termintyp</th>
+            <th data-sort-method="none" width="50px" style="text-align:center;"><svg class="icon fill-gold"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#ticket"></use></svg></th>
+            <th data-filterable>Titel</th>
+            <th data-filterable>Kundeninfos</th>
+          </tr>
+        </thead>
+        <tbody id="events-to-filter">
+          <f:for each="{pagination.paginator.paginatedItems}" as="event" iteration="i">
+          <tr>
+            <td><f:link.action action="show" arguments="{event:event}"><svg class="icon fill-dark ml-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#eye"></use></svg></f:link.action></td>
+            <td>
+              {f:format.date(date:'{event.date}', format:'%d.%m.%Y %H:%M')}
+            </td>
+            <td>{event.type.title}</td>
+            <td style="text-align:center;">{event.ticketsApproved}</td>
+            <td>
+              <strong>{event.title}</strong>
+              <f:if condition="{event.location}"><br/>{event.location.name}, {event.location.city}</f:if>
+              <f:if condition="{event.locationNote}" ><br/><span class="badge badge-primary">{event.locationNote}</span></f:if>
+              <f:if condition="{event.newEvent}"><br/><span class="badge badge-danger">Verschoben auf {event.newEvent.date->f:format.date(format:'%d.%m.%Y %H:%M')}!</span></f:if>
+              <f:if condition="{event.oldEvent}"><br/><span class="badge badge-warning">Ersatztermin für {event.oldEvent.date->f:format.date(format:'%d.%m.%Y %H:%M')}!</span><f:if condition="{event.oldEvent.date->f:format.date(format:'Y-m-d')}>{f:format.date(date:'now', format:'Y-m-d')}"><f:link.action action="undoPostpone" arguments="{event:event}" data="{toggle:'tooltip', placement:'top'}" title="Verschiebung rückgängig machen..."><svg class="icon fill-danger"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#undo"></use></svg></f:link.action></f:if></f:if>
+              <f:if condition="{event.notesOutput}"><br/><f:for each="{event.notesOutput}" as="note" iteration="i"><span class="badge badge-dark mr-2">{note}</span></f:for></f:if></td>
+            <td>
+              <f:if condition="{event.client}"><f:then><strong>{event.client.shortName}</strong></f:then><f:else><strong>{event.campaign.client.shortName}</strong></f:else></f:if>
+              <f:if condition="{event.campaign}"><br/>{event.campaign.title}</f:if>
+            </td>
+          </tr>
+          </f:for>
+        </tbody>
+      </table>
+    </div>
+</f:section>
+</html>

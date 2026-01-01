@@ -1,0 +1,37 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+This Template is responsible for displaying a single view for a domain object
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        Show.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="content">
+<div class="container my-4">
+  <div class="row">
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+
+    <div class="col-12">
+
+      <div class="d-print-none">
+        <p class="my-0 text-muted small"><f:link.page pageUid="9" class="text-muted fw-bold">Kunden</f:link.page> / <f:link.action extensionName="Publicrelations" pluginName="ClientShow" controller="Client" action="show" arguments="{client:news.client}" class="text-muted fw-bold">{news.client.name}</f:link.action> / {news.title}</p>
+        <f:link.action extensionName="Publicrelations" pluginName="ClientShow" controller="Client" action="show" arguments="{client:news.client}" class="btn btn-primary btn-sm w-100">zurück zum Kunden <strong class="text-uppercase">{news.client.name}</strong></f:link.action>
+      </div>
+
+      <div class="mt-4 alert alert-white shadow p-din">
+        <f:render partial="News/Layout" arguments="{news:news}" />
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</f:section>
+</html>

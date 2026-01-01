@@ -1,0 +1,437 @@
+<f:section name="preview">
+    <!-- Visually Hidden Preheader Text : BEGIN -->
+    <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">
+    <f:switch expression="{content}">
+        <f:case value="invite">MACHU PICCHU – Reise zur verlorenen Stadt im neuen Immersive Center Donauturm. Ihre persönliche Einladung zur Eröffnung.</f:case>
+        <f:case value="remind">Nicht verpassen: MACHU PICCHU – Reise zur verlorenen Stadt im neuen Immersive Center Donauturm. Ihre persönliche Einladung zur Eröffnung.</f:case>
+        <f:case value="push">Letzte Chance: MACHU PICCHU – Reise zur verlorenen Stadt im neuen Immersive Center Donauturm. Ihre persönliche Einladung zur Eröffnung.</f:case>
+        <f:case value="approve">Wie schön, dass wir Sie demnächst im neuen Immersive Center Donauturm zu "MACHU PICCHU – Reise zur verlorenen Stadt" begrüßen dürfen.</f:case>
+        <f:case value="reject">Schade, dass es nicht klappt. CreARTive Vienna & FEVER würden sich über einen baldigen Besuch freuen.</f:case>
+    </f:switch>
+    </div>
+    <!-- Visually Hidden Preheader Text : END --> 
+</f:section>
+
+<f:section name="content">
+    <f:switch expression="{content}">
+        <f:defaultCase>
+            <f:render section="header" />
+            <f:render section="invite" arguments="{_all}" />
+            <f:render section="musterzeile-gelb" />
+            <f:render section="showinfo" />
+            <f:render section="logos" />
+        </f:defaultCase>
+        <f:case value="approve">
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="musterzeile-gelb" />
+            <f:render section="sick" arguments="{_all}" />
+            <f:render section="showinfo" />
+            <f:render section="logos" />
+        </f:case>
+        <f:case value="reject">
+            <f:render section="header" />
+            <!-- Absagetext -->
+            <tr>
+                <td style="background-color: #FFED00; color: #000000; padding: 40px; font-family: 'Open Sans', sans-serif; text-align: center;">
+                    <h1 style="margin: 0; font-size: 1.3rem; line-height: 1.2; font-family: 'Josefin Sans', sans-serif;">Danke für Ihre Rückmeldung!</h1>
+                    <p>
+                        <strong>CreARTive Vienna & FEVER</strong> bedanken sich für Ihre Rückmeldung.<br>
+                        Wir hoffen auf ein Wiedersehen bei einer der nächsten Veranstaltungen.
+                    </p>
+
+                    <f:render section="btn-website-a" />
+                </td>
+            </tr>
+            <f:render section="musterzeile-gelb" />
+            <f:render section="logos" />
+        </f:case>
+        <f:case value="waiting">
+            <f:render section="header" />
+            <!-- Wartetext -->
+            <tr>
+                <td style="background-color: #FFED00; color: #000000; padding: 40px; font-family: 'Open Sans', sans-serif; text-align: center;">
+                    <h1 style="margin-top: 0; font-size: 1.3rem; line-height: 1.2; font-family: 'Josefin Sans', sans-serif;">Danke vielmals für das große Interesse!</h1>
+                    
+                    <div style="width: 100%; padding: 0 0 40px 0;">
+                        <p style="margin-top: 0; padding: 0 40px; font-size: 1rem;"><strong>CreARTive Vienna & FEVER</strong> bedanken sich für die unglaublich großartige Nachfrage.</p>
+                        <p style="padding: 0 40px; font-size: 1.2rem; color: #112F15; font-weight: 700;">Aktuell sind unsere Ticket-Kontingente ausgebucht!</p>
+                        <p style="padding: 0 40px; font-size: 1rem;">Leider können wir erst <strong>bis spätestens {f:format.date(format:'j.m.Y', date:'{accreditation.event.date->f:format.date(format:\'d-m-Y\')} -2 days')}</strong> eine konkrete Rückmeldung geben, ob wir Ihrem Wunsch doch noch nachkommen können.</p>
+                        <p style="padding: 0 40px; font-size: 1rem; margin-bottom: 30px;">Wir bedanken uns für Ihr Verständnis und melden uns asap.</p>
+
+                        <f:render section="btn-website-a" />
+                    </div>
+                </td>
+            </tr>
+            <f:render section="musterzeile-gelb" />
+            <f:render section="logos" />
+        </f:case>
+        <f:case value="pending">
+            <f:render section="header" arguments="{_all}" />
+            <!-- Wartetext intern -->
+            <tr>
+                <td style="background-color: #FFED00; color: #000000; padding: 40px; font-family: 'Open Sans', sans-serif; text-align: center;">
+                    <h1 style="margin-top: 0; font-size: 1.3rem; line-height: 1.2; font-family: 'Josefin Sans', sans-serif;">Neu auf der Warteliste!</h1>
+                        <p style="padding: 0 40px; font-size: 1.4rem;"><strong>{accreditation.guestOutput.fullName}</strong></p>
+                    </div>
+                </td>
+            </tr>
+            <f:render section="musterzeile-gelb" />
+        </f:case>
+        <f:case value="approve_after_waiting">
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="musterzeile-gelb" />
+            <f:render section="sick" arguments="{_all}" />
+            <f:render section="showinfo" />
+            <f:render section="logos" />
+        </f:case>
+        <f:case value="reject_after_waiting">
+            <f:render section="header" arguments="{_all}" />
+            <!-- Absagetext -->
+            <tr>
+                <td style="background-color: #FFED00; color: #000000; padding: 40px; font-family: 'Open Sans', sans-serif; text-align: center;">
+                    <h1 style="margin-top: 0; font-size: 1.3rem; line-height: 1.2; font-family: 'Josefin Sans', sans-serif;">Es tut uns wahnsinnig leid!</h1>
+                        <p style="font-size: 1rem;">Wir sind von der ernormen Nachfrage überwältigt!<br><strong>Danke für Ihr Interesse.</strong></p>
+                        <p style="font-size: 1rem;">Umso schwerer fällt es uns Ihnen sagen zu müssen, dass unsere Kapazitäten völlig ausgeschöpft sind.</p>
+                        <p style="font-size: 1rem; margin-bottom: 30px;">Wir hoffen auf ein Wiedersehen bei einer der nächsten Veranstaltungen.</p>
+
+                        <f:render section="btn-website-a" />
+                    </div>
+                </td>
+            </tr>
+            <f:render section="musterzeile-gelb" />
+            <f:render section="logos" />
+        </f:case>
+    </f:switch>
+</f:section>
+
+<f:section name="header">
+    <!-- Header TITANIC : BEGIN -->
+    <tr>
+        <td class="full-width-image"><img src="https://www.allegria.at/fileadmin/marketing/creative/Creative_ICD_MP_Header.png" width="600" alt="MACHU PICCHU – Reise zur verlorenen Stadt" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;"></td>
+    </tr>
+    <!-- Header TITANIC : END --> 
+</f:section>
+
+<f:section name="invite">
+<f:switch expression="{accreditation.event.uid}">
+    <f:case value="4849"><f:variable name="invitationSubtitle">zur Eröffnungsfeier</f:variable></f:case>
+    <f:case value="4858"><f:variable name="invitationSubtitle">zur Presseführung</f:variable></f:case>
+</f:switch>
+<f:switch expression="{content}">
+    <f:case value="invite"><f:variable name="headline"><strong style="text-transform: uppercase;">Persönliche Einladung</strong></f:variable></f:case>
+    <f:case value="remind"><f:variable name="headline"><strong style="text-transform: uppercase;">Erinnerung</strong><br>zur persönlichen Einladung</f:variable></f:case>
+    <f:case value="push"><f:variable name="headline"><strong style="text-transform: uppercase;">Finale Erinnerung</strong><br>zur persönlichen Einladung</f:variable></f:case>
+</f:switch>
+
+<!-- Infobereich Gelb : BEGIN -->
+<tr>
+    <td style="background-color: #FFED00; color: #000000; padding: 40px; font-family: 'Open Sans', sans-serif; text-align: center;">
+        <h1 style="font-size: 1.3rem; line-height: 1.2; font-family: 'Josefin Sans', sans-serif;">{headline->f:format.raw()}</h1>
+        <p>{invitationSubtitle->f:format.raw()}</p>
+        <h2 style="font-size: 1.1rem; font-family: 'Josefin Sans', sans-serif; text-transform: uppercase; font-size: 1.3rem; padding-top:">{accreditation.guestOutput.fullName}</h2>
+        <h3 style="font-size: 1.1rem; padding-top: 10px;">22. Oktober 2025</h3>
+        <p style="padding-top: 10px;">
+            {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}<br>
+            <f:if condition="{accreditation.event.uid}==4849"><span style="font-size: 0.8rem">Einlass ab 18:30 Uhr</span><br></f:if>
+            <span style="font-weight: 700">{accreditation.event.location.name}</span>
+        </p>
+        
+        <f:render section="btn-feedback" arguments="{_all}" />
+        
+        <p style="font-size: 0.7rem; margin-bottom: 0px;">
+            Um Rückmeldung wird bis <strong><f:if condition="{accreditation.invitationType.feedbackDate}"><f:then>{mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'d')}, {accreditation.invitationType.feedbackDate->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'month', lang: 'at')} {accreditation.invitationType.feedbackDate->f:format.date(format:'%Y')}</f:then><f:else><f:format.date date="{accreditation.event.date->f:format.date(format:'d.m.Y')} - 2weeks friday" format="d.m.Y" /></f:else></f:if></strong> gebeten.<br>
+            Die Einladung gilt für <strong>{accreditation.ticketsWish} Person{f:if(condition:'{accreditation.ticketsWish}==1', else:'en')}</strong> und ist nicht übertragbar.
+        </p>
+    </td>
+</tr>
+<!-- Infobereich Gelb : END -->
+</f:section>
+
+<f:section name="musterzeile-gelb">
+<!-- Musterzeile Gelb : BEGIN -->
+<tr>
+    <td style="background-image:url('https://www.allegria.at/fileadmin/marketing/creative/Creative_ICD_MP_Muster.png'); background-repeat: repeat-x; height: 27px;" height="27">
+        &nbsp;
+    </td>
+</tr>
+<!-- Musterzeile Gelb : END --> 
+</f:section>
+
+<f:section name="ticket">
+<!-- Ticket : BEGIN -->
+<tr>
+    <td style="background-color: #FFED00; color: #000000; padding: 40px; font-family: 'Open Sans', sans-serif; text-align: center;">
+        <f:if condition="{content}=='approve_after_waiting'">
+            <div style="width: 100%; padding: 0 0 10px 0;">
+                <h2 style="margin-bottom: 0;">Tolle Neuigkeiten!</h2>
+                <p style="margin-top: 0; font-size: 1rem;">Danke für die Geduld. Wir können Ihren Besuch ermöglichen!</p>
+            </div>
+        </f:if>
+        <h1 style="margin: 0; margin-top: 50px; color: #000000; text-transform: uppercase; font-family: 'Josefin Sans', sans-serif; font-size: 2rem;">Wir freuen uns<br>auf Ihr Kommen!</h1>
+        <p>Folgend Ihr Eintritts-QR-Code. Bitte vor Ort vorweisen.</p>
+        <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="400" class="email-container" style="border: #FFFFFF thin solid;">
+            
+            <!-- Foto 400x200px : BEGIN -->
+            <tbody><tr>
+                <td class="full-width-image"><img src="https://www.allegria.at/fileadmin/marketing/creative/Creative_ICD_MP_Tickets.png" width="400" alt="Ticket-Header" border="0" align="center" style="width: 100%; max-width: 400; height: auto;"></td>
+            </tr>
+            <!-- Foto 400x200px : END -->
+            
+            <!-- QR-Code : BEGIN -->
+                <tr>
+                <td align="center" style="padding-top: 25px;">
+                    <img src="{mb:qrCode(data:'{accreditation.uid}', label:' ')}" width="300" alt="Ticket-QR-{accreditation.uid}" border="0" style="width: 100%; max-width: 80%; height: auto;">
+                    </td></tr>
+            <!-- QR-Code : END -->
+            
+            <!-- Titel : BEGIN -->
+            <tr>
+                <td style="text-align: center; font-family: sans-serif; color: #000000; font-size: 1.1rem;">
+                    <h2 style="font-size: 1.8rem; line-height: 1.2; color: #000; margin: 20px 0 10px 0;">MACHU PICCHU<br><small>Reise zur verlorenen Stadt</small></h2>
+                    <p style="margin-bottom: 10px;">
+                        {accreditation.event.location.name}, {accreditation.event.location.city}<f:if condition="{accreditation.event.locationNote}"> | {accreditation.event.locationNote}</f:if><br>
+                        <strong>{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')} | {f:format.date(date:'{accreditation.event.date}', format: 'H:i')}</strong>
+                    </p>
+                    <div style="background-color: #000; font-family: sans-serif; text-align: center; color: #fff; padding: 15px 0;">
+                        <p style="font-size: 1.3rem; line-height: 1.2; margin: 0;">
+                            <strong>{accreditation.guestOutput.fullName}</strong><br>
+                            <small>{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</small><br>
+                            <span style="font-size: 0.8rem; line-height: 1.2;">Akkr.Nr. #{accreditation.uid}</span>
+                        </p>
+                    </div>
+            </td>
+            </tr>
+            <!-- Titel : END --> 
+        </tbody></table>
+        <p style="margin-bottom: 0;">&nbsp;</p>
+        <f:render section="btn-anfahrt" />
+    </td>
+</tr>
+<!-- Ticket : BEGIN --> 
+</f:section>
+
+<f:section name="showinfo">
+    <!-- Icons Showinfo : BEGIN -->
+    <tr>
+        <td align="center" valign="top" style="padding-top: 40px;">
+            <table cellspacing="0" cellpadding="0" border="0" width="80%">
+                <tr>
+                    <td width="33.33%" class="stack-column-center">
+						<table cellspacing="0" cellpadding="0" border="0">
+							<tr>
+                        		<td style="padding: 10px; text-align: center">
+									<img src="https://www.allegria.at/fileadmin/marketing/creative/Creative_ICD_MP_Icon-01.png" width="127" height="auto" alt="alt_text" border="0" class="fluid">
+								</td>
+                     		</tr>
+                        	<tr>
+                        		<td style="font-family: 'Open Sans', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #ffffff; padding: 0 10px 10px; text-align: center;" class="center-on-narrow">
+									Preisgekrönte<br>
+								    VR-Technologie
+								</td>
+                      		</tr>
+                      	</table>
+					</td>
+					
+					<td width="33.33%" class="stack-column-center">
+						<table cellspacing="0" cellpadding="0" border="0">
+							<tr>
+                        		<td style="padding: 10px; text-align: center">
+									<img src="https://www.allegria.at/fileadmin/marketing/creative/Creative_ICD_MP_Icon-02.png" width="127" height="auto" alt="alt_text" border="0" class="fluid">
+								</td>
+                     		</tr>
+                        	<tr>
+                        		<td style="font-family: 'Open Sans', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #ffffff; padding: 0 10px 10px; text-align: center;" class="center-on-narrow">
+                                    Zeitreise<br>
+                                    Abenteuer
+								</td>
+                      		</tr>
+                      	</table>
+					</td>
+						
+					<td width="33.33%" class="stack-column-center">
+						<table cellspacing="0" cellpadding="0" border="0">
+							<tr>
+                        		<td style="padding: 10px; text-align: center">
+									<img src="https://www.allegria.at/fileadmin/marketing/creative/Creative_ICD_MP_Icon-03.png" width="127" height="auto" alt="alt_text" border="0" class="fluid">
+								</td>
+                     		</tr>
+                        	<tr>
+                        		<td style="font-family: 'Open Sans', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #ffffff; padding: 0 10px 10px; text-align: center;" class="center-on-narrow">
+                                    Perfekt<br>
+                                    für alle
+								</td>
+                      		</tr>
+                      	</table>
+					</td>			
+
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- Icons Showinfo : END --> 
+
+    <!-- Headline Showinfo : BEGIN -->
+    <tr>
+        <td style="padding: 60px; padding-bottom: 0; text-align: center;">
+            <h2 style="text-transform: uppercase; font-size: 1.3rem; font-family: 'Josefin Sans', sans-serif; color: #FFED00;">Über die Experience</h2>
+        </td>
+    </tr>
+    <!-- Headline Showinfo : END --> 
+    
+    <!-- Showinfo : BEGIN -->
+    <tr>
+        <td style="padding: 40px 60px; padding-top: 0; text-align: center; width: 80%;" class="padding-mobile-40">
+            <p style="color: #FFFFFF; font-family: 'Open Sans', sans-serif; font-size: 1rem; line-height: 1.2; margin-bottom: 30px;">
+                Die international erfolgreiche Ausstellung <strong>„Machu Picchu: Reise zur verlorenen Stadt – Die immersive Experience“</strong> nimmt Besucher:innen mit in die Anden.<br>
+                <br>
+                Ausgehend von einem fiktionalen Reisebüro führt sie ins Reich der Inka: In einer 45-minütigen Metaverse-Reise, die auf Grundlage originalgetreuer 3D-Scans der geografischen Gegebenheiten Machu Picchus erschaffen wurde, werden geheimnisvolle Landschaften durchquert und bedeutende historische Momente erlebt.<br>
+                <br>
+                Ergänzt durch eine 15-minütige Pre-Show wird das Publikum Schritt für Schritt in die Welt der Inka eingeführt.
+            </p>
+
+            <f:render section="btn-website" />
+        </td>
+    </tr>
+    <!-- Showinfo : END -->
+</f:section>
+
+<f:section name="logos">
+<!-- Logos : BEGIN -->
+<tr>
+    <td align="center" valign="top" style="">
+        <table cellspacing="0" cellpadding="0" border="0" width="80%">
+            <tr>
+                <td width="25%" class="stack-column-center">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                            <td style="padding: 10px; text-align: center">
+                                <img src="https://www.allegria.at/fileadmin/marketing/creative/Creative_ICD_MP_Logo-01.png" width="120" height="120" alt="VIRTUAL WORLDS" border="0" class="fluid">
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                
+                <td width="25%" class="stack-column-center">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                            <td style="padding: 10px; text-align: center">
+                                <img src="https://www.allegria.at/fileadmin/marketing/creative/Creative_ICD_MP_Logo-02.png" width="120" height="120" alt="fever" border="0" class="fluid">
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                
+                <td width="25%" class="stack-column-center">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                            <td style="padding: 10px; text-align: center">
+                                <img src="https://www.allegria.at/fileadmin/marketing/creative/Creative_ICD_MP_Logo-03.png" width="120" height="120" alt="CreARTive" border="0" class="fluid">
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                    
+                <td width="25%" class="stack-column-center">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                            <td style="padding: 10px; text-align: center">
+                                <img src="https://www.allegria.at/fileadmin/marketing/creative/Creative_ICD_MP_Logo-04.png" width="120" height="120" alt="Wien Uncovered" border="0" class="fluid">
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<!-- Logos : END -->
+</f:section>
+
+<f:section name="sick">
+<tr>
+    <td align="center" valign="top" style="padding: 40px;">
+
+        <h2 style="text-transform: uppercase; font-size: 1.3rem; font-family: 'Josefin Sans', sans-serif; color: #FFED00;">Krank oder verhindert?</h2>
+        <p style="margin: 0; font-family: sans-serif; font-size: 0.75rem; margin-bottom: 20px; color: white;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie Ihre Reise wider Erwarten nicht antreten können.</p>
+        <table>
+            <tr>
+                <td style="border-radius: 2rem; background: #FFED00; text-align: center;" class="button-td">
+                <a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank" style="background: #FFED00; border: 10px solid #FFED00; padding: 0 15px; color: #000000; font-family: 'Open Sans', sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 2rem; font-weight: bold;" class="button-b">
+                <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Email senden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                </a></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="btn-website">
+<!-- Button : Begin -->
+<table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
+    <tr>
+        <td style="border-radius: 2rem; background: #FFED00; text-align: center;" class="button-td">
+            <a href="https://machupicchuexp.com/de/" target="_blank" style="background: #FFED00; border: 10px solid #FFED00; padding: 0 15px; color: #000000; font-family: 'Open Sans', sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 2rem; font-weight: bold;" class="button-b">
+                Zur Website
+            </a>
+        </td>
+    </tr>
+</table>
+<!-- Button : END -->
+</f:section>
+
+<f:section name="btn-website-a">
+<!-- Button : Begin -->
+<table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
+    <tr>
+        <td style="border-radius: 2rem; background: #000000; text-align: center;" class="button-td">
+            <a href="https://machupicchuexp.com/de/" target="_blank" style="background: #000000; border: 10px solid #000000; padding: 0 15px; color: #FFFFFF; font-family: 'Open Sans', sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 2rem; font-weight: bold;" class="button-a">
+                Zur Website
+            </a>
+        </td>
+    </tr>
+</table>
+<!-- Button : END -->
+</f:section>
+
+<f:section name="btn-feedback">
+    <!-- Button : Begin -->
+    <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+        <tr>
+        <td style="border-radius: 2rem; background: #000000; text-align: center;" class="button-td">
+            <a href="###FEEDBACK_LINK###"
+                class="button-a"
+                target="_blank"
+                style="background: #000000; border: 10px solid #000000; padding: 0 15px;color: #ffffff; font-family: 'Open Sans, sans-serif; font-size: 1rem; line-height: 1.1; text-align: center; text-decoration: none; text-transform: none; display: block; border-radius: 2rem; font-weight: bold;">
+                <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->HIER Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+            </a>
+        </td>
+        </tr>
+    </table>
+    <!-- Button : END -->
+</f:section>
+
+<f:section name="btn-anfahrt">
+    <!-- Button : Begin -->
+    <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+        <tr>
+            <td style="border-radius: 2rem; background: #000000; text-align: center;" class="button-td">
+                <a href="https://maps.app.goo.gl/CqfiYXePSpuRNGXdA" target="_blank" style="background: #000000; border: 10px solid #000000; padding: 0 15px;color: #ffffff; font-family: 'Open Sans', sans-serif; font-size: 1rem; line-height: 1.1; text-align: center; text-decoration: none; text-transform: none; display: block; border-radius: 2rem; font-weight: bold;" class="button-a"> 
+                <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Anreise planen<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                </a>
+            </td>
+        </tr>
+    </table>
+    <!-- Button : END -->
+</f:section>
+
+<f:section name="footer">
+<!-- Foto : BEGIN -->
+<tr>
+    <td class="full-width-image">
+        <img src="https://www.allegria.at/fileadmin/marketing/alegria-exhibition/pompeji-foto.png" width="600" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;">
+    </td>
+</tr>
+<!-- Foto : END -->
+</f:section>

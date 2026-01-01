@@ -1,0 +1,20 @@
+<f:for each="{lists}" as="list">
+    <tr class="level-{level}">
+        <td width="30px">
+            <f:form.checkbox property="mailingLists.{list.uid}" value="1" data="{toggle: 'receiverToggle'}" />
+        </td>
+        <td class="td-title">
+            <f:if condition="{list.client}">
+                <strong>{list.client.shortName}</strong> - 
+            </f:if>
+            <f:if condition="{list.childs}">
+                <f:then><f:if condition="{list.parentcategory} && {level} >= 1">{list.parentcategory.title} | </f:if><strong>{list.title}</strong></f:then>
+                <f:else><f:if condition="{list.parentcategory} && {level} >= 1">{list.parentcategory.title} | </f:if>{list.title}</f:else>
+            </f:if>
+        </td>
+    </tr>
+    <f:if condition="{list.childs}">
+        <f:variable name="newLevel" value="{level + 1}" />
+        <f:render partial="RecursiveMailingLists" arguments="{lists: list.childs, level: newLevel}" />
+    </f:if>
+</f:for>

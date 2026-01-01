@@ -1,0 +1,212 @@
+<f:layout name="Contacts" />
+
+<f:section name="shortcuts">
+</f:section>
+
+<f:section name="content">
+    <div data-module="contact-list-view">
+        <f:render section="ModuleContent" arguments="{_all}" optional="true" />
+    </div>
+</f:section>
+
+<f:section name="ModuleContent">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Kontakt-Datenbank</h1>
+        <div>
+            <f:link.action action="new" controller="Contact" id="createContact" class="btn btn-primary">Neuen Kontakt erstellen</f:link.action>
+            <f:comment><f:link.action action="moveCategories" controller="Contact" class="btn btn-primary">Kategorien verschieben!!</f:link.action></f:comment>
+        </div>
+    </div>
+    
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+
+    <div class="d-flex align-items-start mb-4">
+        <f:comment>
+        <button
+            id="toggleFilterSidebar"
+            class="btn btn-outline-secondary me-3"
+            type="button"
+            data-mdb-collapse-init
+            data-mdb-ripple-init
+            data-mdb-target="#filterSidebar"
+            aria-expanded="false"
+            aria-controls="filterSidebar">
+            <i class="fas fa-filter"></i> Filter
+        </button>
+        </f:comment>
+        <div class="flex-grow-1">
+            <strong>Filtermöglichkeiten</strong> name, firma, telefon, email, verteiler, kunde<br>
+            <div class="form-outline" data-mdb-input-init>
+                <input type="text" id="contactSearch" class="form-control" placeholder="Nach Kontakten suchen…" />
+            </div>
+            
+        </div>
+        <div class="form-check form-switch ms-3 my-auto">
+            <input class="form-check-input" type="checkbox" role="switch" id="showClients" name="showClients" value="0" />
+            <label class="form-check-label" for="showClients">Kundenkontakte anzeigen (<span id="clientContactCount">...</span>)</label>
+        </div>
+    </div>
+
+    <div class="d-flex align-items-start mb-4">
+        <div id="filterSidebar" class="me-3 collapse">
+
+            <div class="alert position-relative">
+                <h4 class="text-dark text-uppercase mb-3"><i class="fas fa-filter"></i> Filter</h4>
+                <!-- Themen (Tags) -->
+                <div class="mb-3">
+                    <label for="filterTags" class="form-label">Themen</label>
+                    <select id="filterTags" class="form-select" multiple></select>
+                </div>
+    
+                <!-- Gruppen -->
+                <div class="mb-3">
+                    <label for="filterGroups" class="form-label">Gruppen</label>
+                    <select id="filterGroups" class="form-select" multiple></select>
+                </div>
+    
+                <!-- Verteiler -->
+                <div class="mb-3">
+                    <label for="filterCategories" class="form-label">Verteiler</label>
+                    <select id="filterCategories" class="form-select" multiple></select>
+                </div>
+    
+                <!-- Kontakttypen -->
+                <div class="mb-3">
+                    <label for="filterContactTypes" class="form-label">Kontakttyp</label>
+                    <select id="filterContactTypes" class="form-select" multiple></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-grow-1">
+            <div id="datatable" data-mdb-loading="true"></div>   
+        </div>
+    </div>
+</f:section>
+
+<f:section name="After">
+    <f:render section="scripts" />
+    <f:render section="dynamicModal" />
+</f:section>
+
+<f:section name="scripts">
+    
+    <!-- Bulk-Edit Modal -->
+    <div class="modal" id="bulkEditModal" tabindex="-1" aria-labelledby="bulkEditModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-between align-items-center">
+                    <!-- Titel -->
+                    <h5 class="modal-title mb-0" id="bulkEditModalLabel">Massen-Änderung</h5>
+                    <div class="d-flex align-items-center">
+                        <!-- Anzahl ausgewählter Kontakte -->
+                        <span class="badge badge-primary me-3"><span id="selectedContactCount"></span> Kontakte ausgewählt</span>
+                        <!-- Schließen-Button -->
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
+                <form id="bulkEditForm">
+                <div class="modal-body">
+                    <h4><i class="fas fa-tags"></i> Zuordnungen</h4>
+                    <!-- Tag-Zuweisung -->
+                    <div class="mb-3">
+                        <label for="assignTags" class="form-label"><strong>Tags</strong> zuweisen</label>
+                        <select id="assignTags" class="form-select" multiple></select>
+                    </div>
+                
+                    <!-- Gruppen-Zuweisung -->
+                    <div class="mb-3">
+                        <label for="assignGroups" class="form-label"><strong>Gruppen</strong> zuweisen</label>
+                        <select id="assignGroups" class="form-select" multiple></select>
+                    </div>
+                
+                    <!-- Regionen-Zuweisung -->
+                    <div class="mb-3">
+                        <label for="assignRegions" class="form-label"><strong>Regionen</strong> zuweisen</label>
+                        <select id="assignRegions" class="form-select" multiple></select>
+                    </div>
+                
+                    <!-- Optionen -->
+
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h4><i class="fas fa-envelope"></i> Mailing-Einstellungen</h4>
+                        <div>
+                            <div class="form-check d-flex justify-content-between align-items-center">
+                                <label class="form-check-label me-2" for="enableMailingChanges">Mailing-Einstellungen überschreiben</label>
+                                <input class="form-check-input ms-auto" type="checkbox" id="enableMailingChanges">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="mailingSettings" class="d-flex justify-content-between align-items-center d-none mb-3">
+                        <!-- Kein Mailing -->
+                        <div class="form-check form-switch me-3">
+                            <input class="form-check-input" type="checkbox" id="noMailing" />
+                            <label class="form-check-label" for="noMailing">Keine Mailings</label>
+                        </div>
+                        <!-- Keine Presseinfo -->
+                        <div class="form-check form-switch me-3">
+                            <input class="form-check-input" type="checkbox" id="noPressinfo" />
+                            <label class="form-check-label" for="noPressinfo">Keine Pressemeldungen</label>
+                        </div>
+                        <!-- Keine Einladung -->
+                        <div class="form-check form-switch me-3">
+                            <input class="form-check-input" type="checkbox" id="noInvitation" />
+                            <label class="form-check-label" for="noInvitation">Keine Einladungen</label>
+                        </div>
+                        <!-- Blockiert -->
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="banned" />
+                            <label class="form-check-label" for="banned">Gesperrt</label>
+                        </div>
+                    </div>
+                
+                    <!-- Sonstiges -->
+                    <h4><i class="fas fa-pen"></i> Sonstiges</h4>
+                    <div class="mb-3">
+                        <label for="company" class="form-label"><strong>Firma</strong></label>
+                        <input type="text" id="company" class="form-control" data-overwrite="true" placeholder="Firma eingeben">
+                    </div>
+                    <div class="mb-3">
+                        <label for="position" class="form-label"><strong>Position</strong></label>
+                        <input type="text" id="position" class="form-control" data-overwrite="true" placeholder="Position eingeben">
+                    </div>
+                </div>                
+                <div class="modal-footer d-flex justify-content-between align-items-center">
+                    <!-- Fortschrittsbalken -->
+                    <div class="progress w-50 d-none" id="bulkEditProgress">
+                        <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <!-- Buttons -->
+                    <div class="ms-auto">
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Abbrechen</button>
+                        <button type="button" class="btn btn-primary" id="submitBulkEdit">Änderungen speichern</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <f:render section="dynamicModal" />
+</f:section>
+
+<f:section name="dynamicModal">
+    <div id="dynamicModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle"></h5>
+                    <button type="button" class="btn-close" data-mdb-ripple-init data-bs-dismiss="modal" data-mdb-target="#dynamicModal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Dynamic content will be injected here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-bs-dismiss="modal" data-mdb-target="#dynamicModal">Abbrechen</button>
+                    <button type="button" class="btn btn-primary" id="modalSaveButton">Speichern</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</f:section>
+

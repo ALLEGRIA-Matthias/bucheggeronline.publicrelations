@@ -1,0 +1,101 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:section name="Header">
+<tr>
+    <td valign="top" class="image" align="center" style="padding: 0px 36px; padding-bottom: 20px; color: #222222;text-align: left;">
+      <f:render partial="HeaderLogo" arguments="{_all}" />
+    </td>
+    <td valign="top" class="image" align="center" style="padding: 0px 36px; padding-bottom: 20px; text-align: right;vertical-align: middle;">
+      <h6 style="text-align: right;">Akkreditierung</h6>
+      <p class="subtitle">zu {accreditation.event.title} am {accreditation.event.date->f:format.date(format:'%e. %B %Y')}</p>
+    </td>
+</tr>
+<tr>
+    <td valign="top" class="textContent" colspan="2" style="padding: 0px 36px;padding-top: 20px; color: var(--dark);font-family: &quot;IBM Plex Sans&quot;, Helvetica, Arial, Verdana, sans-serif;font-size: 20px;text-align: center;">
+        <strong>Akkreditierungsbestätigung</strong>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="Content">
+<tr>
+    <td valign="top" class="textContent" style="padding: 0px 36px;">
+
+        <p>
+          <f:switch expression="{accreditation.guestOutput.gender}">
+            <f:case value="f">Sehr geehrte Frau <f:if condition="{accreditation.guestOutput.title}">{accreditation.guestOutput.title} </f:if>{accreditation.guestOutput.lastName},</f:case>
+            <f:case value="m">Sehr geehrter Herr <f:if condition="{accreditation.guestOutput.title}">{accreditation.guestOutput.title} </f:if>{accreditation.guestOutput.lastName},</f:case>
+            <f:defaultCase>Einen wunderschönen Tag,</f:defaultCase>
+          </f:switch>
+        </p>
+
+        <p>
+          herzlichen Dank für Ihre Akkreditierungsanfrage.
+        </p>
+
+        <p>
+          Wir freuen uns Sie <f:if condition="{accreditation.ticketsApproved}>1"> und Ihre Begleitung</f:if> am <strong>{accreditation.event.date->f:format.date(format:'%d.%m.%Y um %k.%M Uhr')}</strong> begrüßen zu dürfen. Der Presseschalter ist ab ca. einer Stunde vor Veranstaltungsbeginn geöffnet.
+        </p>
+
+        <f:if condition="{accreditation.type}==1 && {accreditation.ticketsApproved}!={accreditation.ticketsWish}">
+          <p>
+            <strong>Hinweis zur Ticketanpassung:</strong><br/>
+            Bitte beachten Sie, dass die akkreditierte Ticketanzahl nicht ihrem ursprünglichen Wunsch entspricht. Bei Rückfragen können Sie sich gerne an uns unter <a href="mailto:{settings.company.email}?Subject='Anfrage%20aus%20Akkreditierung%20zu%20{accreditation.event.title -> f:format.urlencode()}" target="_blank">{settings.company.email}</a> wenden.
+          </p>
+        </f:if>
+
+
+        <h5 style="margin-top:20px">Akkreditierungsdaten</h5>
+        <table>
+          <tbody>
+            <tr>
+              <td>Termin</td>
+              <td><strong>{accreditation.event.title}</strong></td>
+            </tr>
+            <tr>
+              <td>Datum</td>
+              <td><strong>{accreditation.event.date->f:format.date(format:'%d.%m.%Y um %k.%M Uhr')}</strong></td>
+            </tr>
+            <tr>
+              <td>Location</td>
+              <td>
+                <strong>{accreditation.event.location.name}</strong><br/>
+                {accreditation.event.location.street}<br/>
+                {accreditation.event.location.zip} {accreditation.event.location.city}
+              </td>
+            </tr>
+            <tr>
+              <td>Akkreditierung für</td>
+              <td>{accreditation.guestOutput.firstName} {accreditation.guestOutput.lastName}</td>
+            </tr>
+            <tr>
+              <td>Personen</td>
+              <td>{accreditation.ticketsApproved} <f:if condition="{accreditation.ticketsApproved}>1"><f:then>Personen</f:then><f:else>Person</f:else></f:if></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <f:if condition="{accreditation.event.campaign}">
+          <f:then>
+            <f:if condition="{accreditation.event.campaign.mediagroups}">
+              <p style="margin-top:20px">
+                <strong>Pressematerial zur Veranstaltung</strong> finden Sie unter <f:link.typolink absolute="1" parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={accreditation.event.campaign.uid}" absolute="1"><f:uri.typolink parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={accreditation.event.campaign.uid}" absolute="1" /></a>
+              </p>
+            </f:if>
+          </f:then>
+          <f:else>
+            <f:if condition="{accreditation.event.client.mediagroups}">
+              <p style="margin-top:20px">
+                <strong>Pressematerial zur Veranstaltung</strong> finden Sie unter <f:link.typolink absolute="1" parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={accreditation.event.client.uid}" absolute="1"><f:uri.typolink parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={accreditation.event.client.uid}" absolute="1" /></a>
+              </p>
+            </f:if>
+          </f:else>
+        </f:if>
+
+        <p style="margin-top:20px">
+          Sollten wir Ihnen noch offene Fragen beantworten dürfen, so richten Sie diese bitte an <a href="mailto:{settings.company.email}?Subject=Anfrage%20aus%20Akkreditierung%20zu%20{accreditation.event.title -> f:format.urlencode()}" target="_blank">{settings.company.email}</a> oder kontaktieren Sie uns unter <a href="tel:{settings.company.phone}" target="_blank">{settings.company.phone}</a>. Wir würden uns freuen ein Belegexemplar Ihrer Rezension via email an {settings.company.email} zu bekommen.
+        </p>
+        <f:render partial="Signature" arguments="{_all}" />
+    </td>
+</tr>
+</f:section>
+</html>

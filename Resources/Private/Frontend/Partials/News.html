@@ -1,0 +1,36 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<div class="alert alert-white anchor" id="presseinformationen">
+  <h2 class="h4 mt-2 mb-3"><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#announcement"></use></svg> Presseinformationen</h2>
+  <div class="table-responsive">
+    <table class="table table-sm table-borderless table-hover">
+      <thead>
+        <tr>
+          <th scope="col">VÖ</th>
+          <th scope="col">Titel</th>
+          <th scope="col">Sperrfrist</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <f:for each="{news -> v:iterator.sort(sortBy: 'date', order: 'DESC')}" as="news" iteration="i">
+          <tr>
+            <td scope="row">{news.date->f:format.date(format:'%d.%m.%Y')}</td>
+            <td><strong>{news.title}</strong></td>
+            <td><f:if condition="{news.retentionDate} && {news.retentionDate->f:format.date(format:'YmdHi')}>{f:format.date(date:'now', format:'YmdHi')}"><f:then><strong>{news.retentionDate->f:format.date(format:'%d.%m.%Y um %H.%M Uhr')}</strong></f:then><f:else>-</f:else></f:if></td>
+            <td class="text-end">
+              <f:link.action controller="News" action="show" arguments="{news:news}"><svg class="icon me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#eye"></use></svg></f:link.action>
+              <f:comment>
+              <svg class="icon me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#picture"></use></svg>
+              <svg class="icon me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#square-download"></use></svg>
+              </f:comment>
+            </td>
+          </tr>
+        </f:for>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+  <div role="tabpanel">
+    <ul class="nav nav-tabs t3js-tabs" role="tablist" id="tabs-tab" data-store-last-tab="1">
+      <f:if condition="{accreditation.type}==1">
+      <li role="presentation" class="t3js-tabmenu-item active">
+        <a href="#infos" aria-controls="infos" role="tab" data-bs-toggle="tab" aria-selected="true" class="active">Infos</a>
+      </li>
+      </f:if>
+      <li role="presentation" class="t3js-tabmenu-item {f:if(condition:'{accreditation.type}==1', else:'active')}">
+        <a href="#logs" aria-controls="logs" role="tab" data-bs-toggle="tab" aria-selected="false">Logs</a>
+      </li>
+    </ul>
+    <div class="tab-content mb-5">
+      <f:if condition="{accreditation.type}==1">
+      <div role="tabpanel" class="tab-pane active" id="infos">
+        <div class="panel panel-tab">
+          <div class="panel-body">
+            <h2 class="mt-3">Ursprüngliche Anfrage</h2>
+            <f:render partial="Accreditation/Overview" arguments="{_all}" />
+          </div>
+        </div>
+      </div>
+      </f:if>
+      <div role="tabpanel" class="tab-pane {f:if(condition:'{accreditation.type}==1', else:'active')}" id="logs">
+        <div class="panel panel-tab">
+          <div class="panel-body">
+            <div class="table-fit">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th width="40px">#</th>
+                    <th width="40px">MA</th>
+                    <th width="130px">Zeitpunkt</th>
+                    <th width="100px">Code</th>
+                    <th width="200px">Funktion</th>
+                    <th>Notizen</th>
+                  </tr>
+                </thead>
+                <f:for each="{accreditation.logs}" as="log" iteration="li">
+                <tr>
+                  <td>{li.cycle}</td>
+                  <td>
+                    <f:if condition="{log.cruser}">
+                    <f:then>
+                      <span data-bs-toggle="tooltip" data-placement="right" title="{log.cruser.realName}"><be:avatar backendUser="{log.cruserId}" /></span></td>
+                    </f:then>
+                    <f:else>
+                      <span data-bs-toggle="tooltip" data-placement="right" title="Systemlog"><svg class="icon fill-white" style="height: 24px; width: 24px; padding: 3px; background-color: var(--bs-dark); border-radius: 50%;"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#robot"></use></svg></span>
+                    </f:else>
+                    </f:if>
+                  <td>{f:format.date(date:'{log.crdate}', format:'%d.%m.%Y %H:%M')}</td>
+                  <td>{log.code}</td>
+                  <td>{log.function}</td>
+                  <td>
+                    {log.subject}
+                    <f:if condition="{log.notes}"></br>{log.notes->f:sanitize.html()}</f:if>
+                  </td>
+                </tr>
+                </f:for>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</html>

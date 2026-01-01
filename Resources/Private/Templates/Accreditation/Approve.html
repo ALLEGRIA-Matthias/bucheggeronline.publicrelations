@@ -1,0 +1,46 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Eventcenter" />
+<f:section name="buttons">
+  <f:link.action action="show" controller="Event" class="btn btn-sm btn-default" arguments="{event:accreditation.event}"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#times"></use></svg>Abbrechen</f:link.action>
+</f:section>
+
+<f:section name="shortcuts">
+  <f:link.action action="approve" controller="Accreditation" class="btn btn-sm btn-default" arguments="{accreditation:accreditation}"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+    <f:if condition="{accreditation.type}==1"><h1>Akkreditierungsanfrage</h1></f:if>
+    <f:if condition="{accreditation.type}==2"><h1>Einladung</h1></f:if>
+    <f:render partial="Accreditation/Overview" arguments="{_all}" />
+    <f:form action="update" enctype="multipart/form-data" name="accreditation" object="{accreditation}" class="mb-5">
+    <f:render partial="Accreditation/FormBasics" arguments="{approve:'1', accreditation:accreditation}" />
+    <f:render partial="Accreditation/FormAdditional" arguments="{accreditation:accreditation, edit:1}" />
+    <f:render partial="Accreditation/FormGuestdata" arguments="{approve:'1', accreditation:accreditation}" />
+    <f:render partial="Accreditation/FormOptions" arguments="{approve:'1', accreditation:accreditation, notesItems:notesItems}" />
+
+    <f:if condition="{accreditation.type}==1">
+      <f:form.hidden property="status" value="1" />
+    </f:if>
+    <f:if condition="{accreditation.type}==2">
+      <f:form.hidden property="invitationStatus" value="-1" />
+    </f:if>
+
+    <f:if condition="{accreditation.event.ticketsQuota}">
+      <f:if condition="{accreditation.event.ticketsAvailable}<=0"><f:be.infobox title="Kontingent erschöpft!" state="2">Vorsicht, das Kontingent ist bereits komplett ausgeschöpft!</f:be.infobox></f:if>
+      <f:if condition="{accreditation.event.ticketsAvailable}>0 && {accreditation.event.ticketsAvailable}<=5"><f:be.infobox title="Kontingent fast aufgebraucht!" state="1">Vorsicht, das Kontingent ist beinahe ausgeschöpft! <strong>Es sind noch {accreditation.event.ticketsAvailable} Tix verfügbar.</strong></f:be.infobox></f:if>
+    </f:if>
+
+    <f:form.button name="approve" value="1" type="submit" class="btn btn-success"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#check"></use></svg><span class="ml-2 d-inline"><f:if condition="{accreditation.type}==1"><f:then>Akkrediterung</f:then><f:else>Einladung</f:else></f:if> bestätigen</span></f:form.button>
+    <f:form.button name="reject" value="1" type="submit" class="btn btn-danger mr-3"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#circle-minus"></use></svg><span class="ml-2 d-inline"><f:if condition="{accreditation.type}==1">Akkrediterung ablehnen</f:if><f:if condition="{accreditation.type}==2">Absage erteilt</f:if></span></f:form.button>
+    </f:form>
+
+    <f:render partial="Accreditation/Infos" arguments="{_all}" />
+
+</f:section>
+</html>

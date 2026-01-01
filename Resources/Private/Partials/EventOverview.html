@@ -1,0 +1,41 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<div class="table-fit">
+  <table class="table table-sm table-striped">
+    <thead>
+      <tr>
+        <th width="30px"></th>
+        <th width="140px">Zeitpunkt</th>
+        <th width="200px">Kundeninfos</th>
+        <th>Titel</th>
+        <th colspan="2">Akkreditierungen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <f:for each="{events -> v:iterator.sort(sortBy: 'date')}" as="event" iteration="i">
+      <f:if condition="{event.accreditation} || {event.accreditations}">
+      <tr class="{f:if(condition:'{event.accreditation} || {event.accreditations}', then:'info')}">
+        <td><f:link.action controller="Event" action="show" arguments="{event:event}"><svg class="icon fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#eye"></use></svg></f:link.action></td>
+        <td>{f:format.date(date:'{event.date}', format:'%d.%m.%Y %H:%M')}</td>
+        <td><f:if condition="{event.client}"><f:then><strong>{event.client.shortName}</strong></f:then><f:else><strong>{event.campaign.client.shortName}</strong></f:else></f:if></td>
+        <td>
+          <f:if condition="{event.canceled}"><span class="badge badge-danger text-uppercase">Abgesagt</span></br></f:if>
+          <f:if condition="{event.newEvent}"><span class="badge badge-danger text-uppercase">Verschoben</span><br/></f:if>
+          <f:if condition="{singleView}">
+            <f:then><strong>{event.title}</strong></f:then>
+            <f:else><strong>{event.title -> f:format.crop(maxCharacters: 30, append: '...', respectWordBoundaries:'false')}</strong></f:else>
+          </f:if>
+          <f:if condition="{event.type.title}"><br/>{event.type.title}</f:if>
+          <f:if condition="{event.location}"><br/>{event.location.name}</f:if>
+        </td>
+        <td width="80px" style="text-align:right;"><f:if condition="{event.accreditation} || {event.accreditations}">{event.ticketsApproved} <svg class="icon fill-success"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#ticket"></use></svg></f:if></td>
+        <td width="80px" style="text-align:right;"><f:if condition="{event.accreditation} || {event.accreditations}">{event.ticketsPending} <svg class="icon fill-warning"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#hourglass"></use></svg></f:if></td>
+      </tr>
+      </f:if>
+      </f:for>
+    </tbody>
+  </table>
+</div>

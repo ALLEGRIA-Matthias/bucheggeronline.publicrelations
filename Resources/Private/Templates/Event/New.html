@@ -1,0 +1,39 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Eventcenter" />
+
+<f:section name="buttons">
+<f:link.action action="list" controller="Event" class="btn btn-sm btn-default" arguments="{event:event}"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#times"></use></svg>Abbrechen</f:link.action>
+</f:section>
+
+<f:section name="shortcuts">
+<f:link.action controller="Event" action="new" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+    <h1>Termingenerator</h1>
+
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+
+    <f:form action="create" enctype="multipart/form-data" name="newEvents">
+
+      <f:render partial="Event/FormDateGenerator" arguments="{_all}" />
+
+      <f:render partial="Event/FormBasics" arguments="{_all}" />
+
+      <f:render partial="Event/FormOptions" arguments="{_all}" />
+
+      <f:render partial="Event/FormLocation" arguments="{_all}" />
+
+      <div class="col-12">
+        <f:form.submit value="Jetzt generieren" class="btn btn-sm btn-success" />
+      </div>
+
+    </div>
+
+    </f:form>
+</f:section>
+</html>

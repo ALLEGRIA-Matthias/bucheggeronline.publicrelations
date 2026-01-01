@@ -1,0 +1,71 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Eventcenter" />
+
+<f:section name="buttons">
+<f:link.action action="show" controller="Event" arguments="{event:event}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#times"></use></svg>Abbrechen</f:link.action>
+</f:section>
+
+<f:section name="content">
+    <h1>Einladungsmanager <small>1 von 3</small></h1>
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <h2>Typauswahl</h2>
+    <f:form action="invitationManagerCategories" enctype="multipart/form-data" name="invitations" object="{invitations}" arguments="{event:event}">
+
+    <div class="col-6">
+      <div class="form-group">
+        <label for="selectType"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#tag"></use></svg>Gästetyp</label>
+        <div class="input-group">
+          <f:form.select class="form-control tomselect-generic" data="{select2-id: 'accreditation-select-type'}" id="selectType" property="guestType" required="1">
+            <f:form.select.option value="">Bitte Gästetyp wählen...</f:form.select.option>
+            <f:form.select.option value="1" selected="{f:if(condition:'{accreditation.guestType}==1', then:'1')}">Promi</f:form.select.option>
+            <f:form.select.option value="2" selected="{f:if(condition:'{accreditation.guestType}==2', then:'1')}">Presse</f:form.select.option>
+            <f:form.select.option value="6" selected="{f:if(condition:'{accreditation.guestType}==6', then:'1')}">Talent</f:form.select.option>
+            <f:form.select.option value="3" selected="{f:if(condition:'{accreditation.guestType}==3', then:'1')}">Gewinnspiel</f:form.select.option>
+            <f:form.select.option value="4" selected="{f:if(condition:'{accreditation.guestType}==4', then:'1')}">Füllkarten</f:form.select.option>
+            <f:form.select.option value="5" selected="{f:if(condition:'{accreditation.guestType}==5', then:'1')}">Personal</f:form.select.option>
+          </f:form.select>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="form-group">
+        <label for="selectType"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-group"></use></svg>Verteilertyp</label>
+        <div class="input-group">
+          <f:form.select class="form-control tomselect-generic" data="{select2-id: 'accreditation-list-type'}" id="listType" property="listType" required="1">
+            <f:form.select.option value="">Bitte Kontakttyp wählen...</f:form.select.option>
+            <f:form.select.option value="internal">Interne Kontakte</f:form.select.option>
+            <f:form.select.option value="client">Kundenkontakte von "{event.client.name}"<f:if condition="{event.partners}"> bzw. <f:for each="{event.partners}" as="partner" iteration="pId">"{partner.name}"<f:if condition="!{pId.isLast}">, </f:if></f:for></f:if></f:form.select.option>
+            <f:form.select.option value="event">Termingäste</f:form.select.option>
+          </f:form.select>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="form-group">
+        <label for="inputTicketsWish"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#ticket"></use></svg>Tickets</label>
+        <div class="input-group">
+          <f:form.textfield class="form-control" id="inputTicketsWish" property="ticketsWish" value="2" type="number" />
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="form-group">
+        <label for="selectType"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#envelope-full"></use></svg>Einladungstyp wählen</label>
+        <div class="input-group">
+          <f:form.select class="form-control tomselect-generic" data="{select2-id: 'accreditation-select-invitation'}" id="selectInvitation" property="invitationType" optionsAfterContent="1" options="{event.invitations -> v:iterator.sort(sortBy: 'sorting')}" optionValueField="uid" optionLabelField="title" required="1"></f:form.select>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12"><f:form.submit value="Weiter zur Kategorieauswahl" class="btn btn-success" /></div>
+
+    </f:form>
+</f:section>
+</html>

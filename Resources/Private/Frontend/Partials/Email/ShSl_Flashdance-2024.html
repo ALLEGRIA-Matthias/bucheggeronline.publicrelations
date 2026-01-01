@@ -1,0 +1,389 @@
+<f:section name="preview">
+    <!-- Visually Hidden Preheader Text : BEGIN -->
+    <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: 'League Spartan', sans-serif;">
+    <f:switch expression="{content}">
+        <f:case value="invitation">ShowSlot präsentiert: {accreditation.event.title}. Ihre persönliche Einladung!</f:case>
+        <f:case value="remind">Nicht verpassen: {accreditation.event.title}. Ihre persönliche Einladung!</f:case>
+        <f:case value="push">Letzte Chance: {accreditation.event.title}. Ihre persönliche Einladung!</f:case>
+        <f:case value="approve">Wie schön, dass wir dich demnächst bei {accreditation.event.title} in {accreditation.event.location.city} begrüßen dürfen.</f:case>
+        <f:case value="reject">Schade, dass es nicht klappt. ShowSlot würde sich über einen baldigen Besuch freuen.</f:case>
+    </f:switch>
+    </div>
+    <!-- Visually Hidden Preheader Text : END --> 
+</f:section>
+
+<f:switch expression="{content}">
+    <f:defaultCase>
+    <f:render section="header" arguments="{_all}" />
+    <f:render section="headline" arguments="{_all}" />
+    <f:render section="invitation" arguments="{_all}" />
+    <f:render section="eventinfo" arguments="{_all}" />
+    <f:render section="showinfo" arguments="{_all}" />
+    <f:render section="trailer" arguments="{_all}" />
+    </f:defaultCase>
+    <f:case value="approve">
+        <f:render section="header" arguments="{_all}" />
+        <f:render section="headline" arguments="{_all}" />
+        <f:switch expression="{accreditation.event.uid}">
+        <f:case value="3387"><f:if condition="{accreditation.tickets}"><f:then><f:render section="ticket-link" arguments="{_all}" /></f:then><f:else><f:render section="ticket-qr" arguments="{_all}" /></f:else></f:if></f:case>
+        <f:case value="3390"><f:if condition="{accreditation.tickets}"><f:then><f:render section="ticket-link" arguments="{_all}" /></f:then><f:else><f:render section="ticket-qr" arguments="{_all}" /></f:else></f:if></f:case>
+        <f:case value="3854"><f:if condition="{accreditation.tickets}"><f:then><f:render section="ticket-link" arguments="{_all}" /></f:then><f:else><f:render section="ticket-qr" arguments="{_all}" /></f:else></f:if></f:case>
+        <f:defaultCase><f:render section="ticket" arguments="{_all}" /></f:defaultCase>
+        </f:switch>
+        <f:render section="eventinfo" arguments="{_all}" />
+        <f:render section="showinfo" arguments="{_all}" />
+        <f:render section="trailer" arguments="{_all}" />
+    </f:case>
+    <f:case value="reject">
+    <f:render section="header" arguments="{_all}" />
+        <f:render section="headline" arguments="{_all}" />
+        <!-- Absagetext -->
+        <tr>
+            <td style="text-align: center; font-family: sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; background: #532B6A; color: white; font-weight: 300; padding: 40px;">
+                <p style="margin-top: 0; padding: 0 40px; font-size: 1rem;"><strong>ShowSlot</strong> bedankt sich für deine Rückmeldung.</p>
+                <p style="padding: 0 40px; font-size: 1rem;">Wir hoffen auf ein Wiedersehen bei einer der nächsten Veranstaltungen.</p>
+            </td>
+        </tr>
+        <f:render section="trailer" arguments="{_all}" />
+    </f:case>
+    <f:case value="waiting">
+    <f:render section="header" arguments="{_all}" />
+    <f:render section="headline" arguments="{_all}" />
+        <!-- Wartetext -->
+        <tr>
+            <td style="text-align: center; font-family: sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; background: #532B6A; color: white; font-weight: 300; padding: 40px;">
+            <p style="margin-top: 0; padding: 0 40px; font-size: 1rem;"><strong>ShowSlot</strong> bedankt sich für die unglaublich großartige Nachfrage.</p>
+            <p style="padding: 0 40px; font-size: 1rem; color: #ED166F; font-weight: 700;">Die Ticket-Kontingente sind aktuell komplett erschöpft.</p>
+            <p style="padding: 0 40px; font-size: 1rem;">Leider können wir erst <strong>bis spätestens {f:format.date(format:'d.m.Y', date:'{accreditation.event.date->f:format.date(format:\'d-m-Y\')} -2 days')}</strong> eine konkrete Rückmeldung geben, ob wir deinem Ticketwunsch nachkommen können.</p>
+            <p style="padding: 0 40px; font-size: 1rem; margin-bottom: 0;">Wir bedanken uns für dein Verständnis.</p>
+            </td>
+        </tr>
+        <f:render section="trailer" arguments="{_all}" />
+    </f:case>
+    <f:case value="pending">
+    <f:render section="header" arguments="{_all}" />
+    <f:render section="headline" arguments="{_all}" />
+        <!-- Wartetext intern -->
+        <tr>
+            <td style="text-align: center; font-family: sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; background: #532B6A; color: white; font-weight: 300; padding: 40px;">
+            <p style="margin-top: 0; padding: 0 40px; font-size: 1.4rem;"><strong style="color: #ED166F;">{accreditation.guestOutput.fullName}</strong><br><small>{accreditation.event.location.city}</small></p>
+            </td>
+        </tr>
+    </f:case>
+    <f:case value="waitingOK">
+    <f:render section="header" arguments="{_all}" />
+    <f:render section="headline" arguments="{_all}" />
+    <!-- Zusage möglich -->
+    <tr>
+        <td style="text-align: center; font-family: sans-serif;f ont-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: white; font-weight: 300; padding: 40px; padding-bottom: 0; background: #532B6A;">
+                <p style="margin-top: 0; font-size: 1rem;">Wir können deinen Besuch ermöglichen!</p>
+        </td>
+    </tr>
+    <f:render section="ticket" arguments="{_all}" />
+    <f:render section="eventinfo" arguments="{_all}" />
+    <f:render section="showinfo" arguments="{_all}" />
+    <f:render section="trailer" arguments="{_all}" />
+    </f:case>
+    <f:case value="waitingNO">
+    <f:render section="header" arguments="{_all}" />
+        <f:render section="headline" arguments="{_all}" />
+        <!-- Absagetext -->
+        <tr>
+            <td style="text-align: center; font-family: sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; background: #532B6A; color: white; font-weight: 300; padding: 40px;">
+                    <p style="margin-top: 0; padding: 0 40px; font-size: 1rem;">Wir sind von der ernormen Nachfrage überwältigt!<br><strong>Danke für dein Interesse.</strong></p>
+                    <p style="padding: 0 40px; font-size: 1rem;">Umso schwerer fällt es uns dir sagen zu müssen, dass wir <strong>leider keine Tickets</strong> zur Verfügung stellen können.</p>
+                    <p style="padding: 0 40px; font-size: 1rem;">Wir hoffen dennoch auf ein baldiges Wiedersehen bei einer der nächsten Veranstaltungen.</p>
+            </td>
+        </tr>
+        <f:render section="trailer" arguments="{_all}" />
+    </f:case>
+</f:switch>
+        
+
+
+  <f:section name="ticket-qr">
+    <!-- Ticket : BEGIN -->
+    <tr>
+        <td style="background-color: #532B6A; padding: 40px; text-align: center; font-family: sans-serif;font-size: 1rem; font-weight: 400; color: white; mso-height-rule: exactly; line-height: 1.2;">
+            <h2>Wir freuen uns auf dein Kommen!</h2>
+            <p>Dein Eintritts-QR zur Veranstaltung,<br>bitte am Check-In vorweisen.</p>
+            <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="400" class="email-container" style="border: #FFFFFF thin solid;">
+                
+                <!-- Foto 400x200px : BEGIN -->
+                <tbody><tr>
+                    <td class="full-width-image"><img src="https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Flashdance_Ticket-Header.png" width="400" alt="Ticket-Header" border="0" align="center" style="width: 100%; max-width: 400; height: auto;"></td>
+                </tr>
+                <!-- Foto 400x200px : END -->
+                
+                <!-- QR-Code : BEGIN -->
+                    <tr>
+                    <td align="center" style="padding-top: 25px;">
+                        <img src="{mb:qrCode(data:'{accreditation.uid}', label:'KEIN TICKET – Gilt am VIP-Schalter.')}?v={f:format.date(date:'now', format:'U')}" width="300" alt="Ticket-QR-{accreditation.uid}" border="0" style="width: 100%; max-width: 80%; height: auto;">
+                        </td></tr>
+                <!-- QR-Code : END -->
+                
+                <!-- Titel : BEGIN -->
+                <tr>
+                    <td style="text-align: center; font-family: sans-serif; color: #000000; font-size: 1.1rem;">
+                        <h2 style="font-size: 1.8rem; line-height: 1.2; color: #000; margin: 20px 0 10px 0;">FLASHDANCE<br><small>Das Musical</small></h2>
+                        <p style="margin-bottom: 10px;">
+                            {accreditation.event.location.name}, {accreditation.event.location.city}<f:if condition="{accreditation.event.locationNote}"> | {accreditation.event.locationNote}</f:if><br>
+                            <strong>{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')} | {f:format.date(date:'{accreditation.event.date}', format: 'H:i')}</strong>
+                        </p>
+                        <div style="background-color: #ED166F; font-family: sans-serif; text-align: center; color: #fff; padding: 15px 0;">
+                            <p style="font-size: 1.3rem; line-height: 1.2; margin: 0;">
+                                <strong>{accreditation.guestOutput.fullName}</strong><br>
+                                <small>{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</small><br>
+                                <span style="font-size: 0.8rem; line-height: 1.2;">Akkr.Nr. #{accreditation.uid}</span>
+                            </p>
+                        </div>
+                </td>
+                </tr>
+                <!-- Titel : END --> 
+            </tbody></table>
+        </td>
+    </tr>
+    <!-- Ticket : BEGIN --> 
+</f:section>
+
+<f:section name="ticket-link">
+<!-- Ticket : BEGIN -->
+<tr>
+    <td style="background-color: #532B6A; padding: 40px; text-align: center; font-family: sans-serif;font-size: 1rem; font-weight: 400; color: white; mso-height-rule: exactly; line-height: 1.2;">
+        <h2>Wir freuen uns auf dein Kommen!</h2>
+        <p>Diesmal schicken wir dir dein Ticket direkt vorab digital.<br><img src="https://www.allegria.at/fileadmin/marketing/showslot/ShSl_ticket.png" style="width: 50px; height: auto;" /></p>
+        
+        <!-- Button : Begin -->
+        <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+            <tr>
+                <td style="border-radius: 3px; background: #ED166F; text-align: center; text-transform: uppercase;" class="button-td">
+                    <a href="{accreditation.tickets}" target="_blank" class="button-a" style="background: #ED166F; border: 7px solid #ED166F; padding: 0 10px;color: #ffffff; font-family: sans-serif; font-size: 1.4rem; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;">
+                        Tickets laden
+                    </a>
+                </td>
+            </tr>
+        </table>
+        <!-- Button : END -->
+
+        <h3 style="margin-top: 30px;">Social Media</h3>
+        <p>
+            Gerne können Fotos und Videos von der Premiere mit folgenden Kanälen geteilt werden:<br>
+            facebook.com / @flashdancemusicalontour<br>
+            instagram.com / @flashdance.on.tour
+        </p>
+    </td>
+</tr>
+<!-- Ticket : BEGIN --> 
+</f:section>
+
+<f:section name="ticket">
+<!-- Ticket : BEGIN -->
+<tr>
+    <td style="background-color: #532B6A; padding: 40px; text-align: center; font-family: sans-serif;font-size: 1rem; font-weight: 400; color: white; mso-height-rule: exactly; line-height: 1.2;">
+        <div style="border: 0px solid #FFFFFF; background-color: #FFFFFF; border-radius: 1rem; padding: 20px; text-align: center; margin-bottom: 30px; margin-left: 10%; margin-right: 10%;">
+            <p style="margin: 0; font-family: sans-serif;font-size: 1.4rem; color: #ED166F; font-weight: 700; text-transform: uppercase;">{accreditation.guestOutput.fullName}</p>
+            <p style="margin-top: 0; color: #000000; font-family: sans-serif;font-size: 1rem; font-weight: 400; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+            <p style="margin: 0; margin-top: 10px; font-family: sans-serif;font-size: 0.65rem; color: #000000;">
+                <span style="font-size: 0.7rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong> versandt am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr.</span><br>
+                *diese Bestätigung ist nicht übertragbar</p>
+        </div>
+        <p style="margin: 0;">
+            <strong>ShowSlot</strong> freut sich dich am<br>
+            <strong style="font-family: sans-serif;color: #ED166F; font-weight: 700; font-size: 1.4rem;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')}</strong><br>
+            begrüßen zu dürfen.<br>
+            <br>
+            <small>Tickets können <strong>ab {f:format.date(format:'%k.%M Uhr', date:'{accreditation.event.date->f:format.date(format:\'H:i\')} -60 minutes')}</strong> an der Abendkassa bzw. Presse- und Ehrenkartenausgabe abgeholt werden.</small>
+        </p>
+    </td>
+</tr>
+<!-- Ticket : BEGIN --> 
+</f:section>
+
+<f:section name="header">
+
+<!-- Location Header : BEGIN -->
+<tr>
+    <td class="full-width-image"><img src="https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Flashdance_Header.png" width="600" alt="FLASHDANCE – Das Musical" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;"></td>
+</tr>
+<!-- Location Header : END --> 
+</f:section>
+
+<f:section name="headline">
+<tr>
+    <td style="background-color: white; padding: 20px 40px; text-align: center;">
+        <h1 style="font-family: sans-serif; font-size: 1.4rem; font-weight: 700; color: black; line-height: 1; text-transform: uppercase; margin: 0;">
+        <f:switch expression="{content}">
+                <f:case value="invitation">Persönliche Einladung</f:case>
+                <f:case value="remind">ERINNERUNG zur Einladung</f:case>
+                <f:case value="push">Finale ERINNERUNG zur Einladung</f:case>
+                <f:case value="approve">Deine Zusage!</f:case>
+                <f:case value="reject">Deine Absage!</f:case>
+                <f:case value="waitingOK">Danke für's Warten!</f:case>
+                <f:case value="waitingNO">Es tut uns so leid!</f:case>
+                <f:case value="waiting">Die Nachfrage ist riesig!</f:case>
+                <f:case value="pending">Neu auf der Warteliste!</f:case>
+        </f:switch>
+        </h1>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="invitation">
+<!-- Invitation : BEGIN -->
+<tr style="background-color: #532B6A; color: #fff; font-family: sans-serif; text-align: center; font-size: 1rem; line-height: 1.2;">
+    <td style="padding: 40px;">
+        <img src="https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Logo.png" width="auto" height="auto" alt="ShowSlot Logo" border="0" class="fluid">
+        <p>freut sich<br>
+        <span style="color: #ED166F; text-transform: uppercase; font-size: 1.4rem; font-weight: 700;">{accreditation.guest.fullName}</span><br>
+        <f:if condition="{accreditation.guestType}==2">zur redaktionellen Berichterstattung<br></f:if>
+        zur <strong>Premiere in {accreditation.event.location.city}</strong> von<br>
+        </p>
+        <img src="https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Flashdance_Logo.png" width="auto" alt="FLASHDANCE – Das Musical" border="0" class="fluid">
+        <p>einzuladen.</p>	
+    </td>
+</tr>
+<!-- Invitation : BEGIN --> 
+</f:section>
+
+<f:section name="eventinfo">
+
+<f:switch expression="{accreditation.event.location.uid}">
+    <f:case value="26"><f:variable name="locationImg">https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Header-Wien-Stadthalle.png</f:variable></f:case>
+    <f:case value="93"><f:variable name="locationImg">https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Header-Linz-TipsArena.png</f:variable></f:case>
+    <f:case value="92"><f:variable name="locationImg">https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Header-Salzburg-Salzburgarena.png</f:variable></f:case>
+    <f:case value="139"><f:variable name="locationImg">https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Header-Graz-HLH.png</f:variable></f:case>
+    <f:case value="146"><f:variable name="locationImg">https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Header-Bregenz-Festspielhaus.png</f:variable></f:case>
+</f:switch>
+
+<!-- Location Banner : BEGIN -->
+<tr>
+    <td class="full-width-image"><img src="{locationImg}" width="600" alt="{accreditation.event.location.name}" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;"></td>
+</tr>
+<!-- Location Banner : END --> 
+<tr style="background-color: #231636; color: #fff; font-family: sans-serif; text-align: center; font-size: 0.9rem;">
+    <td style="padding: 40px; line-height: 1.3;">
+        <p>
+            <span style="font-size: 1.3rem; font-weight: 600;">
+            {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')}</span><br>
+            {f:format.date(format:'%k:%M Uhr', date:'{accreditation.event.date}')} | {accreditation.event.location.name}<br>
+            <small>Einlass ab {f:format.date(format:'%k.%M Uhr', date:'{accreditation.event.date->f:format.date(format:\'H:i\')} -60 minutes')}</small>
+        </p>
+        
+        <f:render section="rueckmelde-btn" arguments="{_all}" />
+        <f:if condition="{content} == 'invite' || {content} == 'remind' || {content} == 'push'">
+            <p style="font-size: 0.7rem; line-height: 1.2;  padding-top: 15px;">
+                Um Rückmeldung wird bis <strong>{mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'d')}, {accreditation.invitationType.feedbackDate->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'month', lang: 'at')} {accreditation.invitationType.feedbackDate->f:format.date(format:'%Y')}</strong> gebeten.<br>
+                Die Einladung gilt für <strong>{accreditation.ticketsWish} Person{f:if(condition:'{accreditation.ticketsWish}==1', else:'en')}</strong> und ist <strong>nicht übertragbar.</strong>
+            </p>
+        </f:if>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="showinfo">
+<tr style="background-color: #231636; color: #fff; font-family: sans-serif; text-align: center; font-size: 0.9rem;">
+    <td align="center" valign="top" style="padding: 10px;">
+        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tbody><tr>
+                <td width="33.33%" class="stack-column-center">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                        <tbody><tr>
+                            <td style="padding: 10px; text-align: center">
+                                <img src="https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Flashdance_Foto-01.png" width="170" height="auto" alt="FLASHDANCE – Das Musical, Szenenmotiv" border="0" class="fluid">
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </td>
+                <td width="33.33%" class="stack-column-center">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                        <tbody><tr>
+                            <td style="padding: 10px; text-align: center">
+                                <img src="https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Flashdance_Foto-03.png" width="170" height="auto" alt="FLASHDANCE – Das Musical, Szenenmotiv" border="0" class="fluid">
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </td>
+                <td width="33.33%" class="stack-column-center">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                        <tbody><tr>
+                            <td style="padding: 10px; text-align: center">
+                                <img src="https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Flashdance_Foto-02.png" width="170" height="auto" alt="FLASHDANCE – Das Musical, Szenenmotiv" border="0" class="fluid">
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </td>
+            </tr>
+        </tbody></table>
+    </td>
+</tr>
+<!-- Showinfo : BEGIN -->
+<tr>
+    <td class="full-width-image" style="background-color: #231636; padding: 40px 60px; text-align: center; font-family: sans-serif; font-size: 0.9rem; font-weight: 400; color: white; mso-height-rule: exactly; line-height: 1.2;">
+            <h3 style="font-family: sans-serif;margin-top: 0; font-weight: 700; font-size: 1.2rem; line-height: 1.2; color: white; text-transform: uppercase;">What a feeling</span></h3>
+            <p style="">Der Blockbuster Flashdance ließ in den 80ern eine ganze Generation mitfiebern und mittanzen – in 2024 nimmt das umjubelte Musical das Publikum in ganz Deutschland und Österreich wieder mit auf eine unvergessliche Zeitreise! Welthits erleben, eintauchen in das Lebensgefühl des Kultjahrzehnts:<br>Lass dich von den größten Hits mitreißen!</p>
+            <p style="font-size: 1.2rem; font-weight: 700; text-decoration: none; color: white; text-transform: uppercase;">Mehr 80er geht nicht!</p>
+            <f:render section="rueckmelde-btn" arguments="{_all}" />
+            <p><a href="https://showslot.com/flashdance/" target="_blank" style="font-weight: 700; text-decoration: none; color: white;">showslot.com/flashdance</a></p>
+    </td>
+  </tr>
+<!-- Showinfo : END --> 
+</f:section>
+
+<f:section name="trailer">
+<!-- Fotobanner Footer : BEGIN -->
+<tr>
+    <td class="full-width-image"><img src="https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Flashdance_Fotobanner.png" alt="FLASHDANCE – Das Musical" width="600" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;"></td>
+</tr>
+<!-- Fotobanner Footer : END --> 
+</f:section>
+
+<f:section name="rueckmelde-btn">
+    <f:if condition="{content} == 'invite' || {content} == 'remind' || {content} == 'push'">
+        <f:then>
+            <!-- Button : Begin -->
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                <tr>
+                    <td style="border-radius: 3px; background: #ED166F; text-align: center; text-transform: uppercase;" class="button-td">
+                        <f:link.typolink
+                            absolute="1"
+                            parameter="38"
+                            additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}"
+                            absolute="1"
+                            class="button-a"
+                            target="_blank"
+                            additionalAttributes="{style:'background: #ED166F; border: 7px solid #ED166F; padding: 0 10px;color: #ffffff; font-family: sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;'}">
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                        </f:link.typolink>
+                    </td>
+                </tr>
+            </table>
+            <!-- Button : END -->
+        </f:then>
+        <f:else>
+
+            <f:switch expression="{accreditation.event.location.uid}">
+                <f:case value="26"><f:variable name="locationMapsLink">https://maps.app.goo.gl/AmzJop7NygQaQNzR9</f:variable></f:case>
+                <f:case value="93"><f:variable name="locationMapsLink">https://maps.app.goo.gl/hjwDdS3k9WUWGbzu6</f:variable></f:case>
+                <f:case value="92"><f:variable name="locationMapsLink">https://maps.app.goo.gl/cLz8ze7YgZjcvmzo9</f:variable></f:case>
+                <f:case value="139"><f:variable name="locationMapsLink">https://maps.app.goo.gl/gGHDXK8H4bfZvdcx7</f:variable></f:case>
+                <f:case value="146"><f:variable name="locationMapsLink">https://maps.app.goo.gl/V8CZRS6pt318Wwdg7</f:variable></f:case>
+            </f:switch>
+
+            <!-- Button : Begin -->
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                <tr>
+                    <td style="border-radius: 3px; background: #ED166F; text-align: center; text-transform: uppercase;" class="button-td">
+                        <a
+                            href="{locationMapsLink}"
+                            class="button-a"
+                            target="_blank"
+                            style="background: #ED166F; border: 7px solid #ED166F; padding: 0 10px;color: #ffffff; font-family: sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;">
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Anfahrt planen<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <!-- Button : END -->
+        </f:else>
+    </f:if>
+</f:section>

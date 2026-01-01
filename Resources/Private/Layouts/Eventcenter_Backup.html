@@ -1,0 +1,46 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+
+
+</div>
+    <div class="module-docheader t3js-module-docheader d-block d-print-none">
+        <div class="module-docheader-bar module-docheader-bar-navigation t3js-module-docheader-bar t3js-module-docheader-bar-navigation">
+            <div class="module-docheader-bar-column-left">
+                <div class="form-inline">
+                  <div class="form-group form-group-sm">
+                      <div class="btn-group btn-group-sm" role="group" aria-label="Eventcenter Menue">
+                        <f:link.action action="overview" controller="Pressroom" class="btn btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#home"></use></svg><span class="ml-2 d-none d-sm-inline">Übersicht</span></f:link.action>
+                        <f:link.action action="backendList" controller="Client" class="btn btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#crown"></use></svg><span class="ml-2 d-none d-sm-inline">Kunden</span></f:link.action>
+                        <f:link.action action="list" controller="Event" class="btn btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg><span class="ml-2 d-none d-sm-inline">Termine</span></f:link.action>
+                        <f:link.action action="new" controller="Event" class="btn btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#circle-plus"></use></svg><span class="ml-2 d-none d-sm-inline">Termin(e) erstellen</span></f:link.action>
+                        <f:link.action action="archive" controller="Event" class="btn btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#archive"></use></svg><span class="ml-2 d-none d-sm-inline">Archiv</span></f:link.action>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            <div class="module-docheader-bar-column-right text-right">
+                <f:be.pagePath />
+                <f:be.pageInfo />
+            </div>
+        </div>
+        <div class="module-docheader-bar module-docheader-bar-buttons t3js-module-docheader-bar t3js-module-docheader-bar-buttons mt-2">
+          <div class="module-docheader-bar-column-left">
+            <div class="btn-toolbar" role="toolbar" aria-label="">
+              <f:render section="buttons" optional="true" />
+            </div>
+          </div>
+          <div class="module-docheader-bar-column-right">
+            <div class="btn-toolbar" role="toolbar" aria-label="">
+              <f:render section="shortcutsAdditional" optional="true" />
+              <div class="btn-group">
+                <f:render section="shortcuts" optional="true" />
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <f:render partial="DocHeader" arguments="{docHeader:docHeader}" />
+    <div class="module-body t3js-module-body d-block">
+        <f:render section="content" />
+    </div>
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:publicrelations/Resources/Private/Language/locallang_csh" date="2020-08-06T11:01:46Z" product-name="publicrelations">
+		<header/>
+		<body>
+			<trans-unit id="type_overwrite.description" resname="type_overwrite.description">
+				<source>typeOverwrite</source>
+			</trans-unit>
+			<trans-unit id="staff.description" resname="staff.description">
+				<source>staff</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

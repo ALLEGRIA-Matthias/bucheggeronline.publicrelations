@@ -1,0 +1,42 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Mailer" />
+
+<f:section name="buttons">
+<f:link.action action="show" controller="Mailing" arguments="{mailing:mailing}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#times"></use></svg>Abbrechen</f:link.action>
+</f:section>
+
+<f:section name="content">
+    <h1>Empfängermanager <small>Schritt 1 von 3</small></h1>
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <h2>Typauswahl</h2>
+    <f:form action="receiverManagerCategories" enctype="multipart/form-data" name="receiver" object="{receiver}" arguments="{mailing:mailing}">
+
+    <div class="col-6">
+      <div class="form-group">
+        <label for="selectType"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#tag"></use></svg>Verteiltertyp</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+
+          </div>
+          <f:form.select class="form-control tomselect-generic" id="selectType" property="listType" required="1">
+            <f:form.select.option value="">Bitte Verteilertyp wählen...</f:form.select.option>
+            <f:form.select.option value="internal">interne Kontakte</f:form.select.option>
+            <f:form.select.option value="client">Kundenkontakte von {mailing.client.name}</f:form.select.option>
+            <f:form.select.option value="event">Termingäste</f:form.select.option>
+          </f:form.select>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12"><f:form.submit value="Zum nächsten Schritt" class="btn btn-success" /></div>
+
+    </f:form>
+
+</f:section>
+</html>

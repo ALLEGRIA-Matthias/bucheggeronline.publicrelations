@@ -1,0 +1,48 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+      <f:layout name="PrintLabels" />
+
+    <f:section name="content">
+        <div class="druckbereich">
+        <f:for each="{guests->v:iterator.sort(sortBy:'guestOutput.sortName')}" as="guest" iteration="gId">
+            <div class="etikett">
+                <p style="margin-bottom: 0;"><span class="uid {f:if(condition:'{guest.facie}', then:'facie')}">#{guest.uid}</span></p>
+                <h3 style="margin-top: 0; font-size: 1rem;">{guest.guestOutput.fullName}<f:if condition="{guest.guestOutput.company}"><br/><small style="font-weight: normal; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; display: inline-block; max-width: 100%;">{guest.guestOutput.company}</small></f:if></h3>
+                <div>
+                    <span style="background-color: #ffd966; padding: 0 5px; font-size: 0.9rem; font-weight: 900;">{guest.ticketsApproved} Ticket{f:if(condition:'{guest.ticketsApproved}>1', then:'s')}</span>
+                </div>
+                <div style="margin-top: 2mm;">
+                    <div style="font-size: 0.8rem; font-weight: 700;">
+                        <f:if condition="{guest.program} > 0">
+                            <span class="symbol kreis" style="background-color: rgb(159, 197, 232); padding: 3px;">
+                                <f:if condition="{guest.program} > 1">
+                                    {guest.program}
+                                </f:if>
+                            </span>
+                        </f:if>
+                        <f:if condition="{guest.pass} > 0">
+                            <span class="symbol quadrat" style="background-color: #ffcaca; padding: 3px;">
+                                <f:if condition="{guest.pass} > 1">
+                                    {guest.pass}
+                                </f:if>
+                            </span>
+                        </f:if>
+                    </div>
+                </div>
+            </div>
+            <!-- Nach jedem 24. Etikett einen Seitenumbruch erzwingen -->
+            <f:if condition="{gId.count}%24">
+                <f:then>
+                    <div style="page-break-after: always;"></div>
+                </f:then>
+            </f:if>
+        </f:for>
+        </div>
+    </f:section>
+</body>
+</html>
+      

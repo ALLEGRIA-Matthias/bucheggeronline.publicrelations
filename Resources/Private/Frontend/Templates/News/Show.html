@@ -1,0 +1,34 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+<f:section name="content">
+<div class="container my-4">
+
+
+  <div class="d-print-none mb-4">
+    <p class="my-0 text-muted small"><f:link.page pageUid="9" class="text-muted fw-bold">Kunden</f:link.page> / <f:link.action extensionName="Publicrelations" pluginName="ClientShow" controller="Client" action="show" arguments="{client:news.client}" class="text-muted fw-bold">{news.client.name}</f:link.action> / {news.title}</p>
+    <f:link.action extensionName="Publicrelations" pluginName="ClientShow" controller="Client" action="show" arguments="{client:news.client}" class="btn btn-primary btn-sm w-100">zurück zum Kunden <strong class="text-uppercase">{news.client.name}</strong></f:link.action>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-9 col-print-12">
+      <f:render partial="News/Paper" arguments="{news: news}" />
+    </div>
+  
+    <!-- Zusatzinfos -->
+    <div class="col-12 col-lg-3 mt-5 mt-lg-0">
+      <f:if condition="{news.media}">
+          <f:render partial="News/MediaBox" arguments="{media: news.media, news: news}" />
+      </f:if>
+
+      <f:if condition="{settings.showContacts}">
+        <f:render partial="News/ContactsBox" arguments="{contacts: news.contacts}" />
+      </f:if>
+    </div>
+  </div>  
+</div>
+
+</f:section>
+</html>
+
+
+

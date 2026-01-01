@@ -1,0 +1,77 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:section name="Header">
+<f:if condition="!{accreditation.invitationType.blank}">
+<tr>
+    <td valign="top" class="image" style="padding: 0px 36px; padding-bottom: 20px; color: #222222;text-align: left;">
+      <f:if condition="{template}=='OhneAllegria'"><f:else><f:render partial="HeaderLogo" arguments="{_all}" /></f:else></f:if>
+    </td>
+    <td valign="top" class="image" style="padding: 0px 36px; padding-bottom: 20px; text-align: right;">
+      <h6 style="text-align: right; margin: 0;font-family:'IBM Plex Sans', Helvetica, Arial, Verdana, sans-serif;
+      font-size:14px;
+      font-style:normal;
+      font-weight:bold;
+      text-transform:uppercase;
+      line-height:125%;
+      letter-spacing:normal;"><f:if condition="{accreditation.invitationType.invitationTitleOverwrite}"><f:then>{accreditation.invitationType.invitationTitleOverwrite}</f:then><f:else>Einladung</f:else></f:if></h6>
+      <p style="font-size: 10px; margin: 0;"><f:if condition="{accreditation.invitationType.invitationSubtitleOverwrite}"><f:then>{accreditation.invitationType.invitationSubtitleOverwrite}</f:then><f:else>{accreditation.event.title}</f:else></f:if></p>
+    </td>
+</tr>
+<tr>
+    <td valign="top" class="textContent" colspan="2" style="padding: 0px 36px;padding-top: 20px; color: #030305;font-family: 'IBM Plex Sans', Helvetica, Arial, Verdana, sans-serif;font-size: 20px;text-align: center;">
+      <f:render partial="LogoInHeader" arguments="{_all}" />
+      <strong><f:if condition="{accreditation.invitationType.invitationHeaderOverwrite}"><f:then>{accreditation.invitationType.invitationHeaderOverwrite->f:format.raw()}</f:then><f:else>Persönliche Einladung</f:else></f:if></strong>
+    </td>
+</tr>
+</f:if>
+</f:section>
+
+<f:section name="Content">
+<f:if condition="{accreditation.invitationType.blank}">
+  <f:then>
+    <f:if condition="{accreditation.guest.personally} || {testType}=='personally'">
+      <f:then><f:render partial="Contents" arguments="{contents:accreditation.invitationType.contentsPersonally, blank:'true', accreditation:accreditation}" /></f:then>
+      <f:else><f:render partial="Contents" arguments="{contents:accreditation.invitationType.contents, blank:'true', accreditation:accreditation}" /></f:else>
+    </f:if>
+  </f:then>
+  <f:else>
+  <tr>
+      <td valign="top" class="textContent" style="padding: 0px 36px;">
+
+          <p>
+            <f:render partial="Invitation/Salutation" arguments="{accreditation:accreditation, testType:testType, personallyAllowed:personallyAllowed}" />
+          </p>
+
+          <f:if condition="{accreditation.invitationType.from}">
+            <f:then><f:if condition="{accreditation.guest.personally} || {testType}=='personally'"><f:then>{accreditation.invitationType.fromPersonally->f:format.html()}</f:then><f:else>{accreditation.invitationType.from->f:format.html()}</f:else></f:if></f:then>
+            <f:else><p>unser Kunde <strong>{accreditation.event.client.name}</strong> lädt <f:if condition="{accreditation.guest.personally} || {testType}=='personally'"><f:then>dich </f:then><f:else>Sie </f:else></f:if> ganz herzlich zum kommenden Termin <strong>{accreditation.event.title}</strong> ein.</p></f:else>
+          </f:if>
+
+          <f:if condition="!{accreditation.invitationType.noEventOverview}">
+            <f:if condition="{accreditation.invitationType.altTemplate}">
+              <f:then>
+                <f:render partial="Invitation/EventOverview" arguments="{accreditation:accreditation, event:accreditation.event, invitationLink:1}" />
+              </f:then>
+              <f:else>
+                <f:render partial="Invitation/EventOverview" arguments="{accreditation:accreditation, event:accreditation.event}" />
+              </f:else>
+            </f:if>
+
+          </f:if>
+
+          <f:if condition="{accreditation.guest.personally} || {testType}=='personally'">
+            <f:then><f:render partial="Contents" arguments="{contents:accreditation.invitationType.contentsPersonally, accreditation:accreditation}" /></f:then>
+            <f:else><f:render partial="Contents" arguments="{contents:accreditation.invitationType.contents, accreditation:accreditation}" /></f:else>
+          </f:if>
+
+          <f:if condition="({accreditation.invitationType.altTemplate} && {accreditation.invitationType.altTemplate}!='Message')"><f:else>
+            <f:render partial="Invitation/Link" arguments="{_all}" />
+            <f:render partial="Invitation/Questions" arguments="{_all}" />
+          </f:else></f:if>
+
+          <f:if condition="{accreditation.invitationType.blank} || ({accreditation.invitationType.altTemplate} && {accreditation.invitationType.altTemplate}!='Message')"><f:else><f:render partial="Signature" arguments="{_all}" /></f:else></f:if>
+      </td>
+  </tr>
+  </f:else>
+</f:if>
+</f:section>
+</html>

@@ -1,0 +1,41 @@
+$plugin.tx_publicrelations {
+  persistence {
+    # cat=plugin.tx_publicrelations//a; type=string; label=Default storage PID
+    storagePid
+  }
+}
+
+plugin.tx_publicrelations_pressroom {
+    view {
+        # cat=plugin.tx_publicrelations_pressroom/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:publicrelations/Resources/Private/Templates/
+        # cat=plugin.tx_publicrelations_pressroom/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:publicrelations/Resources/Private/Partials/
+        # cat=plugin.tx_publicrelations_pressroom/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:publicrelations/Resources/Private/Layouts/
+        # cat=plugin.tx_publicrelations_pressroom/file; type=string; label=Path to Icons
+        iconRootPath =
+    }
+    # cat=plugin.tx_publicrelations_pressroom//a; type=int; label=Show Contacts
+    showContacts = 1
+}
+
+plugin.tx_publicrelations_pressecenter {
+  settings {
+    pages {
+      # Cat=Public Relations/LLL:EXT:publicrelations/Resources/Private/Language/locallang.xlf:constants.pages.header
+      
+      # LLL:EXT:publicrelations/Resources/Private/Language/locallang.xlf:constants.pages.mydata
+      mydata = 104
+
+      # LLL:EXT:publicrelations/Resources/Private/Language/locallang.xlf:constants.pages.mailview
+      mailview = 69
+
+      # LLL:EXT:publicrelations/Resources/Private/Language/locallang.xlf:constants.pages.login
+      login = 90
+
+      # LLL:EXT:publicrelations/Resources/Private/Language/locallang.xlf:constants.pages.logout
+      logout = 90
+    }
+  }
+}

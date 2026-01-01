@@ -1,0 +1,5 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<p style="margin-top:20px">
+  <f:if condition="{accreditation.guest.personally} || {testType}=='personally'"><f:then>Hast du </f:then><f:else>Haben Sie </f:else></f:if> noch offene Fragen, so <f:if condition="{accreditation.guest.personally} || {testType}=='personally'"><f:then>richte </f:then><f:else>richten Sie </f:else></f:if> diese bitte an <a href="mailto:{settings.company.email}?Subject=Rückfrage%20zur%20persönlichen%20Einladung%20-%20{accreditation.event.title -> f:format.urlencode()}" target="_blank">{settings.company.email}</a> oder <f:if condition="{accreditation.guest.personally} || {testType}=='personally'"><f:then>kontaktiere </f:then><f:else>kontaktieren Sie </f:else></f:if> uns unter <a href="tel:{settings.company.phone}" target="_blank">{settings.company.phone}</a>.
+</p>
+</html>

@@ -1,0 +1,109 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Contacts" />
+
+<f:section name="buttons">
+</f:section>
+
+<f:section name="shortcuts">
+</f:section>
+
+<f:section name="content">
+
+    <h1>Neuen Kontakt anlegen</h1>
+
+    <f:form action="create" controller="Contact" name="newContact" id="new-contact-form">
+
+        <div class="mb-3">
+            <h3>1. Kontakttyp auswählen</h3>
+            <div class="form-check form-check-inline">
+                <f:form.radio property="contactType" value="internal" id="type-internal" checked="true" class="form-check-input" data-toggle-group="contact-context" />
+                <label class="form-check-label" for="type-internal">Interner Kontakt</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <f:form.radio property="contactType" value="client" id="type-client" class="form-check-input" data-toggle-group="contact-context" data-toggle-target="#client-selector-wrapper" />
+                <label class="form-check-label" for="type-client">Kundenkontakt</label>
+            </div>
+        </div>
+
+        <div class="mb-3 d-none" id="client-selector-wrapper">
+            <label for="client-select" class="form-label">Kunde</label>
+            <f:form.select property="client" id="client-select" class="form-select tomselect-generic" options="{clients}" optionValueField="uid" optionLabelField="fullName" sortByOptionLabel="true" />
+        </div>
+
+        <hr>
+
+        <div class="mb-3">
+            <h3>2. E-Mail-Adresse prüfen</h3>
+            <label for="email-input" class="form-label">E-Mail-Adresse</label>
+            <f:form.textfield property="email" id="email-input" class="form-control js-email-validation" data-validation-url="{f:uri.action(action: 'validateEmail', controller: 'Contact')}" />
+            <div class="form-text">Nach der Eingabe wird die Adresse geprüft.</div>
+        </div>
+        
+        <div id="validation-result-container" class="mb-3"></div>
+
+        <hr>
+
+        <div id="further-fields-wrapper" class="d-none">
+            <h3>3. Kontaktdaten eingeben</h3>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="gender" class="form-label">Anrede</label>
+                    <f:form.select property="gender" id="gender" class="form-select">
+                        <f:form.select.option value="">(unbekannt)</f:form.select.option>
+                        <f:form.select.option value="m">Männlich</f:form.select.option>
+                        <f:form.select.option value="f">Weiblich</f:form.select.option>
+                        <f:form.select.option value="v">Divers</f:form.select.option>
+                    </f:form.select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="first-name" class="form-label">Vorname</label>
+                    <f:form.textfield property="firstName" id="first-name" class="form-control" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="last-name" class="form-label">Nachname</label>
+                    <f:form.textfield property="lastName" id="last-name" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="company" class="form-label">Firma</label>
+                    <f:form.textfield property="company" id="company" class="form-control" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="position" class="form-label">Position</label>
+                    <f:form.textfield property="position" id="position" class="form-control" />
+                </div>
+            </div>
+
+            <hr>
+            
+            <div class="row">
+                <div class="mb-3">
+                    <label for="mailing-list-select" class="form-label">Zusätzlich zu folgenden Verteilern hinzufügen</label>
+                    <f:form.select
+                        property="categories"
+                        id="mailing-list-select"
+                        class="form-select"
+                        multiple="true"
+                        options="{}"
+                        data="{
+                            internal-parent: 256,
+                            internal-recursive: true
+                        }"
+                    />
+                    <div class="form-text">Die Auswahl wird je nach Kontext (Intern/Kunde) aktualisiert.</div>
+                </div>
+            </div>
+
+            <f:form.button type="submit" class="btn btn-primary">Kontakt erstellen und bearbeiten</f:form.button>
+        </div>
+    </f:form>
+  
+</f:section>
+
+</html>

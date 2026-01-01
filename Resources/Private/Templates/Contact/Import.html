@@ -1,0 +1,93 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Contacts" />
+
+<f:section name="buttons">
+<f:if condition="{mailingList}"><be:link.editRecord uid="{mailingList.uid}" table="sys_category" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', arguments:'{id:2}', query:'&action=list&controller=Contact&tx_publicrelations_eventcenter[mailingList]={mailingList.uid}')}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg>Kategorie bearbeiten</be:link.editRecord></f:if>
+</f:section>
+
+<f:section name="shortcuts">
+  <f:link.action controller="Contact" action="import" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+  <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+
+  <h1>Massenimport für Kontakte</h1>
+    <p class="text-muted">Laden Sie eine CSV-Datei hoch, um mehrere Kontakte gleichzeitig zu importieren.</p>
+
+    <div id="import-wizard-wrapper">
+
+        <div id="step-1-upload">
+            <f:form name="newContact" action="uploadAndMap" controller="Contact" enctype="multipart/form-data" id="upload-form">
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header">
+                        <h3>Schritt 1: Datei und Kontext auswählen</h3>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="mb-3">
+                            <h4>Für welchen Kontext sollen die Kontakte importiert werden?</h4>
+                            <div class="form-check form-check-inline">
+                                <f:form.radio property="contactType" value="internal" id="type-internal" checked="true" class="form-check-input" data-toggle-group="contact-context" />
+                                <label class="form-check-label" for="type-internal">Interner Kontakte</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <f:form.radio property="contactType" value="client" id="type-client" class="form-check-input" data-toggle-group="contact-context" data-toggle-target="#client-selector-wrapper" />
+                                <label class="form-check-label" for="type-client">Kundenkontakte</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 d-none" id="client-selector-wrapper">
+                            <label for="client-select" class="form-label">Kunde</label>
+                            <f:form.select property="client" id="client-select" class="form-select tomselect-generic" options="{clients}" optionValueField="uid" optionLabelField="fullName" sortByOptionLabel="true" />
+                        </div>
+
+                        <hr>
+
+                        <div class="mb-3">
+                            <label for="mailing-list-select" class="form-label">Zusätzlich zu folgenden Verteilern hinzufügen</label>
+                            <f:form.select
+                                property="categories"
+                                id="mailing-list-select"
+                                class="form-select"
+                                multiple="true"
+                                options="{}"
+                                data="{
+                                    internal-parent: 256,
+                                    internal-recursive: true
+                                }"
+                            />
+                            <div class="form-text">Die Auswahl wird je nach Kontext (Intern/Kunde) aktualisiert.</div>
+                        </div>
+
+                        <hr>
+
+                        <div class="mb-3">
+                            <h4>Import-Datei (CSV)</h4>
+                            <f:form.upload name="importFile" id="import-file-upload" class="form-control" required="true" />
+                            <div class="form-text">Die erste Zeile der Datei muss die Spaltenüberschriften enthalten.</div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <f:form.button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Datei hochladen und Spalten zuordnen
+                        </f:form.button>
+                    </div>
+                </div>
+            </f:form>
+        </div>
+
+        <div id="step-2-mapping-container"></div>
+
+        <div id="step-3-validation-container"></div>
+
+    </div>
+
+</f:section>
+</html>

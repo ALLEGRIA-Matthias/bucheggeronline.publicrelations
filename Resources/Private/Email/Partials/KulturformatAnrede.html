@@ -1,0 +1,12 @@
+<f:if condition="{guestOutput.specialTitle}">
+<f:then>
+    {guestOutput.specialTitle},
+</f:then>
+<f:else>
+    <f:switch expression="{guestOutput.gender}">
+    <f:case value="f">Sehr geehrte Frau <f:if condition="{guestOutput.title}">{guestOutput.title} </f:if>{guestOutput.firstName} {guestOutput.lastName},</f:case>
+    <f:case value="m">Sehr geehrter Herr <f:if condition="{guestOutput.title}">{guestOutput.title} </f:if>{guestOutput.firstName} {guestOutput.lastName},</f:case>
+    <f:defaultCase>Einen wunderschönen Tag,</f:defaultCase>
+    </f:switch>
+</f:else>
+</f:if>

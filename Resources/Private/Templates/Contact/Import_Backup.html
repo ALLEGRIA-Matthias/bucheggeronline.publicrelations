@@ -1,0 +1,96 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Contacts" />
+
+<f:section name="buttons">
+<f:if condition="{mailingList}"><be:link.editRecord uid="{mailingList.uid}" table="sys_category" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', arguments:'{id:2}', query:'&action=list&controller=Contact&tx_publicrelations_eventcenter[mailingList]={mailingList.uid}')}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg>Kategorie bearbeiten</be:link.editRecord></f:if>
+</f:section>
+
+<f:section name="shortcuts">
+  <f:link.action controller="Contact" action="import" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+  <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+
+  <h1>Kontaktimport</h1>
+
+  <f:form action="importer" enctype="multipart/form-data" name="newImport" object="{newAccreditation}">
+
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="selectType"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#tag"></use></svg> Was importieren wir heute schönes?</label>
+        <div class="input-group w-100">
+          <f:form.select class="form-control tomselect-generic" id="selectType" name="copyToPid" required="1">
+            <f:form.select.option value="">Bitte Ziel wählen...</f:form.select.option>
+            <f:form.select.option value="6">Pressekontakte</f:form.select.option>
+            <f:form.select.option value="40">Promis</f:form.select.option>
+            <f:form.select.option value="44">Verteiler</f:form.select.option>
+            <f:form.select.option value="50">Kundenkontakte</f:form.select.option>
+          </f:form.select>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="inputTitle"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#file"></use></svg>CSV-Datei auswählen</label>
+        <div class="input-group w-100">
+          <f:form.upload class="form-control" id="uploadFile" name="csv" additionalAttributes="{required:1, accept:'.csv'}" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <f:form.submit value="Hochladen" class="btn btn-sm btn-success mr-3" />
+  </div>
+  </f:form>
+
+  <f:if condition="{importedContacts}">
+  <div class="alert alert-warning mt-5">
+    <h4>Es sind noch Importe im System!</h4>
+    <p>Aktuell sind noch {importedContacts->f:count()} Kontakte im Import-Ordner. Diese können noch nicht für Mailings herangezogen werden!</p>
+    <p><f:link.action action="imported" class="btn btn-info text-white text-decoration-none">Zur Import-Liste</f:link.action></p>
+  </div>
+  </f:if>
+
+  <div class="alert alert-info mt-5">
+    <h4>Importierbare Spalten</h4>
+    <p>Die folgenden Spalten können importiert werden. Diese sollten in der ersten Zeile auch unbedingt so benannt werden, damit ein Import ordnungsgemäß durchgeführt werden kann.</p>
+    <p><f:for each="{importableColumns}" as="columnName"><span class="badge badge-dark me-2 mt-2 js-copy-to-clipboard" data-copy-value="{columnName}">{columnName}</span></f:for></p>
+  </div>
+
+  <div class="alert alert-info mt-5">
+    <h4>Importierbare Kategorien</h4>
+    <p class="mb-4">Die folgenden Kategorien können importiert werden. Soll ein Kontakt mehreren Kategorien zugeordnet werden, so bitte mit "," trennen: <strong>Kunst [118],Musical [163]</strong>.</p>
+    <div class="row">
+      <div class="col-12 col-md-4 bg-success text-dark"">
+        <h5>Pressekontakte</h5>
+        <f:render partial="Tree" arguments="{items:pressLists, type:'importer'}" />
+      </div>
+      <div class="col-12 col-md-4 bg-warning text-dark"">
+        <h5>Promis</h5>
+        <f:render partial="Tree" arguments="{items:promiLists, type:'importer'}" />
+      </div>
+      <div class="col-12 col-md-4 bg-danger text-dark"">
+        <h5>Sonstiges</h5>
+        <f:render partial="Tree" arguments="{items:otherLists, type:'importer'}" />
+      </div>
+      <div class="col-12 col-md-4 bg-info text-dark"">
+        <h5>Kundenverteiler</h5>
+        <f:groupedFor each="{clientsLists -> v:iterator.sort(sortBy: 'client.name')}" as="clientLists" groupBy="client.name" groupKey="client">
+          <li><strong>{client}</strong>
+          <f:render partial="Tree" arguments="{items:clientLists, type:'importer'}" />
+        </f:groupedFor>
+      </div>
+    </div>
+  </div>
+
+</f:section>
+</html>

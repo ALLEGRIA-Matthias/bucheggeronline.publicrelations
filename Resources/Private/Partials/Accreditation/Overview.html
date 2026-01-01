@@ -1,0 +1,101 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<table class="table table-striped table-hover">
+  <tr>
+    <th width="150px">Status</th>
+    <td>
+      <f:if condition="{accreditation.type}==1">
+      <f:switch expression="{accreditation.status}">
+        <f:case value="0"><span class="badge badge-warning"><svg class="icon fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#hourglass"></use></svg>Wartet auf Prüfung</span></f:case>
+        <f:case value="1"><span class="badge badge-success"><svg class="icon fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#check"></use></svg>Bestätigt</span></f:case>
+        <f:case value="-1"><span class="badge badge-danger"><svg class="icon fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#circle-minus"></use></svg>Abgelehnt</span></f:case>
+      </f:switch>
+      </f:if>
+      <f:if condition="{accreditation.type}==2">
+      <f:switch expression="{accreditation.status}">
+        <f:case value="0"><span class="badge badge-warning"><svg class="icon fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#hourglass"></use></svg>Ausstehend</span></f:case>
+        <f:case value="1"><span class="badge badge-success"><svg class="icon fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#check"></use></svg>Bestätigt</span></f:case>
+        <f:case value="-1"><span class="badge badge-danger"><svg class="icon fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#circle-minus"></use></svg>Abgelehnt</span></f:case>
+      </f:switch>
+      </f:if>
+    </td>
+  </tr>
+  <f:if condition="{accreditation.type}==2">
+  <tr>
+    <th>Sendestatus</th>
+    <td>
+      <f:switch expression="{accreditation.invitationStatus}">
+        <f:case value="0"><span class="badge badge-warning"><svg class="icon fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#hourglass"></use></svg>Vorbereitet</span></f:case>
+        <f:case value="1"><span class="badge badge-warning"><svg class="icon fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#send"></use></svg>Versandt</span></f:case>
+        <f:case value="2"><span class="badge badge-warning"><svg class="icon fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#send"></use></svg>1. Reminder</span></f:case>
+        <f:case value="3"><span class="badge badge-danger"><svg class="icon fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#send"></use></svg>2. Reminder</span></f:case>
+        <f:case value="-1"><span class="badge badge-success"><svg class="icon fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#check"></use></svg>Abgeschlossen</span></f:case>
+      </f:switch>
+    </td>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <td>
+      <f:switch expression="{accreditation.guestOutput.gender}">
+        <f:defaultCase><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-parents"></use></svg></f:defaultCase>
+        <f:case value="f"><svg class="icon icon-sm fill-pink"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-female"></use></svg></f:case>
+        <f:case value="m"><svg class="icon icon-sm fill-blue"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg></f:case>
+      </f:switch>
+      <f:if condition="{accreditation.title}">{accreditation.guestOutput.title} </f:if>
+      {accreditation.guestOutput.firstName} {accreditation.guestOutput.lastName}</td>
+  </tr>
+  </f:if>
+  <tr>
+    <th>Termin</th>
+    <td>{accreditation.event.title}</td>
+  </tr>
+  <tr>
+    <th>Datum</th>
+    <td><f:if condition="{accreditation.event.dateFulltime}"><f:then>{f:format.date(date:'{accreditation.event.date}', format:'%d.%m.%Y')}</f:then><f:else>{f:format.date(date:'{accreditation.event.date}', format:'%d.%m.%Y %H:%M')}</f:else></f:if></td>
+  </tr>
+  <tr>
+    <th><f:if condition="{accreditation.type}==2"><f:then>Tickets</f:then><f:else>Ticketwunsch</f:else></f:if></th>
+    <td>{accreditation.ticketsWish} Tix</td>
+  </tr>
+  <f:if condition="{accreditation.type}==1">
+  <tr>
+    <th>Fotopass</th>
+    <td>
+      <f:if condition="{accreditation.photographer}">Fotograf</f:if>
+      <f:if condition="{accreditation.camerateam}">Kamerateam</f:if>
+      <f:if condition="!{accreditation.photographer} || !{accreditation.camerateam}">-</f:if>
+    </td>
+  </tr>
+  <tr>
+    <th>Medium</th>
+    <td>{accreditation.medium}</td>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <td>
+      <f:switch expression="{accreditation.gender}">
+        <f:defaultCase><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-parents"></use></svg></f:defaultCase>
+        <f:case value="f"><svg class="icon icon-sm fill-pink"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-female"></use></svg></f:case>
+        <f:case value="m"><svg class="icon icon-sm fill-blue"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg></f:case>
+      </f:switch>
+      <f:if condition="{accreditation.title}">{accreditation.title} </f:if>
+      {accreditation.firstName} {accreditation.lastName}</td>
+  </tr>
+  <tr>
+    <th>E-Mail</th>
+    <td><a href="mailto:{accreditation.email}" target="_blank">{accreditation.email}</a></td>
+  </tr>
+  <tr>
+    <th>Phone</th>
+    <td><a href="tel:{accreditation.phone}" target="_blank">{accreditation.phone}</a></td>
+  </tr>
+  <tr>
+    <th>IP-Adresse</th>
+    <td>{accreditation.ip}</td>
+  </tr>
+  <tr class="{f:if(condition:'{accreditation.requestNote}', then:'danger')}">
+    <th>Anmerkung</th>
+    <td>{accreditation.requestNote->f:sanitize.html()}</td>
+  </tr>
+  </f:if>
+</table>
+</html>

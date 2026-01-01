@@ -1,0 +1,36 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:render partial="NewsRetention" arguments="{_all}" />
+<div style="margin: 20px 0">
+  {content.news.textToMail->f:format.raw()}
+
+</div>
+<f:if condition="{content.newsMedia} && {content.news.media}">
+<h3 style="margin-top: 20px;">Pressefotos zur Presseinformation</h3>
+<table>
+  <f:for each="{content.news.media}" as="file">
+  <tr>
+    <td><a href="https://www.allegria.at//{file.originalResource.publicUrl}" download target="_blank"><f:image image="{file}" width="100c" height="100c" cropVariant="thumb" absolute="1" style="padding: 0 10px 10px 0;" /></a></td>
+    <td>
+      <strong>{file.originalResource.title}</strong><br/>
+      <f:if condition="{file.originalResource.description}"><small>{file.originalResource.description}</small><br/></f:if>
+      {f:if(condition:'{file.originalResource.properties.copyright}', then:'© {file.originalResource.properties.copyright}', else:'© {content.news.client.name}')}
+    </td>
+  </tr>
+  </f:for>
+</table>
+<p style="margin: 20px 0">
+<f:if condition="{content.news.campaigns}">
+  <f:then>
+    <f:for each="{content.news.campaigns}" as="campaign" iteration="ci">
+      <f:if condition="{campaign.mediagroups}"><strong>Hier finden Sie druckfähige Fotos zu <f:link.typolink absolute="1" parameter="39#pressematerial" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={campaign.uid}" target="_blank">{campaign.title}.</f:link.typolink></strong><br/></f:if>
+    </f:for>
+    <f:if condition="{content.news.client.mediagroups}"><strong>Druckfähige Fotos <f:link.typolink absolute="1" parameter="39#pressematerial"  additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={content.news.client.uid}" target="_blank">zum Kunden</f:link.typolink></strong></f:if>
+  </f:then>
+  <f:else>
+    <f:if condition="{content.news.client.mediagroups}"><strong>Druckfähige Fotos finden Sie auf der <f:link.typolink absolute="1" parameter="39#pressematerial"  additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={content.news.client.uid}" target="_blank">Kundenseite</f:link.typolink></strong></f:if>
+  </f:else>
+</f:if>
+</p>
+</f:if>
+<f:render partial="NewsRetention" arguments="{_all}" />
+</html>

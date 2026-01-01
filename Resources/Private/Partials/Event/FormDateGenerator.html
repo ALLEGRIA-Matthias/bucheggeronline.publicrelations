@@ -1,0 +1,126 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<div class="alert alert-warning" role="alert">
+  <h4>Termine</h4>
+
+  <div class="col-12">
+    <div class="form-group">
+      <label for="selectGenerator"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#files-queue"></use></svg>Generator-Typ</label>
+      <div class="input-group w-100">
+        <f:form.select class="form-control tomselect-generic select-toggle" data="{toggle-container-id: 'selectGenerator'}" id="selectGenerator" name="generator" required="1">
+          <f:form.select.option value="">Generatortyp auswählen...</f:form.select.option>
+          <f:form.select.option value="single">Einzelnen Termin erstellen</f:form.select.option>
+          <f:form.select.option value="list">Terminliste erstellen</f:form.select.option>
+          <f:form.select.option value="period">Terminperiode erstellen</f:form.select.option>
+        </f:form.select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row"  data-toggle-container="selectGenerator">
+
+      <div class="col-12 col-md-6" data-toggle-value="single" style="display:none;">
+        <div class="input-group">
+          <f:form.textfield
+            name="singledate"
+            id="singledate"
+            class="form-control form-control-clearable t3js-clearable"
+            data="{input-type:'datetimepicker', date-type:'datetime', dateOffset: '0'}"
+            additionalAttributes="{aria-describedby:'singledate'}" />
+          <button class="btn btn-default" aria-label="Open date picker" type="button" data-global-event="click" data-action-focus="#singledate">
+            <span class="t3js-icon icon icon-size-small icon-state-default icon-actions-edit-pick-date" data-identifier="actions-edit-pick-date" aria-hidden="true">
+              <span class="icon-markup">
+                <svg class="icon-color"><use xlink:href="/typo3/sysext/core/Resources/Public/Icons/T3Icons/sprites/actions.svg#actions-calendar-alternative" /></svg>
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6" data-toggle-value="list" style="display:none;">
+        <div class="form-group">
+          <label for="inputDatelistFormat"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#font"></use></svg>Datumsformat</label>
+          <div class="input-group w-100">
+            <f:form.select class="form-control tomselect-generic" id="inputDatelistFormat" name="dateformat">
+              <f:form.select.option value="d.m.Y H:i">dd.mm.yyyy hh:mm</f:form.select.option>
+              <f:form.select.option value="dmYHi">ddmmyyyyhhmm</f:form.select.option>
+            </f:form.select>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6" data-toggle-value="list" style="display:none;">
+        <div class="form-group">
+          <label for="inputDatelist"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg>Terminliste (pro Zeile ein Datum im gewählten Format)</label>
+          <div class="input-group w-100">
+            <f:form.textarea class="form-control" id="inputDatelist" name="dates" rows="15" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6" data-toggle-value="period" style="display:none;">
+        <div class="row">
+          <div class="col-sm-6">
+            <label for="daterangeFrom">Datum von</label>
+            <div class="input-group">
+                <f:form.textfield
+                    name="daterange[start]"
+                    id="daterangeFrom"
+                    class="form-control t3js-clearable js-is-daterange"
+                    additionalAttributes="{type: 'text'}"
+                    data="{
+                        input-type: 'datetimepicker', 
+                        date-type: 'date',
+                        daterange-to: '#daterangeTo'
+                    }" />
+                <button class="btn btn-default" aria-label="Open date picker" type="button" data-global-event="click" data-action-focus="#daterangeFrom">
+                  <span class="t3js-icon icon icon-size-small icon-state-default icon-actions-edit-pick-date" data-identifier="actions-edit-pick-date" aria-hidden="true">
+                    <span class="icon-markup">
+                      <svg class="icon-color"><use xlink:href="/typo3/sysext/core/Resources/Public/Icons/T3Icons/sprites/actions.svg#actions-calendar-alternative" /></svg>
+                    </span>
+                  </span>
+                </button>
+              </div>
+          </div>
+          <div class="col-sm-6">
+            <label for="daterangeTo">Datum bis</label>
+            <div class="input-group">
+              <f:form.textfield
+                  name="daterange[end]"
+                  id="daterangeTo"
+                  class="form-control t3js-clearable js-is-daterange"
+                  additionalAttributes="{type: 'text'}"
+                  data="{
+                      input-type: 'datetimepicker', 
+                      date-type: 'date',
+                      daterange-from: '#daterangeFrom'
+                  }" />
+              <button class="btn btn-default" aria-label="Open date picker" type="button" data-global-event="click" data-action-focus="#daterangeTo">
+                <span class="t3js-icon icon icon-size-small icon-state-default icon-actions-edit-pick-date" data-identifier="actions-edit-pick-date" aria-hidden="true">
+                  <span class="icon-markup">
+                    <svg class="icon-color"><use xlink:href="/typo3/sysext/core/Resources/Public/Icons/T3Icons/sprites/actions.svg#actions-calendar-alternative" /></svg>
+                  </span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6" data-toggle-value="period" style="display:none;">
+        <div class="form-group">
+          <label for="inputSchedule">Wöchentlicher Plan (pro Zeile ein Zeitpunkt im Format: "Montag 19:30")</label>
+          <div class="input-group w-100">
+            <f:form.textarea class="form-control" id="inputSchedule" name="schedule" rows="15" />
+          </div>
+        </div>
+      </div>
+  </div>
+
+</div>
+
+</html>

@@ -1,0 +1,94 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+<f:for each="{contents}" as="content" iteration="contentI">
+    <f:switch expression="{content.type}">
+        <f:case value="0">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: {f:if(condition:'{content.padding}', then:'{content.padding}', else:'40px')}; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: {f:if(condition:'{content.color}', then:'{content.color}', else:'#030305')}; background-color: {f:if(condition:'{content.bgcolor}', then:'{content.bgcolor}', else:'#FFFFFF')}">
+                    {content.content->f:format.raw()}
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+        </f:case>
+        <f:case value="100">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: {f:if(condition:'{content.padding}', then:'{content.padding}', else:'40px')}; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: {f:if(condition:'{content.color}', then:'{content.color}', else:'#030305')}; background-color: {f:if(condition:'{content.bgcolor}', then:'{content.bgcolor}', else:'#FFFFFF')}">
+                    {content.content->f:format.raw()}
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+        </f:case>
+        <f:case value="1">
+            TEST1
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: {f:if(condition:'{content.padding}', then:'{content.padding}', else:'40px')}; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: {f:if(condition:'{content.color}', then:'{content.color}', else:'#030305')}; background-color: {f:if(condition:'{content.bgcolor}', then:'{content.bgcolor}', else:'#FFFFFF')}">
+                    {content.content->f:format.raw()}
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+        </f:case>
+        <f:case value="2"><f:render partial="News" arguments="{content:content}" /></f:case>
+        <f:case value="3"><f:render partial="Invitation/EventOverview" arguments="{event:content.event, accreditationLink:content.eventLink}" /></f:case>
+        <f:case value="4"><f:render partial="Media" arguments="{content:content}" /></f:case>
+        <f:case value="5"></f:case>
+        <f:case value="6"><f:render partial="Invitation/EventOverview" arguments="{event:content.event, onlyAccreditationLink:'1', accreditationLink:'1'}" /></f:case>
+        <f:case value="7">
+            <!-- 1 Column Image : BEGIN -->
+            <tr>
+                <td style="padding: {f:if(condition:'{content.padding}', then:'{content.padding}', else:'0 40px')}; text-align: center;">
+                <f:if condition="{content.image}">
+                    <f:then>
+                    <f:if condition="{content.imageFullWidth}">
+                        <f:then><f:image image="{content.image}" width="100%" height="auto" maxWidth="600" maxHeight="500" absolute="1" style="max-height: 500px; margin: 0;" /></f:then>
+                        <f:else><f:image image="{content.image}" width="100%" height="auto" maxWidth="450" maxHeight="500" absolute="1" style="max-height: 500px; max-width: 450px; margin: 0;" /></f:else>
+                    </f:if>
+                    </f:then>
+                    <f:else><p>Kein Foto zugeordnet!</p></f:else>
+                </f:if>
+                </td>
+            </tr>
+            <!-- 1 Column Image : END -->
+        </f:case>
+        <f:case value="8">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: {f:if(condition:'{content.padding}', then:'{content.padding}', else:'40px')}; color: {f:if(condition:'{content.color}', then:'{content.color}', else:'#FFFFFF;')}; background-color: {f:if(condition:'{content.bgcolor}', then:'{content.bgcolor}', else:'#030305')}; text-align: center; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; font-weight: 500; line-height: 1.4;">
+                    <p style="margin-top: 0;">
+                        <img src="https://www.allegria.at/fileadmin/marketing/allegria/star.png"><br>
+                        <span style="font-size: 1.4rem; line-height: 1.2; text-transform: uppercase; font-weight: 800;">Prominente Gäste</span>
+                    </p>
+                    <p>
+                        <strong>Folgende Promis sind aktuell für den {content.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{content.event.date}', type:'month')} {content.event.date->f:format.date(format:'%Y')} angemeldet:</strong>
+                    </p>
+                    <p>
+                        <ul style="list-style: none; padding: 0;">
+                            <f:for each="{content.event.facies -> v:iterator.sort(sortBy: 'guestOutput.lastName')}" as="facie">
+                            <li>{facie.guestOutput.fullName}</li>
+                            </f:for>
+                        </ul>
+                    </p>
+                    <p style="font-weight: 700; font-size: 1.2rem; margin-top: 30px;">Akkreditieren Sie sich jetzt zur Berichterstattung!</p>
+                    
+                    <!-- Button : Begin -->
+                    <table cellspacing="0" cellpadding="0" border="0" class="center-on-narrow" align="center" style="margin: auto">
+                    <tr>
+                        <td style="border-radius: 3px; background: #EFB72E; text-align: center;" class="button-td"><a href="http://www.google.com" style="background: #EFB72E; border: 15px solid #EFB72E; padding: 0;color: #030305; font-family: sans-serif; font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; display: block; border-radius: 5px; font-weight: bold; text-transform: uppercase;" class="button-a"> 
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Akkreditieren<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                            </a></td>
+                        </tr>
+                    </table>
+                    <!-- Button : END -->
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+        </f:case>
+        <f:case value="9"><f:render partial="EventAlert" arguments="{content:content}" /></f:case>
+        <f:case value="10"><f:render partial="Invitation/Link" arguments="{_all}" /></f:case>
+    </f:switch>
+</f:for>
+</html>

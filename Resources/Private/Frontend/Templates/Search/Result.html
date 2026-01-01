@@ -1,0 +1,67 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+<f:section name="content">
+<div class="container my-4">
+  <div class="row">
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <div class="col-12">
+      <h1>Suchen</h1>
+      <form 
+        action="{f:uri.page(pageUid: 52)}" 
+        method="get" 
+        enctype="multipart/form-data" 
+        name="search">
+          <div class="mb-4">
+              <input 
+                  type="search" 
+                  class="form-control" 
+                  id="searchQueryOnPage" 
+                  name="query" 
+                  placeholder="Nach Kunden, Produktionen bzw. Projekten… suchen." 
+                  aria-label="Suchbegriff"
+                  value="{searchQuery}" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg font-monospace text-white text-uppercase fw-bold">Jetzt suchen!</button>
+      <form>
+    </div>
+    <div class="col-12 mt-5">
+      <f:if condition="{clients} || {campaigns} || {schedule.events}">
+
+      <f:then>
+      <div class="row">
+      <f:if condition="{clients}">
+      <f:for each="{clients}" as="client" iteration="clientId">
+      <div class="col-12 col-md-4 col-lg-3 col-xl-2 mb-3">
+        <f:render partial="Card" arguments="{type:'list', client:client, image:client.logo, title:client.shortName}" />
+      </div>
+      </f:for>
+      </f:if>
+
+      <f:if condition="{campaigns}">
+      <f:for each="{campaigns}" as="campaign" iteration="campaignId">
+      <div class="col-12 col-md-4 col-lg-3 col-xl-2 mb-3">
+        <f:render partial="Card" arguments="{type:'list', campaign:campaign, image:campaign.logo, title:campaign.title}" />
+      </div>
+      </f:for>
+      </f:if>
+      </div>
+
+      <f:if condition="{schedule.events}">
+      <f:render partial="Schedule" section="list" arguments="{schedule:schedule}" />
+      </f:if>
+
+      </f:then>
+
+      <f:else><p>Leider konnten wir nichts zu Ihrem Suchbegriff finden.</p></f:else>
+
+      </f:if>
+    </div>
+
+  </div>
+</div>
+
+
+<f:if condition="{client.pressEvents}"><f:render partial="Events" section="modals" arguments="{events:client.pressEvents, mediumTypes:mediumTypes, ip:ip, newAccreditation:newAccreditation}" /></f:if>
+</f:section>
+</html>

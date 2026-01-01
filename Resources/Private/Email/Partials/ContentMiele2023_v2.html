@@ -1,0 +1,289 @@
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;">
+  <tbody>
+    <f:switch expression="{content}">
+    <f:case value="invite">
+      <tr style="background-color: #FFFFFF;">
+        <td align="center" style="padding: 0px 30px;">
+            <div style="background-color: #eaeaea; padding: 15px 30px;">
+                <p style="font-size: 1rem; font-family: 'Dosis', sans-serif; color: #1F1F1F;">
+                    <strong>Dies ist eine persönliche Aussendung des ZFAC Mitgliedes<br>Sandra Kolleth an ZFAC Mitglieder.</strong><br><br>
+                    Für diese Veranstaltung haben wir noch einige wenige Plätze verfügbar, die wir auf der Basis der Reihenfolge der Anmeldungen an Mitglieder der ZUKUNFT.FRAUEN Alumnae Club vergeben.
+                </p>
+            </div>
+          <h1 style="text-transform: uppercase; font-size: 1.5rem; font-family: 'Dosis', sans-serif; color: #8c0014;">Pers&ouml;nliche Einladung<br><span style="text-transform: none;">Experience Talk by Miele</span></h1>
+          <h3 style="text-transform: uppercase; font-size: 1.2rem; font-family: 'Dosis', sans-serif; color: #1F1F1F;"><span style="text-transform: none; font-size: 1rem;">f&uuml;r</span><br>{accreditation.guestOutput.name}</h3>
+        </td>
+      </tr>
+      <f:render section="invitationCopy" arguments="{_all}" />
+    </f:case>
+    <f:case value="remind">
+      <tr style="background-color: #FFFFFF;">
+        <td align="center" style="padding: 0px 30px;">
+          <h1 style="text-transform: uppercase; font-size: 1.5rem; font-family: 'Dosis', sans-serif; color: #8c0014;">Erinnerung!<br><span style="color: #1F1F1F">Zur pers&ouml;nlichen Einladung</span><br><span style="text-transform: none;">Experience Talk by Miele</span></h1>
+          <h3 style="text-transform: uppercase; font-size: 1.2rem; font-family: 'Dosis', sans-serif; color: #1F1F1F;"><span style="text-transform: none; font-size: 1rem;">f&uuml;r</span><br>{accreditation.guestOutput.name}</h3>
+        </td>
+      </tr>
+      <f:render section="invitationCopy" arguments="{_all}" />
+    </f:case>
+    <f:case value="push">
+      <tr style="background-color: #FFFFFF;">
+        <td align="center" style="padding: 0px 30px;">
+          <h1 style="text-transform: uppercase; font-size: 1.5rem; font-family: 'Dosis', sans-serif; color: #8c0014;">Letzte Erinnerung!<br><span style="color: #1F1F1F">Zur pers&ouml;nlichen Einladung</span><br><span style="text-transform: none;">Experience Talk by Miele</span></h1>
+          <h3 style="text-transform: uppercase; font-size: 1.2rem; font-family: 'Dosis', sans-serif; color: #1F1F1F;"><span style="text-transform: none; font-size: 1rem;">f&uuml;r</span><br>{accreditation.guestOutput.name}</h3>
+        </td>
+      </tr>
+      <f:render section="invitationCopy" arguments="{_all}" />
+    </f:case>
+    <f:case value="approve">
+      <tr style="background-color: #FFFFFF;">
+        <td align="center" style="padding: 0px 30px;">
+          <h1 style="text-transform: uppercase; font-size: 1.5rem; font-family: 'Dosis', sans-serif; color: #8c0014;">Danke f&uuml;r Ihre Zusage.</h1>
+          <h3 style="text-transform: uppercase; font-size: 1.2rem; font-family: 'Dosis', sans-serif; color: #1F1F1F;">{accreditation.guestOutput.name}</h3>
+          <p>Akkreditierung Nr. #{accreditation.uid}<br>Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr versandt.<br>
+            <i>*diese Best&auml;tigung ist nicht &uuml;bertragbar</i></p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0px 30px; text-align: center;">
+        <p style="text-align: center;"><img src="https://www.allegria.at/fileadmin/templates/img/MIE07532_Einladung_Talk_210x148_RZ_web-neu.png" style="margin: 30px 0;" /></p>
+        </td>
+      </tr>
+      <tr>
+        <td align="center" style="padding: 0px 30px;">
+        <p class="text-center"><span class="f-1" style="color: #8c0014 !important;"><strong>Donnerstag, 23. M&auml;rz 2023, ab 19 Uhr</strong></span><br />
+        <strong class="f-3">Miele Experience Center – 1230 Wien, Vorarlberger Allee 31</strong></p>
+        
+        <p style="margin: 0; font-size: 0.75rem;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider Erwarten nicht zur Veranstaltung kommen k&ouml;nnen.</p>
+        <p style="margin: 27px 0px 20px 0px"><a href="mailto:office@allegria.at" target="_blank" style="background: #8c0014; padding: 7px 14px; color: #FFFFFF; font-weight: 500; text-decoration: none;">Email senden</a></p>  
+        </td>
+      </tr>
+    </f:case>
+    <f:case value="reject">
+      <tr style="background-color: #FFFFFF;">
+        <td align="center" style="padding: 0px 30px;">
+          <h1 style="text-transform: uppercase; font-size: 1.5rem; font-family: 'Dosis', sans-serif; color: #8c0014;">Schade, dass es diesmal nicht klappt.</h1>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0px 30px; text-align: center;">
+        <p style="text-align: center;"><img src="https://www.allegria.at/fileadmin/templates/img/MIE07532_Einladung_Talk_210x148_RZ_web-neu.png" style="margin: 30px 0;" /></p>
+        </td>
+      </tr>
+      <tr>
+        <td align="center" style="padding: 0px 30px;">
+        <p class="text-center"><span class="f-1" style="color: #8c0014 !important;"><strong>Donnerstag, 23. M&auml;rz 2023, ab 19 Uhr</strong></span><br />
+        <strong class="f-3">Miele Experience Center – 1230 Wien, Vorarlberger Allee 31</strong></p>
+        
+        <p style="margin: 0; font-size: 0.75rem;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider Erwarten doch zur Veranstaltung kommen k&ouml;nnen.</p>
+        <p style="margin: 27px 0px 20px 0px"><a href="mailto:office@allegria.at" target="_blank" style="background: #8c0014; padding: 7px 14px; color: #FFFFFF; font-weight: 500; text-decoration: none;">Email senden</a></p>  
+        </td>
+      </tr>
+    </f:case>
+    <f:case value="waiting">
+      <tr style="background-color: #FFFFFF;">
+        <td align="center" style="padding: 0px 30px;">
+          <h1 style="text-transform: uppercase; font-size: 1.5rem; font-family: 'Dosis', sans-serif; color: #8c0014;">Die Nachfrage ist riesig!</h1>
+          <p style="margin: 0; font-size: 1rem;">Leider ist das Kontingent bereits vollends erschöpft.<br>Wir prüfen dies allerdings nochmals nach und melden uns schnellstmöglich bei Ihnen.</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0px 30px; text-align: center;">
+        <p style="text-align: center;"><img src="https://www.allegria.at/fileadmin/templates/img/MIE07532_Einladung_Talk_210x148_RZ_web-neu.png" style="margin: 30px 0;" /></p>
+        </td>
+      </tr>
+      <tr>
+        <td align="center" style="padding: 0px 30px;">
+        <p class="text-center"><span class="f-1" style="color: #8c0014 !important;"><strong>Donnerstag, 23. M&auml;rz 2023, ab 19 Uhr</strong></span><br />
+        <strong class="f-3">Miele Experience Center – 1230 Wien, Vorarlberger Allee 31</strong></p>
+        
+        <p style="margin: 0; font-size: 0.75rem;">Bei Rückfragen können Sie uns gerne eine Nachricht senden.</p>
+        <p style="margin: 27px 0px 20px 0px"><a href="mailto:office@allegria.at" target="_blank" style="background: #8c0014; padding: 7px 14px; color: #FFFFFF; font-weight: 500; text-decoration: none;">Email senden</a></p>  
+        </td>
+      </tr>
+    </f:case>
+    <f:case value="reject_after_waiting">
+      <tr style="background-color: #FFFFFF;">
+        <td align="center" style="padding: 0px 30px;">
+          <h1 style="text-transform: uppercase; font-size: 1.5rem; font-family: 'Dosis', sans-serif; color: #8c0014;">Es tut uns sehr leid!</h1>
+          <p style="margin: 0; font-size: 1rem;">Es freut uns sehr, dass die Nachfrage so groß ist.<br>Leider haben wir nur eine begrenzte Anzahl an möglichen Teilnehmer*innen, diesmal sind wir leider komplett ausgebucht. Wir hoffen, dass wir Sie im nächsten Jahr begrüßen dürfen.</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0px 30px; text-align: center;">
+        <p style="text-align: center;"><img src="https://www.allegria.at/fileadmin/templates/img/MIE07532_Einladung_Talk_210x148_RZ_web-neu.png" style="margin: 30px 0;" /></p>
+        </td>
+      </tr>
+      <tr>
+        <td align="center" style="padding: 0px 30px;">
+        <p class="text-center"><span class="f-1" style="color: #8c0014 !important;"><strong>Donnerstag, 23. M&auml;rz 2023, ab 19 Uhr</strong></span><br />
+        <strong class="f-3">Miele Experience Center – 1230 Wien, Vorarlberger Allee 31</strong></p>
+        
+        <p style="margin: 0; font-size: 0.75rem;">Bei Rückfragen können Sie uns gerne eine Nachricht senden.</p>
+        <p style="margin: 27px 0px 20px 0px"><a href="mailto:office@allegria.at" target="_blank" style="background: #8c0014; padding: 7px 14px; color: #FFFFFF; font-weight: 500; text-decoration: none;">Email senden</a></p>  
+        </td>
+      </tr>
+    </f:case>
+    <f:case value="approve_after_waiting">
+      <tr style="background-color: #FFFFFF;">
+        <td align="center" style="padding: 0px 30px;">
+          <h1 style="text-transform: uppercase; font-size: 1.5rem; font-family: 'Dosis', sans-serif; color: #8c0014;">Danke für's Warten!</h1>
+          <p style="margin: 0; font-size: 1rem;">Wir können Ihren Besuch doch noch ermöglichen – wir freuen uns sehr!</p>
+          <h3 style="text-transform: uppercase; font-size: 1.2rem; font-family: 'Dosis', sans-serif; color: #1F1F1F;">{accreditation.guestOutput.name}</h3>
+          <p>Akkreditierung Nr. #{accreditation.uid}<br>Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr versandt.<br>
+            <i>*diese Best&auml;tigung ist nicht &uuml;bertragbar</i></p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0px 30px; text-align: center;">
+        <p style="text-align: center;"><img src="https://www.allegria.at/fileadmin/templates/img/MIE07532_Einladung_Talk_210x148_RZ_web-neu.png" style="margin: 30px 0;" /></p>
+        </td>
+      </tr>
+      <tr>
+        <td align="center" style="padding: 0px 30px;">
+        <p class="text-center"><span class="f-1" style="color: #8c0014 !important;"><strong>Donnerstag, 23. M&auml;rz 2023, ab 19 Uhr</strong></span><br />
+        <strong class="f-3">Miele Experience Center – 1230 Wien, Vorarlberger Allee 31</strong></p>
+        
+        <p style="margin: 0; font-size: 0.75rem;">Bei Rückfragen können Sie uns gerne eine Nachricht senden.</p>
+        <p style="margin: 27px 0px 20px 0px"><a href="mailto:office@allegria.at" target="_blank" style="background: #8c0014; padding: 7px 14px; color: #FFFFFF; font-weight: 500; text-decoration: none;">Email senden</a></p>  
+        </td>
+      </tr>
+    </f:case>
+    </f:switch>
+  </tbody>
+</table>
+
+<f:section name="invitationCopy">
+<tr style="background-color: #FFFFFF;">
+  <td align="center" style="padding: 0px 30px;">
+    <p><strong>Sandra Kolleth</strong>, Managing Director von <strong>Miele Austria</strong>, l&auml;dt Sie ganz herzlich zum <strong>Experience Talk</strong> am Donnerstag, dem <strong>23. M&auml;rz 2023, um 18:30 Uhr</strong> ins Miele Experience Center.</p>
+  </td>
+</tr>
+
+<tr>
+  <td style="padding: 0px 30px; text-align: center;">
+  <p style="text-align: center;"><img src="https://www.allegria.at/fileadmin/templates/img/MIE07532_Einladung_Talk_210x148_RZ_web-neu.png" style="margin: 30px 0;" /></p>
+  </td>
+</tr>
+<tr>
+  <td align="center" style="padding: 0px 30px;">
+  <p class="text-center"><span class="f-1" style="color: #8c0014 !important;"><strong>Donnerstag, 23. M&auml;rz 2023, 18:30 Uhr</strong></span><br />
+  <strong class="f-3">Miele Experience Center – 1230 Wien, Vorarlberger Allee 31</strong></p>
+
+  <p style="margin: 27px 0px 20px 0px"><a href="###TICKET_LINK### style="background: #8c0014; padding: 7px 14px; color: #FFFFFF; font-weight: 800; text-decoration: none;">Jetzt r&uuml;ckmelden</a></p>
+
+  <p class="f-4 fw-300 text-center">Diese Einladung gilt für Sie pers&ouml;nlich und ist nicht übertragbar.<br />
+  <small>Die Anzahl der TeilnehmerInnen ist limitiert. Wir bitten daher um Ihre verbindliche Zusage.<br />
+  R&uuml;ckmeldungen werden durch unsere beauftragte PR- &amp; Eventagentur ALLEGRIA gesammelt.</small></p>
+  </td>
+</tr>
+<tr>
+  <td align="center" style="padding: 50px 30px; text-align: center; font-family: 'Dosis', sans-serif; "><img src="https://www.allegria.at/fileadmin/templates/img/MIE07532_Einladung_Talk_Sandra-Kolleth_web.jpg" style="width: 150px; height: auto;" />
+  <p>Beim „<strong>Experience Talk by Miele</strong>” diskutieren wir Themen unserer Zeit, die aktuell die Gesellschaft bewegen, in einer spannenden Runde von Expertinnen und Experten. In unserem zweiten Experience Talk widmen wir uns den gesellschaftlichen Herausforderungen rund um das Thema Nachhaltigkeit.</p>
+
+  <p>Der <strong>Klimawandel</strong> ist im wahrsten Sinne des Wortes ein <strong>hei&szlig;es Thema</strong>. Denn die Lage ist ernst und die Diskussion polarisiert. <strong>Klimaaktivisten gegen Klimas&uuml;nder – „Gut“ gegen „B&ouml;se“.</strong> Was ist angebracht? Dunkler Pessimismus, fr&ouml;hlicher Optimismus oder Hoffnung, gepaart mit Gestaltungswillen?  Wie viel Verantwortung tragen wir als Einzelne noch, wenn die angepeilten Klimaziele kaum erreichbar scheinen? <strong>Welche Verantwortung tragen Industrie, Handel und KonsumentInnen?</strong> Was k&ouml;nnen wir von unserer K&uuml;che, vom Wohnzimmer oder von der Waschk&uuml;che aus tun? K&ouml;nnen wir auch mit Leichtigkeit und Genuss als Einzelne etwas f&uuml;r die Gesundheit unserer Erde bewirken? Welche Auswirkungen hat das globale Bienensterben auf Flora und Fauna – und damit auf uns? Warum muss Obst und Gem&uuml;se weggeworfen werden, wenn es nicht den Normen entspricht? <strong>Wie viel Hoffnung besteht? Oder kann uns gar nur mehr ein Wunder retten?</strong></p>
+
+  <p>Diesen und weiteren Fragen stellen sich der &Ouml;konom, Nachhaltigkeitsexperte und Autor des Buches "Hoffnung", <strong>Fred Luks</strong>, <span style="white-space: nowrap;"><strong>Mag.<sup>(FH)</sup> Katrin Hohensinner</strong></span>, Gesch&auml;ftsf&uuml;hrerin der Frutura Unternehmensgruppe, <strong>Dipl.Ing.<sup>in</sup> Cornelia Diesenreiter, MDes LLB. oec.</strong> Mitbegr&uuml;nderin und Gesch&auml;ftsf&uuml;hrerin von Unverschwendet im Gespr&auml;ch mit <strong>Mag. Sandra Kolleth</strong>, Managing Director Miele &Ouml;sterreich, Slowenien und Kroatien.</p>
+
+  <p>Im Anschluss gibt es ein ganz besonderes <strong>Flying Dinner aus der Showk&uuml;che</strong>, garniert mit inspirierenden <strong>Life Hacks f&uuml;r schonenden Umgang mit unseren nat&uuml;rlichen Ressourcen</strong>. Dabei bietet sich auch die M&ouml;glichkeit f&uuml;r weitere Gespr&auml;che und <strong>Networking</strong>.</p>
+
+  <p>Sie werden auch die Gelegenheit zur Preview unserer Ausstellung „<strong>Miele Green Experience Days</strong>“ haben, in der wir unseren Kundinnen und Kunden am 24. und 25.3.  wertvolle Tipps zu nachhaltigem Verhalten im Haushalt geben. Denn Ver&auml;nderung f&auml;ngt bei jeder und jedem Einzelnen an.</p>
+
+  <p>Sandra Kolleth<br />
+  <i>Managing Director Miele Austria</i></p>
+  </td>
+</tr>
+<tr>
+  <td style="background-color: #8c0014 !important; text-align: center; padding: 50px; color: #FFFFFF !important;">
+  <hr style="border-top: 1px solid #7a7a7a;border-top: 1px dotted #FFFFFF;width: 85px;margin: auto;" />
+
+  <p style="padding: 30px 0 20px 0; color: font-family: 'Dosis', sans-serif; color: #FFFFFF !important; font-style: italic;">Ablauf:</p>
+
+  <p style="font-family: 'Dosis', sans-serif; color: #FFFFFF !important; font-style: italic;">18:30 Uhr Empfang und Aperitif</p>
+
+  <p style="font-family: 'Dosis', sans-serif; color: #FFFFFF !important; font-style: italic;">19:00 Uhr Experience Talk</p>
+
+  <p style="font-family: 'Dosis', sans-serif; color: #FFFFFF !important; font-style: italic;">20:00 Uhr Show-Cooking, Flying Dinner & Networking</p>
+
+  <p>&nbsp;</p>
+
+  <p style="font-family: 'Dosis', sans-serif; color: #FFFFFF !important; font-style: italic;">Es sprechen und diskutieren:</p>
+
+  <p style="font-family: 'Dosis', sans-serif; color: #FFFFFF !important; font-style: italic;"><strong>Dr. Fred Luks</strong><br />
+  &Ouml;konom, Nachhaltigkeitsforscher und Autor</p>
+
+  <p style="font-family: 'Dosis', sans-serif; color: #FFFFFF !important; font-style: italic;"><strong>Mag.<sup>(FH)</sup> Katrin Hohensinner</strong><br />
+  Gesch&auml;ftsf&uuml;hrerin der Frutura Unternehmensgruppe und<br>Mitinitiatorin von BioBienenApfel</p>
+
+  <p style="font-family: 'Dosis', sans-serif; color: #FFFFFF !important; font-style: italic;"><strong>Dipl.Ing.<sup>in</sup> Cornelia Diesenreiter, MDes LLB. oec.</strong><br />
+  Gr&uuml;nderin & CEO von Unverschwendet</p>
+
+  <p style="padding: 20px 0 30px 0; font-family: 'Dosis', sans-serif; color: #FFFFFF !important; font-style: italic;">Moderation durch <strong>Mag. Sandra Kolleth</strong></p>
+
+  <hr style="border-top: 1px solid #7a7a7a;border-top: 1px dotted #FFFFFF;width: 85px;margin: auto;" /></td>
+</tr>
+<tr>
+  <td align="center" style="padding: 50px 30px; text-align: center; font-family: 'Dosis', sans-serif; ">
+    <img src="https://www.allegria.at/fileadmin/templates/img/MIELE_Fred-Luks_credit-Haeusler_web.jpg" style="width: 170px; height: auto;" />
+    <h3 style="text-transform: uppercase; font-size: 1.2rem; font-family: 'Dosis', sans-serif; color: #8c0014; margin-bottom: 0;">Dr. Fred Luks</h3>
+    <p style="font-weight: bold; margin-top: 5px;">&Ouml;konom, Nachhaltigkeitsforscher und Autor</p>
+
+    <p>Fred Luks hat in Hamburg und Honolulu Volkswirtschaftslehre studiert und besch&auml;ftigt sich seit langem in Forschung, Lehre und Management mit Nachhaltigkeit. Er hat zu diesem Themenbereich zahlreiche Publikationen vorgelegt, zuletzt die B&uuml;cher „Ausnahmezustand“ (2018) und „Hoffnung“ (2020).</p>
+
+    <p>Zu seinen beruflichen Stationen geh&ouml;ren die Leitung eines interdisziplin&auml;ren Forschungsprojekts, eine Gastprofessur an der Universit&auml;t Hamburg, die T&auml;tigkeit als Nachhaltigkeitsmanager eines gro&szlig;en Unternehmens und die Leitung des Kompetenzzentrums f&uuml;r Nachhaltigkeit an der Wirtschaftsuniversit&auml;t Wien. </p>
+
+  </td>
+</tr>
+<tr>
+  <td align="center" style="padding: 50px 30px; text-align: center; font-family: 'Dosis', sans-serif; ">
+    <img src="https://www.allegria.at/fileadmin/templates/img/MIELE_Katrin-Hohensinner_credit-Philip-Platzer_web.jpg" style="width: 170px; height: auto;" />
+    <h3 style="text-transform: uppercase; font-size: 1.2rem; font-family: 'Dosis', sans-serif; color: #8c0014; margin-bottom: 0;">Mag.<sup>(FH)</sup> Katrin Hohensinner</h3>
+    <p style="font-weight: bold; margin-top: 5px;">Gesch&auml;ftsf&uuml;hrerin der Frutura Unternehmensgruppe und Mitinitiatorin von BioBienenApfel</p>
+
+    <p>Katrin Hohensinner erlebte die Pionier- und Aufbauphase der Fa. Frutura als Kind. Ihre Leidenschaft f&uuml;r Obst & Gem&uuml;se wurde ihr sprichw&ouml;rtlich „in die Wiege“ gelegt. Nach Abschluss ihrer Steuerberaterausbildung in Wien und New York 2013 ist sie in den elterlichen Betrieb gewechselt. Seit 2016 ist sie gemeinsam mit ihrem Vater Manfred Hohensinner in der Gesch&auml;ftsf&uuml;hrung der Frutura. Die zuk&uuml;nftige strategische, nachhaltige Weiterentwicklung der Unternehmensgruppe im regionalen und internationalen Kontext - also das „Morgen“ - ist mittlerweile zu ihrem Leitthema geworden. BioBienenApfel (BBA) ist ein Umwelt- und Gesellschaftsprojekt, das auf der einen Seite neuen Lebensraum f&uuml;r Bienen schafft und auf der anderen Seite ein verantwortungsbewusstes Leben im Einklang mit der Natur f&ouml;rdert. Sie gewann beim EY Entrepreneur Of The Year 2022 in der Kategorie „Handel & Dienstleistungen“ und vertritt &Ouml;sterreich beim EY World Entrepreneur Of The Year Award 2023.</p>
+
+  </td>
+</tr>
+<tr>
+  <td align="center" style="padding: 50px 30px 0px 30px; text-align: center; font-family: 'Dosis', sans-serif; ">
+    <img src="https://www.allegria.at/fileadmin/templates/img/MIELE_Cornelia-Diesenreiter_credit-Harald-Eisenberger_web.jpg" style="width: 170px; height: auto;" />
+    <h3 style="text-transform: uppercase; font-size: 1.2rem; font-family: 'Dosis', sans-serif; color: #8c0014; margin-bottom: 0;">Dipl.Ing.<sup>in</sup> Cornelia Diesenreiter, MDes LLB. oec.</h3>
+    <p style="font-weight: bold; margin-top: 5px;">Gr&uuml;nderin & CEO von Unverschwendet</p>
+
+    <p>Cornelia Diesenreiter  kommt aus Steyr in Ober&ouml;sterreich. Als gelernte K&ouml;chin studierte Cornelia Diesenreiter zuerst „Recht und Wirtschaft“ in Salzburg. Auf Grund Ihrer pers&ouml;nlichen Werte von Verantwortung und Nachhaltigkeit und der Liebe zur Natur, hat sie dann „Umwelt- und Bioressourcenmanagement“ an der BOKU in Wien, sowie „Design und Innovation for Sustainability“ in England studiert, wo Cornelia ihre Liebe f&uuml;r das Konzept von Zero Waste entdeckt hat. In Unverschwendet hat sie dann die Erf&uuml;llung gefunden. Unverschwendet gibt es seit 8. M&auml;rz 2016 und wird von den Geschwistern Cornelia und Andreas Diesenreiter gef&uuml;hrt. Die Vision von Unverschwendet ist es einen gr&ouml;&szlig;tm&ouml;glichen nachhaltigen Impact im Bereich Lebensmittelabfallvermeidung zu erreichen. Unverschwendet verarbeitet gerettetes Obst und Gem&uuml;se zu nachhaltiger Feinkost. Seit Oktober 2021 kooperiert Unverschwendet mit HOFER &Ouml;sterreich unter der Marke Rettenswert, um so noch mehr Lebensmittel retten zu k&ouml;nnen.</p>
+
+  </td>
+</tr>
+<tr>
+  <td align="center" style="padding: 0px 30px;">
+  <div style="margin: 50px 0;">
+    <p style="margin: 27px 0px 20px 0px;"><a href="###TICKET_LINK### style="background-color: #8c0014; padding: 7px 14px; color: #FFFFFF; font-weight: 800; text-decoration: none;">Jetzt r&uuml;ckmelden</a></p>
+
+    <p class="f-4 fw-300 text-center">Diese Einladung gilt für Sie pers&ouml;nlich und ist nicht übertragbar.<br />
+    <small>Die Anzahl der TeilnehmerInnen ist limitiert. Wir bitten daher um Ihre verbindliche Zusage.<br />
+    R&uuml;ckmeldungen werden durch unsere beauftragte PR- &amp; Eventagentur ALLEGRIA gesammelt.</small></p>
+  </div>
+  </td>
+</tr>
+<tr>
+  <td align="center" style="padding: 0px 30px; padding-bottom: 30px;">
+  <p><strong>Ich freue mich auf Ihre R&uuml;ckmeldung und auf einen spannenden Experience Talk am 23. M&auml;rz, im Miele Experience Center.</strong><br />
+  <br />
+  <strong>Hochachtungsvoll</strong><br />
+  <br />
+  <strong class="text-primary">Sandra Kolleth</strong><br />
+  <span class="fw-300">Managing Director Miele Austria</span></p>
+  </td>
+</tr>
+<tr>
+  <td style="background-color: #1F1F1F; color: #FFFFFF; padding: 30px;">
+  <p class="f-4" style="color: #FFFFFF;">Die Veranstaltung ist eine kostenlose Informationsveranstaltung. Die Kosten für die anschlie&szlig;ende Bewirtung betragen rund EUR 40,- pro Teilnehmer:in. Sofern Sie aus Compliance-Gründen keine kostenlose Teilnahme wünschen, besteht die M&ouml;glichkeit einer freiwilligen Spende für das St. Anna Kinderspital (Geldspenden erfolgen an den Rechtstr&auml;ger, das &Ouml;sterreichische Rote Kreuz, Landesverband Wien in den zweckgebundenen St. Anna Kinderspital Fonds: &Ouml;RK, LV Wien St. Anna Kinderspital Fonds IBAN AT 661200050618691900 / Verwendungszweck: „Spende für das St. Anna Kinderspital“).</p>
+
+  <p class="f-4" style="color: #FFFFFF;">Bitte beachten Sie im Zusammenhang mit dieser Einladung die geltenden gesetzlichen Bestimmungen (insbesondere für Amtstr&auml;ger:innen).</p>
+  </td>
+</tr>
+<tr>
+  <td style="padding: 30px 30px 0 30px;">
+  <p class="f-5"><small>Diese Email wurde von ALLEGRIA, Agentur f&uuml;r Public Relations, Marketing &amp; Events, im Namen von Miele Austria versandt. R&uuml;ckmeldungen werden von der Agentur ALLEGRIA f&uuml;r Miele Austria gesammelt. Ihre Daten werden lediglich zur Abhaltung der Veranstaltung genutzt und im Anschluss selbstverst&auml;ndlich datenschutzkonform vernichtet.</small></p>
+  </td>
+</tr>
+</f:section>

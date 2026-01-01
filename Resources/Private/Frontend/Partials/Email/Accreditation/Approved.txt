@@ -1,0 +1,29 @@
+<f:section name="Title">Akkreditierungsbestätigung</f:section>
+
+<f:section name="Main">
+<f:switch expression="{accreditation.guestOutput.gender}">
+<f:case value="f">Sehr geehrte Frau <f:if condition="{accreditation.guestOutput.title}">{accreditation.guestOutput.title} </f:if>{accreditation.guestOutput.lastName},</f:case>
+<f:case value="m">Sehr geehrter Herr <f:if condition="{accreditation.guestOutput.title}">{accreditation.guestOutput.title} </f:if>{accreditation.guestOutput.lastName},</f:case>
+<f:defaultCase>Einen wunderschönen Tag,</f:defaultCase>
+</f:switch>
+
+herzlichen Dank für Ihre Akkreditierungsanfrage.
+
+Wir freuen uns Sie <f:if condition="{accreditation.ticketsApproved}>1"> und Ihre Begleitung</f:if> am <strong>{accreditation.event.date->f:format.date(format:'%e. %B %Y um %k.%M Uhr')}</strong> begrüßen zu dürfen. Der Presseschalter ist ab ca. einer Stunde vor Veranstaltungsbeginn geöffnet.
+
+<f:if condition="{accreditation.type}==1 && {accreditation.ticketsApproved}!={accreditation.ticketsWish}">
+HINWEIS ZUR TICKETANPASSUNG:
+Bitte beachten Sie, dass die akkreditierte Ticketanzahl nicht ihrem ursprünglichen Wunsch entspricht. Bei Rückfragen können Sie sich gerne an uns unter {settings.company.email} wenden.
+</f:if>
+
+AKKREDITIERUNGSDATEN
+Termin: {accreditation.event.title}
+Datum: {accreditation.event.date->f:format.date(format:'%e. %B %Y um %k.%M Uhr')}
+Location: {accreditation.event.location.name} | {accreditation.event.location.street}, {accreditation.event.location.zip} {accreditation.event.location.city}
+Akkreditierung für: {accreditation.firstName} {accreditation.lastName}
+Personen: {accreditation.ticketsApproved} <f:if condition="{accreditation.ticketsApproved}>1"><f:then>Personen</f:then><f:else>Person</f:else></f:if>
+
+Sollten wir Ihnen noch offene Fragen beantworten dürfen, so richten Sie diese bitte an {settings.company.email} oder kontaktieren Sie uns unter {settings.company.phone}. Wir würden uns freuen ein Belegexemplar Ihrer Rezension via email an {settings.company.email} zu bekommen.
+
+<f:render partial="Signature" arguments="{_all}" />
+</f:section>

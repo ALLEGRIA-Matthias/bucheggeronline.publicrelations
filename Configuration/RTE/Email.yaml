@@ -1,0 +1,59 @@
+imports:
+    - { resource: "EXT:rte_ckeditor/Configuration/RTE/Editor/Base.yaml" }
+    - { resource: "EXT:rte_ckeditor/Configuration/RTE/Editor/Plugins.yaml" }
+
+editor:
+
+  config:
+    contentsCss: 
+      - 'EXT:publicrelations/Resources/Public/Css/email.css'
+
+    allowedContent: true
+
+    toolbar:
+      items:
+        - bold
+        - italic
+        - subscript
+        - superscript
+        # grouping separator
+        - '|'
+        - bulletedList
+        - numberedList
+        - '|'
+        - findAndReplace
+        - link
+        - '|'
+        - removeFormat
+        - undo
+        - redo
+        - '|'
+        - insertTable
+        - '|'
+        - specialCharacters
+        - horizontalLine
+        - sourceEditing
+
+    style:
+      definitions:
+        - { name: "Small", element: "small" }
+        - { name: "Nowrap", element: "span", styles: { 'white-space': 'nowrap' } }
+
+    alignment:
+      options:
+        - { name: 'left', text-align: 'left' }
+        - { name: 'center', text-align: 'center' }
+        - { name: 'right', text-align: 'right' }
+        - { name: 'justify', text-align: 'justify' }
+
+
+    format_tags: "p;h1;h2;h3;h4;h5;h6;pre;div"
+
+    forcePasteAsPlainText: true
+
+    htmlSupport:
+      allow:
+        -
+          name: 'span'
+          styles:
+            'white-space': 'nowrap'

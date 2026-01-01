@@ -1,0 +1,15 @@
+<f:section name="Title">Akkreditierungsanfrage übermittelt</f:section>
+
+<f:section name="Main">
+<f:switch expression="{accreditation.guestOutput.gender}">
+<f:case value="f">Sehr geehrte Frau <f:if condition="{accreditation.guestOutput.title}">{accreditation.guestOutput.title} </f:if>{accreditation.guestOutput.lastName},</f:case>
+<f:case value="m">Sehr geehrter Herr <f:if condition="{accreditation.guestOutput.title}">{accreditation.guestOutput.title} </f:if>{accreditation.guestOutput.lastName},</f:case>
+<f:dafaultCase>Einen wunderschönen Tag,</f:dafaultCase>
+</f:switch>
+
+Ihre Akkreditierungsanfrage zu {accreditation.event.title->f:format.case()} am {accreditation.event.date->f:format.date(format:'%e. %B %Y um %k.%M Uhr')} wurde an uns übermittelt und ist aktuell in Prüfung. Wir bemühen uns Ihrem Wunsch von {f:if(condition:'{accreditation.ticketsWish}>1', then:'{accreditation.ticketsWish} Tickets', else:'einem Ticket')} gerecht zu werden und geben Ihnen dazu schnellstmöglich eine Rückmeldung.
+
+Sollten wir Ihnen noch offene Fragen beantworten dürfen, so richten Sie diese bitte an {settings.company.email} oder kontaktieren Sie uns unter {settings.company.phone}.
+
+<f:render partial="Signature" arguments="{_all}" />
+</f:section>

@@ -1,0 +1,366 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:switch expression="{listType}">
+  <f:case value="default">
+    <div class="table-fit">
+      <table class="table table-striped table-hover table-sort" id="accreditations">
+        <thead>
+          <tr>
+            <th data-sort-method="none" width="30px"><input type="checkbox" class="checkbox-toggle-all"></th>
+            <th data-filterable width="100px">Status</th>
+            <th data-filterable width="120px">Gästetyp</th>
+            <th data-filterable data-sort-default width="350px">Gästeinfos</th>
+            <th data-sort-method="none" class="text-center" width="35px"><svg class="icon {f:if(condition:'{print}', then:'fill-dark')}"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#ticket"></use></svg></th>
+            <th data-sort-method="none" class="text-center" width="35px"><svg class="icon {f:if(condition:'{print}', then:'fill-dark')}"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#camera"></use></svg></th>
+            <th data-sort-method="none" class="text-center" width="35px"><svg class="icon {f:if(condition:'{print}', then:'fill-dark')}"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#book-open-text"></use></svg></th>
+
+            <f:if condition="{event.additionalColumns}">
+            <f:for each="{event.additionalColumns}" as="column" iteration="ci">
+            <f:if condition="{column.type}==6">
+            <f:then>
+              <f:for each="{column.options}" as="option">
+              <th {f:if(condition:'{option.sort}', then:'data-filterable', else:'data-sort-method=\'none\'')} width="{f:if(condition:'{option.width}', then:'{option.width}', else:'auto')}"><svg class="icon {f:if(condition:'{print}', then:'fill-dark')}"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{option.icon}"></use></svg></th>
+              </f:for>
+            </f:then>
+            <f:else>
+              <th colspan="{f:if(condition: '{column.type}==6', then: '{column.options->f:count()}')}" width="{f:if(condition: '{column.icon}', then: '40px', else: 'auto')}"><f:if condition="{column.icon}"><f:then><svg class="icon {f:if(condition:'{print}', then:'fill-dark')}" data-toggle="tooltip" data-placement="bottom" title="{column.label}"><use xlink:href="{f:uri.resource(path:'Images/', extensionName:'allegria_communications', useCacheBusting: false)}{column.icon}"></use></svg></f:then><f:else>{column.label}</f:else></f:if></th>
+            </f:else>
+            </f:if>
+            </f:for>
+            </f:if>
+
+            <f:if condition="{event.invitations}"><th data-filterable width="150px">Einlad.-Format</th></f:if>
+            <th data-filterable style="width:250px; max-width:400px;">Hinweis</th>
+            <th width="200px">Funktionen</th>
+            <th data-filterable width="120px">Letzte Änderung</th>
+          </tr>
+        </thead>
+        <tbody>
+          <f:for each="{accreditations -> v:iterator.sort(sortBy: 'guestOutput.sortName')}" as="accreditation" iteration="i">
+          <tr class="{f:if(condition: '{accreditation.status} == 0', then: 'warning')} {f:if(condition: '{accreditation.status} == -1', then: 'danger')} {f:if(condition: '{accreditation.status} == -2', then: 'warning')} {f:if(condition: '{accreditation.status} == -2', then: 'warning')} {f:if(condition: '{accreditation.status} == 2', then: 'success')}">
+            <td><f:form.checkbox property="accreditations.{accreditation.uid}" class="" value="1" disabled="{f:if(condition: '{accreditation.status}==-1 || {accreditation.status}>=9', then: 1)}" /></td>
+
+            <td class="text-center">
+              <f:if condition="{accreditation.duplicateOf}"><span class="badge badge-pill badge-info mb-2" title="[{accreditation.duplicateOf.uid}]">Duplikat</span><br></f:if>
+              <f:render section="status" arguments="{accreditation:accreditation}" />
+              <f:if condition="{accreditation.distributionJob}"><f:be.link route="ac_distribution_jobs" parameters="{query:'uid:{accreditation.distributionJob.uid}'}">JobUid: {accreditation.distributionJob.uid}</f:be.link></f:if>
+            </td>
+
+            <td>{accreditation.guestTypeOutput} <f:if condition="{accreditation.facie}"><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-star"></use></svg></f:if></td>
+            <td data-sort="{accreditation.guestOutput.sortName}">
+              <f:render partial="ContactOutput" arguments="{contact:accreditation.guestOutput, settings:settings, uid:accreditation.uid, categories:accreditation.guest.categories}" />
+              <f:if condition="{accreditation.seats}"><br/>
+                <f:switch expression="{accreditation.event.uid}">
+                  <f:case value="4271">{accreditation.seats->f:format.raw()}</f:case>
+                  <f:defaultCase><span class="badge badge-info"><svg class="icon fill-white mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#flag-triangle"></use></svg>{accreditation.seats->f:format.nl2br()}</span></f:defaultCase>
+                </f:switch>
+              </f:if>
+            </td>
+
+            <f:if condition="{listType} == 'pending' || {listType} == 'waiting'">
+              <td>{accreditation.guestOutput.email}</td>
+            </f:if>
+
+            <td class="text-center">{accreditation.ticketsApproved}</td>
+            <td class="text-center">{accreditation.pass}</td>
+            <td class="text-center">{accreditation.program}</td>
+
+            <f:if condition="{event.additionalColumns}">
+            <f:for each="{event.additionalColumns}" as="column" iteration="ci">
+              <f:for each="{accreditation.additionalAnswers}" as="answer" iteration="ai">
+                <f:if condition="{answer.field.uid}=={column.uid}">
+                  <f:switch expression="{column.type}">
+                    <f:case value="4">
+                    <td class="text-center">
+                      <f:for each="{answer.value}" as="value" iteration="vi"><td class="text-center">{value.value}</td></f:for>
+                    </td>
+                    </f:case>
+                    <f:case value="6">
+                      <f:for each="{answer.value}" as="value" iteration="vi"><td class="text-center">{value.value}</td></f:for>
+                    </f:case>
+                    <f:defaultCase>
+                    <f:if condition="{column.type}==0">
+                      <f:then>
+                        <f:switch expression="{answer.value}">
+                          <f:case value="0"><td class="text-center" data-sort="0"><svg class="icon fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#square-empty"></use></svg></td></f:case>
+                          <f:case value="1"><td class="text-center" data-sort="1"><svg class="icon fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#square-checkbox"></use></svg></td></f:case>
+                        </f:switch>
+                      </f:then>
+                      <f:else><td class="text-center" data-sort="{answer.value}">{answer.value}</td></f:else>
+                    </f:if>
+                    </f:defaultCase>
+                  </f:switch>
+                </f:if>
+              </f:for>
+            </f:for>
+            </f:if>
+
+            <f:if condition="{event.invitations}"><td><span class="badge badge-info">{accreditation.invitationType.title}</span></td></f:if>
+
+            <td style="white-space: normal;">
+              <f:if condition="{accreditation.notesSelect}"><f:for each="{accreditation.notesSelect}" as="note" iteration="i"><span class="badge {f:if(condition:'{note.cssClass}', then:'{note.cssClass}', else:'bg-primary')} mr-2"><f:if condition="{note.svg}"><svg class="icon fill-white mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{note.svg}"></use></svg></f:if>{note.title}</span></f:for><f:if condition="{accreditation.notes}"><br/></f:if></f:if>
+              {accreditation.notes->f:format.nl2br()}
+              <f:if condition="{event.additionalNotes}">
+              <h6 class="mb-0">Zusätzliches:</h6>
+              <f:for each="{event.additionalNotes}" as="column" iteration="ci">
+                <f:for each="{accreditation.additionalAnswers}" as="answer" iteration="ai">
+                  <f:if condition="{answer.field.uid}=={column.uid}">
+                    {column.label}: <f:switch expression="{answer.field.type}"><f:case value="4"><f:for each="{answer.value}" as="sel" iteration="valId">{sel.value}<f:if condition="!{valId.isLast}">, </f:if></f:for></f:case><f:defaultCase>{answer.value}</f:defaultCase></f:switch><f:if condition="!{ai.isLast}"></br></f:if>
+                  </f:if>
+                </f:for>
+              </f:for>
+              </f:if>
+              <f:if condition="{accreditation.notesReceived}"><div class="alert bg-warning"><strong>Checkin-Notiz</strong><br>{accreditation.notesReceived->f:format.nl2br()}</div></f:if>
+            </td>
+
+            <td>
+              <f:render partial="Functions/Accreditation" arguments="{accreditation:accreditation}" />
+            </td>
+            <td data-sort="{accreditation.tstamp->f:format.date(format:'U')}">{accreditation.tstamp->f:format.date(format:'d.m.Y H:i')}</td>
+          </tr>
+          </f:for>
+        </tbody>
+      </table>
+    </div>
+  </f:case>
+  <f:case value="duplicates">
+    <div class="table-fit">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th data-sort-method="none" width="30px"><input type="checkbox" class="checkbox-toggle-all"></th>
+                    <th data-filterable width="100px">Status</th>
+                    <th data-filterable width="120px">Gästetyp</th>
+                    <th data-filterable data-sort-default width="350px">Gästeinfos</th>
+                    <th data-sort-method="none" class="text-center" width="35px"><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/glyphicons-basics.svg', extensionName: 'allegria_communications')}#ticket"></use></svg></th>
+                    <th data-sort-method="none" class="text-center" width="35px"><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/glyphicons-basics.svg', extensionName: 'allegria_communications')}#camera"></use></svg></th>
+                    <th data-sort-method="none" class="text-center" width="35px"><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/glyphicons-basics.svg', extensionName: 'allegria_communications')}#book-open-text"></use></svg></th>
+                    <th data-filterable style="width:250px; max-width:400px;">Hinweis</th>
+                    <th width="200px">Funktionen</th>
+                    <th data-filterable width="120px">Letzte Änderung</th>
+                </tr>
+            </thead>
+            <tbody>
+                <f:groupedFor each="{accreditations -> v:iterator.sort(sortBy: 'duplicateOf.uid,isMaster')}" groupBy="duplicateOf" as="group" groupKey="master">
+                    <f:if condition="{master}">
+                    <tr class="table-info border border-dark border-3 border-bottom-0">
+                        <td><f:form.checkbox property="accreditations.{master.uid}" class="" value="1" disabled="{f:if(condition: '{master.status}!=-1', else: 1)}" /></td>
+                        <td class="text-center">
+                          <span class="badge badge-pill badge-info mb-2">Master</span><br>
+                          <f:render section="status" arguments="{accreditation:master}" />
+                        </td>
+                        <td>{master.guestTypeOutput} <f:if condition="{masterUid.facie}"><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/glyphicons-basics.svg', extensionName: 'allegria_communications')}#user-star"></use></svg></f:if></td>
+                        <td data-sort="{master.guestOutput.sortName}">
+                            <f:render partial="ContactOutput" arguments="{contact:master.guestOutput, settings:settings, uid:master.uid, categories:master.guest.categories}" />
+                        </td>
+                        <td class="text-center">{master.ticketsApproved}</td>
+                        <td class="text-center">{master.pass}</td>
+                        <td class="text-center">{master.program}</td>
+                        <td style="white-space: normal;">
+                          {master.guestOutput.email}<br>
+                          {master.notes->f:format.nl2br()}
+                        </td>
+                        <td>
+                            <f:render partial="Functions/Accreditation" arguments="{accreditation:master}" />
+                        </td>
+                        <td data-sort="{master.tstamp->f:format.date(format:'U')}">{master.tstamp->f:format.date(format:'d.m.Y H:i')}</td>
+                    </tr>
+                    </f:if>
+                    <f:for each="{group}" as="accreditation" iteration="i">
+                        <tr class="ps-5 {f:if(condition: '{accreditation.status} == 9', then: 'table-warning')} border border-dark border-3 border-top-0 {f:if(condition:'{i.isLast}', else:'border-bottom-0')}">
+                            <td></td>
+                            <td class="text-center">
+                              <span class="badge badge-pill badge-info mb-2">Duplikat</span><br>
+                              <f:render section="status" arguments="{accreditation:accreditation}" />
+                            </td>
+                            <td>{accreditation.guestTypeOutput}</td>
+                            <td data-sort="{accreditation.guestOutput.sortName}">
+                                <f:render partial="ContactOutput" arguments="{contact:accreditation.guestOutput, settings:settings, uid:accreditation.uid, categories:accreditation.guest.categories}" />
+                            </td>
+                            <td class="text-center">{accreditation.ticketsApproved}</td>
+                            <td class="text-center">{accreditation.pass}</td>
+                            <td class="text-center">{accreditation.program}</td>
+                            <td style="white-space: normal;">
+                              {accreditation.guestOutput.email}<br>
+                              {accreditation.notes->f:format.nl2br()}
+                            </td>
+                            <td>
+                              <f:render partial="Functions/AccreditationDuplicate" arguments="{accreditation:accreditation, filter:filter}" />
+                            </td>
+                            <td data-sort="{accreditation.tstamp->f:format.date(format:'U')}">{accreditation.tstamp->f:format.date(format:'d.m.Y H:i')}</td>
+                        </tr>
+                    </f:for>
+                </f:groupedFor>
+            </tbody>
+        </table>
+    </div>
+  </f:case>
+  <f:defaultCase>
+    <div class="table-fit">
+      <table class="table table-striped table-hover" id="{listType}list">
+        <thead>
+          <tr>
+            <th data-sort-method="none" width="30px">&nbsp;</th>
+            <th data-filterable width="100px">Status</th>
+            <th data-filterable width="120px">Gästetyp</th>
+            <th data-filterable data-sort-default width="350px">Gästeinfos</th>
+            <th data-sort-method="none" class="text-center" width="35px"><svg class="icon {f:if(condition:'{print}', then:'fill-dark')}"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#ticket"></use></svg></th>
+            <th data-sort-method="none" class="text-center" width="35px"><svg class="icon {f:if(condition:'{print}', then:'fill-dark')}"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#camera"></use></svg></th>
+            <th data-sort-method="none" class="text-center" width="35px"><svg class="icon {f:if(condition:'{print}', then:'fill-dark')}"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#book-open-text"></use></svg></th>
+
+            <f:if condition="{event.additionalColumns}">
+            <f:for each="{event.additionalColumns}" as="column" iteration="ci">
+            <f:if condition="{column.type}==6">
+            <f:then>
+              <f:for each="{column.options}" as="option">
+              <th {f:if(condition:'{option.sort}', then:'data-filterable', else:'data-sort-method=\'none\'')} width="{f:if(condition:'{option.width}', then:'{option.width}', else:'auto')}"><svg class="icon {f:if(condition:'{print}', then:'fill-dark')}"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{option.icon}"></use></svg></th>
+              </f:for>
+            </f:then>
+            <f:else>
+              <th colspan="{f:if(condition: '{column.type}==6', then: '{column.options->f:count()}')}" width="{f:if(condition: '{column.icon}', then: '40px', else: 'auto')}"><f:if condition="{column.icon}"><f:then><svg class="icon {f:if(condition:'{print}', then:'fill-dark')}" data-toggle="tooltip" data-placement="bottom" title="{column.label}"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{column.icon}"></use></svg></f:then><f:else>{column.label}</f:else></f:if></th>
+            </f:else>
+            </f:if>
+            </f:for>
+            </f:if>
+
+            <th data-filterable>Hinweis</th>
+
+            <f:if condition="{listType} == 'pending' || {listType} == 'waiting'"><th></th></f:if>
+          </tr>
+        </thead>
+        <tbody id="{listType}-to-filter">
+          <f:for each="{accreditations -> v:iterator.sort(sortBy: 'guestOutput.sortName')}" as="accreditation" iteration="i">
+          <tr class="{f:if(condition:'!{accreditation.status}', then:'table-warning')} {f:if(condition:'{accreditation.status}==-1', then:'table-danger')} {f:if(condition:'{event.checkinStarted} && {accreditation.ticketsPrepared} <= 0', then:'success')} {f:if(condition:'{event.checkinStarted} && {accreditation.ticketsPrepared} > 0 && {accreditation.ticketsPrepared} != {accreditation.ticketsApproved}', then:'warning')}">
+            <td><f:form.checkbox property="accreditations.{accreditation.uid}" value="1" data="{toggle: '{listType}Toggle'}" /></td>
+
+            <td>
+              <f:switch expression="{accreditation.status}">
+                <f:case value="2"><span class="badge badge-success">eingecheckt</span></f:case>
+                <f:case value="1"><span class="badge badge-success">akkreditiert</span></f:case>
+                <f:case value="0"><span class="badge badge-warning">eingeladen</span></f:case>
+                <f:case value="-1"><span class="badge badge-danger">abgesagt</span></f:case>
+                <f:case value="-2"><span class="badge badge-warning">wartend</span></f:case>
+              </f:switch>
+            </td>
+
+            <f:if condition="{listType} == 'pending' || {listType} == 'waiting'">
+              <td>
+                <f:if condition="{accreditation.type}==1"><span class="badge badge-warning">angefragt</span></f:if>
+                <f:if condition="{accreditation.type}==2">
+                  <f:switch expression="{accreditation.invitationStatus}">
+                    <f:case value="0"><span class="badge badge-dark">vorbereitet</span></f:case>
+                    <f:case value="1"><span class="badge badge-success">eingeladen</span></f:case>
+                    <f:case value="2"><span class="badge badge-warning">erinnert</span></f:case>
+                    <f:case value="3"><span class="badge badge-danger">ermahnt</span></f:case>
+                  </f:switch>
+                </f:if>
+              </td>
+            </f:if>
+
+            <td>{accreditation.guestTypeOutput} <f:if condition="{accreditation.facie}"><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-star"></use></svg></f:if></td>
+            <td data-sort="{accreditation.guestOutput.sortName}">
+              <f:render partial="ContactOutput" arguments="{contact:accreditation.guestOutput, settings:settings, uid:accreditation.uid}" />
+            </td>
+
+            <f:if condition="{listType} == 'pending' || {listType} == 'waiting'">
+              <td>{accreditation.guestOutput.email}</td>
+            </f:if>
+
+            <td class="text-center">{accreditation.ticketsApproved}</td>
+            <td class="text-center">{accreditation.pass}</td>
+            <td class="text-center">{accreditation.program}</td>
+
+            <f:if condition="{event.additionalColumns}">
+            <f:for each="{event.additionalColumns}" as="column" iteration="ci">
+              <f:for each="{accreditation.additionalAnswers}" as="answer" iteration="ai">
+                <f:if condition="{answer.field.uid}=={column.uid}">
+                  <f:switch expression="{column.type}">
+                    <f:case value="4">
+                    <td class="text-center">
+                      <f:for each="{answer.value}" as="value" iteration="vi"><td class="text-center">{value.value}</td></f:for>
+                    </td>
+                    </f:case>
+                    <f:case value="6">
+                      <f:for each="{answer.value}" as="value" iteration="vi"><td class="text-center">{value.value}</td></f:for>
+                    </f:case>
+                    <f:defaultCase>
+                    <td class="text-center">
+                    <f:if condition="{column.type}==0">
+                      <f:then>
+                        <f:switch expression="{answer.value}">
+                          <f:case value="0"><svg class="icon fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#square-empty"></use></svg></f:case>
+                          <f:case value="1"><svg class="icon fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#square-checkbox"></use></svg></f:case>
+                        </f:switch>
+                      </f:then>
+                      <f:else>{answer.value}</f:else>
+                    </f:if>
+                    </td>
+                    </f:defaultCase>>
+                  </f:switch>
+                </f:if>
+              </f:for>
+              </td>
+            </f:for>
+            </f:if>
+
+            <td style="white-space: normal;">
+              <f:if condition="{accreditation.notesSelect}"><f:for each="{accreditation.notesSelect}" as="note" iteration="i"><span class="badge {f:if(condition:'{note.cssClass}', then:'{note.cssClass}', else:'bg-primary')} mr-2"><f:if condition="{note.svg}"><svg class="icon fill-white mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{note.svg}"></use></svg></f:if>{note.title}</span></f:for><f:if condition="{accreditation.notes}"><br/></f:if></f:if>
+              {accreditation.notes->f:format.nl2br()}
+              <f:if condition="{accreditation.seats}"><br/><strong>Sitzplatzinfo:</strong> {accreditation.seats->f:format.raw()}</f:if>
+              <f:if condition="{event.additionalNotes}">
+              <h6 class="mb-0">Zusätzliches:</h6>
+              <f:for each="{event.additionalNotes}" as="column" iteration="ci">
+                <f:for each="{accreditation.additionalAnswers}" as="answer" iteration="ai">
+                  <f:if condition="{answer.field.uid}=={column.uid}">
+                    {column.label}: {answer.value}<f:if condition="!{ai.isLast}"></br></f:if>
+                  </f:if>
+                </f:for>
+              </f:for>
+              </f:if>
+              <f:if condition="{accreditation.notesReceived}"><div class="alert bg-warning"><strong>Checkin-Notiz</strong><br>{accreditation.notesReceived->f:format.nl2br()}</div></f:if>
+            </td>
+          </tr>
+          </f:for>
+        </tbody>
+      </table>
+    </div>
+  </f:defaultCase>
+</f:switch>
+
+<f:section name="status">
+  <f:if condition="{accreditation.type}==2 && {accreditation.status}==0">
+    <f:then>
+      <f:switch expression="{accreditation.invitationStatus}">
+        <f:case value="0"><span class="badge badge-dark {f:if(condition:'{accreditation.distributionJob}', then:'badge-notice')}">vorbereitet</span></f:case>
+        <f:case value="1"><span class="badge badge-warning {f:if(condition:'{accreditation.distributionJob}', then:'badge-notice')}">eingeladen</span></f:case>
+        <f:case value="2"><span class="badge badge-warning {f:if(condition:'{accreditation.distributionJob}', then:'badge-notice')}">erinnert</span></f:case>
+        <f:case value="3"><span class="badge badge-danger {f:if(condition:'{accreditation.distributionJob}', then:'badge-notice')}">ermahnt</span></f:case>
+        <f:case value="-1"><span class="badge badge-danger {f:if(condition:'{accreditation.distributionJob}', then:'badge-notice')}">abgesagt</span></f:case>
+        <f:defaultCase>
+          <f:switch expression="{accreditation.status}">
+            <f:case value="99"><span class="badge badge-pill badge-danger">FEHLER</span></f:case>
+            <f:case value="9"><span class="badge badge-pill badge-danger">DUPLIKAT</span></f:case>
+          </f:switch>
+        </f:defaultCase>
+      </f:switch>
+    </f:then>
+    <f:else>
+      <f:switch expression="{accreditation.status}">
+        <f:case value="2"><span class="badge badge-success {f:if(condition:'{accreditation.distributionJob}', then:'badge-notice')}">eingecheckt</span></f:case>
+        <f:case value="1"><span class="badge badge-success {f:if(condition:'{accreditation.distributionJob}', then:'badge-notice')}">akkreditiert</span></f:case>
+        <f:case value="0"><span class="badge badge-warning {f:if(condition:'{accreditation.distributionJob}', then:'badge-notice')}">eingeladen</span></f:case>
+        <f:case value="-1"><span class="badge badge-danger {f:if(condition:'{accreditation.distributionJob}', then:'badge-notice')}">abgesagt</span></f:case>
+        <f:case value="-2"><span class="badge badge-warning {f:if(condition:'{accreditation.distributionJob}', then:'badge-notice')}">wartend</span></f:case>
+        <f:case value="99"><span class="badge badge-pill badge-danger {f:if(condition:'{accreditation.distributionJob}', then:'badge-notice')}">FEHLER</span></f:case>
+        <f:case value="9"><span class="badge badge-pill badge-danger {f:if(condition:'{accreditation.distributionJob}', then:'badge-notice')}">DUPLIKAT</span></f:case>
+      </f:switch>
+    </f:else>
+  </f:if>
+</f:section>
+
+</html>

@@ -1,0 +1,21 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:if condition="{contact.name}"><strong>{contact.name}</strong></f:if>
+<f:switch expression="{contact.gender}">
+  <f:defaultCase><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-parents"></use></svg></f:defaultCase>
+  <f:case value="f"><svg class="icon icon-sm fill-pink"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-female"></use></svg></f:case>
+  <f:case value="m"><svg class="icon icon-sm fill-blue"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg></f:case>
+</f:switch>
+<f:if condition="!{contact.name} && {contact.company}"><f:then><strong>{contact.company}</strong></f:then><f:else><f:if condition="{contact.company}"><br/>{contact.company}</f:if></f:else></f:if>
+<f:if condition="{categories}">
+    <br>
+    <f:for each="{categories}" as="category" iteration="ci">
+        <span class="badge badge-info"><f:if condition="{category.parent}">{category.parent.title} – </f:if>{category.title}</span><f:if condition="{ci.cycle}%5"><f:else><br></f:else></f:if>
+    </f:for>
+</f:if>
+<br>ID: [{uid}]
+
+</html>

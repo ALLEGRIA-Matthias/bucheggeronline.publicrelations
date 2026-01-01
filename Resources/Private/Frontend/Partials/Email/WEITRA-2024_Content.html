@@ -1,0 +1,290 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+
+<f:section name="preheader">
+    <!-- Visually Hidden Preheader Text : BEGIN -->
+    <div style="display:none; font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">
+    <f:switch expression="{content}">
+        <f:case value="invitation">Ihre persönliche Einladung zum Schloss Weitra Festival.</f:case>
+        <f:case value="remind">Nicht verpassen: Ihre persönliche Einladung des Schloss Weitra Festivals.</f:case>
+        <f:case value="push">Letzte Chance: Ihre persönliche Einladung des Schloss Weitra Festivals.</f:case>
+        <f:case value="approve">Wie schön, dass wir Sie demnächst auf Schloss Weitra begrüßen dürfen.</f:case>
+        <f:case value="reject">Schade, dass es nicht klappt. Das Schloss Weitra Festival Team würde sich über einen baldigen Besuch freuen.</f:case>
+    </f:switch>
+    </div>
+    <!-- Visually Hidden Preheader Text : END --> 
+</f:section>
+
+<f:section name="content">
+    <f:switch expression="{content}">
+        <f:case value="approve">
+            <f:render section="header" />
+            <f:render section="absatzlinien" />
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="photo" />
+            <f:render section="eventinfo" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+            <f:render section="absatzlinien" />
+            <f:render section="infos" />
+        </f:case>
+        <f:case value="reject">
+            <f:render section="header" />
+            <f:render section="absatzlinien" />
+            <!-- 1 Column Rejection : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: 'Bree Serif', sans-serif;">
+                    <h1 style="font-family: 'Bree Serif', sans-serif; text-transform: uppercase; color: #EB593C; font-size: 1.8rem; line-height: 1.2;">Schade, dass es nicht klappt!</h1>
+                    <p style="font-family: 'Bree Serif', sans-serif; text-align: center; font-weight: 100; font-size: 1rem; margin: 5px 0px 40px 0px">
+                        Danke für die, wenn auch negative, Rückmeldung.<br>Wir hoffen Sie bei einer der nächsten Veranstaltungen <span style="white-space: nowrap;">begrüßen zu dürfen</span>.
+                    </p>
+                </td>
+            </tr>
+            <!-- 1 Column Rejection : END -->
+
+            <f:render section="absatzlinien" />
+            <f:render section="infos" />
+        </f:case>
+        <f:case value="waiting">
+            <!-- 1 Column Rejection : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: center; font-family: 'Bree Serif', sans-serif;">
+                    <p style="font-size: 0.8rem;">– Dies ist eine automatisch generierte Nachricht –</p>
+                    <h1 style="font-family: 'Bree Serif', sans-serif; text-transform: uppercase; color: #EB593C; font-size: 1.8rem; line-height: 1.2;">Die Nachfrage ist riesig!</h1>
+                    <p style="font-family: 'Bree Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Das Team des Schloss Weitra Festivals bedankt sich für die unglaublich großartige Nachfrage.</p>
+                    <p style="font-family: 'Bree Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">
+                        Die Ticket-Kontingente sind aktuell bedauerlicherweise komplett erschöpft. Wir prüfen derzeit eine Erweiterung der Kontingente und melden uns schnellstmöglich mit einer konkreten Rückmeldung.</p>
+                    <p style="font-family: 'Bree Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir bedanken uns für das Verständnis.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Rejection : END -->
+
+            <f:render section="absatzlinien" />
+        </f:case>
+        <f:case value="waitingOK">
+            <!-- 1 Column Approval : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: center; font-family: 'Bree Serif', sans-serif;">
+                    <h1 style="font-family: 'Bree Serif', sans-serif; text-transform: uppercase; color: #EB593C; font-size: 1.8rem; line-height: 1.2;">Danke für's Warten!</h1>
+                    <p>Wir freuen uns sehr Sie in der Wachau begrüßen zu können, folgend finden Sie die Reservierungsdaten.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Approval : END -->
+            <f:render section="header" />
+            <f:render section="absatzlinien" />
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="photo" />
+            <f:render section="eventinfo" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+            <f:render section="absatzlinien" />
+            <f:render section="infos" />
+        </f:case>
+        <f:case value="waitingNO">
+            <f:render section="header" />
+            <f:render section="absatzlinien" />
+            <!-- 1 Column Rejection : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: center; font-family: 'Bree Serif', sans-serif;">
+                    <h1 style="font-family: 'Bree Serif', sans-serif; text-transform: uppercase; color: #EB593C; font-size: 1.8rem; line-height: 1.2;">Die Nachfrage ist riesig!</h1>
+                    <p style="font-family: 'Bree Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir sind von der ernormen Nachfrage überwältigt!<br><strong>Danke für Ihr Interesse.</strong></p>
+                    <p style="color: #EB593C; font-family: 'Bree Serif', sans-serif; font-weight: 700; text-align: center; font-size: 1rem;">Umso schwerer fällt es uns Ihnen sagen zu müssen, dass wir Ihnen leider keine Tickets zur Premiere zur Verfügung stellen können.</p>
+                    <p style="font-family: 'Bree Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir würden uns freuen Sie bei einer der kommenden Veranstaltungen wieder begrüßen zu dürfen.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Rejection : END -->
+            <f:render section="absatzlinien" />
+        </f:case>
+        <f:case value="pending">
+            <f:render section="header" />
+            <f:render section="absatzlinien" />
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #000000;">    
+                    <h1 style="font-family: 'Bree Serif', sans-serif; text-transform: uppercase; color: #EB593C; font-size: 1.8rem; line-height: 1.2;">Neu auf der Warteliste!</h1>
+                    
+                    <!-- Fließtext -->			  
+                    <p style="font-family: 'Bree Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;"><strong>{accreditation.guestOutput.name}</strong></p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+        </f:case>
+        <f:defaultCase>
+            <f:render section="header" />
+            <f:render section="absatzlinien" />
+            <f:render section="invitation" arguments="{_all}" />
+            <f:render section="eventinfo" arguments="{_all}" />
+            <f:render section="photo" />
+            <f:render section="seeya" arguments="{_all}" />
+            <f:render section="absatzlinien" />
+            <f:render section="infos" />
+        </f:defaultCase>
+    </f:switch>
+</f:section>
+
+<f:section name="header">
+    <!-- Header : BEGIN -->
+    <tr>
+        <td class="full-width-image">
+            <img src="https://www.allegria.at/fileadmin/marketing/weitra/WEITRA_Tankstelle_Header.gif" width="600" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;">
+        </td>
+      </tr>
+    <!-- Header : END -->
+</f:section>
+
+<f:section name="absatzlinien">
+    <!-- Absatzlinien : BEGIN-->
+    <tr>
+        <td>
+            <hr style="border-color: #fff; border-width: 2px; border-style: solid; margin: 0px; padding: 0px;">
+            <hr style="border-color: #fff; border-width: 2px; border-style: solid; margin: 4px 0px;">
+            <hr style="border-color: #fff; border-width: 2px; border-style: solid; margin: 4px 0px;">
+        </td>
+    </tr>
+    <!-- Absatzlinien : END-->
+</f:section>
+
+<f:section name="invitation">
+    <!-- Einladungstext : BEGIN -->
+    <tr>
+        <td style="padding: 40px; text-align: center; font-family: 'Bree Serif', serif; font-size: 1.2rem; mso-height-rule: exactly; line-height: 1.5rem; color: #555555;">
+            <f:switch expression="{content}">
+                <f:case value="remind"><h1 style="font-size: 2rem; color: #FFF; text-transform: uppercase; background-color: #EB593C; display: inline-block; padding: 0px 20px; line-height: 1.4; margin-top: 0;">1. Erinnerung</h1></f:case>
+                <f:case value="push"><h1 style="font-size: 2rem; color: #FFF; text-transform: uppercase; background-color: #EB593C; display: inline-block; padding: 0px 20px; line-height: 1.4; margin-top: 0;">Finale Erinnerung!</h1></f:case>
+            </f:switch>
+            <p> Wir freuen uns<br>
+                <strong style="text-transform: uppercase; font-size: 120%;">{accreditation.guestOutput.fullName}</strong><br>
+                zur Premiere von<br>
+                <img src="https://www.allegria.at/fileadmin/marketing/weitra/WEITRA_Tankstelle_Schriftzug.png" alt="Die Drei von der Tankstelle – Schriftzug" border="0" class="fluid" style="width: 50%; min-width: 300px; height: auto; display: inline-block; margin-top: 10px;"><br>
+                <f:if condition="{accreditation.guestType}==2"><span style="background-color: #555555; color: #FFF; display: inline-block; padding: 0 10px; text-decoration: none;">zur redaktionellen Berichterstattung</span><br></f:if>
+                einzuladen.
+            </p>
+            <p style="font-size: 0.7rem; line-height: 1.2; font-weight: 300; font-family: sans-serif; font-style: italic;">Die Drei von der Tankstelle von Franz Schulz und Paul Frank in einer Bearbeitung von Peter Hofbauer. Kompositionen: Werner Richard Heymann - Liedtexte: Robert Gilbert. Thomas Sessler Verlag</p>
+        </td>
+    </tr>
+    <!-- Einladungstext : END -->
+</f:section>
+
+<f:section name="eventinfo">
+    <!-- Veranstaltungsdetails : BEGIN-->
+    <tr>
+        <td>
+            <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#EB593C" width="600" class="email-container">
+                <tr>
+                  <td style="padding: 40px; text-align: center; font-family: 'Bree Serif', serif; font-size: 1.2rem; mso-height-rule: exactly; line-height: 1.2; color: #fff;">
+                        <p>
+                            <span style="font-size: 120%;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')} | {accreditation.event.date->f:format.date(format:'%k:%M')} Uhr</span><br>
+                            <span style="font-size: 0.8rem;">Einlass ab <f:format.date date="{accreditation.event.date->f:format.date(format:'%k.%M')} - 90 minutes" format="%k:%M Uhr" /> | Schloss Weitra</span>
+                        </p>
+                        <f:if condition="{content} == 'invite' || {content} == 'remind' || {content} == 'push'">
+                        
+                            <!-- Button : Begin -->
+                            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                                <tr>
+                                    <td style="border-radius: 10px; background: #fff; text-align: center;" class="button-td">
+                                        <f:link.typolink absolute="1" parameter="38" additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}" absolute="1" additionalAttributes="{style:'background: #fff; border: 8px solid #fff; padding: 0 10px; color: #EB593C; font-family:\'Bree Serif\', serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 10px; font-weight: bold; text-transform: uppercase;'}" class="button-a">
+                                            jetzt rückmelden
+                                        </f:link.typolink>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- Button : END -->
+                            <p style="font-size: 0.7rem;">
+                                Um Rückmeldung wird bis <f:format.date date="{accreditation.event.date->f:format.date(format:'d.m.Y')} - 2 weeks friday" format="d.m.Y" /> gebeten.<br>
+                                Die Einladung gilt für {accreditation.ticketsWish} Person{f:if(condition:'{accreditation.ticketsWish}', then:'en')} und ist nicht übertragbar.
+                            </p>
+                        </f:if>
+                        
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- Veranstaltungsdetails : END-->
+</f:section>
+
+<f:section name="photo">
+    <!-- Foto : BEGIN -->
+    <tr>
+        <td style="padding: 0px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/weitra/WEITRA_Tankstelle_Bild.png" width="auto" height="auto" alt="alt_text" border="0" class="fluid">
+          </td>
+      </tr>
+      <!-- Foto : END -->
+</f:section>
+
+<f:section name="seeya">
+    <!-- Wir freuen uns : BEGIN -->
+    <tr>
+        <td style="padding: 40px; text-align: center; font-family: 'Bree Serif', serif; font-size: 1.4rem; mso-height-rule: exactly; line-height: 1rem; color: #555555;">
+            <img src="https://www.allegria.at/fileadmin/marketing/weitra/WEITRA_Tankstelle_Herz.png" width="auto" height="auto" alt="alt_text" border="0" class="fluid" style="display: inline-block; margin-bottom: 15px;"><br>
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                <tr>
+                  <td style="border-radius: 10px; background: #EB593C; text-align: center;" class="button-td">
+                        <f:link.typolink absolute="1" parameter="38" additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}" absolute="1" additionalAttributes="{style:'background: #EB593C; border: 8px solid #EB593C; padding: 0 10px; color: #fff; font-family:\'Bree Serif\', serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 10px; font-weight: bold; text-transform: uppercase;'}" class="button-b">
+                            jetzt rückmelden
+                        </f:link.typolink>
+                    </td>
+                </tr>
+            </table>
+            <p>
+                Wir freuen uns auf Ihren Besuch!
+            </p>
+        </td>
+    </tr>
+    <!-- Wir freuen uns : END -->
+</f:section>
+
+<f:section name="infos">
+    <!-- Für mehr Infos : BEGIN -->
+    <tr>
+        <td style="padding: 40px; text-align: center; font-family: 'Bree Serif', serif; font-size: 0.8rem; font-weight: 200; mso-height-rule: exactly; line-height: 1rem; color: #555555;">
+            <p>
+                <span style="font-size: 120%;">Schloss Weitra</span><br>
+                Schloss 71, Weitra<br>
+                <a href="https://maps.app.goo.gl/58pkYJseQgZgqyVA6" target="_blank" style="color: #EB593C; text-decoration: none;">Anfahrt planen</a><br><br>
+                Für mehr Informationen:<br>
+                <a href="https://www.schloss-weitra.at" target="_blank" style="color: #EB593C; text-decoration: none;">www.schloss-weitra.at</a>
+            </p>
+        </td>
+    </tr>
+    <!-- Für mehr Infos : END -->
+    <!-- Foto : BEGIN -->
+    <tr>
+        <td style="padding: 0px; text-align: center">
+            <img src="https://www.allegria.at/fileadmin/marketing/weitra/WEITRA_Tankstelle_Location.png" width="auto" height="auto" alt="alt_text" border="0" class="fluid">
+        </td>
+    </tr>
+    <!-- Foto : END -->
+</f:section>
+
+<f:section name="ticket">
+    <!-- 1 Column Approval : BEGIN -->
+    <tr>
+        <td style="padding: 40px; text-align: center; font-family: 'Bree Serif', sans-serif;">
+            <h1 style="font-family: 'Bree Serif', sans-serif; text-transform: uppercase; color: #EB593C; font-size: 1.8rem; line-height: 1.2;">Wir freuen uns auf Ihr Kommen!</h1>
+            <p>Folgend finden Sie die Reservierungsdaten.</p>
+            <div style="background: #FFFFFF; border: 2px solid #191919; border-radius: 15px; padding: 15px 40px; text-align: center; margin-bottom: 10px; display: inline-block; ">
+                <p style="margin: 0; font-family: 'Bree Serif', sans-serif; font-size: 1.6rem; color: #EB593C; font-weight: 700;">{accreditation.guestOutput.fullName}</p>
+                <p style="margin-top: 0; color: #191919; font-family: 'Bree Serif', sans-serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+                <p style="margin: 0; margin-top: 10px; font-family: 'Bree Serif', sans-serif; font-size: 0.65rem; color: #000000;"><span style="font-size: 0.8rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong></span><br>Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr gesendet.</p>
+            </div>
+            <p style="font-size: 1rem;">Die Ausgabe der Karten findet ab <f:format.date date="{accreditation.event.date->f:format.date(format:'%k.%M')} - 1 hour" format="%k.%M Uhr" /> am Empfang statt.</p>
+            <f:if condition="{accreditation.guestType}==2"><h3 style="font-size: 1.4rem; color: #FFF; text-transform: uppercase; background-color: #EB593C; display: inline-block; padding: 0px 20px; line-height: 1.4; margin-bottom: 0;">Pressematerial</h3><p style="font-size: 0.9rem;">Pressematerial zur redaktionellen Berichterstattung finden Sie <f:link.typolink absolute="1" parameter="39#pressematerial" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={accreditation.event.campaign.uid}" absolute="1" additionalAttributes="{style:'background-color: #EB593C; color: #FFF; display: inline-block; padding: 0 5px; text-decoration: none;'}" target="_blank">HIER</f:link.typolink>!<br>Wir freuen uns auf Ihren Beitrag!</p></f:if>
+        </td>
+    </tr>
+    <!-- 1 Column Approval : END -->
+</f:section>
+
+<f:section name="sick">
+    <!-- 1 Column Feedback : BEGIN -->
+    <tr>
+        <td style="padding: 40px; text-align: center; font-family: 'Bree Serif', sans-serif;">
+            <h2 style="margin-top: 0px; margin-bottom: 0; font-family: 'Bree Serif', sans-serif; font-size: 1.4rem; text-transform: uppercase;">Krank oder verhindert?</h2>
+            <p style="margin: 0; font-family: 'Bree Serif', sans-serif; font-size: 0.75rem;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider Erwarten nicht zur Premiere kommen können.</p>
+            <p style="margin: 27px 0px 0px 0px"><a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank" style="background: #EB593C; padding: 7px 14px; color: #FFF; font-weight: 500; text-decoration: none; text-transform: uppercase; border-radius: 10px;">Email senden</a></p>
+        </td>
+    </tr>
+    <!-- 1 Column Feedback : END -->
+</f:section>
+
+</html>

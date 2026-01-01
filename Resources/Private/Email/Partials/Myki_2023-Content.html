@@ -1,0 +1,211 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+
+<f:switch expression="{content}">
+<f:case value="invite">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #99712F;">    
+            <h1 style="font-family: 'PT Serif', sans-serif; font-weight: 600; text-transform: uppercase; text-align: center; font-size: 2rem;">Persönliche Einladung</h1>
+            <f:render section="invitationCopy" arguments="{_all}" />
+        </td>
+      </tr>
+    <!-- 1 Column Text : END --> 
+    <f:render section="generalCopy" arguments="{_all}" />
+</f:case>
+<f:case value="remind">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #99712F;">    
+            <h1 style="font-family: 'PT Serif', sans-serif; font-weight: 600; text-transform: uppercase; text-align: center; font-size: 2rem;">Erinnerung</h1>
+            <f:render section="invitationCopy" arguments="{_all}" />
+        </td>
+    </tr>
+    <!-- 1 Column Text : END --> 
+    <f:render section="generalCopy" arguments="{_all}" />
+</f:case>
+<f:case value="push">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #99712F;">    
+            <h1 style="font-family: 'PT Serif', sans-serif; font-weight: 600; text-transform: uppercase; text-align: center; font-size: 2rem;">Finale Erinnerung</h1>
+            <f:render section="invitationCopy" arguments="{_all}" />
+        </td>
+    </tr>
+    <!-- 1 Column Text : END --> 
+    <f:render section="generalCopy" arguments="{_all}" />
+</f:case>
+<f:case value="approve">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #99712F;">    
+            <h1 style="font-family: 'PT Serif', sans-serif; font-weight: 600; text-transform: uppercase; text-align: center; font-size: 2rem;">Wir freuen uns über die Zusage!</h1>
+            <f:render section="ticket" arguments="{_all}" />
+        </td>
+    </tr>
+    <!-- 1 Column Text : END --> 
+    <f:render section="generalCopy" arguments="{_all}" />
+</f:case>
+<f:case value="reject">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #99712F;">    
+            <h1 style="font-family: 'PT Serif', sans-serif; font-weight: 600; text-transform: uppercase; text-align: center; font-size: 2rem;">Wie schade!</h1>
+            
+            <!-- Fließtext -->			  
+            <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir bedanken uns für die,<br>wenn auch negative, Rückmeldung.</p>
+        </td>
+    </tr>
+    <!-- 1 Column Text : END --> 
+    <f:render section="generalCopy" arguments="{_all}" />
+</f:case>
+<f:case value="waiting">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #99712F;">    
+            <h1 style="font-family: 'PT Serif', sans-serif; font-weight: 600; text-transform: uppercase; text-align: center; font-size: 2rem;">Die Nachfrage ist riesig!</h1>
+            
+            <!-- Fließtext -->			  
+            <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir bedanken uns für die unglaublich großartige Nachfrage.</p>
+            <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;"><strong>Aktuell haben wir bedauerlicherweise keine Plätze mehr bei der Veranstaltung.</strong></p>
+            <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir prüfen aktuell eine Erweiterung und melden uns schnellstmöglich mit einer konkreten Rückmeldung.</p>
+            <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir bedanken uns für das Verständnis.</p>
+        </td>
+    </tr>
+    <!-- 1 Column Text : END --> 
+    <f:render section="generalCopy" arguments="{_all}" />
+</f:case>
+<f:case value="reject_after_waiting">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #99712F;">    
+            <h1 style="font-family: 'PT Serif', sans-serif; font-weight: 600; text-transform: uppercase; text-align: center; font-size: 2rem;">Es tut uns so leid!</h1>
+            
+            <!-- Fließtext -->			  
+            <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir sind von der ernormen Nachfrage überwältigt!<br><strong>Danke für Ihr Interesse.</strong></p>
+            <p style="color: #ed2489; font-family: 'PT Serif', sans-serif; font-weight: 700; text-align: center; font-size: 1rem;">Umso schwerer fällt es uns Ihnen sagen zu müssen, dass wir Ihnen leider keine Tickets zur Verfügung stellen können.</p>
+            <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir hoffen Sie bei einer unserer nächsten Premieren wieder begrüßen zu dürfen!</p>
+        </td>
+    </tr>
+    <!-- 1 Column Text : END --> 
+    <f:render section="generalCopy" arguments="{_all}" />
+</f:case>
+<f:case value="approve_after_waiting">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #99712F;">    
+            <h1 style="color: #ed2489; font-family: 'PT Serif', sans-serif; font-weight: 600; text-transform: uppercase; text-align: center; font-size: 2rem;">Danke für's Warten!</h1>
+            <f:render section="ticket" arguments="{_all}" />
+        </td>
+    </tr>
+    <!-- 1 Column Text : END --> 
+    <f:render section="generalCopy" arguments="{_all}" />
+</f:case>
+<f:case value="pending">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #99712F;">    
+            <h1 style="font-family: 'PT Serif', sans-serif; font-weight: 600; text-transform: uppercase; text-align: center; font-size: 2rem;">Neu auf der Warteliste!</h1>
+            
+            <!-- Fließtext -->			  
+            <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;"><strong>{accreditation.guestOutput.name}</strong></p>
+        </td>
+    </tr>
+    <!-- 1 Column Text : END -->
+</f:case>
+</f:switch>
+
+<f:section name="invitationCopy">
+    <!-- Fließtext -->			 
+    <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">
+        <span style="font-weight: 500; font-size: 0.8rem;">zur</span><br>
+        <span style="font-weight: 700; font-size: 2.4rem;">MYKI-GALA</span>
+    </p>
+    <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1.4rem; line-height: 1.4;">
+        Mittwoch, 27. September 2023<br>
+        Palais Liechtenstein<br>
+        <span style="font-size: 0.8rem;;">Fürstengasse 1, 1090 Wien</span>
+    </p>
+        
+    <!-- BUTTON 1 -->
+    <p style="text-align: center;">
+        <a href="###FEEDBACK_LINK###"
+                            style="display: inline-block; background-color: #99712F; font-family: 'PT Serif, sans-serif; font-weight: 500; color: white; text-decoration: none; padding: 10px 15px; border-radius: 10px; margin: 10px auto; font-size: 1rem;">JETZT RÜCKMELDEN</a></p>
+
+    <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem; line-height: 1.4;">
+        Um Rückmeldung wird bis 19. September 2023 gebeten.<br>
+        Die Einladung gilt für 2 Personen und ist nicht übertragbar.
+    </p>
+    <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem; line-height: 1.4;">
+        <span style="font-weight: 600;">FESTPROGRAMM</span><br>
+        <br>
+        18.00 Uhr Sektempfang<br><br>
+        19.00 Uhr Festliche Verleihung des<br>
+        Österreichischen Kinderschutzpreises<br>
+        durch Bundesminister Dr. Magnus Brunner<br><br>
+        20.00 Galadinner<br><br>
+        21.00 Künstlerische Einlage<br>
+        <span style="font-size: 0.8rem;">mit</span><br>
+        Anna Bondarenko, Prof. Zoryana Kushpler und KS Clemens Unterreiner<br>
+        <br>
+        <span style="font-size: 0.8rem;">Am Klavier</span><br>
+        Kristin Okerlund und Ausnahmetalent Sona Tamura<br>
+        <br>
+        Moderation: DI<sup style="font-size: 0.6rem;">FH</sup> Esther Csapo<br>
+        <br><br>
+        Dresscode: Dunkler Anzug, Smoking, langes Abendkleid, Cocktailkleid<br>
+        <br>
+        <span style="color: black;">
+        <f:if condition="{accreditation.invitationType.uid}==219">
+            <f:then><strong>Charitybeitrag von € 135,– pro Person</strong><br></f:then>
+            <f:else>Der Verein freut sich über Ihre Spende auf das Konto<br></f:else>
+        </f:if>
+        Österreichischer Kinderschutzpreis IBAN: AT90 3200 0000 1140 9349</span>
+    </p>
+</f:section>
+
+<f:section name="generalCopy">
+    <!-- Hero Image, Flush : BEGIN -->
+    <tr>
+        <td class="full-width-image" style="padding: 40px 20px 20px 20px;">
+            <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem; line-height: 1.4;">
+                <a href="https://www.kinderschutz-preis.at" style="color:#99712F; text-decoration: none;" target="_blank">www.kinderschutz-preis.at</a>
+            </p>
+            <img src="https://www.allegria.at/fileadmin/marketing/myki/MYKI_2023-Gala_Sponsorenleiste.png" width="600" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;">
+        </td>
+    </tr>
+    <!-- Hero Image, Flush : END -->
+</f:section>
+
+<f:section name="ticket">
+    <div style="background: #99712F; border: none; border-radius: 15px; padding: 15px; font-family: 'PT Serif', sans-serif;">
+        <p style="margin: 0; font-size: 1.2rem; text-transform: uppercase; color: #FFFFFF; font-weight: 700;">{accreditation.guestOutput.name}</p>
+        <f:if condition="{accreditation.ticketsApprovedPlus}"><p style="margin-top: 0; color: #FFFFFF; font-size: 0.9rem; font-weight: 600; margin-bottom: 0px;">und {accreditation.ticketsApprovedPlus} Begleitperson{f:if(condition:'{accreditation.ticketsApprovedPlus}>1', then:'en')}</p></f:if>
+        <p style="margin: 0; margin-top: 10px; font-size: 0.65rem; color: #FFFFFF;">Akkreditierung Nr. #{accreditation.uid}<br>Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr gesendet.<br>
+          <i>*diese Bestätigung ist nicht übertragbar</i>
+        </p>
+    </div>
+    <!-- Fließtext -->
+    
+    <h3 style="font-family: 'PT Serif', sans-serif; font-weight: 700; text-align: center; font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase;">Einlassinformation</h3>
+    <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; margin-top: 0; margin-bottom: 30px; font-size: 1rem;">Der Einlass erfolgt ab 18 Uhr.</p>
+    
+    <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">
+        <span style="font-weight: 500; text-transform: uppercase;">Am {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'day')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')} um {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}</span><br>
+        Location: {accreditation.event.location.name}, {accreditation.event.location.city}<br>
+        <span style="font-size: 0.8rem;;">Fürstengasse 1, 1090 Wien</span></p>
+    <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; margin-top: 30px; font-size: 1rem;">Wir freuen uns auf einen schönen gemeinsamen Abend!</p>
+
+    <h3 style="font-family: 'PT Serif', sans-serif; font-weight: 700; text-align: center; font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; margin-top: 50px;">Krank oder Verhindert?</h3>
+    <p style="font-family: 'PT Serif', sans-serif; font-weight: 300; text-align: center; margin-top: 0; font-size: 1rem;">Bitte lassen Sie uns via Email wissen, sollten Sie wider Erwarten nicht kommen können.</p>
+    
+    <!-- BUTTON 1 -->
+    <p style="text-align: center;">
+        <a  href="mailto:office@allegria.at"
+        target="_blank"
+        style="display: inline-block; background-color: #99712F; font-family: 'PT Serif', sans-serif; font-weight: 500; color: white; text-decoration: none; padding: 10px 15px; border-radius: 10px; margin: 10px auto; font-size: 1rem;">E-Mail Senden</a>
+    </p>
+</f:section>
+</html>

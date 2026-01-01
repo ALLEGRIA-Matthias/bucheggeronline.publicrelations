@@ -1,0 +1,249 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+
+
+    <f:section name="preheader">
+        <f:switch expression="{content}">
+            <f:case value="mailing">{mailing.preview}</f:case>
+            <f:case value="invitation">Ihre persönliche Einladung zur Verleihung des KULTURFORMAT Kunstawards "Kunststück" 2023 im Toni Mörwald PALAZZO!</f:case>
+            <f:case value="remind">Nicht verpassen: Ihre persönliche Einladung zur Verleihung des KULTURFORMAT Kunstawards "Kunststück" 2023 im Toni Mörwald PALAZZO!</f:case>
+            <f:case value="push">Letzte Chance: Ihre persönliche Einladung zur Verleihung des KULTURFORMAT Kunstawards "Kunststück" 2023 im Toni Mörwald PALAZZO!</f:case>
+            <f:case value="approve">Wie schön, dass wir Sie demnächst bei der Verleihung des KULTURFORMAT Kunstawards "Kunststück" 2023 im Toni Mörwald PALAZZO begrüßen dürfen.</f:case>
+            <f:case value="waitingOK">Wie schön, dass wir Sie demnächst bei der Verleihung des KULTURFORMAT Kunstawards "Kunststück" 2023 im Toni Mörwald PALAZZO begrüßen dürfen.</f:case>
+            <f:case value="waiting">Wichtige Information zu Ihrer Antwort zur Verleihung des KULTURFORMAT Kunstawards "Kunststück" 2023.</f:case>
+            <f:case value="reject">Schade, dass es nicht klappt. Der Toni Mörwald PALAZZO würde sich über einen baldigen Besuch freuen.</f:case>
+        </f:switch>
+    </f:section>
+
+    <f:section name="headline">
+        <f:switch expression="{content}">
+            <f:case value="mailing"><h1 style="font-size: 1.8rem; text-transform: uppercase; color: #008EA6;">{mailing.subject}</h1></f:case>
+            <f:case value="invitation"><h1 style="font-size: 1.8rem; text-transform: uppercase; color: #008EA6;">Persönliche Einladung!</h1></f:case>
+            <f:case value="remind"><h1 style="font-size: 1.8rem; text-transform: uppercase; color: #008EA6;">Persönliche Erinnerung!</h1></f:case>
+            <f:case value="push"><h1 style="font-size: 1.8rem; text-transform: uppercase; color: #008EA6;">Letzte Erinnerung!</h1></f:case>
+            <f:case value="approve"><h1 style="font-size: 1.8rem; text-transform: uppercase; color: #008EA6;">Wie schön, dass Sie Zeit haben!</h1></f:case>
+            <f:case value="reject"><h1 style="font-size: 1.8rem; text-transform: uppercase; color: #555555;">Wie schade!</h1></f:case>
+            <f:case value="waiting"><h1 style="font-size: 1.8rem; text-transform: uppercase; color: #008EA6;">Die Nachfrage ist riesig!</h1></f:case>
+            <f:case value="waitingOK"><h1 style="font-size: 1.8rem; text-transform: uppercase; color: #008EA6;">Danke für Ihre Geduld!</h1></f:case>
+            <f:case value="waitingNO"><h1 style="font-size: 1.8rem; text-transform: uppercase;  color: #008EA6;">Es tut uns so leid!</h1></f:case>
+            <f:case value="pending"><h1 style="font-size: 1.8rem; text-transform: uppercase;  color: #008EA6;">Neu auf der Warteliste!</h1></f:case>
+        </f:switch>
+    </f:section>
+
+    <f:switch expression="{content}">
+        <f:defaultCase>
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: center; font-family: 'Lato', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.4; color: #555555;">
+                    <f:render section="headline" arguments="{_all}" />
+                    <img src="https://www.allegria.at/fileadmin/marketing/kulturformat/KF_Logo-email.png" width="600" height="60" style="max-width: 40%; height: auto; margin-top: 30px;">
+                    <p style="font-size: 1rem; margin-bottom: 0;">lädt<br>
+                    <strong>{accreditation.guestOutput.fullName}</strong><br>
+                    sehr herzlich zur</p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : BEGIN --> 
+            <f:render section="eventinfo" arguments="{_all}" />
+            <f:render section="eventtext" arguments="{_all}" />
+            <f:render section="goodbye" arguments="{_all}" />
+        </f:defaultCase>
+        <f:case value="mailing">
+            <f:render partial="ContentsNew" arguments="{contents:mailing.contents, mail:mail, guestOutput:guestOutput}" />
+        </f:case>
+        <f:case value="approve">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: center; font-family: 'Lato', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.4; color: #555555;">
+                    <f:render section="headline" arguments="{_all}" />
+                    <img src="https://www.allegria.at/fileadmin/marketing/kulturformat/KF_Logo-email.png" width="600" height="60" style="max-width: 40%; height: auto; margin-top: 30px;">
+                    <p style="font-size: 1rem; margin-bottom: 40px;">freut Sich auf Ihr Kommen!</p>
+
+
+                    <div style="background: #555555; border: 1px solid #555555; border-radius: 0px; padding: 15px; text-align: center; margin-bottom: 10px; margin-left: 10%; margin-right: 10%;">
+                        <p style="margin: 0; font-family: 'Lato', sans-serif; font-size: 1.4rem; color: #FFFFFF; font-weight: 700; text-transform: uppercase;">{accreditation.guestOutput.fullName}</p>
+                        <p style="margin-top: 0; color: #FFFFFF; font-family: 'Lato', sans-serif; font-size: 1rem; font-weight: 400; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+                        <p style="margin: 0; margin-top: 10px; font-family: 'Lato', sans-serif; font-size: 0.65rem; color: #FFFFFF;">
+                            <span style="font-size: 0.7rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong> versandt am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr.</span><br>
+                            *diese Bestätigung ist nicht übertragbar</p>
+                    </div>
+
+                    <h2 style="font-size: 1.4rem; text-transform: uppercase; margin-bottom: 0; margin-top: 40px; font-weight: 600;">Krank oder verhindert?</h2>
+                    <p style="margin-top: 0; margin-bottom: 5px; font-weight: 300;">
+                        Bitte lassen Sie uns via E-Mail wissen,<br>
+                        sollten Sie wider Erwarten nicht zur Verleihung kommen können.
+                    </p>
+                    <p style="margin: 27px 0px 0px 0px"><a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank" style="background: #008EA6; padding: 7px 14px; color: #FFFFFF; font-weight: 500; text-decoration: none;">E-Mail senden</a></p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : BEGIN --> 
+            <f:render section="eventinfo" arguments="{_all}" />
+            <f:render section="eventtext" arguments="{_all}" />
+            <f:render section="goodbye" arguments="{_all}" />
+        </f:case>
+        <f:case value="reject">
+            <!-- Email Header : BEGIN -->
+            <tr>
+                <td class="full-width-image" style="line-height: 0;"><img src="https://www.allegria.at/fileadmin/marketing/kulturformat/Kulturformat_Kunststueck-2023_Header.png" alt="KULTURFORMAT Kulturaward &quot;Kunstst&uuml;ck&quot; 2023" border="0" align="center" style="width: 100%; height: auto;"></td>
+            </tr>
+            <!-- Email Header : END -->
+
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-bottom: 20px; text-align: center; font-family: 'Lato', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.4; color: #555555;">
+                    <f:render section="headline" arguments="{_all}" />
+                    <p style="margin-top: 0; margin-bottom: 0px; font-weight: 500;">
+                        <strong style="color: #008EA6;">KULTURFORMAT</strong> bedankt sich<br>für die Rückmeldung.
+                    </p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : BEGIN --> 
+            <f:render section="goodbyeNO" arguments="{_all}" />
+        </f:case>
+        <f:case value="waitingOK">Wie schön, dass wir Sie demnächst bei der Verleihung des KULTURFORMAT Kunstawards "Kunststück" 2023 im Toni Mörwald PALAZZO begrüßen dürfen.</f:case>
+        <f:case value="waiting">Wichtige Information zu Ihrer Antwort zur Verleihung des KULTURFORMAT Kunstawards "Kunststück" 2023.</f:case>
+    </f:switch>
+
+    <f:section name="eventinfo">
+        <!-- Background Image with Text : BEGIN -->
+        <tr>
+            <td background="https://www.allegria.at/fileadmin/marketing/kulturformat/Kulturformat_Kunststueck-2023_BG.png" bgcolor="#2B2A26" valign="middle" style="text-align: center; background-position: center center !important; background-size: cover !important;">
+
+            <div>
+            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                <td class="stack-column-center" width="40%" style="padding: 30px 40px;"><table cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                    <td style="padding: 30px 0px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/kulturformat/Kulturformat_Pressefoto_Kunststueck-202302.png" width="200" height="auto" alt="KULTURFORMAT Kunststück 2023" border="0" class="fluid" style="margin: 0;"></td>
+                    </tr>
+                    </table></td>
+                <td class="stack-column-center" width="60%" style="padding: 30px 40px 30px 0;"><table cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                    <td style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.4; color: #FFFFFF; padding: 30px 0px; text-align: center;" class="center-on-narrow">
+                        <p style="margin: 0;">Verleihung des Kulturawards</p>
+                        <h2 style="text-transform: uppercase; margin-top: 0;">Kunststück 2023</h2>
+                        <p>am <strong>{accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}</strong><br>um {accreditation.event.date->f:format.date(format:'%k.%M Uhr')} ein.<br>
+                        Einlass ab 18.00 Uhr</p>
+                        <p>
+                            <strong>Toni Mörwald PALAZZO</strong><br>
+                            Prater 121, 1020 Wien
+                        </p>
+                        
+                        <f:if condition="{content} == 'invite' || {content} == 'remind' || {content} == 'push'">
+                            <!-- Button : Begin -->
+
+                            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                                <tr>
+                                <td style="border-radius: 0px; background: #FFFFFF; text-align: center;" class="button-td">
+                                    <f:link.typolink
+                                        absolute="1"
+                                        parameter="38"
+                                        additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}"
+                                        absolute="1"
+                                        additionalAttributes="{style:'background: #FFFFFF; border: 0px solid #FFFFFF; padding: 10px 15px;color: #008EA6; font-family: \'Lato\', sans-serif; font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; display: block; border-radius: 0px; font-weight: bold; text-transform: uppercase;'}"
+                                        class="button-a">
+                                        Jetzt zu-/absagen
+                                    </f:link.typolink>
+                                </td>
+                                </tr>
+                                </table>
+
+                            <!-- Button : END -->
+                            
+                            <p style="font-size: 0.7rem; margin-bottom: 0;">
+                                Die Einladung gilt für <strong>{accreditation.ticketsWish} Person{f:if(condition:'{accreditation.ticketsWish}==1', else:'en')}</strong> und ist nicht übertragbar.
+                            </p>
+                        </f:if>
+                    </td>
+                    </tr>
+                    </table></td>
+                </tr>
+                </table>
+                </div>
+            </td>
+        </tr>
+        <!-- Background Image with Text : END --> 
+    </f:section>
+
+    <f:section name="eventtext">
+        <!-- 1 Column Text : BEGIN -->
+        <tr>
+            <td style="padding: 40px 50px; padding-bottom: 0; text-align: center; font-family: 'Lato', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.4; color: #555555;">
+                <p style="margin-top: 0;">Um die schönsten Out of Home Kunst- und Kultursujets Österreichs zu küren, wurde der Kulturaward “<strong>Kunststück</strong>” im Jahr 2019 von <strong style="color: #008EA6;">KULTURFORMAT</strong> ins Leben gerufen.</p>
+                <p>Aus <strong>101 eingereichten Kampagnen</strong> wurden über ein Fachjury- und ein Publikums-Voting in jeder der 5 Kategorien die Preisträger:innen in <strong>Gold</strong>, <strong>Silber</strong> und <strong>Bronze</strong> ermittelt.&nbsp;</p>
+                <p>Weiters erhält der/die Gesamtsieger:in über alle Kategorien einen Award in <strong>Platin</strong> und einen <strong>Sonderpreis</strong>.</p>
+                <p>Die <strong>Preisverleihung</strong> des “<strong>Kunststück</strong>” Awards 2023 findet im <strong>Spiegelpalast des Toni Mörwald PALAZZOs</strong> &nbsp; im Wiener Prater statt und die Spannung, welche der Kampagnen das Rennen für sich gewinnen konnten, ist groß.</p>
+                <p style="margin-bottom: 0;">
+                    <strong>Fiebern Sie mit uns mit!</strong>
+                    <f:if condition="{accreditation.guestType}==2"><br>Und feiern Sie gemeinsam mit dem "Who Is Who" der österreichischen Kultur- und Kunstszene.</f:if>
+                </p>
+                <p style="display: inline-block; width: 25%; border-top: 1px solid #008EA6; line-height: 0; margin-top: 40px; margin-bottom: 40px;">&nbsp;</p>
+                <h3 style="font-size: 1.6rem; margin-top: 0px;">Ablauf der Gala</h3>
+                <p style="line-height: 1.2; padding: 0 80px; margin-bottom: 30px;">ab 18.00 Uhr<br><strong style="font-size: 1.2rem;">Einlass</strong></p>
+
+                <f:if condition="{accreditation.guestType}==2">
+                    <f:then>
+                        <p style="line-height: 1.2; padding: 0 80px; margin-bottom: 30px;">um 19.00 Uhr<br><strong style="font-size: 1.2rem;">Beginn der Verleihung</strong><br>inkl.<br>4-Gang-Galamenü <br>zwei PALAZZO-Showacts<br>sowie Mamma Mia–Gesangseinlagen<br>und Live-Band<br><br>Moderation: Alfons Haider & Daniela Grill</p>
+                    </f:then>
+                    <f:else>
+                        <p style="line-height: 1.2; padding: 0 80px; margin-bottom: 30px;">um 19.00 Uhr<br><strong style="font-size: 1.2rem;">Beginn der Verleihung</strong><br>inkl. 4-Gang-Galamenü &amp; Showacts<br>Moderation: Alfons Haider & Daniela Grill</p>
+                    </f:else>
+                </f:if>
+                <p style="line-height: 1.2; padding: 0 80px; margin-bottom: 0px;">ca. 23.00 Uhr<br><strong style="font-size: 1.2rem;">Ende der Verleihung</strong><br>Im Anschluss wird gefeiert!</p>
+
+                <f:if condition="{content} == 'invite' || {content} == 'remind' || {content} == 'push'">
+                <div style="margin-top: 50px;">
+                    <!-- Button : Begin -->
+
+                    <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                        <tr>
+                        <td style="border-radius: 0px; background: #FFFFFF; text-align: center;" class="button-td">
+                            <f:link.typolink
+                            absolute="1"
+                            parameter="38"
+                            additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}"
+                            absolute="1"
+                            additionalAttributes="{style:'background: #008EA6; border: 0px solid #008EA6; padding: 10px 15px;color: #FFFFFF; font-family: \'Lato\', sans-serif; font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; display: block; border-radius: 0px; font-weight: bold; text-transform: uppercase;'}"
+                            class="button-a">
+                            Jetzt zu-/absagen
+                            </f:link.typolink>
+                        </td>
+                        </tr>
+                        </table>
+
+                    <!-- Button : END -->
+                </div>
+                </f:if>
+                
+                <p style="display: inline-block; width: 25%; border-top: 1px solid #008EA6; line-height: 0; margin-top: 40px; margin-bottom: 40px;">&nbsp;</p>
+            </td>
+        </tr>
+        <!-- 1 Column Text : END -->    
+    </f:section>
+
+    <f:section name="goodbye">
+        <!-- 1 Column Text : BEGIN -->
+        <tr>
+            <td style="padding: 40px 50px; padding-top: 0; text-align: center; font-family: 'Lato', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.4; color: #555555;">                
+                <p style="margin-bottom: 0;">Auf Ihr Kommen freut sich<br><br>
+                    <strong style="font-size: 1.2rem;">Daniela Grill</strong><br>
+                    <strong style="color: #008EA6;">KULTURFORMAT</strong></p>
+            </td>
+        </tr>
+        <!-- 1 Column Text : END --> 
+    </f:section>
+
+    <f:section name="goodbyeNO">
+        <!-- 1 Column Text : BEGIN -->
+        <tr>
+            <td style="padding: 40px 50px; padding-top: 0; text-align: center; font-family: 'Lato', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.4; color: #555555;">                
+                <p style="margin-bottom: 0;">Mit lieben Grüßen<br><br>
+                    <strong style="font-size: 1.2rem;">Daniela Grill</strong><br>
+                    <strong style="color: #008EA6;">KULTURFORMAT</strong></p>
+            </td>
+        </tr>
+        <!-- 1 Column Text : END --> 
+    </f:section>
+
+</html>

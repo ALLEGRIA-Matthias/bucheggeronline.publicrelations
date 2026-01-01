@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:publicrelations/Resources/Private/Language/locallang_csh" date="2020-08-06T11:01:46Z" product-name="publicrelations">
+		<header/>
+		<body>
+			<trans-unit id="image.description" resname="image.description">
+				<source>image</source>
+			</trans-unit>
+			<trans-unit id="title_overwrite.description" resname="title_overwrite.description">
+				<source>titleOverwrite</source>
+			</trans-unit>
+			<trans-unit id="subtitle_overwrite.description" resname="subtitle_overwrite.description">
+				<source>subtitleOverwrite</source>
+			</trans-unit>
+			<trans-unit id="works_overwrite.description" resname="works_overwrite.description">
+				<source>worksOverwrite</source>
+			</trans-unit>
+			<trans-unit id="no_works.description" resname="no_works.description">
+				<source>noWorks</source>
+			</trans-unit>
+			<trans-unit id="logo_overwrite.description" resname="logo_overwrite.description">
+				<source>logoOverwrite</source>
+			</trans-unit>
+			<trans-unit id="works.description" resname="works.description">
+				<source>works</source>
+			</trans-unit>
+			<trans-unit id="buttons.description" resname="buttons.description">
+				<source>buttons</source>
+			</trans-unit>
+			<trans-unit id="client.description" resname="client.description">
+				<source>client</source>
+			</trans-unit>
+			<trans-unit id="campaign.description" resname="campaign.description">
+				<source>campaign</source>
+			</trans-unit>
+			<trans-unit id="news.description" resname="news.description">
+				<source>news</source>
+			</trans-unit>
+			<trans-unit id="event.description" resname="event.description">
+				<source>event</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

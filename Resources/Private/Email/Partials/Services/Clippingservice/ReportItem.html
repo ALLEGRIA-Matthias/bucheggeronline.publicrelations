@@ -1,0 +1,121 @@
+<html
+  xmlns:acdist="http://typo3.org/ns/Allegria/AcDistribution/ViewHelpers"
+  data-namespace-typo3-fluid="true"
+  >
+<f:variable name="fileCount" value="{report.files -> f:count()}" />
+<f:variable name="linkCount" value="{report.links -> f:count()}" />
+<f:variable name="hasImage" value="{report.files.0}" />
+
+<tr>
+    <f:if condition="{iteration.isOdd}">
+        <f:then>
+            <td dir="ltr" align="center" valign="top" width="100%" style="padding: 30px;">
+        </f:then>
+        <f:else>
+            <td dir="rtl" align="center" valign="top" width="100%" style="padding: 30px;">
+        </f:else>
+    </f:if>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+            
+            <f:if condition="{hasImage}">
+                <td width="25%" class="stack-column-center" valign="top">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td dir="ltr" valign="top" style="padding: 0 10px;">
+                                <f:if condition="{report.files.0.originalResource.description}">
+                                    <f:then>
+                                        <img src="{acdist:absoluteUri(parameter:1)}{report.files.0.originalResource.description}" width="120" alt="Vorschau" border="0" class="center-on-narrow">
+                                    </f:then>
+                                    <f:else>
+                                        <f:image image="{report.files.0}" width="120" height="auto" alt="Vorschau" border="0" class="center-on-narrow" absolute="true" />
+                                    </f:else>
+                                </f:if>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </f:if>
+
+            <td width="{f:if(condition: hasImage, then: '75%', else: '100%')}" valign="top" class="stack-column-center">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td dir="ltr" valign="top" style="font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.4; color: #555555; padding: 0 10px; text-align: left;" class="center-on-narrow">
+                            
+                            <span style="font-size: 0.7rem;"><strong>Medium:</strong> {report.medium} | <strong>Erschienen am:</strong>
+                            <f:if condition="{f:format.date(date: report.date, format: 'H:i:s')} == '00:00:00'">
+                                <f:then>
+                                    {f:format.date(date: report.date, format: 'd.m.Y')}
+                                </f:then>
+                                <f:else>
+                                    {f:format.date(date: report.date, format: 'd.m.Y, H:i \U\h\r')}
+                                </f:else>
+                            </f:if></span>
+                            
+                            <h3 style="color:#1B276E; margin: 0;">{report.title}</h3>
+                            
+                            <f:if condition="{report.subtitle}">
+                                <p style="font-weight: bold; margin-top: 0; font-size: 0.8rem;">{report.subtitle}</p>
+                            </f:if>
+                            
+                            <div style="font-size: 0.9rem;">
+                            <f:if condition="{fileCount} > 0">
+                                <f:then><f:format.raw>{report.content->f:format.crop(maxCharacters:'200')}</f:format.raw><p style="font-style: italic; font-size: 0.8rem;">…kompletter Artikel in den folgenden Dateien.</p></f:then>
+                                <f:else><f:format.raw>{report.content}</f:format.raw></f:else>
+                            </f:if>
+                            </div>
+                            
+                            <div style="font-size: 0.8rem; font-style: italic; margin-bottom: 0; padding: 20px; background-color: #ffcc0049; color: #000000">
+                                <h3 style="font-size: 1.2rem; font-style: normal; margin: 0;">Hard Facts</h3>
+                                <ul style="font-family: 'IBM Plex Sans', sans-serif; padding-left: 5px; list-style-type: disclosure-closed; margin-bottom: 0;">
+                                    <li><strong>VÖ: </strong>
+                                        <f:if condition="{f:format.date(date: report.date, format: 'H:i:s')} == '00:00:00'">
+                                            <f:then>
+                                                {f:format.date(date: report.date, format: 'd.m.Y')}
+                                            </f:then>
+                                            <f:else>
+                                                {f:format.date(date: report.date, format: 'd.m.Y, H:i \U\h\r')}
+                                            </f:else>
+                                        </f:if>
+                                    </li>
+                                    <f:if condition="{report.medium}"><li><strong>Medium:</strong> {report.medium}</li></f:if>
+                                    <f:if condition="{report.department}"><li><strong>Ressort:</strong> {report.department}</li></f:if>
+                                    <f:if condition="{report.reach}"><li><strong>Reichweite: </strong><f:format.number decimals="0" thousandsSeparator=".">{report.reach}</f:format.number></li></f:if>
+                                    <f:if condition="{report.adValue}"><li><strong>Werbewert: </strong>EUR <f:format.number decimals="0" thousandsSeparator=".">{report.adValue}</f:format.number> <sup>*</sup><br><small style="font-style: italic;">* Werbewertberechnung durch APA-Defacto</small></li></f:if>
+                                </ul>
+                                
+                            </div>
+                            <br>
+                            <f:if condition="{fileCount} > 0 || {linkCount} > 0">
+                                <h3>Dateien / Links</h3>
+
+                                <f:if condition="{fileCount} > 0">
+                                    <ul style="font-family: 'IBM Plex Sans', sans-serif; padding-inline-start: 20px; list-style-type: circle; margin-bottom: 0;">
+                                        <f:for each="{report.files}" as="file">
+                                            <li style="margin-bottom: 5px;">
+                                                <a href="{acdist:absoluteUri(parameter:1)}{file.originalResource.publicUrl -> f:format.htmlspecialchars() -> f:format.trim(characters:'/', side:'left')}" target="_blank">{f:if(condition: file.originalResource.title, then: file.originalResource.title, else: file.originalResource.name)}</a> <span style="font-size: 0.8rem; color: #777;">({file.originalResource.extension -> f:format.case(mode: 'upper')})</span>
+                                            </li>
+                                        </f:for>
+                                    </ul>
+                                </f:if>
+
+                                <f:if condition="{linkCount} > 0">
+                                    <ul style="font-family: 'IBM Plex Sans', sans-serif; padding-inline-start: 20px; list-style-type: circle; margin-bottom: 0;">
+                                        <f:for each="{report.links}" as="link">
+                                            <li style="margin-bottom: 5px;">
+                                                <a href="{link.url -> f:format.htmlspecialchars()}" target="_blank">{link.title}</a> <span style="font-size: 0.8rem; color: #777;">(Beitrag ansehen)</span>
+                                            </li>
+                                        </f:for>
+                                    </ul>
+                                </f:if>
+                            </f:if>
+
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+</html>

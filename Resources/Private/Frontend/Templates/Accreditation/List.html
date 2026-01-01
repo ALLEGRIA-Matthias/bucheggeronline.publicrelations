@@ -1,0 +1,58 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+This Template is responsible for creating a table of domain objects.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        List.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="content">
+    <h1>Listing for Accreditation</h1>
+
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+
+    <table  class="tx_publicrelations" >
+        <tr>
+            <th><f:translate key="tx_publicrelations_domain_model_accreditation.title" /></th>
+            <th><f:translate key="tx_publicrelations_domain_model_accreditation.first_name" /></th>
+            <th><f:translate key="tx_publicrelations_domain_model_accreditation.middle_name" /></th>
+            <th><f:translate key="tx_publicrelations_domain_model_accreditation.last_name" /></th>
+            <th><f:translate key="tx_publicrelations_domain_model_accreditation.email" /></th>
+            <th><f:translate key="tx_publicrelations_domain_model_accreditation.phone" /></th>
+            <th><f:translate key="tx_publicrelations_domain_model_accreditation.medium" /></th>
+            <th><f:translate key="tx_publicrelations_domain_model_accreditation.tickets" /></th>
+            <th><f:translate key="tx_publicrelations_domain_model_accreditation.notes" /></th>
+            <th><f:translate key="tx_publicrelations_domain_model_accreditation.photographer" /></th>
+            <th><f:translate key="tx_publicrelations_domain_model_accreditation.camerateam" /></th>
+            <th> </th>
+            <th> </th>
+        </tr>
+
+        <f:for each="{accreditations}" as="accreditation">
+            <tr>
+                <td><f:link.action action="show" arguments="{accreditation : accreditation}">{accreditation.title}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{accreditation : accreditation}">{accreditation.firstName}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{accreditation : accreditation}">{accreditation.middleName}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{accreditation : accreditation}">{accreditation.lastName}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{accreditation : accreditation}">{accreditation.email}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{accreditation : accreditation}">{accreditation.phone}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{accreditation : accreditation}">{accreditation.medium}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{accreditation : accreditation}">{accreditation.tickets}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{accreditation : accreditation}">{accreditation.notes}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{accreditation : accreditation}">{accreditation.photographer}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{accreditation : accreditation}">{accreditation.camerateam}</f:link.action></td>
+                <td><f:link.action action="edit" arguments="{accreditation : accreditation}">Edit</f:link.action></td>
+                <td><f:link.action action="delete" arguments="{accreditation : accreditation}">Delete</f:link.action></td>
+            </tr>
+        </f:for>
+    </table>
+
+    <f:link.action action="new">New Accreditation</f:link.action>
+</f:section>
+</html>

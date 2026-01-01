@@ -1,0 +1,45 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:section name="Header">
+<tr>
+    <td valign="top" class="image" align="center" style="padding: 0px 36px; padding-bottom: 20px; color: #222222;text-align: left;">
+      <f:render partial="HeaderLogo" arguments="{_all}" />
+    </td>
+    <td valign="top" class="image" align="center" style="padding: 0px 36px; padding-bottom: 20px; text-align: right;vertical-align: middle;">
+      <h6 style="text-align: right;">Akkreditierungsanfrage</h6>
+      <p class="subtitle">zu {accreditation.event.title} am {accreditation.event.date->f:format.date(format:'%e. %B %Y')}</p>
+    </td>
+</tr>
+<tr>
+    <td valign="top" class="textContent" colspan="2" style="padding: 0px 36px;padding-top: 20px; color: var(--dark);font-family: &quot;IBM Plex Sans&quot;, Helvetica, Arial, Verdana, sans-serif;font-size: 20px;text-align: center;">
+        <strong>Information zu Ihrer Anfrage</strong>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="Content"><tr>
+    <td valign="top" class="textContent" style="padding: 0px 36px;">
+
+        <p>
+          <f:switch expression="{accreditation.guestOutput.gender}">
+            <f:case value="f">Sehr geehrte Frau <f:if condition="{accreditation.title}">{accreditation.guestOutput.title} </f:if>{accreditation.guestOutput.lastName},</f:case>
+            <f:case value="m">Sehr geehrter Herr <f:if condition="{accreditation.title}">{accreditation.guestOutput.title} </f:if>{accreditation.guestOutput.lastName},</f:case>
+            <f:defaultCase>Einen wunderschönen Tag,</f:defaultCase>
+          </f:switch>
+        </p>
+
+        <p>
+          herzlichen Dank für Ihre Akkreditierungsanfrage.
+        </p>
+
+        <p>
+          Wir bedauern es sehr Ihrem Akkreditierungswunsch zu <strong>{accreditation.event.title->f:format.case()}</strong> am <strong>{accreditation.event.date->f:format.date(format:'%e. %B %Y um %k.%M Uhr')}</strong> nicht nachkommen zu können, leider ist unser Pressekartenkontingent bereits erschöpft.
+        </p>
+
+        <p>
+          Sollten wir Ihnen noch offene Fragen beantworten dürfen, so richten Sie diese bitte an <a href="mailto:{settings.company.email}?Subject=Anfrage%20aus%20Akkreditierungsablehnung%20zu%20{accreditation.event.title -> f:format.urlencode()}" target="_blank">{settings.company.email}</a> oder kontaktieren Sie uns unter <a href="tel:{settings.company.phone}" target="_blank">{settings.company.phone}</a>.
+        </p>
+        <f:render partial="Signature" arguments="{_all}" />
+    </td>
+</tr>
+</f:section>
+</html>

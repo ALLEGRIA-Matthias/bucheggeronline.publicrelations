@@ -1,0 +1,122 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+<div class="btn-group">
+  <f:if condition="{accreditation.status}==-2">
+    <f:then>
+        <f:link.action controller="Accreditation" action="approve" arguments="{accreditation:accreditation, noMail:1}" class="btn btn-default btn-sm" additionalAttributes="{data-toggle:'tooltip', data-placement:'top'}" title="Akkreditierung anzeigen/bearbeiten">
+        <span class="t3js-icon icon icon-size-small icon-state-default">
+            <span class="icon-markup">
+                <f:switch expression="{accreditation.type}">
+                <f:case value="0"><svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg></f:case>
+                <f:case value="1"><svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-badge-lanyard"></use></svg></f:case>
+                <f:case value="2"><svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#send"></use></svg></f:case>
+                </f:switch>
+            </span>
+        </span>
+        </f:link.action>
+    </f:then>
+    <f:else>
+        <f:link.action controller="Accreditation" action="edit" arguments="{accreditation:accreditation, noMail:1}" class="btn btn-default btn-sm" additionalAttributes="{data-toggle:'tooltip', data-placement:'top'}" title="Akkreditierung anzeigen/bearbeiten">
+        <span class="t3js-icon icon icon-size-small icon-state-default">
+            <span class="icon-markup">
+                <f:switch expression="{accreditation.type}">
+                <f:case value="0"><svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg></f:case>
+                <f:case value="1"><svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-badge-lanyard"></use></svg></f:case>
+                <f:case value="2"><svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#send"></use></svg></f:case>
+                </f:switch>
+            </span>
+        </span>
+        </f:link.action>
+    </f:else>
+  </f:if>
+  <f:if condition="{accreditation.type} > 0 && {accreditation.type} < 0">
+    <f:else>
+      <be:link.editRecord uid="{accreditation.uid}" table="tx_publicrelations_domain_model_accreditation" fields="tickets_wish" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&action=show&controller=Event&event={accreditation.event.uid}')}" class="btn btn-sm {f:if(condition: accreditation.seats, then: 'btn-success', else: 'btn-default')}" additionalAttributes="{data-toggle:'tooltip', data-placement:'top'}" title="Ticket-Wunsch">
+      <span class="t3js-icon icon icon-size-small icon-state-default">
+        <span class="icon-markup">
+          <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#hand-praying"></use></svg>
+        </span>
+      </span>
+      <span class="toolbar-item-badge badge badge-pill badge-danger">{accreditation.ticketsWish}</span>
+      </be:link.editRecord>
+    </f:else>
+  </f:if>
+  <be:link.editRecord uid="{accreditation.uid}" table="tx_publicrelations_domain_model_accreditation" fields="seats" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&action=show&controller=Event&event={accreditation.event.uid}')}" class="btn btn-sm {f:if(condition: accreditation.seats, then: 'btn-success', else: 'btn-default')}" additionalAttributes="{data-toggle:'tooltip', data-placement:'top'}" title="Sitzplatzinfos bearbeiten">
+  <span class="t3js-icon icon icon-size-small icon-state-default">
+    <span class="icon-markup">
+      <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#flag-triangle"></use></svg>
+    </span>
+  </span>
+  </be:link.editRecord>
+  <be:link.editRecord uid="{accreditation.uid}" table="tx_publicrelations_domain_model_accreditation" fields="tickets" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&action=show&controller=Event&event={accreditation.event.uid}')}" class="btn btn-sm {f:if(condition: accreditation.tickets, then: 'btn-success', else: 'btn-default')}" additionalAttributes="{data-toggle:'tooltip', data-placement:'top'}" title="Ticketlink bearbeiten">
+  <span class="t3js-icon icon icon-size-small icon-state-default">
+    <span class="icon-markup">
+      <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#ticket"></use></svg>
+    </span>
+  </span>
+  </be:link.editRecord>
+  <f:link.action controller="Accreditation" action="mailPreview"
+              arguments="{accreditation:accreditation}" 
+              class="btn btn-default btn-sm" 
+              target="_blank" title="Mail-Vorschau anzeigen">
+    <span class="t3js-icon icon icon-size-small icon-state-default">
+      <span class="icon-markup">
+        <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#eye"></use></svg>
+      </span>
+    </span>
+  </f:link.action>
+  <button class="btn {f:if(condition: '{accreditation.opened}', then: 'btn-success', else: 'btn-danger')} btn-sm {f:if(condition: '{accreditation.type}==2', else: 'btn-default disabled')} js-copy-to-clipboard" data-toggle="tooltip" data-placement="top" title="Link zur Rückmeldung {f:if(condition: accreditation.opened, else: 'noch nicht')} geöffnet" data-copy-value="{f:uri.typolink(parameter: '38', additionalParams:'&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}', absolute: 1)}">
+  <span class="t3js-icon icon icon-size-small icon-state-default">
+    <span class="icon-markup">
+      <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#envelope-full"></use></svg>
+    </span>
+  </span>
+  </button>
+  <a href="mailto:{accreditation.guestOutput.email}" target="_blank" class="btn btn-default {f:if(condition: '{accreditation.guestOutput.email}', else: 'disabled')} btn-sm" data-toggle="tooltip" data-placement="top" title="E-Mail senden">
+  <span class="t3js-icon icon icon-size-small icon-state-default">
+    <span class="icon-markup">
+      <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#email"></use></svg>
+    </span>
+  </span>
+  </a>
+  <a href="tel:{accreditation.guestOutput.phone}" target="_blank" class="btn btn-default {f:if(condition: '{accreditation.guestOutput.phone}', else: 'disabled')} btn-sm" data-toggle="tooltip" data-placement="top" title="Kontakt anrufen">
+  <span class="t3js-icon icon icon-size-small icon-state-default">
+    <span class="icon-markup">
+      <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#phone-old"></use></svg>
+    </span>
+  </span>
+  </a>
+  <a href="tel:{accreditation.guestOutput.mobile}" target="_blank" class="btn btn-default {f:if(condition: '{accreditation.guestOutput.mobile}', else: 'disabled')} btn-sm" data-toggle="tooltip" data-placement="top" title="Kontakt anrufen">
+  <span class="t3js-icon icon icon-size-small icon-state-default">
+    <span class="icon-markup">
+      <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#mobile-phone"></use></svg>
+    </span>
+  </span>
+  </a>
+  <f:if condition="{accreditation.guest}">
+    <f:then>
+      <be:link.editRecord uid="{accreditation.guest.uid}" table="tt_address" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&action=show&controller=Event&event={accreditation.event.uid}')}" class="btn btn-default btn-sm" additionalAttributes="{data-toggle:'tooltip', data-placement:'top'}" title="Kontakt bearbeiten">
+      <span class="t3js-icon icon icon-size-small icon-state-default">
+        <span class="icon-markup">
+          <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-squared"></use></svg>
+        </span>
+      </span>
+      </be:link.editRecord>
+    </f:then>
+    <f:else>
+      <button class="btn btn-default btn-sm disabled" data-toggle="tooltip" data-placement="top" title="Kontakt nicht in Datenbank" onclick="return false;">
+      <span class="t3js-icon icon icon-size-small icon-state-default">
+        <span class="icon-markup">
+          <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-squared"></use></svg>
+        </span>
+      </span>
+      </button>
+    </f:else>
+  </f:if>
+</div>
+
+</html>

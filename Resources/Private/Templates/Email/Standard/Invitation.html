@@ -1,0 +1,63 @@
+<f:layout name="{template}" />
+
+<f:section name="Header">
+<f:if condition="{content}=='invite'">
+  <f:render partial="Email/Invitation/Invitation" section="Header" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='remind'">
+  <f:render partial="Email/Invitation/Reminder" section="Header" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='push'">
+  <f:render partial="Email/Invitation/Pusher" section="Header" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='approve'">
+  <f:render partial="Email/Invitation/Approved" section="Header" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='reject'">
+  <f:render partial="Email/Invitation/Rejected" section="Header" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='pending'">
+  <f:render partial="Email/Invitation/Pending" section="Header" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='waiting'">
+  <f:render partial="Email/Invitation/Waiting" section="Header" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='waitingOK'">
+  <f:render partial="Email/Invitation/WaitingOK" section="Header" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='waitingNO'">
+  <f:render partial="Email/Invitation/WaitingNO" section="Header" arguments="{_all}" />
+</f:if>
+</f:section>
+
+<f:section name="Content">
+<tbody>
+<f:if condition="{content}=='invite'">
+  <f:render partial="Email/Invitation/Invitation" section="Content" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='remind'">
+  <f:render partial="Email/Invitation/Reminder" section="Content" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='push'">
+  <f:render partial="Email/Invitation/Pusher" section="Content" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='approve'">
+  <f:render partial="Email/Invitation/Approved" section="Content" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='reject'">
+  <f:render partial="Email/Invitation/Rejected" section="Content" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='pending'">
+  <f:render partial="Email/Invitation/Pending" section="Content" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='waiting'">
+  <f:render partial="Email/Invitation/Waiting" section="Content" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='waitingOK'">
+  <f:render partial="Email/Invitation/WaitingOK" section="Content" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='waitingNO'">
+  <f:render partial="Email/Invitation/WaitingNO" section="Content" arguments="{_all}" />
+</f:if>
+</tbody>
+</f:section>

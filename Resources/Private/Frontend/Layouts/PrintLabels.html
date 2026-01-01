@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Etiketten Druck</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+        @page {
+            margin: 0;
+            size: A4;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 210mm;
+            height: 297mm;
+            font-family: 'Roboto';
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Roboto Condensed';
+        }
+        .symbol {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 10px; /* Zentriert den Text vertikal im Symbol */
+            color: black; /* Textfarbe */
+            font-size: 0.7rem; /* Textgröße innerhalb des Symbols anpassen */
+        }
+        .kreis {
+            border-radius: 50%; /* Macht das Element rund */
+            background-color: rgb(159, 197, 232); /* Blau für das Programm */
+        }
+        .quadrat {
+            /* Quadrate benötigen keinen border-radius */
+            background-color: #ffcaca; /* Rot für den Fotopass */
+        }
+        .uid {
+            background-color: rgba(0, 0, 0, 1.0);
+            color: white;
+            padding: 0 5px;
+            font-size: 0.6rem;
+        }
+        .facie {
+            background-color: #ffd966;
+            color: black;
+        }
+        .druckbereich {
+            display: flex;
+            flex-wrap: wrap;
+            width: 210mm;
+            height: 297mm;
+            align-content: space-between; /* Gleichmäßiger vertikaler Abstand */
+            box-sizing: border-box;
+        }
+        .etikett {
+            box-sizing: border-box;
+            width: 70mm;
+            height: 36mm;
+            margin-right: 0mm; /* Entfernt horizontalen Abstand */
+            margin-bottom: 0mm; /* Entfernt vertikalen Abstand */
+            padding: 5mm;
+            flex: 0 0 auto; /* Verhindert, dass Etiketten gestreckt werden */
+        }
+        .etikett:nth-child(3n) {
+            margin-right: 0; /* Stellt sicher, dass kein rechter Rand vorhanden ist */
+        }
+        @media print {
+            .etikett {
+                page-break-inside: avoid;
+            }
+            .druckbereich {
+                align-content: space-between; /* Stellt den gleichmäßigen vertikalen Abstand sicher */
+            }
+            /* Stellt sicher, dass alles außer .druckbereich ausgeblendet wird */
+            body * {
+                visibility: hidden;
+            }
+            .druckbereich, .druckbereich * {
+                visibility: visible;
+            }
+            .druckbereich {
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+            }
+        }
+    </style>
+    
+    
+</head>
+<body>
+
+    <f:render section="content" />
+
+    <script>
+        function druckeEtiketten() {
+            var druckInhalt = $(.'druckbereich').innerHTML;
+            var druckFenster = window.open('', '_blank', 'width=800,height=600');
+            druckFenster.document.write('<html><head><title>Druckvorschau</title>');
+            // Füge hier notwendiges CSS hinzu
+            druckFenster.document.write('</head><body >');
+            druckFenster.document.write(druckInhalt);
+            druckFenster.document.write('</body></html>');
+            druckFenster.document.close();
+            druckFenster.print();
+        }
+    </script>
+</body>
+</html>
+      

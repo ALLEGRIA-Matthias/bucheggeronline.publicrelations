@@ -1,0 +1,42 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:section name="Header">
+<tr>
+    <td valign="top" class="image" align="center" style="padding: 0px 36px; padding-bottom: 20px; color: #222222;text-align: left;">
+      <f:render partial="HeaderLogo" arguments="{_all}" />
+    </td>
+    <td valign="top" class="image" align="center" style="padding: 0px 36px; padding-bottom: 20px; text-align: right;vertical-align: middle;">
+      <h6 style="text-align: right;">Neue Rückmeldung</h6>
+      <p class="subtitle">zu {accreditation.event.title} am {accreditation.event.date->f:format.date(format:'%e. %B %Y')}</p>
+    </td>
+</tr>
+<tr>
+    <td valign="top" class="textContent" colspan="2" style="padding: 0px 36px;padding-top: 20px; color: var(--dark);font-family: &quot;IBM Plex Sans&quot;, Helvetica, Arial, Verdana, sans-serif;font-size: 20px;text-align: center;">
+        <strong>Neue Rückmeldung auf der Warteliste</strong>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="Content"><tr>
+    <td valign="top" class="textContent" style="padding: 0px 36px;">
+
+        <p>
+          Liebes Team,
+        </p>
+
+        <p>
+          es wurde eine neue Rückmeldung über allegria.at zu <strong>{accreditation.event.title->f:format.case()} am <f:if condition="{accreditation.event.dateFulltime}"><f:then>{accreditation.event.date->f:format.date(format:'%e. %B %Y')}</f:then><f:else>{accreditation.event.date->f:format.date(format:'%e. %B %Y um %k.%M Uhr')}</f:else></f:if></strong> übermittelt und auf die Warteliste gelegt.
+        </p>
+
+        <p>
+          <strong>Bitte um Prüfung im <a href="https://www.allegria.at/typo3" target="_blank">Akkreditierungstool</a>.</strong>
+        </p>
+
+        <p>
+          Mit freundlichen Grüßen,<br/>
+          der Chef vom Dienst ;)
+        </p>
+
+    </td>
+</tr>
+</f:section>
+</html>

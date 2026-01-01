@@ -1,0 +1,40 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+<f:section name="content">
+<div class="container my-5">
+  <div class="row">
+
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <div class="col-12 mb-4 text-uppercase text-center text-md-left"><h1 class="h2"><svg class="icon me-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#briefcase-alt"></use></svg>Unsere Referenzen</h1></div>
+    <f:for each="{clients -> v:iterator.sort(sortBy: 'sortName')}" as="client">
+      <div class="col-12 col-md-6 mb-3 clickable" onclick="location.href='{f:uri.action(extensionName:'Publicrelations', pluginName:'ClientShow', controller:'Client', action:'show', arguments:'{client:client}', pageUid:'39')}';">
+        <div class="row g-0 bg-white border rounded h-100">
+          <div class="col-12 col-md-4 col-lg-3 col-xl-2 my-auto">
+            <f:if condition="{client.logo}"><f:image image="{client.logo}" height="120c" width="120c" class="img-fluid rounded" alt="{client.shortName}"/></f:if>
+          </div>
+          <div class="col-12 col-md-8 col-lg-9 col-xl-10 my-auto">
+            <div class="card-block p-3">
+              <h5 class="card-title text-truncate">{client.SHORTNAME}</h5>
+              <p class="card-text text-truncate small">
+                <f:if condition="{client.shortinfo}"><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#circle-info"></use></svg> {client.shortinfo}<br/></f:if>
+                <f:comment><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#filter"></use></svg> <f:for each="{client.types}" as="type" iteration="i"><f:if condition="!{i.isFirst}">, </f:if>{type.title}</f:for><br/></f:comment>
+                <f:if condition="{client.since}"><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#history"></use></svg> Kunde<f:if condition="!{client.archive} && !{client.until}"> seit</f:if> {client.since->f:format.date(format:'%Y')}<f:if condition="{client.until} && ({client.since->f:format.date(format:'%Y')}!={client.until->f:format.date(format:'%Y')})">-{client.until->f:format.date(format:'%Y')}</f:if></f:if>
+                <f:comment><span><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#{f:if(condition:'{client.activities->f:count()}>1', then:'tags', else:'tag')}"></use></svg></span> <span style="overflow: auto; white-space: normal; margin-left: 20px; display: block;"><f:for each="{client.activities}" as="activity" iteration="ai"><f:if condition="!{ai.isFirst}">, </f:if>{activity.title}</f:for></span></f:comment>
+              </p>
+              <p class="mb-0">
+                <f:for each="{client.activities}" as="activity" iteration="ai"><span class="badge bg-light text-dark me-1"><svg class="icon icon-sm me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#tag"></use></svg>{activity.title}</span></f:for>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </f:for>
+
+  </div>
+</div>
+</f:section>
+</html>

@@ -1,0 +1,352 @@
+<f:asset.css
+    identifier="pressecenter-myaccreditations-style"
+    href="EXT:publicrelations/Resources/Public/Css/Pressecenter/myAccreditations.css" />
+
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+    <h1 class="d-flex justify-content-between align-items-baseline">
+        <span>Gäste zu {event.title}</span>
+        <span class="h5">[ID: {event.uid}]</span>
+    </h1>
+
+    <div id="accreditations-container" data-event-uid="{event.uid}">
+
+        <div class="row mb-4">
+            <div class="col-md-6 col-lg-3 d-none d-md-block mb-md-2 mb-lg-0 d-print-block">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-center mb-2">Eventdaten</h5>
+                        <div class="d-flex align-items-center mb-2 small">
+                            <i class="fas fa-calendar fa-fw me-2 text-primary"></i>
+                            <div>
+                                <f:format.date format="d.m.Y H:i">{event.date}</f:format.date> Uhr
+                            </div>
+                        </div>
+
+                        <f:if condition="{event.location}">
+                            <div class="d-flex align-items-start mb-2 small">
+                                <i class="fas fa-map-marker-alt fa-fw me-2 text-primary"></i>
+                                <div>
+                                    {event.location.name}
+                                    <br />
+                                    <small class="text-muted">
+                                        {event.location.street}, {event.location.zip} {event.location.city}
+                                    </small>
+                                </div>
+                            </div>
+                        </f:if>
+
+                        <f:if condition="{event.ticketsQuota} > 0">
+                            <div class="d-flex align-items-center small">
+                                <i class="fas fa-users fa-fw me-2 text-primary"></i>
+                                <div>
+                                    Kapazität: {event.ticketsQuota}
+                                </div>
+                            </div>
+                        </f:if>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-2 mb-lg-0 d-print-block">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Status</h5>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div style="position: relative;" class="chart-area">
+                                <canvas id="accreditation-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 d-print-block">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Gäste / Tickets</h5>
+                        <p class="card-text fs-md-3 fs-5" id="stats-guests-tickets">...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 d-none d-md-block d-print-block">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Angezeigte Gäste</h5>
+                        <p class="card-text fs-md-3 fs-5" id="stats-filtered">...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="d-flex d-print-none flex-column flex-md-row justify-content-between mb-4">
+                    <div id="status-filter-wrapper" class="d-none me-md-3 mb-2 mb-md-0">
+                        <select class="form-select" id="accreditation-status-filter">
+                            <option value="accredited" selected>akkreditiert</option>
+                            <option value="pending">ausstehend</option>
+                            <option value="reject">abgesagt</option>
+                            <option value="all">Alle anzeigen</option>
+                        </select>
+                        <label class="form-label select-label">Filter</label>
+                    </div>
+
+                    <div class="form-outline flex-grow-1 mb-2 mb-md-0" data-mdb-input-init>
+                        <input type="text" id="accreditation-search-input" class="form-control" />
+                        <label class="form-label" for="accreditation-search-input">Akkreditierungen durchsuchen...</label>
+                    </div>
+                    
+                    <button class="btn btn-primary shadow-0 ms-md-3 text-nowrap d-none" id="create-new-accreditation-button">
+                        <i class="fas fa-plus me-2"></i>Neue Akkreditierung
+                    </button>
+                </div>
+                <div id="datatable-accreditations" class="mt-4"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="accreditationModal" tabindex="-1" aria-labelledby="accreditationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accreditationModalLabel">Akkreditierung bearbeiten</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="accreditation-guest-info" class="d-flex justify-content-between align-items-center alert alert-info mb-4">
+                        <div id="info-guest-details">
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div id="info-status-badge" class="me-3"></div>
+                            <div id="info-ticket-count"></div>
+                        </div>
+                    </div>
+                    
+                    <form id="accreditation-form">
+                        <input type="hidden" name="uid">
+                        
+                        <div class="row gy-4 mb-4">
+                            <div class="col-md-6">
+                                <select class="form-select" name="status" data-mdb-select-init>
+                                    <option value="0">Ausstehend</option>
+                                    <option value="1">Zugesagt</option>
+                                    <option value="-1">Abgesagt</option>
+                                </select>
+                                <label class="form-label select-label">Status</label>
+                            </div>
+
+                            <div class="col-md-6" id="edit-acc-tickets-wish-wrapper">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input type="number" name="tickets_wish" class="form-control" min="1" />
+                                    <label class="form-label">Gewünschte Tickets</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" id="edit-acc-tickets-approved-wrapper">
+                                <div class="form-outline" data-mdb-input-init>
+                                    <input type="number" name="tickets_approved" class="form-control" min="0" />
+                                    <label class="form-label">Bestätigte Tickets</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-outline mb-4" data-mdb-input-init>
+                            <textarea class="form-control" name="notes" rows="3"></textarea>
+                            <label class="form-label">Interne Notizen</label>
+                        </div>
+
+                        <div class="form-outline mb-4" data-mdb-input-init>
+                            <textarea class="form-control" name="seats" rows="3"></textarea>
+                            <label class="form-label">Platzierung</label>
+                        </div>
+
+                        <div id="confirmation-checkbox-wrapper" class="form-check mt-4 d-none">
+                            <input class="form-check-input" type="checkbox" value="1" name="send_confirmation" id="sendConfirmationCheck" />
+                            <label class="form-check-label" for="sendConfirmationCheck">
+                                Bestätigungsmail nach dem Speichern senden?
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Abbrechen</button>
+                    <button type="button" id="save-accreditation-button" class="btn btn-primary">Speichern</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="createAccreditationModal" tabindex="-1" aria-labelledby="createAccreditationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl"> <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createAccreditationModalLabel">Neue Akkreditierung erstellen (Schritt 1/2: Kontakt)</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <div class="modal-body">
+
+                    <div id="create-acc-step-1">
+                        <form id="create-contact-form">
+                            <h6 class="mb-3">Name</h6>
+                            <div class="row mb-4">
+                                <div class="col-md-4">
+                                    <select id="create-contact-gender" name="gender" class="form-select" data-mdb-select-init>
+                                        <option value="f">Frau</option>
+                                        <option value="m">Herr</option>
+                                        <option value="v">Divers</option>
+                                    </select>
+                                    <label class="form-label select-label" for="create-contact-gender">Anrede</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-outline" data-mdb-input-init>
+                                        <input type="text" id="create-contact-title" name="title" class="form-control" />
+                                        <label class="form-label" for="create-contact-title">Titel</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-outline" data-mdb-input-init>
+                                        <input type="text" id="create-contact-title_suffix" name="title_suffix" class="form-control" />
+                                        <label class="form-label" for="create-contact-title_suffix">Titel (nachgestellt)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-4">
+                                    <div class="form-outline" data-mdb-input-init>
+                                        <input type="text" id="create-contact-first_name" name="first_name" class="form-control" />
+                                        <label class="form-label" for="create-contact-first_name">Vorname</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-outline" data-mdb-input-init>
+                                        <input type="text" id="create-contact-middle_name" name="middle_name" class="form-control" />
+                                        <label class="form-label" for="create-contact-middle_name">Zweiter Vorname</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-outline" data-mdb-input-init>
+                                        <input type="text" id="create-contact-last_name" name="last_name" class="form-control" />
+                                        <label class="form-label" for="create-contact-last_name">Nachname</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <h6 class="mb-3">Firma</h6>
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="form-outline" data-mdb-input-init>
+                                        <input type="text" id="create-contact-company" name="company" class="form-control" />
+                                        <label class="form-label" for="create-contact-company">Firma</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-outline" data-mdb-input-init>
+                                        <input type="text" id="create-contact-position" name="position" class="form-control" />
+                                        <label class="form-label" for="create-contact-position">Position</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <hr class="my-4">
+
+                            <h6 class="mb-3">Kontaktdaten</h6>
+                            <div class="row mb-4">
+                                <div class="col-md-4">
+                                    <div class="form-outline" data-mdb-input-init>
+                                        <input type="email" id="create-contact-email" name="email" class="form-control" />
+                                        <label class="form-label" for="create-contact-email">E-Mail</L>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-outline" data-mdb-input-init>
+                                        <input type="tel" id="create-contact-phone" name="phone" class="form-control" />
+                                        <label class="form-label" for="create-contact-phone">Telefon</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-outline" data-mdb-input-init>
+                                        <input type="tel" id="create-contact-mobile" name="mobile" class="form-control" />
+                                        <label class="form-label" for="create-contact-mobile">Mobil</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div id="create-duplicate-check-area" class="mt-4 border-top pt-3 d-none">
+                            <h6>Mögliche Duplikate gefunden:</h6>
+                            <div id="create-duplicate-list" class="mb-3" style="max-height: 200px; overflow-y: auto;"></div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" id="create-confirm-no-duplicate" />
+                                <label class="form-check-label" for="create-confirm-no-duplicate">
+                                    Ich habe die Liste geprüft und bestätige, dass dies kein Duplikat ist und der Kontakt neu angelegt werden soll.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="create-acc-step-2" class="d-none">     
+                        <form id="create-accreditation-form">
+                            <div class="row gy-4 mb-4">
+                                <div class="col-md-6">
+                                    <select class="form-select" name="status" data-mdb-select-init>
+                                        <option value="0" selected>Ausstehend</option>
+                                        <option value="1">Zugesagt</option>
+                                        <option value="-1">Abgesagt</option>
+                                    </select>
+                                    <label class="form-label select-label">Status</label>
+                                </div>
+
+                                <div class="col-md-6" id="create-acc-tickets-wish-wrapper">
+                                    <div class="form-outline" data-mdb-input-init>
+                                        <input type="number" name="tickets_wish" class="form-control" min="1" value="2" />
+                                        <label class="form-label">Gewünschte Tickets</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 d-none" id="create-acc-tickets-approved-wrapper">
+                                    <div class="form-outline" data-mdb-input-init>
+                                        <input type="number" name="tickets_approved" class="form-control" value="0" min="0" />
+                                        <label class="form-label">Bestätigte Tickets</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-outline mb-4" data-mdb-input-init>
+                                <textarea class="form-control" name="notes" rows="3"></textarea>
+                                <label class="form-label">Interne Notizen</label>
+                            </div>
+
+                            <div class="form-outline mb-4" data-mdb-input-init>
+                                <textarea class="form-control" name="seats" rows="3"></textarea>
+                                <label class="form-label">Platzierung</label>
+                            </div>
+
+                            <div id="create-confirmation-checkbox-wrapper" class="form-check mt-4">
+                                <input class="form-check-input" type="checkbox" value="1" name="send_invitation" id="sendInvitationCheck" checked />
+                                <label class="form-check-label" for="sendInvitationCheck">
+                                    Einladung direkt nach dem Speichern versenden?
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Abbrechen</button>
+                    <button typeD="button" id="create-acc-next-button" class="btn btn-primary">Weiter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container" class="toast-container position-fixed bottom-0 start-0 p-3"></div>
+
+    <f:asset.script
+        identifier="pressecenter-myaccreditations"
+        src="EXT:publicrelations/Resources/Public/JavaScript/Pressecenter/myAccreditations.js"
+        type="module"
+        position="footer" />
+</html>

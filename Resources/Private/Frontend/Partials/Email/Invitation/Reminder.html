@@ -1,0 +1,41 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:section name="Header">
+<tr>
+    <td valign="top" class="image" align="center" style="padding: 0px 36px; padding-bottom: 20px; color: #222222;text-align: left;">
+      <f:render partial="HeaderLogo" arguments="{_all}" />
+    </td>
+    <td valign="top" class="image" align="center" style="padding: 0px 36px; padding-bottom: 20px; text-align: right;vertical-align: middle;">
+      <h6 style="text-align: right;">Erinnerung zur Einladung</h6>
+    </td>
+</tr>
+<tr>
+    <td valign="top" class="textContent" colspan="2" style="padding: 0px 36px;padding-top: 20px; color: var(--dark);font-family: &quot;IBM Plex Sans&quot;, Helvetica, Arial, Verdana, sans-serif;font-size: 20px;text-align: center;">
+      <f:render partial="LogoInHeader" arguments="{_all}" />
+      <strong>{accreditation.event.title}</strong>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="Content">
+<tr>
+    <td valign="top" class="textContent" style="padding: 0px 36px;">
+
+        <p>
+          <f:render partial="Invitation/Salutation" arguments="{accreditation:accreditation, personallyAllowed:personallyAllowed}" />
+        </p>
+
+        <p>
+          wir möchten <f:if condition="{accreditation.guest.personally}"><f:then>dich </f:then><f:else>Sie </f:else></f:if>an die persönliche Einladung im Namen unseres Kunden <strong>{accreditation.event.client.name}</strong>, stattfindend am <strong><f:if condition="{accreditation.event.dateFulltime}"><f:then>{accreditation.event.date->f:format.date(format:'%d.%m.%Y')}</f:then><f:else>{accreditation.event.date->f:format.date(format:'%d.%m.%Y um %k.%M Uhr')}</f:else></f:if></strong>, erinnern und bitten um kurze Rückmeldung mittels unten stehendem Link.
+        </p>
+
+        <f:render partial="Invitation/EventOverview" arguments="{accreditation:accreditation, event:accreditation.event}" />
+
+        <f:render partial="Invitation/Link" arguments="{_all}" />
+
+        <f:render partial="Invitation/Questions" arguments="{_all}" />
+
+        <f:if condition="!{accreditation.invitationType.altTemplate}"><f:render partial="Signature" arguments="{_all}" /></f:if>
+    </td>
+</tr>
+</f:section>
+</html>

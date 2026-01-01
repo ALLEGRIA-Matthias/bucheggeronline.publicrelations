@@ -1,0 +1,193 @@
+imports:
+    - { resource: "EXT:rte_ckeditor/Configuration/RTE/Editor/Base.yaml" }
+    - { resource: "EXT:rte_ckeditor/Configuration/RTE/Editor/Plugins.yaml" }
+
+editor:
+
+  config:
+    contentsCss: 
+      - 'EXT:publicrelations/Resources/Public/Css/email.css'
+
+    allowedContent: true
+
+    toolbar:
+      items:
+        - style
+        - heading
+        # grouping separator
+        - '|'
+        - bold
+        - italic
+        - subscript
+        - superscript
+        - softhyphen
+        - '|'
+        - bulletedList
+        - numberedList
+        - blockQuote
+        - alignment
+        - '|'
+        - findAndReplace
+        - link
+        - '|'
+        - removeFormat
+        - undo
+        - redo
+        - '|'
+        - insertTable
+        - '|'
+        - specialCharacters
+        - horizontalLine
+        - sourceEditing
+
+    style:
+      definitions:
+        - { name: "Small", element: "small" }
+        - { name: "Nowrap", element: "span", styles: ['white-space: nowrap;'] }
+
+    alignment:
+      options:
+        - { name: 'left', text-align: 'left' }
+        - { name: 'center', text-align: 'center' }
+        - { name: 'right', text-align: 'right' }
+        - { name: 'justify', text-align: 'justify' }
+
+    stylesSet:
+      - { name: "h1-style",
+          element: "h1",
+          styles: { 
+              font-family: "'Quicksand', sans-serif",
+              font-weight: "800",
+              font-size: "1.6rem",
+              line-height: "1.2",
+              text-transform: "uppercase",
+              color: "#EFB72E"
+          }
+        }
+      - { name: "h2-style",
+          element: "h2",
+          styles: { 
+              font-family: "'Quicksand', sans-serif",
+              font-weight: "800",
+              font-size: "1.4rem",
+              line-height: "1.2",
+              color: "#EFB72E"
+          }
+        }
+      - { name: "h3-style",
+          element: "h3",
+          styles: { 
+              font-family: "'Quicksand', sans-serif",
+              font-weight: "800",
+              font-size: "1.2rem",
+              line-height: "1.2",
+              color: "#EFB72E"
+          }
+        }
+      - { name: "h4-style",
+          element: "h4",
+          styles: { 
+              font-family: "'Quicksand', sans-serif",
+              font-weight: "800",
+              font-size: "1.2rem",
+              line-height: "1.2",
+              color: "#030305"
+          }
+        }
+      - { name: "h5-style",
+          element: "h5",
+          styles: { 
+              font-family: "'Quicksand', sans-serif",
+              font-weight: "800",
+              font-size: "1rem",
+              line-height: "1.2",
+              text-decoration: "underline",
+              color: "#030305"
+          }
+        }
+      - { name: "h6-style",
+          element: "h6",
+          styles: { 
+              font-family: "'Quicksand', sans-serif",
+              font-weight: "800",
+              font-size: "0.9rem",
+              line-height: "1.2",
+              text-decoration: "underline",
+              color: "#030305"
+          }
+        }
+
+      # Textstile
+      - { name: "Text: small", element: "small" }
+      - { name: "Text: Mark", element: "mark" }
+      - { name: "Text: Del", element: "del" }
+      - { name: "Text: Ins", element: "ins" }
+      - { name: "Text: Code", element: "code" }
+      - { name: "Text: Primary", element: "span", attributes: { 'class': 'text-primary' } }
+      - { name: "Text: Secondary", element: "span", attributes: { 'class': 'text-secondary' } }
+      - { name: "Text: Success", element: "span", attributes: { 'class': 'text-success' } }
+      - { name: "Text: Danger", element: "span", attributes: { 'class': 'text-danger' } }
+      - { name: "Text: Warning", element: "span", attributes: { 'class': 'text-warning' } }
+      - { name: "Text: Info", element: "span", attributes: { 'class': 'text-info' } }
+      - { name: "Text: Light", element: "span", attributes: { 'class': 'text-light' } }
+      - { name: "Text: Dark", element: "span", attributes: { 'class': 'text-dark' } }
+      - { name: "Address", element: "address" }
+      - { name: "Text: Zitat", element: "blockquote" ,attributes: { 'class': 'blockquote' }}
+      - { name: "Text: Zitat center", element: "blockquote" ,attributes: { 'class': 'blockquote text-center' }}
+      - { name: "Text: Zitat right", element: "blockquote" ,attributes: { 'class': 'blockquote text-right' }}
+
+      - { name: "Lowercase", element: "p", attributes: { 'style': 'text-transform: lowercase;' } }
+      - { name: "Uppercase", element: "p", attributes: { 'style': 'text-transform: uppercase;' } }
+      - { name: "Capitalize", element: "p", attributes: { 'style': 'text-transform: capitalize;' } }
+
+      - { name: "Color: Primary", element: ['h2', 'h3', 'h4', 'h5', 'p', 'td', 'th', 'div'], attributes: { 'class': 'text-primary' } }
+      - { name: "Color: Secondary", element: ['h2', 'h3', 'h4', 'h5', 'p', 'td', 'th', 'div'], attributes: { 'class': 'text-secondary' } }
+      - { name: "Color: Success", element: ['h2', 'h3', 'h4', 'h5', 'p', 'td', 'th', 'div'], attributes: { 'class': 'text-success' } }
+      - { name: "Color: Danger", element: ['h2', 'h3', 'h4', 'h5', 'p', 'td', 'th', 'div'], attributes: { 'class': 'text-danger' } }
+      - { name: "Color: Warning", element: ['h2', 'h3', 'h4', 'h5', 'p', 'td', 'th', 'div'], attributes: { 'class': 'text-warning' } }
+      - { name: "Color: Info", element: ['h2', 'h3', 'h4', 'h5', 'p', 'td', 'th', 'div'], attributes: { 'class': 'text-info' } }
+      - { name: "Color: Light", element: ['h2', 'h3', 'h4', 'h5', 'p', 'td', 'th', 'div'], attributes: { 'class': 'text-light' } }
+      - { name: "Color: Dark", element: ['h2', 'h3', 'h4', 'h5', 'p', 'td', 'th', 'div'], attributes: { 'class': 'text-dark' } }
+
+
+    format_tags: "p;h1;h2;h3;h4;h5;h6;pre;div"
+
+    toolbarGroups:
+      - { name: clipboard, groups: [clipboard, undo] }
+      - { name: editing,   groups: [find, selection, spellchecker] }
+      - { name: links }
+      - { name: insert }
+      - { name: tools }
+      - { name: table }
+      - { name: tabletools }
+      - { name: document,  groups: [ mode, document, doctools ] }
+      - { name: others }
+      - "/"
+      - { name: basicstyles, groups: [ basicstyles, cleanup ] }
+      - { name: paragraph,   groups: [ list, indent, blocks, align, showborders ] }
+      - "/"
+      - { name: styles }
+      - { name: colors }
+
+    extraPlugins:
+      - justify
+      - find
+      - copyformatting
+      - specialchar
+      - showblocks
+      - colorbutton
+      - colordialog
+      - font
+
+    removePlugins:
+
+    removeButtons:
+      - Anchor
+
+    forcePasteAsPlainText: true
+
+    processing:
+      mode: default
+      
+      ## allowed default attributes
+      allowAttributes: [style, class, id, title, dir, lang, xml:lang, itemscope, itemtype, itemprop]

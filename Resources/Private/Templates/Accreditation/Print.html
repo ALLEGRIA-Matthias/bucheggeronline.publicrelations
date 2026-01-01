@@ -1,0 +1,81 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="MailerPreviewOld" />
+
+<f:section name="buttons">
+<a href="#" class="btn btn-sm btn-default" onclick="window.print();return false;"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#print"></use></svg>Jetzt drucken</a>
+<a href="javascript:close_window();" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#times"></use></svg>Fenster schließen</a>
+</f:section>
+
+<f:section name="shortcuts">
+  <f:link.action action="print" controller="Accreditation" arguments="{accreditation:accreditation, content:content}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="Header">
+<tbody>
+<f:if condition="{content}=='invite'">
+  <f:render partial="Email/Invitation/Invitation" section="Header" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='remind'">
+  <f:render partial="Email/Invitation/Reminder" section="Header" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='push'">
+  <f:render partial="Email/Invitation/Pusher" section="Header" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='approve'">
+  <f:render partial="Email/Invitation/Approved" section="Header" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='reject'">
+  <f:render partial="Email/Invitation/Rejected" section="Header" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='waiting'">
+  <f:render partial="Email/Invitation/Waiting" section="Header" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='waitingOK'">
+  <f:render partial="Email/Invitation/WaitingOK" section="Header" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='waitingNO'">
+  <f:render partial="Email/Invitation/WaitingNO" section="Header" arguments="{_all}" />
+</f:if>
+</tbody>
+</f:section>
+
+<f:section name="Content">
+<tbody>
+<f:if condition="{content}=='invite'">
+  <f:render partial="Email/Invitation/Invitation" section="Content" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='remind'">
+  <f:render partial="Email/Invitation/Reminder" section="Content" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='push'">
+  <f:render partial="Email/Invitation/Pusher" section="Content" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='approve'">
+  <f:render partial="Email/Invitation/Approved" section="Content" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='reject'">
+  <f:render partial="Email/Invitation/Rejected" section="Content" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='waiting'">
+  <f:render partial="Email/Invitation/Waiting" section="Content" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='waitingOK'">
+  <f:render partial="Email/Invitation/WaitingOK" section="Content" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='waitingNO'">
+  <f:render partial="Email/Invitation/WaitingNO" section="Content" arguments="{_all}" />
+</f:if>
+</tbody>
+</f:section>
+
+<f:section name="Footer">
+  <f:render partial="Email/FooterStandard" arguments="{_all}" />
+</f:section>
+
+</html>

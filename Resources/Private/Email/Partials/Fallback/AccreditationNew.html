@@ -1,0 +1,578 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+  xmlns:acdist="http://typo3.org/ns/Allegria/AcDistribution/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+    <f:switch expression="{content}">
+        <f:case value="approve">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-top: 0; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                    <p>herzlichen Dank für Ihre {f:if(condition:'{accreditation.type}==1', then:'Akkreditierungsanfrage', else: 'Zusage')}.</p>
+                    <p style="font-weight: 800;">Wir freuen uns Sie <f:if condition="{accreditation.ticketsApproved}>1"> und Ihre Begleitung</f:if> am <strong>{accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}</strong> begrüßen zu dürfen.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+
+            <f:if condition="{accreditation.type}==1 && {accreditation.ticketsApproved}!={accreditation.ticketsWish}">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #FFFFFF; background-color: #EFB72E">
+                    <p style="text-align: center;"><span style="font-size: 1.4rem; line-height: 1.2; text-transform: uppercase; font-weight: 800;">Hinweis zur Ticketanpassung</span></p>
+                    <p>Bitte beachten Sie, dass die akkreditierte Ticketanzahl nicht ihrem ursprünglichen Wunsch entspricht. Bei Rückfragen können Sie sich gerne an uns unter <a href="mailto:office@allegria.at?Subject=Anfrage%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank" style="color: #030305;">office@allegria.at</a> wenden.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+            </f:if>
+
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="pressmaterial" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+            <f:render section="questions" arguments="{_all}" />
+            <f:render partial="Fallback/SignatureNew" />
+        </f:case>
+        <f:case value="pending">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 15px 40px; padding-top: 0; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                    <p>Kontingentüberschreitung bei <strong>{accreditation.event.title} am {accreditation.event.date->f:format.date(format:'d.m.y')}</strong>.<br>
+                    <strong>{accreditation.guestOutput.fullName}</strong> ist soeben auf die Warteliste gerutscht!</p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-top: 0; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                    <p style="margin: 0;">
+                        Einen wunderbaren Tag wünscht<br>
+                        <strong>Euer Allegria Server</strong>
+                    </p>
+                </td>
+            </tr>
+        </f:case>
+        <f:case value="waiting">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 15px 40px; padding-top: 0; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                    <p>das Interesse an der Veranstaltung ist unglaublich hoch, was nun allerdings dazu führt, dass unser Kontingent vollends erschöpft ist.</p>
+                    <h2 style="margin-top: 0px; margin-bottom: 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 1.4rem; text-transform: uppercase; color: #EFB72E; text-align: center;">Auf der Warteliste</h2>
+                    <p>Keine Angst, wir kümmern uns gerade darum Ihnen den Besuch nach Wunsch zu ermöglichen, können dies allerdings nicht versprechen.</p>
+                    <p>Geben Sie uns bitte etwas Zeit um den Sachverhalt zu klären, wir melden uns schnellstmöglich.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+            <f:render partial="Fallback/SignatureNew" />
+        </f:case>
+        <f:case value="reject_after_waiting">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 15px 40px; padding-top: 0; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                    <p>es tut uns fürchterlich leid, aber <strong>wir können Ihren Besuch zu "{accreditation.event.title}" am {accreditation.event.date->f:format.date(format:'d.m.Y')} leider nicht ermöglichen</strong>. Sämtliche Kontingente sind vollends ausgeschöpft, das Interesse an der Veranstaltung ist unglaublich hoch – dafür sind wir sehr dankbar.</p>
+                    <p>Wir hoffen Sie bei einer der nächsten Veranstaltungen wieder begrüßen zu dürfen und wünschen noch einen angenehmen Tag.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+
+            <f:render partial="Fallback/SignatureNew" />
+        </f:case>
+        <f:case value="approve_after_waiting">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-top: 0; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                    <p>herzlichen Dank für's Warten – es hat sich gelohnt.</p>
+                    <p style="font-weight: 800;">Wir freuen uns Sie <f:if condition="{accreditation.ticketsApproved}>1"> und Ihre Begleitung</f:if> am <strong>{accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}</strong> begrüßen zu dürfen.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="pressmaterial" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+            <f:render section="questions" arguments="{_all}" />
+            <f:render partial="Fallback/SignatureNew" />
+        </f:case>
+        <f:case value="reject">
+            <f:switch expression="{accreditation.type}">
+                <f:case value="1">
+                    <!-- 1 Column Text : BEGIN -->
+                    <tr>
+                        <td style="padding: 15px 40px; padding-top: 0; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                            <p>wir bedauern es sehr heute eine Absage zu Ihrer Akkreditierungsanfrage übermitteln zu müssen. <strong>Leider sind die Presse-Kontingente vollends aufgebraucht</strong> und wir können den Besuch von <strong>{accreditation.event.title}</strong> nicht ermöglichen.</p>
+                            <p>Wir hoffen Sie bei einer der nächsten Veranstaltungen wieder begrüßen zu können.</p>
+                        </td>
+                    </tr>
+                    <!-- 1 Column Text : END -->
+                </f:case>
+                <f:case value="2">
+                    <!-- 1 Column Text : BEGIN -->
+                    <tr>
+                        <td style="padding: 15px 40px; padding-top: 0; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                            <p>wir danken Ihnen für Ihre, wenn auch negative, Rückmeldung zur persönlichen Einladung. <strong>Schade, dass es diesmal nicht klappt.</strong></p>
+                            <p>Wir hoffen Sie bei einer der nächsten Veranstaltungen wieder begrüßen zu dürfen.</p>
+                        </td>
+                    </tr>
+                    <!-- 1 Column Text : END -->
+                </f:case>
+                <f:defaultCase>
+                    <!-- 1 Column Text : BEGIN -->
+                    <tr>
+                        <td style="padding: 15px 40px; padding-top: 0; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                            <p>wir haben Ihre Absage zu <strong>{accreditation.event.title}</strong> erhalten. <strong>Schade, dass es diesmal nicht klappt.</strong></p>
+                            <p>Wir hoffen Sie bei einer der nächsten Veranstaltungen wieder begrüßen zu dürfen.</p>
+                        </td>
+                    </tr>
+                    <!-- 1 Column Text : END -->
+                </f:defaultCase>
+            </f:switch>
+
+            <f:render partial="Fallback/SignatureNew" />
+        </f:case>
+        <f:case value="sent">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-top: 0; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                    <p>Ihre Akkreditierungsanfrage zu <strong>{accreditation.event.title}</strong> am <strong>{accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')} um {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}</strong> wurde an uns übermittelt und ist aktuell in Prüfung. Wir bemühen uns Ihrem Wunsch von {accreditation.ticketsWish} {f:if(condition:'{accreditation.ticketsWish}>1', then:'Tickets', else:'Ticket')} gerecht zu werden und geben Ihnen dazu schnellstmöglich eine Rückmeldung.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 0 40px; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                    <f:if condition="{accreditation.guestType}==2">
+                        <f:if condition="{accreditation.event.campaign}">
+                        <f:then>
+                            <f:if condition="{accreditation.event.campaign.mediagroups}">
+                            <p style="text-align: center;">
+                                <strong>Pressematerial zur Veranstaltung</strong> finden Sie <acdist:absoluteLink parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={accreditation.event.campaign.uid}">HIER</acdist:absoluteLink>
+                            </p>
+                            </f:if>
+                        </f:then>
+                        <f:else>
+                            <f:if condition="{accreditation.event.client.mediagroups}">
+                            <p style="text-align: center;">
+                                <strong>Pressematerial zur Veranstaltung</strong> finden Sie <acdist:absoluteLink parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={accreditation.event.client.uid}">HIER</acdist:absoluteLink>
+                            </p>
+                            </f:if>
+                        </f:else>
+                        </f:if>
+                    </f:if>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-bottom: 0; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                    <p style="margin-top:20px">Sollten wir Ihnen noch offene Fragen beantworten dürfen, so richten Sie diese bitte an <a href="mailto:office@allegria.at?Subject=Anfrage%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank">office@allegria.at</a> oder kontaktieren Sie uns unter <a href="tel:004314790260" target="_blank">+43 1 / 479 02 60</a>.</p>
+                    <p>Wir würden uns freuen ein Belegexemplar Ihrer Rezension via Email an office@allegria.at zu bekommen.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+
+            <f:render partial="Fallback/SignatureNew" />
+        </f:case>
+        <f:case value="pendingAccreditation">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-top: 0; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                    <p>es wurde eine neue Akkreditierungsanfrage zu <strong>{accreditation.event.title}</strong> am <strong>{accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')} um {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}</strong> übermittelt.</p>
+                    <hr style="margin: 30px auto;">
+                    <h2 style="text-align: center; font-size: 1.6rem; color:#EFB72E;">Akkreditierungsdaten</h2>
+                    <table cellpadding="5px" width="100%">
+                        <tbody>
+                          <tr>
+                            <th width="130px" align="left">Medium</th>
+                            <td>{accreditation.medium}</td>
+                          </tr>
+                          <tr style="background-color: #eeeeee;">
+                            <th align="left">Redakteur*in</th>
+                            <td>{accreditation.guestOutput.firstName} {accreditation.guestOutput.lastName}</td>
+                          </tr>
+                          <tr>
+                            <th align="left">Kontaktdaten</th>
+                            <td><a href="mailto:{accreditation.guestOutput.email}" target="_blank">{accreditation.guestOutput.email}</a> | <a href="tel:{accreditation.guestOutput.phone}" target="_blank">{accreditation.guestOutput.phone}</a></td>
+                          </tr>
+                          <tr style="background-color: #eeeeee;">
+                            <th align="left">Tickets</th>
+                            <td>{accreditation.ticketsWish} Tix</td>
+                          </tr>
+                          <tr>
+                            <th align="left">Termin</th>
+                            <td>{accreditation.event.title}</td>
+                          </tr>
+                          <tr style="background-color: #eeeeee;">
+                            <th align="left">Datum</th>
+                            <td>{accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')} um {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}</td>
+                          </tr>
+                          <tr>
+                            <th align="left">Location</th>
+                            <td>{accreditation.event.location.name}</td>
+                          </tr>
+                        </tbody>
+                    </table>
+              
+                    <f:if condition="{accreditation.requestNote}">
+                        <hr style="margin: 30px auto;">
+                        <h2 style="text-align: center; font-size: 1.4rem; color:#EFB72E;">Anmerkung</h2>
+                        <p>{accreditation.requestNote->f:format.nl2br()}</p>
+                    </f:if>
+              
+                    <hr style="margin: 30px auto;"/>
+              
+                    <f:if condition="{accreditation.event.ticketsQuota} && {accreditation.event.ticketsAvailable}<{accreditation.ticketsWish}">
+                        <hr style="margin: 30px auto;">
+                        <h2 style="text-align: center; font-size: 1.4rem; color:#ef2e2e;">VORSICHT!</h2>
+                        <p>Bitte beachte, dass das eingegebene Kartenkontingent zum Termin bereits erschöpft ist.</p>
+                    </f:if>
+              
+                    <p>
+                    Die Akkreditierung kann im Akkreditierungstool geprüft werden oder <acdist:absoluteLink parameter="16" additionalParams="&tx_publicrelations_presscenteroverview[controller]=Accreditation&tx_publicrelations_presscenteroverview[action]=expressApprove&tx_publicrelations_presscenteroverview[accreditation]={accreditation.uid}">HIER</acdist:absoluteLink> direkt freigegeben werden.
+                    </p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+        </f:case>
+        <f:case value="invite">
+            <f:render partial="Fallback/ContentsNew" arguments="{contents:accreditation.invitationType.contents, accreditation:accreditation, guestOutput:guestOutput}" />
+            <f:if condition="!{accreditation.invitationType.noSignature}"><f:render partial="Fallback/SignatureNew" /></f:if>
+        </f:case>
+        <f:case value="remind">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-top: 0; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                    <p style="text-align: left; margin-bottom: 0;">heutzutage werden wir von Nachrichten überflutet, da ist Ihnen sicherlich entgangen, dass Sie zu</p>
+                    <p style="font-size: 1.4rem; text-align: center; margin: 5px 0;"><strong style="text-align: center;">{accreditation.event.title}</strong></p>
+                    <p style="text-align: left; margin-top: 0;">eingeladen wurden. Vielleicht hatten Sie aber auch noch keine Zeit die Verfügbarkeit zum Termin zu klären.</p>
+                    <h2 style="text-align: center; font-size: 1.6rem; color:#EFB72E;">Ihre persönliche Erinnerung!</h2>
+                    <p>Wir möchten Sie in jedem Fall an die persönliche Einladung erinnern und würden uns sehr freuen Sie am <strong>{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'day')}, den {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {content.event.date->f:format.date(format:'%Y')}</strong> begrüßen zu dürfen – <strong>wir starten um {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}</strong>.</p>
+                    <p style="text-align: center; text-decoration: underline; font-weight: bold;">Eine Rückmeldung ist ganz einfach mittels Link möglich.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+            
+            <f:if condition="{accreditation.invitationType.society}">
+                <f:render section="facies" arguments="{_all}" />
+            </f:if>
+
+            <!-- 1 Column Text : BEGIN -->
+			<tr>
+				<td style="padding: 40px; text-align: center; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; line-height: 1.4; color: #FFFFFF; background-color: #030305">
+					<p style="margin-top: 0; margin-bottom: 30px;">
+						<img src="https://www.allegria.at/fileadmin/marketing/allegria/calendar.png"><br>
+						<span style="font-size: 1.4rem; line-height: 1.2; text-transform: uppercase; font-weight: 800;">{accreditation.event.title}</span>
+					</p>
+					<p>
+						<strong style="font-size: 1rem;">Wir bitten um Rückmeldung zur Einladung via folgendem Link.</strong><br>
+						Bitte beachten Sie, dass Ihre Plätze erst nach Ihrer Rückmeldung fix reserviert werden und die verfügbaren Tickets limitiert sind – „first come, first serve“.
+					</p>
+					<table cellspacing="0" cellpadding="0" border="0" width="100%">
+						<tr>
+						<td width="50%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+							<tr>
+								<td style="padding-top: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/allegria/time.png" alt="alt_text" border="0" class="fluid"></td>
+							</tr>
+							<tr>
+								<td style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.4; color: #FFFFFF; padding: 0 10px 10px; text-align: center;" class="center-on-narrow">
+								<p style="margin-top: 0; margin-bottom: 20px;"><strong style="font-size: 1rem;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}</strong><br>
+								um {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}</p></td>
+						  	</tr>
+                        </table></td>
+						<td width="50%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+							<tr>
+								<td style="padding-top: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/allegria/location.png" alt="alt_text" border="0" class="fluid"></td>
+							</tr>
+							<tr>
+								<td style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.4; color: #FFFFFF; padding: 0 10px 10px; text-align: center;" class="center-on-narrow">
+								<p style="margin-top: 0; margin-bottom: 20px;"><strong style="font-size: 1rem;">{accreditation.event.location.name}</strong><br>
+                                    <f:if condition="{accreditation.event.location.street}">{accreditation.event.location.street}<br></f:if>
+                                    <f:if condition="{accreditation.event.location.zip}">{accreditation.event.location.zip} </f:if><f:if condition="{accreditation.event.location.city}">{accreditation.event.location.city}</f:if>
+                                </p>
+                                </td>
+						  	</tr>
+                        </table></td>
+					    </tr>
+                    </table>
+
+                    <!-- Button : Begin -->
+                    <table cellspacing="0" cellpadding="0" border="0" class="center-on-narrow" align="center" style="margin: auto;">
+                        <tr>
+                            <td style="border-radius: 3px; background: #EFB72E; text-align: center;" class="button-td"><acdist:absoluteLink parameter="38" additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}" additionalAttributes="{style:'background: #EFB72E; border: 15px solid #EFB72E; padding: 0;color: #030305; font-family: \'IBM Plex Sans\', sans-serif; font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; display: block; border-radius: 5px; font-weight: bold; text-transform: uppercase;'}" class="button-a">
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                            </acdist:absoluteLink></td>
+                        </tr>
+                    </table>
+                    <!-- Button : END -->
+
+                    <f:if condition="{accreditation.guestType} == 2">
+                        <hr style="color: #EFB72E; margin: 30px 0;"/>
+                        <p>
+                            <span style="color: #EFB72E; font-size: 1.4rem; line-height: 1.2; text-transform: uppercase; font-weight: 800;">Redaktionelle Berichterstattung</span>
+                        </p>
+                        <p>Wir möchten uns bei Ihnen bereits über die redaktionelle Berichterstattung bedanken. Schon vorhandenes Pressematerial finden Sie natürlich online unter folgendem Link.</p>
+                        <p>
+                            <f:if condition="{accreditation.event.campaign}">
+                                <f:then>
+                                    <f:if condition="{accreditation.event.campaign.mediagroups}">Druckfähige Fotos zu <acdist:absoluteLink parameter="39#pressematerial" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={accreditation.event.campaign.uid}" target="_blank" additionalAttributes="{style:'color: #FFFFFF; text-transform: uppercase;'}">{accreditation.event.campaign.title}.</acdist:absoluteLink><br/></f:if>
+                                    <f:if condition="{accreditation.event.client.mediagroups}">Weitere druckfähige Fotos <acdist:absoluteLink parameter="39#pressematerial" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={accreditation.event.client.uid}" target="_blank" additionalAttributes="{style:'color: #FFFFFF; text-transform: uppercase;'}">zum Kunden</acdist:absoluteLink></f:if>
+                                </f:then>
+                                <f:else>
+                                    <f:if condition="{accreditation.event.client.mediagroups}">Druckfähige Fotos finden Sie auf der <acdist:absoluteLink parameter="39#pressematerial" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={accreditation.event.client.uid}" target="_blank" additionalAttributes="{style:'color: #FFFFFF; text-transform: uppercase;'}">Kundenseite</acdist:absoluteLink></f:if>
+                                </f:else>
+                            </f:if>
+                        </p>
+                    </f:if>
+					
+				</td>
+			</tr>
+			<!-- 1 Column Text : END -->
+
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-bottom: 15px; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                    <p style="text-align: left; margin-bottom: 0;">Herzlichen Dank für Ihre Rückmeldung. Wir wünschen noch einen wunderbaren Tag.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+
+            <f:render partial="Fallback/SignatureNew" />
+        </f:case>
+        <f:case value="push">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-top: 0; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                    <p style="text-align: left; margin-bottom: 0;">wir hoffen Sie nun persönlich zu erreichen und bitten final um Rückmeldung zu Ihrer Einladung zu</p>
+                    <p style="font-size: 1.4rem; text-align: center; margin: 5px 0;"><strong style="text-align: center;">{accreditation.event.title}</strong></p>
+                    <p style="text-align: left; margin-top: 0;">Wahrscheinlich ist Ihnen die persönliche Einladung entgangen, oder Sie konnten noch nicht final klären ob ein Besuch zu möglich ist.</p>
+                    <h2 style="text-align: center; font-size: 1.6rem; color:#EFB72E;">Ihre finale Erinnerung!</h2>
+                    <p>Wir möchten Sie final an Ihre persönliche Einladung erinnern und würden uns sehr freuen Sie am <strong>{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'day')}, den {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {content.event.date->f:format.date(format:'%Y')}</strong> begrüßen zu dürfen – <strong>wir starten um {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}</strong>.</p>
+                    <p style="text-align: center; text-decoration: underline; font-weight: bold;">Eine Rückmeldung ist ganz einfach mittels Link möglich.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+            
+            <f:if condition="{accreditation.invitationType.society}">
+                <f:render section="facies" arguments="{_all}" />
+            </f:if>
+
+            <!-- 1 Column Text : BEGIN -->
+			<tr>
+				<td style="padding: 40px; text-align: center; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; line-height: 1.4; color: #FFFFFF; background-color: #030305">
+					<p style="margin-top: 0; margin-bottom: 30px;">
+						<img src="https://www.allegria.at/fileadmin/marketing/allegria/calendar.png"><br>
+						<span style="font-size: 1.4rem; line-height: 1.2; text-transform: uppercase; font-weight: 800;">{accreditation.event.title}</span>
+					</p>
+					<p>
+						<strong style="font-size: 1rem;">Wir bitten um Rückmeldung zur Einladung via folgendem Link.</strong><br>
+						Bitte beachten Sie, dass Ihre Plätze erst nach Ihrer Rückmeldung fix reserviert werden und die verfügbaren Tickets limitiert sind – „first come, first serve“.
+					</p>
+					<table cellspacing="0" cellpadding="0" border="0" width="100%">
+						<tr>
+						<td width="50%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+							<tr>
+								<td style="padding-top: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/allegria/time.png" alt="alt_text" border="0" class="fluid"></td>
+							</tr>
+							<tr>
+								<td style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.4; color: #FFFFFF; padding: 0 10px 10px; text-align: center;" class="center-on-narrow">
+								<p style="margin-top: 0; margin-bottom: 20px;"><strong style="font-size: 1rem;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}</strong><br>
+								um {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}</p></td>
+						  	</tr>
+                        </table></td>
+						<td width="50%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+							<tr>
+								<td style="padding-top: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/allegria/location.png" alt="alt_text" border="0" class="fluid"></td>
+							</tr>
+							<tr>
+								<td style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.4; color: #FFFFFF; padding: 0 10px 10px; text-align: center;" class="center-on-narrow">
+								<p style="margin-top: 0; margin-bottom: 20px;"><strong style="font-size: 1rem;">{accreditation.event.location.name}</strong><br>
+                                    <f:if condition="{accreditation.event.location.street}">{accreditation.event.location.street}<br></f:if>
+                                    <f:if condition="{accreditation.event.location.zip}">{accreditation.event.location.zip} </f:if><f:if condition="{accreditation.event.location.city}">{accreditation.event.location.city}</f:if>
+                                </p>
+                                </td>
+						  	</tr>
+                        </table></td>
+					    </tr>
+                    </table>
+
+                    <!-- Button : Begin -->
+                    <table cellspacing="0" cellpadding="0" border="0" class="center-on-narrow" align="center" style="margin: auto;">
+                        <tr>
+                            <td style="border-radius: 3px; background: #EFB72E; text-align: center;" class="button-td"><acdist:absoluteLink parameter="38" additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}" additionalAttributes="{style:'background: #EFB72E; border: 15px solid #EFB72E; padding: 0;color: #030305; font-family: \'IBM Plex Sans\', sans-serif; font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; display: block; border-radius: 5px; font-weight: bold; text-transform: uppercase;'}" class="button-a">
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                            </acdist:absoluteLink></td>
+                        </tr>
+                    </table>
+                    <!-- Button : END -->
+
+                    <f:if condition="{accreditation.guestType} == 2">
+                        <hr style="color: #EFB72E; margin: 30px 0;"/>
+                        <p>
+                            <span style="color: #EFB72E; font-size: 1.4rem; line-height: 1.2; text-transform: uppercase; font-weight: 800;">Redaktionelle Berichterstattung</span>
+                        </p>
+                        <p>Wir möchten uns bei Ihnen bereits über die redaktionelle Berichterstattung bedanken. Schon vorhandenes Pressematerial finden Sie natürlich online unter folgendem Link.</p>
+                        <p>
+                            <f:if condition="{accreditation.event.campaign}">
+                                <f:then>
+                                    <f:if condition="{accreditation.event.campaign.mediagroups}">Druckfähige Fotos zu <acdist:absoluteLink parameter="39#pressematerial" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={accreditation.event.campaign.uid}" target="_blank" additionalAttributes="{style:'color: #FFFFFF; text-transform: uppercase;'}">{accreditation.event.campaign.title}.</acdist:absoluteLink><br/></f:if>
+                                    <f:if condition="{accreditation.event.client.mediagroups}">Weitere druckfähige Fotos <acdist:absoluteLink parameter="39#pressematerial" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={accreditation.event.client.uid}" target="_blank" additionalAttributes="{style:'color: #FFFFFF; text-transform: uppercase;'}">zum Kunden</acdist:absoluteLink></f:if>
+                                </f:then>
+                                <f:else>
+                                    <f:if condition="{accreditation.event.client.mediagroups}">Druckfähige Fotos finden Sie auf der <acdist:absoluteLink parameter="39#pressematerial" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={accreditation.event.client.uid}" target="_blank" additionalAttributes="{style:'color: #FFFFFF; text-transform: uppercase;'}">Kundenseite</acdist:absoluteLink></f:if>
+                                </f:else>
+                            </f:if>
+                        </p>
+                    </f:if>
+					
+				</td>
+			</tr>
+			<!-- 1 Column Text : END -->
+
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-bottom: 15px; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                    <p style="text-align: left; margin-bottom: 0;">Herzlichen Dank für Ihre Rückmeldung. Wir wünschen noch einen wunderbaren Tag.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+
+            <f:render partial="Fallback/SignatureNew" />
+        </f:case>
+    </f:switch>
+
+    <f:section name="ticket">
+        <!-- 1 Column Text : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; line-height: 1.4; color: #FFFFFF; background-color: #030305">
+                <p style="margin-top: 0; margin-bottom: 30px;">
+                    <img src="https://www.allegria.at/fileadmin/marketing/allegria/accreditation_primary.png"><br>
+                    <span style="font-size: 1.4rem; line-height: 1.2; text-transform: uppercase; font-weight: 800;">{f:if(condition:'{accreditation.type}==1', then:'Ihre Akkreditierung', else: 'Ihre Reservierungsdaten')}</span>
+                </p>
+                <div style="background: #EFB72E; border: 3px solid white; border-radius: 15px; padding: 15px; text-align: center; margin-bottom: 30px;">
+                    <p style="margin: 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 1.2rem; color: #030305; font-weight: 700;">{accreditation.guestOutput.fullName}</p>
+                    <p style="margin-top: 0; color: #191919; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+                    <p style="margin: 0; margin-top: 10px; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.65rem; color: #000000;"><span style="font-size: 0.8rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong></span><br>Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr gesendet.</p>
+                </div>
+                <p style="margin-top: 30px; margin-bottom: 30px;">
+                    <img src="https://www.allegria.at/fileadmin/marketing/allegria/calendar.png"><br>
+                    <span style="font-size: 1.4rem; line-height: 1.2; text-transform: uppercase; font-weight: 800;">{accreditation.event.title}</span>
+                </p>
+                
+                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                    <td width="50%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td style="padding-top: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/allegria/time.png" alt="alt_text" border="0" class="fluid"></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.4; color: #FFFFFF; padding: 0 10px 10px; text-align: center;" class="center-on-narrow">
+                            <p style="margin-top: 0; margin-bottom: 20px;"><strong style="font-size: 1rem;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}</strong><br>
+                            um {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}</p></td>
+                        </tr>
+                    </table></td>
+                    <td width="50%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td style="padding-top: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/allegria/location.png" alt="alt_text" border="0" class="fluid"></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.4; color: #FFFFFF; padding: 0 10px 10px; text-align: center;" class="center-on-narrow">
+                            <p style="margin-top: 0; margin-bottom: 20px;"><strong style="font-size: 1rem;">{accreditation.event.location.name}</strong><br>
+                                <f:if condition="{accreditation.event.location.street}">{accreditation.event.location.street}<br></f:if>
+                                <f:if condition="{accreditation.event.location.zip}">{accreditation.event.location.zip} </f:if><f:if condition="{accreditation.event.location.city}">{accreditation.event.location.city}</f:if>
+                            </p>
+                            </td>
+                        </tr>
+                    </table></td>
+                    </tr>
+                </table>					
+            </td>
+        </tr>
+        <!-- 1 Column Text : END -->
+    </f:section>
+
+    <f:section name="pressmaterial">
+        <f:if condition="{accreditation.guestType}==2">
+        <!-- 1 Column Text : BEGIN -->
+        <tr>
+            <td style="padding: 40px; padding-bottom: 15px; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                    <f:if condition="{accreditation.event.campaign}">
+                    <f:then>
+                        <f:if condition="{accreditation.event.campaign.mediagroups}">
+                        <p style="text-align: center;">
+                            <strong>Pressematerial zur Veranstaltung</strong> finden Sie <acdist:absoluteLink parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={accreditation.event.campaign.uid}">HIER</acdist:absoluteLink>
+                        </p>
+                        </f:if>
+                    </f:then>
+                    <f:else>
+                        <f:if condition="{accreditation.event.client.mediagroups}">
+                        <p style="text-align: center;">
+                            <strong>Pressematerial zur Veranstaltung</strong> finden Sie <acdist:absoluteLink parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={accreditation.event.client.uid}">HIER</acdist:absoluteLink>
+                        </p>
+                        </f:if>
+                    </f:else>
+                    </f:if>
+                    <p>Wir würden uns freuen ein Belegexemplar Ihrer Rezension via Email an office@allegria.at zu bekommen.</p>
+            </td>
+        </tr>
+        <!-- 1 Column Text : END -->
+        </f:if>
+    </f:section>
+
+    <f:section name="sick">
+        <!-- 1 Column Feedback : BEGIN -->
+        <tr>
+            <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: 'IBM Plex Sans', sans-serif;">
+                <h2 style="margin-top: 0px; margin-bottom: 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 1.4rem; text-transform: uppercase;">Krank oder verhindert?</h2>
+                <p style="margin: 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.75rem;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider Erwarten nicht zur Veranstaltung kommen können.</p>
+                <p style="margin: 27px 0px 0px 0px"><a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank" style="font-family: 'IBM Plex Sans', sans-serif; background: #030305; padding: 7px 14px; color: #EFB72E; font-weight: 500; text-decoration: none;">Email senden</a></p>
+                <hr style="margin: 30px 0 0 0;">
+            </td>
+        </tr>
+        <!-- 1 Column Feedback : END -->
+    </f:section>
+
+    <f:section name="questions">
+        <!-- 1 Column Text : BEGIN -->
+        <tr>
+            <td style="padding: 40px; padding-bottom: 0; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305; background-color: #FFFFFF">
+                <p style="margin-top:20px">Sollten wir Ihnen noch offene Fragen beantworten dürfen, so richten Sie diese bitte an <a href="mailto:office@allegria.at?Subject=Anfrage%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank">office@allegria.at</a> oder kontaktieren Sie uns unter <a href="tel:004314790260" target="_blank">+43 1 / 479 02 60</a>.</p>
+                <p>Wir würden uns freuen ein Belegexemplar Ihrer Rezension via Email an office@allegria.at zu bekommen.</p>
+            </td>
+        </tr>
+        <!-- 1 Column Text : END -->
+    </f:section>
+
+    <f:section name="facies">
+        <f:if condition="{accreditation.event.facies}">
+        <!-- 1 Column Text : BEGIN -->
+        <tr>
+            <td style="padding: 40px; color: #FFFFFF; background-color: #030305; text-align: center; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; font-weight: 500; line-height: 1.4;">
+                <p style="margin-top: 0;">
+                    <img src="https://www.allegria.at/fileadmin/marketing/allegria/star.png"><br>
+                    <span style="font-size: 1.4rem; line-height: 1.2; text-transform: uppercase; font-weight: 800;">Prominente Gäste</span>
+                </p>
+                <p>
+                    <strong>Folgende Promis sind aktuell für den {content.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{content.event.date}', type:'month')} {content.event.date->f:format.date(format:'%Y')} angemeldet:</strong>
+                </p>
+                <p>
+
+                    <f:if condition="{accreditation.event.facies}">
+                        <f:then>
+                            <ul style="list-style: none; padding: 0;">
+                                <f:for each="{accreditation.event.facies -> v:iterator.sort(sortBy: 'guestOutput.lastName')}" as="facie">
+                                <li>{facie.guestOutput.fullName}</li>
+                                </f:for>
+                            </ul>
+                        </f:then>
+                        <f:else>
+                            Aktuell haben noch keine Promis fix zugesagt.
+                        </f:else>
+                    </f:if>
+                </p>
+
+            </td>
+        </tr>
+        <!-- 1 Column Text : END -->
+        </f:if>
+    </f:section>
+</html>

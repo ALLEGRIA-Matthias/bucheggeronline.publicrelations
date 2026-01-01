@@ -1,0 +1,70 @@
+<!-- A4-Blatt: Presseinfo -->
+<div class="bg-white shadow p-din position-relative" style="min-height: 1000px;" id="press-sheet">
+
+    <!-- Kopfzeile -->
+    <div class="row align-items-center mb-4">
+      <div class="col-md-3">
+        <f:image src="typo3conf/ext/allegria_communications/Resources/Public/Images/Allegria-Logo2024.svg" alt="Allegria Communications GmbH" class="img-fluid" style="max-width:150px" />
+      </div>
+      <div class="col text-end">
+        <p class="small my-0">
+          <span class="h5 text-uppercase fw-bold">Presseinformation</span><br/>
+          vom {news.date -> f:format.date(format: '%e. %B %Y')}
+        </p>
+      </div>
+    </div>
+
+    <f:render section="retentionInfo" arguments="{_all}" />
+  
+    <!-- Infozeile mit Logo, Titel, Kampagne -->
+    <div class="d-flex align-items-center border-bottom pb-3 mb-4">
+      <f:image image="{news.client.logo}" maxWidth="80" class="d-none d-md-block me-3 img-fluid" alt="{news.client.name}" title="{news.client.name}" />
+      <div class="flex-grow-1">
+        <span class="small text-muted">{news.client.name}<f:if condition="{news.campaign}"> • {news.campaign.title}</f:if></span><br/>
+        <h4 class="mb-0">{news.title}</h4>
+      </div>
+    </div>
+
+    <f:render section="retentionInfo" arguments="{_all}" />
+  
+    <!-- Haupttext -->
+    <div class="mb-5">
+      <f:format.html>{news.text}</f:format.html>
+    </div>  
+
+    <f:render section="retentionInfo" arguments="{_all}" />
+  </div>
+  
+  <!-- Schwarzer Footer in voller Breite -->
+  <div class="bg-dark text-white p-4 small mt-0 w-100">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-4 mb-3 mb-md-0">
+          <strong>Allegria Communications GmbH</strong><br/>
+          Peter-Jordan-Straße 21/4<br/>
+          A-1190 Wien
+        </div>
+        <div class="col-md-4 text-center mb-3 mb-md-0">
+          <f:image src="typo3conf/ext/allegria_communications/Resources/Public/Images/Allegria_Logo_white.png" alt="Allegria Communications GmbH" style="max-width: 120px; height: auto;" />
+        </div>
+        <div class="col-md-4 text-md-end">
+          <strong>tel</strong> +43 1 / 479 02 60<br/>
+          <strong>mail</strong> office@allegria.at<br/>
+          <strong>web</strong> www.allegria.at
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <f:section name="retentionInfo">
+    <!-- Optional: Sperrfrist -->
+    <f:if condition="{news.retentionDate} && {news.retentionDate -> f:format.date(format:'YmdHi')} > {f:format.date(date:'now', format:'YmdHi')}">
+        <div class="alert alert-danger">
+        <strong>Sperrfrist:</strong> {news.retentionDate -> f:format.date(format:'%e. %B %Y um %H.%M Uhr')}<br/>
+        <f:if condition="{news.retentionInfo}">
+            <small>{news.retentionInfo -> f:format.nl2br()}</small>
+        </f:if>
+        </div>
+    </f:if>
+  </f:section>

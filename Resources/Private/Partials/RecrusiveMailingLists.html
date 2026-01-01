@@ -1,0 +1,16 @@
+<f:for each="{lists}" as="list" iteration="li">
+    <tr style="background-color: var(--secondary); margin-left: {level}em;">
+        <td width="30px">
+            <f:form.checkbox property="mailingLists.{list.uid}" value="1" data="{toggle: 'receiverToggle'}" />
+        </td>
+        <td>
+            <f:if condition="{list.client}">
+                <strong>{list.client.shortName}</strong> - 
+            </f:if>
+            {list.title}
+        </td>
+    </tr>
+    <f:if condition="{list.childs}">
+        <f:render partial="Mailing/RecursiveMailingLists" arguments="{lists: list.childs, level: level + 1}" />
+    </f:if>
+</f:for>

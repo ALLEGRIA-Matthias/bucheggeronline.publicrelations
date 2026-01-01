@@ -1,0 +1,343 @@
+<f:section name="preview">
+    <!-- Visually Hidden Preheader Text : BEGIN -->
+    <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">
+    <f:switch expression="{content}">
+        <f:case value="invitation">Die letzten Tage von POMPEJI – die neue immersive Ausstellung in Wien. Ihre persönliche Einladung zur Eröffnung.</f:case>
+        <f:case value="remind">Nicht verpassen: Die letzten Tage von POMPEJI – die neue immersive Ausstellung in Wien. Ihre persönliche Einladung zur Eröffnung.</f:case>
+        <f:case value="push">Letzte Chance: Die letzten Tage von POMPEJI – die neue immersive Ausstellung in Wien. Ihre persönliche Einladung zur Eröffnung.</f:case>
+        <f:case value="approve">Wie schön, dass wir Sie demnächst in der neuen immersiven Ausstellung "Die letzten Tage von POMPEJI" begrüßen dürfen.</f:case>
+        <f:case value="reject">Schade, dass es nicht klappt. Alegria Exhibition würde sich über einen baldigen Besuch freuen.</f:case>
+    </f:switch>
+    </div>
+    <!-- Visually Hidden Preheader Text : END --> 
+</f:section>
+
+<f:section name="content">
+    <f:switch expression="{content}">
+        <f:defaultCase>
+            <f:render section="header" />
+            <f:render section="invitation" arguments="{_all}" />
+            <f:render section="showinfo" />
+            <f:render section="logos" />
+            <f:render section="footer" />
+        </f:defaultCase>
+        <f:case value="approve">
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="showinfo" />
+            <f:render section="sick" />
+            <f:render section="logos" />
+            <f:render section="footer" />
+        </f:case>
+        <f:case value="reject">
+            <f:render section="header" />
+            <!-- Absagetext -->
+            <tr>
+                <td style="text-align: center; font-family: arial, helvetica, sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: black; font-weight: 300; padding: 40px;">
+                    <h2>Danke für Ihre Rückmeldung!</h2>
+                    <p style="">
+                        <strong>Alegria Exhibition</strong> bedankt sich für Ihre Rückmeldung.<br>
+                        Wir hoffen auf ein Wiedersehen bei einer der nächsten Veranstaltungen.
+                    </p>
+
+                    <!-- Button : Begin -->
+                    <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                        <tr>
+                            <td style="border-radius: 0.1rem; background: #000; text-align: center;" class="button-td"><a href="https://www.pompeji-experience.com" target="_blank" style="background: #000; border: 7px solid #000; padding: 0 10px; color: #ffffff; font-family: sans-serif;font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; border-radius: 0.1rem; font-weight: bold;" class="button-a"> 
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Zur Website<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                            </a></td>
+                        </tr>
+                    </table>
+                    <!-- Button : END -->
+                </td>
+            </tr>
+            <f:render section="logos" />
+            <f:render section="footer" />
+        </f:case>
+        <f:case value="waiting">
+            <f:render section="header" />
+            <!-- Wartetext -->
+            <tr>
+                <td style="text-align: center; font-family: sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: black; font-weight: 300; padding: 0;">
+                    <h2>Danke vielmals für das große Interesse!</h2>
+                    <div style="width: 100%; padding: 0 0 40px 0;">
+                        <p style="margin-top: 0; padding: 0 40px; font-size: 1rem;"><strong>{accreditation.event.client.shortName}</strong> bedankt sich für die unglaublich großartige Nachfrage.</p>
+                        <p style="padding: 0 40px; font-size: 1.2rem; color: black; font-weight: 700;">Sämtliche Timeslots sind aktuell komplett erschöpft.</p>
+                        <p style="padding: 0 40px; font-size: 1rem;">Leider können wir erst <strong>bis spätestens {f:format.date(format:'j. M. Y', date:'{accreditation.event.date->f:format.date(format:\'d-m-Y\')} -2 days')}</strong> eine konkrete Rückmeldung geben, ob wir Ihrem Wunsch nachkommen können.</p>
+                        <p style="padding: 0 40px; font-size: 1rem; margin-bottom: 0;">Wir bedanken uns für Ihr Verständnis und melden uns asap.</p>
+
+                        <!-- Button : Begin -->
+                        <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                            <tr><td><p>&nbsp;</p></td></tr>
+                            <tr>
+                                <td style="border-radius: 0.1rem; background: #000; text-align: center;" class="button-td"><a href="https://www.pompeji-experience.com" target="_blank" style="background: #000; border: 7px solid #000; padding: 0 10px; color: #ffffff; font-family: sans-serif;font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; border-radius: 0.1rem; font-weight: bold;" class="button-a"> 
+                                <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Zur Website<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                                </a></td>
+                            </tr>
+                        </table>
+                        <!-- Button : END -->
+                    </div>
+                </td>
+            </tr>
+            <f:render section="logos" />
+            <f:render section="footer" />
+        </f:case>
+        <f:case value="pending">
+            <f:render section="header" arguments="{_all}" />
+            <!-- Wartetext intern -->
+            <tr>
+                <td style="text-align: center; font-family: sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: black; font-weight: 300; padding: 0;">
+                    <div style="width: 100%; padding: 0 0 40px 0;">
+                        <h2>Neu auf der Warteliste!</h2>
+                        <p style="margin-top: 0; padding: 0 40px; font-size: 1.4rem;"><strong>{accreditation.guestOutput.fullName}</strong></p>
+                    </div>
+                </td>
+            </tr>
+        </f:case>
+        <f:case value="waitingOK">
+            <f:render section="header" arguments="{_all}" />
+            <!-- Zusage möglich -->
+            <tr>
+                <td style="text-align: center; font-family: sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: black; font-weight: 300; padding: 0;">
+                    <div style="width: 100%; padding: 0 0 10px 0;">
+                        <h2 style="margin-bottom: 0;">Tolle Neuigkeiten!</h2>
+                        <p style="margin-top: 0; font-size: 1rem;">Danke für die Geduld. Wir können Ihren Besuch ermöglichen!</p>
+                    </div>
+                </td>
+            </tr>
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="showinfo" />
+            <f:render section="sick" />
+            <f:render section="logos" />
+            <f:render section="footer" />
+        </f:case>
+        <f:case value="waitingNO">
+            <f:render section="header" arguments="{_all}" />
+            <!-- Absagetext -->
+            <tr>
+                <td style="text-align: center; font-family: sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: black; font-weight: 300; padding: 0;">
+                    <div style="padding: 40px; padding-top: 0;">
+                        <h2 style="margin-bottom: 0;">Es tut uns wahnsinnig leid!</h2>
+                        <p style="font-size: 1rem;">Wir sind von der ernormen Nachfrage überwältigt!<br><strong>Danke für Ihr Interesse.</strong></p>
+                        <p style="font-size: 1rem;">Umso schwerer fällt es uns Ihnen sagen zu müssen, dass wir keine Kapazitäten mehr freischaufeln konnten.</p>
+                        <p style="font-size: 1rem;">Wir hoffen auf ein Wiedersehen bei einer der nächsten Veranstaltungen.</p>
+
+                        <!-- Button : Begin -->
+                        <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                            <tr><td><p>&nbsp;</p></td></tr>
+                            <tr>
+                                <td style="border-radius: 0.1rem; background: #000; text-align: center;" class="button-td"><a href="https://www.pompeji-experience.com" target="_blank" style="background: #000; border: 7px solid #000; padding: 0 10px; color: #ffffff; font-family: sans-serif;font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; border-radius: 0.1rem; font-weight: bold;" class="button-a"> 
+                                <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Zur Website<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                                </a></td>
+                            </tr>
+                        </table>
+                        <!-- Button : END -->
+                    </div>
+                </td>
+            </tr>
+            <f:render section="logos" />
+            <f:render section="footer" />
+        </f:case>
+    </f:switch>
+</f:section>
+
+<f:section name="header">
+<!-- Pompeji Logo : BEGIN -->
+<tr>
+    <td class="full-width-image">
+        <img src="https://www.allegria.at/fileadmin/marketing/alegria-exhibition/pompeji-header.png" width="600" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;">
+    </td>
+</tr>
+<!-- Pompeji Logo : END --> 
+</f:section>
+
+<f:section name="invitation">
+<f:switch expression="{accreditation.event.uid}">
+    <f:case value="3932"><f:variable name="invitationSubtitle"><br><small>zur Eröffnungsfeier</small></f:variable></f:case>
+    <f:case value="3934"><f:variable name="invitationSubtitle"><br><small>zur exklusiven Führung</small></f:variable></f:case>
+    <f:case value="3933"><f:variable name="invitationSubtitle"><br><small>zur Presseführung</small></f:variable></f:case>
+</f:switch>
+<f:switch expression="{content}">
+    <f:case value="invitation"><f:variable name="headline">Persönliche Einladung{invitationSubtitle}</f:variable></f:case>
+    <f:case value="remind"><f:variable name="headline"><strong>Erinnerung</strong><br>zur persönlichen Einladung{invitationSubtitle}</f:variable></f:case>
+    <f:case value="push"><f:variable name="headline"><strong>Finale Erinnerung</strong><br>zur persönlichen Einladung{invitationSubtitle}</f:variable></f:case>
+</f:switch>
+<!-- Kasterl weiss : BEGIN -->
+<tr>
+    <td>
+        <table width="75%" style="background-color: #fff; border-radius: 10px; text-align: center;" >
+            <tr>
+                <td>
+                    <p style="font-family: Inter, sans-serif; font-size: 1rem; margin-top: 30px; margin-bottom: 7px;">
+                        <span style="font-size: 1.3rem;">{headline->f:format.raw()}</span>
+                    </p>
+                    <p style="font-family: Inter, sans-serif; font-size: 1rem; margin-top: 0;">
+                        <span style="text-transform: uppercase; font-weight: 700; font-size: 1.5rem; line-height: 1.5;">{accreditation.guestOutput.fullName}</span><br><br>
+                        <span style="font-size: 1.4rem; font-weight: 500">{accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')}</span><br><br>
+                        {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}<br>
+                        <span style="font-size: 0.8rem">Einlass ab {f:format.date(format:'%k.%M Uhr', date:'{accreditation.event.date->f:format.date(format:\'H:i\')} -30 minutes')}</span><br>
+                        <strong>Wiener MARX Halle</strong><br>
+                    </p>
+
+                    <!-- Button : Begin -->
+                    <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                        <tr>
+                            <td style="border-radius: 0.1rem; text-align: center; background: #FFCB2D;" class="button-td">
+                                <f:link.typolink
+                                    absolute="1"
+                                    parameter="38"
+                                    additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}"
+                                    absolute="1"
+                                    class="button-a"
+                                    target="_blank"
+                                    additionalAttributes="{style:'background: #FFCB2D; border: 5px solid #FFCB2D; padding: 0 10px; color: #000; font-size: 1.2rem; line-height: 1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; border-radius: 2rem; font-weight: bold; font-family: sans-serif;'}">
+                                    <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                                </f:link.typolink>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- Button : END -->
+
+                    <p style="font-family: Inter, sans-serif; font-size: 0.65rem; margin: 20px 0px 30px 0px">Um Rückmeldung wird bis <span style="font-weight: 700">24. September</span> gebeten.<br>
+                        Die Einladung gilt für <strong>{accreditation.ticketsWish} Person{f:if(condition:'{accreditation.ticketsWish}==1', else:'en')}</strong> und ist <strong>nicht übertragbar</strong>.
+                    </p>
+                    
+                    
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<!-- Kasterl weiss : END -->
+</f:section>
+
+<f:section name="ticket">
+<!-- Ticket : BEGIN -->
+<tr>
+    <td style="background-color: #FFCB2D; padding: 0 40px; text-align: center; font-family: arial, helvetica, sans-serif;font-size: 1rem; font-weight: 400; color: black; mso-height-rule: exactly; line-height: 1.2;">
+        <h2>Wir freuen uns auf Ihr Kommen!</h2>
+        <p>Ihr Eintritts-QR zur Veranstaltung,<br>bitte am Check-In vorweisen.</p>
+        <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="400" class="email-container" style="border: #FFFFFF thin solid;">
+            
+            <!-- Foto 400x200px : BEGIN -->
+            <tbody><tr>
+                <td class="full-width-image"><img src="https://www.allegria.at/fileadmin/marketing/alegria-exhibition/pompeji-ticket-header.png" width="400" alt="Ticket-Header" border="0" align="center" style="width: 100%; max-width: 400; height: auto;"></td>
+            </tr>
+            <!-- Foto 400x200px : END -->
+            
+            <!-- QR-Code : BEGIN -->
+                <tr>
+                <td align="center" style="padding-top: 25px;">
+                    <img src="{mb:qrCode(data:'{accreditation.uid}', label:' ')}?v={f:format.date(date:'now', format:'U')}" width="300" alt="Ticket-QR-{accreditation.uid}" border="0" style="width: 100%; max-width: 80%; height: auto;">
+                    </td></tr>
+            <!-- QR-Code : END -->
+            
+            <!-- Titel : BEGIN -->
+            <tr>
+                <td style="text-align: center; font-family: sans-serif; color: #000000; font-size: 1.1rem;">
+                    <h2 style="font-size: 1.8rem; line-height: 1.2; color: #000; margin: 20px 0 10px 0;">Die letzten Tage von<br>POMPEJI</h2>
+                    <p style="margin-bottom: 10px;">
+                        {accreditation.event.location.name}, {accreditation.event.location.city}<f:if condition="{accreditation.event.locationNote}"> | {accreditation.event.locationNote}</f:if><br>
+                        <strong>{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')} | {f:format.date(date:'{accreditation.event.date}', format: 'H:i')}</strong>
+                    </p>
+                    <div style="background-color: #000; font-family: sans-serif; text-align: center; color: #fff; padding: 15px 0;">
+                        <p style="font-size: 1.3rem; line-height: 1.2; margin: 0;">
+                            <strong>{accreditation.guestOutput.fullName}</strong><br>
+                            <small>{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</small><br>
+                            <span style="font-size: 0.8rem; line-height: 1.2;">Akkr.Nr. #{accreditation.uid}</span>
+                        </p>
+                    </div>
+            </td>
+            </tr>
+            <!-- Titel : END --> 
+        </tbody></table>
+        <!-- Button : Begin -->
+        <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+            <tr><td><p>&nbsp;</p></td></tr>
+            <tr>
+                <td style="border-radius: 0.1rem; background: #000; text-align: center;" class="button-td"><a href="https://maps.app.goo.gl/XinBciBsAJm687Gq7" target="_blank" style="background: #000; border: 7px solid #000; padding: 0 10px; color: #ffffff; font-family: sans-serif;font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; border-radius: 0.1rem; font-weight: bold;" class="button-a"> 
+                  <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Anreise planen<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                  </a></td>
+            </tr>
+        </table>
+        <!-- Button : END -->
+    </td>
+</tr>
+<!-- Ticket : BEGIN --> 
+</f:section>
+
+<f:section name="showinfo">
+<!-- Beschreibung : BEGIN -->
+<tr>
+    <td>
+        <table width="90%">
+            <tr>
+                    <td style="padding: 40px; text-align: center; font-family: sans-serif; font-size: 0.9rem; font-weight: 200; mso-height-rule: exactly; line-height: 1.2; color: #000; padding-bottom: 10px; ">
+                    Die Ausstellung „<strong>Die letzten Tage von Pompeji</strong>“ bietet eine immersive Zeitreise in die antike römische Stadt Pompeji, die <nobr>79 n. Chr.</nobr> durch den Vesuvausbruch verschüttet wurde. Besucher:innen erleben die Stadtgeschichte, den Alltag der Pompejianer und die Villa der Mysterien mittels Virtual Reality und interaktiven Avataren. Ein Highlight ist die Nachstellung eines Gladiatorenkampfes im Amphitheater.
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<!-- Beschreibung : END --> 
+</f:section>
+
+<f:section name="logos">
+<!-- Two Even Columns : BEGIN -->
+<tr>
+    <td align="center" valign="top" style="padding: 10px;">
+        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tr>
+                    <td class="stack-column-center">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                            <td style="padding: 10px; text-align: center">
+                                <img src="https://www.allegria.at/fileadmin/marketing/alegria-exhibition/pompeji-MAD.png" width="160" height="auto" alt="alt_text" border="0" class="fluid">
+                            </td>
+                            </tr>
+                    </table>
+                </td>
+                    <td class="stack-column-center">
+                        <table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                                <td style="padding: 10px; text-align: center">
+                                    <img src="https://www.allegria.at/fileadmin/marketing/alegria-exhibition/pompeji-alegria.png" width="160" height="auto" alt="alt_text" border="0" class="fluid">
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        </tr>
+<!-- Two Even Columns : END -->
+</f:section>
+
+<f:section name="sick">
+<tr>
+    <td align="center" valign="top" style="padding: 40px;">
+        <h2 style="margin-top: 0px; margin-bottom: 0; font-family: sans-serif; font-size: 1.4rem; text-transform: uppercase;">Krank oder verhindert?</h2>
+        <p style="margin: 0; font-family: sans-serif; font-size: 0.75rem; margin-bottom: 20px;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider Erwarten nicht zur Veranstaltung kommen können.</p>
+        <table>
+            <tr>
+                <td style="border-radius: 0.1rem; background: #000; text-align: center;" class="button-td"><a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank" style="background: #000; border: 7px solid #000; padding: 0 10px; color: #ffffff; font-family: sans-serif;font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; border-radius: 0.1rem; font-weight: bold;" class="button-a"> 
+                <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Email senden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                </a></td>
+            </tr>
+        </table>
+        <p style="font-family: sans-serif; font-weight: 500; margin-bottom: 0px; margin-top: 30px;">Mehr Informationen finden Sie unter<br>
+            <a href="https://www.pompeji-experience.com" style="color: #000; text-decoration: none; font-weight: bold;">www.pompeji-experience.com</a>
+        </p>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="footer">
+<!-- Foto : BEGIN -->
+<tr>
+    <td class="full-width-image">
+        <img src="https://www.allegria.at/fileadmin/marketing/alegria-exhibition/pompeji-foto.png" width="600" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;">
+    </td>
+</tr>
+<!-- Foto : END -->
+</f:section>

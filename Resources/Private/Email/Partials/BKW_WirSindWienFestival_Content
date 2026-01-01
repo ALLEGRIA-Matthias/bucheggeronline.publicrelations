@@ -1,0 +1,217 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+
+<f:switch expression="{content}">
+<f:case value="invite">
+    <f:variable name="headline">Persönliche Einladung!</f:variable>
+    <f:render section="invitationCopy" arguments="{_all}" />
+    <f:render section="generalCopy" arguments="{_all}" />
+</f:case>
+<f:case value="remind">
+    <f:variable name="headline">Erinnerung zur Einladung!</f:variable>
+    <f:render section="invitationCopy" arguments="{_all}" />
+    <f:render section="generalCopy" arguments="{_all}" />
+</f:case>
+<f:case value="push">
+    <f:variable name="headline">Letzte Erinnerung!</f:variable>
+    <f:render section="invitationCopy" arguments="{_all}" />
+    <f:render section="generalCopy" arguments="{_all}" />
+</f:case>
+<f:case value="approve">
+    <f:variable name="headline">Wir freuen uns über Ihren Besuch!</f:variable>
+    <f:render section="ticket" arguments="{_all}" />
+    <f:render section="generalCopy" arguments="{_all}" />
+</f:case>
+<f:case value="reject">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; text-align: center; font-family: 'Roboto Condensed', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.4; color: #555555;">
+            <h1 style="font-family: 'Roboto Condensed', sans-serif; text-transform: uppercase; color: #D0041A; margin-top: 0;">
+                Wie Schade,<br>
+                dass es diesmal nicht klappt!
+            </h1>
+            <p>BASIS.KULTUR.WIEN bedankt sich für die,<br>
+                wenn auch negative, Rückmeldung.</p>
+
+            <p style="margin-bottom: 0;">
+                Für mehr Informationen zur <span style="text-transform: uppercase;">Basis.Kultur.Wien</span><br>
+                und dem <span style="text-transform: uppercase;">Wir Sind Wien.Festival</span><br>
+                <a href="https://www.basiskultur.at" target="_blank" style="color: #D0041A; font-weight: 700; text-decoration: none;">www.basiskultur.at</a>
+            </p>
+        </td>
+    </tr>
+    <!-- 1 Column Text : BEGIN --> 
+</f:case>
+</f:switch>
+
+<f:section name="invitationCopy">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; text-align: center; font-family: 'Roboto Condensed', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.4; color: #555555;">
+            <h1 style="font-family: 'Roboto Condensed', sans-serif; text-transform: uppercase; color: #D0041A; margin-top: 0;">{headline}</h1>
+            <p>BASIS.KULTUR.WIEN freut sich<br>
+            <span style="font-size: 1.2rem; font-weight: bold; color: #4E335E;">{accreditation.guestOutput.fullName}</span><br>
+            zum Opening des</p>
+            <img src="https://www.allegria.at/fileadmin/marketing/basis-kultur/wir-sind-wien-festival_logo.png" width="140px" height="100px" alt="Wir Sind Wien.Festival Logo" border="0" align="center">
+            <p>einzuladen.</p>
+            <p>
+                <strong style="font-size: 1.2rem;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')} um {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}</strong><br>
+                Vogelweidpark, 1150 Wien<br>
+                <small>*Bei Schlechtwetter: Tschauner Bühne, Maroltingergasse 43</small>
+            </p>
+            <p style="font-weight: 700; margin-bottom: 30px; color: #4E335E;">Wir freuen uns sehr auf Ihr Kommen!</p>
+        
+            <!-- Button : Begin -->
+
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
+                <tr>
+                <td style="background: #D0041A; text-align: center;" class="button-td">
+                    <a href="###FEEDBACK_LINK###"
+                        style="background: #D0041A; border: 10px solid #D0041A; padding: 0 5px;color: #ffffff; font-family: 'Roboto Condensed, sans-serif; font-size: 1.2rem; line-height: 1.1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; border-radius: 3px; font-weight: bold;'}"
+                        class="button-a">
+                        <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->
+                    </a>
+                </td>
+                </tr>
+            </table>
+            <p style="margin-top: 5px; margin-bottom: 0;"><small>Um Rückmeldung wird bis <strong>30. Mai 2023</strong> gebeten.</small></p>
+
+            <!-- Button : END -->
+            
+        </td>
+      </tr>
+    <!-- 1 Column Text : BEGIN --> 
+</f:section>
+
+<f:section name="generalCopy">
+    <!-- Two Even Columns : BEGIN -->
+    <tr>
+        <td bgcolor="#F4EFF7" align="center" valign="top" style="padding: 40px;">
+            <h1 style="font-family: 'Roboto Condensed', sans-serif; text-transform: uppercase; color: #D0041A; margin-top: 0;">Live on Stage</h1>
+            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tr>
+            <td class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                <td style="text-align: left; padding: 0 10px 10px; font-family: 'Merriweather', serif; font-size: 0.9rem; mso-height-rule: exactly; line-height: 1.4; color: #4E335E;" class="center-on-narrow">
+                    <p style="color: #D0041A; font-weight: 700; margin: 0;">18:00 Uhr</p>
+                    <h2 style="font-family: 'Roboto Condensed', sans-serif; font-size: 1.3rem; color: #D0041A; margin: 0;">Zelda Weber & die Rosettes</h2>
+                    <p style="margin: 5px 0 0 0">Die junge Sängerin, gerne als „Stimmwunder“ bezeichnet, hat soeben ihr erstes Album veröffentlicht: „Crude“ ist eine Soulplatte mit Zukunftsorientierung und jazzigem Retro-Charme, die auch live schon für Furore gesorgt hat.</p>
+                </td>
+              </tr>
+              </table></td>
+            <td class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                <td style="text-align: left; padding: 0 10px 10px; font-family: 'Merriweather', serif; font-size: 0.9rem; mso-height-rule: exactly; line-height: 1.4; color: #4E335E;" class="center-on-narrow">
+                    <p style="color: #D0041A; font-weight: 700; margin: 0;">19:30 Uhr</p>
+                    <h2 style="font-family: 'Roboto Condensed', sans-serif; font-size: 1.3rem; color: #D0041A; margin: 0;">Saint Privat</h2>
+                    <p style="margin: 5px 0 0 0;">Das Projekt des Musikers Klaus Waldeck steht für 60er-Jahre Sound und ist eine Mixtur aus easy Listening, Elektronik und Bossa. Die extravangante Stimme von Valerie Sajdik, ist in Wien auch keine Unbekannte. Sie singt in ihrer Lieblingssprache Französisch.</p>
+                </td>
+              </tr>
+              </table></td>
+          </tr>
+          </table></td>
+      </tr>
+    <!-- Two Even Columns : END --> 
+    
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; text-align: center; font-family: 'Merriweather', serif; font-size: 0.9rem; mso-height-rule: exactly; line-height: 1.4; color: #555555;">
+            <p>Gemeinsam mit allen Künstler:innen des <strong>WIR SIND WIEN.FESTIVALS</strong> laden wir Sie herzlich ein, dieses Eröffnungsfest mit uns zu feiern.</p>
+            <p>
+                Danach touren wir wieder 23 Tage durch alle 23 Bezirke<br>
+                getreu unserem Motto:<br>
+                <strong style="color: #D0041A;">„Die Kunst ist: Zur richtigen Zeit am richtigen Ort“.</strong>
+            </p>
+            
+        </td>
+      </tr>
+    <!-- 1 Column Text : BEGIN --> 
+    
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; text-align: center; font-family: 'Merriweather', serif; font-size: 0.9rem; mso-height-rule: exactly; line-height: 1.4; color: #ffffff;" bgcolor="#4E335E">
+            <h1 style="font-family: 'Roboto Condensed', sans-serif; text-transform: uppercase; color: #ffffff; margin-top: 0;">Kontakt für Rückfragen</h1>
+            <p>
+                <strong>Mag. Christian Eisner</strong><br>
+                Leitung Kommunikation
+            </p>
+            <p style="margin-bottom: 0; font-size: 0.7rem;">
+                T: <a href="tel:004319822461124" style="text-decoration: none; color: #FFFFFF;">+43 1 982 24 61 124</a><br>
+                Mobil: <a href="tel:00436601521402" style="text-decoration: none; color: #FFFFFF;">+43 660 152 1402</a><br>
+                <a href="mailto:presse@basiskultur.at" style="text-decoration: none; color: #FFFFFF;">presse@basiskultur.at</a>
+            </p>
+            
+        </td>
+      </tr>
+    <!-- 1 Column Text : BEGIN -->
+
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; text-align: center; font-family: 'Roboto Condensed', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.4; color: #555555;">
+            
+            <f:if condition="{content}!='approve'">
+                <!-- Button : Begin -->
+
+                <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
+                    <tr>
+                    <td style="background: #D0041A; text-align: center;" class="button-td">
+                        <a href="###FEEDBACK_LINK###"
+                            style="background: #D0041A; border: 10px solid #D0041A; padding: 0 5px;color: #ffffff; font-family: 'Roboto Condensed, sans-serif; font-size: 1.2rem; line-height: 1.1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; border-radius: 3px; font-weight: bold;'}"
+                            class="button-a">
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->
+                        </a>
+                    </td>
+                    </tr>
+                </table>
+
+                <!-- Button : END -->
+                <p style="margin-top: 5px   ;"><small>Um Rückmeldung wird bis <strong>30. Mai 2023</strong> gebeten.</small></p>
+            </f:if>
+
+            <p style="margin-top: {f:if(condition:'{content}==\'approved\'', then:'0', else:'inherit')}; margin-bottom: 0;">
+                Für mehr Informationen zur Basis.Kultur.Wien<br>
+                <a href="https://www.basiskultur.at" target="_blank" style="color: #D0041A; font-weight: 700; text-decoration: none;">www.basiskultur.at</a>
+            </p>
+            
+        </td>
+      </tr>
+    <!-- 1 Column Text : BEGIN --> 
+</f:section>
+
+<f:section name="ticket">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; text-align: center; font-family: 'Roboto Condensed', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.4; color: #555555;">
+            <h1 style="font-family: 'Roboto Condensed', sans-serif; text-transform: uppercase; color: #D0041A; margin: 0;">{headline}</h1>          
+        </td>
+      </tr>
+    <!-- 1 Column Text : BEGIN --> 
+
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; text-align: center; font-family: 'Merriweather', serif; font-size: 0.7rem; mso-height-rule: exactly; line-height: 1.4; color: #FFFFFF;" bgcolor="#4E335E">
+            <h2 style="font-family: 'Roboto Condensed', sans-serif; color: #FFFFFF; margin-top: 0; font-size: 1rem; line-height: 1.2;"><span style="text-transform: uppercase; font-size: 1.4rem;">{accreditation.guestOutput.name}</span><f:if condition="{accreditation.ticketsApprovedPlus}"><br>und {accreditation.ticketsApprovedPlus} Begleitperson{f:if(condition:'{accreditation.ticketsApprovedPlus}>1', then:'en')}</f:if></h2>
+            <p style="margin-bottom: 0;">Akkreditierung Nr. #{accreditation.uid}, versandt am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr</p>
+        </td>
+      </tr>
+    <!-- 1 Column Text : BEGIN -->
+
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; text-align: center; font-family: 'Roboto Condensed', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.4; color: #555555;">
+            <p style="margin-top: 0;">BASIS.KULTUR.WIEN freut sich<br>
+            zum Opening des</p>
+            <img src="https://www.allegria.at/fileadmin/marketing/basis-kultur/wir-sind-wien-festival_logo.png" width="140px" height="100px" alt="Wir Sind Wien.Festival Logo" border="0" align="center">
+            <p>begrüßen zu dürfen.</p>
+            <p style="margin-bottom: 0;">
+                <strong style="font-size: 1.2rem;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')} um {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}</strong><br>
+                Vogelweidpark, 1150 Wien<br>
+                <small>*Bei Schlechtwetter: Tschauner Bühne, Maroltingergasse 43</small>
+            </p>            
+        </td>
+    </tr>
+    <!-- 1 Column Text : BEGIN --> 
+</f:section>
+</html>

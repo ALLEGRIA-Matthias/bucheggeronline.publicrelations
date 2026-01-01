@@ -1,0 +1,49 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<div class="table-fit">
+  <table class="table table-sm table-striped pending">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Termin</th>
+        <th>Gästeinfos</th>
+        <th class="text-center"><svg class="icon fill-gold"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#ticket"></use></svg></th>
+      </tr>
+    </thead>
+    <tbody>
+      <f:for each="{requests -> v:iterator.sort(sortBy: 'event.date')}" as="accreditation" iteration="i">
+      <tr class="{f:if(condition:'!{accreditation.status}', then:'table-warning')}">
+        <td>
+          <f:switch expression="{accreditation.type}">
+            <f:case value="1">
+              <f:link.action controller="Accreditation" action="approve" arguments="{accreditation:accreditation}"><svg class="icon fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-badge-lanyard"></use></svg></f:link.action></td>
+            </f:case>
+            <f:case value="2">
+              <f:link.action controller="Accreditation" action="approve" arguments="{accreditation:accreditation}"><svg class="icon fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#send"></use></svg></f:link.action></td>
+            </f:case>
+          </f:switch>
+        <td>
+          <f:if condition="{accreditation.event.type.title}">{accreditation.event.type.title}</f:if> <strong>{accreditation.event.title -> f:format.crop(maxCharacters: 30, append: '...')}</strong>
+          <br/><strong>{f:format.date(date:'{accreditation.event.date}', format:'%d.%m.%Y %H:%M')}</strong>
+          <f:if condition="{accreditation.event.location}"><br/>{accreditation.event.location.name}</f:if>
+
+        </td>
+        <td>
+          <f:if condition="{accreditation.guestOutput.name}"><strong>{accreditation.guestOutput.name}</strong></f:if>
+          <f:if condition="{accreditation.guestOutput.title}">[{accreditation.guestOutput.title}]</f:if>
+          <f:switch expression="{accreditation.guestOutput.gender}">
+            <f:defaultCase><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-parents"></use></svg></f:defaultCase>
+            <f:case value="f"><svg class="icon icon-sm fill-pink"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-female"></use></svg></f:case>
+            <f:case value="m"><svg class="icon icon-sm fill-blue"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg></f:case>
+          </f:switch>
+          <f:if condition="!{accreditation.guestOutput.name} && {accreditation.guestOutput.company}"><f:then><strong>{accreditation.guestOutput.company}</strong></f:then><f:else><br/>{accreditation.guestOutput.company}</f:else></f:if>
+        </td>
+        <td class="text-center">{accreditation.ticketsWish}</td>
+      </tr>
+      </f:for>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,324 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+
+<f:section name="preheader">
+    <!-- Visually Hidden Preheader Text : BEGIN -->
+    <div style="display:none; font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">
+    <f:switch expression="{content}">
+        <f:case value="invite">Ihre persönliche Einladung zur Restauranteröffnung YAOCO STREET in Salzburg.</f:case>
+        <f:case value="remind">Nicht verpassen: Ihre persönliche Einladung zur Restauranteröffnung YAOCO STREET in Salzburg.</f:case>
+        <f:case value="push">Letzte Chance: Ihre persönliche Einladung zur Restauranteröffnung YAOCO STREET in Salzburg.</f:case>
+        <f:case value="approve">Wie schön, dass wir Sie demnächst in Salzburg zur Restauranteröffnung YAOCO STREET begrüßen dürfen.</f:case>
+        <f:case value="reject">Schade, dass es nicht klappt. Yaoyao Hu würde sich über einen baldigen Besuch freuen.</f:case>
+    </f:switch>
+    </div>
+    <!-- Visually Hidden Preheader Text : END --> 
+</f:section>
+
+<f:section name="content">
+    <f:switch expression="{content}">
+        <f:case value="approve">
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="location" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+            <f:render section="website" arguments="{_all}" />
+        </f:case>
+        <f:case value="reject">
+            <f:render section="header" arguments="{_all}" />
+            <!-- 1 Column Rejection : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: center; font-family: 'Roboto Slab', sans-serif;">
+                    <h1 style="font-family: 'Roboto Slab', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">Schade, dass es diesmal nicht klappt.</h1>
+                    <p style="font-family: 'Roboto Slab', sans-serif; text-align: center; font-weight: 100; font-size: 1rem; margin: 5px 0px 0px 0px">
+                        Danke für die, wenn auch negative, Rückmeldung.<br>Wir hoffen Sie bei einer der nächsten Veranstaltungen wieder begrüßen zu dürfen.
+                    </p>
+                </td>
+            </tr>
+            <!-- 1 Column Rejection : END -->
+            <f:render section="website" arguments="{_all}" />
+
+
+        </f:case>
+        <f:case value="waiting">
+            <f:render section="header" arguments="{_all}" />
+            <!-- 1 Column Rejection : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: center; font-family: 'Roboto Slab', sans-serif;">
+                    <h1 style="font-family: 'Roboto Slab', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">{accreditation.guestOutput.fullName}</h1>
+                    <hr style="margin: 30px 0;">
+                    <h1 style="font-family: 'Roboto Slab', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">Die Nachfrage ist riesig!</h1>
+                    <p style="font-family: 'Roboto Slab', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Das Team von YAOCO STREET bedankt sich für die unglaublich großartige Nachfrage.</p>
+                    <p style="font-family: 'Roboto Slab', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;"><strong>Die Kapazitäten sind aktuell bedauerlicherweise komplett erschöpft.</strong></p>
+                    <p style="font-family: 'Roboto Slab', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir prüfen derzeit eine Erweiterung der Kontingente und melden uns schnellstmöglich mit einer konkreten Rückmeldung.</p>
+                    <p style="font-family: 'Roboto Slab', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir bedanken uns für das Verständnis.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Rejection : END -->
+        </f:case>
+        <f:case value="approve_after_waiting">
+            <f:render section="header" arguments="{_all}" />
+            <!-- 1 Column Approval : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: 'Bree Serif', serif;">
+                    <h1 style="font-family: 'Roboto Slab', sans-serif; font-weight: 600; font-size: 2rem; text-align: center;">Danke für's Warten!</h1>
+                    <p>Wir freuen uns sehr Sie bei der Restauranteröffnung begrüßen zu können, Sie sind wie folgt auf der Gästeliste.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Approval : END -->
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="location" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+            <f:render section="website" arguments="{_all}" />
+        </f:case>
+        <f:case value="reject_after_waiting">
+            <f:render section="header" arguments="{_all}" />
+            <!-- 1 Column Rejection : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: center; font-family: 'Roboto Slab', sans-serif;">
+                    <h1 style="font-family: 'Roboto Slab', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">{accreditation.guestOutput.fullName}</h1>
+                    <hr style="margin: 30px 0;">
+                    <h1 style="font-family: 'Roboto Slab', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">Die Nachfrage ist riesig!</h1>
+                    <p style="font-family: 'Roboto Slab', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir sind von der ernormen Nachfrage überwältigt!<br><strong>Danke für Ihr Interesse.</strong></p>
+                    <p style="color: #2E6839; font-family: 'Roboto Slab', sans-serif; font-weight: 700; text-align: center; font-size: 1rem;">Umso schwerer fällt es uns Ihnen sagen zu müssen, dass unsere Kapazitäten vollends ausgeschöpft sind und wir leider keine Plätze mehr zur Verfügung stellen können.</p>
+                    <p style="font-family: 'Roboto Slab', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir hoffen Sie bei einer unserer nächsten Veranstaltungen wieder begrüßen zu dürfen!</p>
+                </td>
+            </tr>
+            <!-- 1 Column Rejection : END -->
+        </f:case>
+        <f:case value="pending">
+            <f:render section="header" arguments="{_all}" />
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #000000;">    
+                    <h1 style="font-family: 'Source Sans', sans-serif; text-transform: uppercase; color: #2E6839; font-size: 1.8rem; line-height: 1.2;">Neu auf der Warteliste!</h1>
+                    
+                    <!-- Fließtext -->			  
+                    <p style="font-family: 'Source Sans', sans-serif; font-weight: 300; text-align: center; font-size: 1.6rem; margin-bottom: 40px;"><strong>{accreditation.guestOutput.name}</strong></p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+        </f:case>
+        <f:defaultCase>
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="invite" arguments="{_all}" />
+            <f:render section="infos" arguments="{_all}" />
+            <f:render section="moderation" arguments="{_all}" />
+            <f:render section="yaoyao" />
+            <f:render section="website" />
+        </f:defaultCase>
+    </f:switch>
+
+    <f:section name="header">
+    <!-- Header : BEGIN -->
+    <tr>
+        <td background="https://www.allegria.at/fileadmin/marketing/yaoyao/yaoco_header.jpg" bgcolor="#222222" valign="middle" style="text-align: center; background-position: center center !important; background-size: cover !important;">
+            <div>
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td class="full-width-image" style="text-align: center;">
+                            <img src="https://www.allegria.at/fileadmin/marketing/yaoyao/yaoco_logo.png" width="230" height="auto" style="padding-top: 30px;" alt="alt_text" border="0">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="middle" style="text-align: center; padding-bottom: 30px; padding-top: 10px; font-family: 'Roboto Slab', serif; font-size: 1.3rem; mso-height-rule: exactly; line-height: 20px; color: #ffffff;"> Restauranteröffnung
+                        </td>
+                      </tr>
+                  </table>
+              </div>
+        </td>
+    </tr>
+    <!-- Header : END -->
+    </f:section>
+    
+    <f:section name="invite">
+    <!-- Einladungstext : BEGIN -->
+    <tr>
+        <td background="https://www.allegria.at/fileadmin/marketing/yaoyao/yaoco_bg-image.png" bgcolor="#f7f4e3" valign="middle" style="text-align: center; background-position: center center !important; background-size: cover !important;">
+            <div>
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td valign="middle" style="text-align: center; padding: 40px; font-family: 'Roboto Slab', serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #000000;">
+                            <f:switch expression="{content}">
+                                <f:case value="remind"><p style="text-transform: uppercase; font-weight: bold; line-height: 1; padding-top: 0px;"><span style="background: black; color: white; padding: 0 5px;">Erinnerung zur</span></p></f:case>
+                                <f:case value="push"><p style="text-transform: uppercase; font-weight: bold; line-height: 1; padding-top: 0px;"><span style="background: #b40000; color: white; padding: 0 5px;">Letzte Erinnerung zur</span></p></f:case>
+                            </f:switch>
+                            <p style="color: #2E6839; font-weight: bold; font-size: 2.9rem; text-transform: uppercase; margin: 0;">VIP-Einladung</p>
+                            <p style="text-transform: uppercase; font-weight: bold; line-height: 100%; padding-top: 0px;" >für {accreditation.guest.fullName}{f:if(condition:'{accreditation.ticketsWish}>1', then:' + Begleitung')}</p>
+                            <p style="color: #808080; font-family: 'Lato', sans-serif; font-weight: 300">
+                                Der vielfach ausgezeichnete <span style="font-weight: bold">Stargastronom Yaoyao Hu</span> lädt Sie herzlich zur <span style="font-weight: bold">Eröffnung seines neuen Restaurants</span> „Yaoco Street“ im EUROPARK ein. Erleben Sie bei dieser <span style="font-weight: bold">exklusiven Veranstaltung</span> eine kulinarische Reise durch die authentische Straßenküche Asiens und lassen Sie sich von der Raffinesse und der Qualität der <span style="font-weight: bold">hausgemachten Speisen und Getränke</span> verwöhnen.<br>
+                                <br>
+                                Entdecken Sie zudem ein neues, innovatives Restauranterlebnis, in dem <span style="font-weight: bold">Roboter</span> einen Teil des <span style="font-weight: bold">Service-Teams</span> bilden und Ihnen einen <span style="font-weight: bold">faszinierenden Blick in die Zukunft der Gastronomie</span> ermöglichen.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <!-- Einladungstext : END --> 
+    
+    <f:render section="location" arguments="{_all}" />
+    
+    <!-- Einladungsdetails : END -->
+    </f:section>
+
+    <f:section name="location">
+    <!-- Einladungsdetails : BEGIN -->
+    <tr>
+        <td style="padding: 40px 0 20px; mso-height-rule: exactly; background-color: #2E6839;">
+            <table>
+                <tr>
+                    <td  style="font-family: 'Lato', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #ffffff; text-align: center;">
+                        <p style="font-family: 'Roboto Slab', serif; font-weight: 500; font-size: 2rem; color: white;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'day')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}<br/>
+                        <span style="font-size: 1.5rem;">{accreditation.event.date->f:format.date(format:'%k:%M')} Uhr im EUROPARK Salzburg</p>
+                        <p style="margin-bottom: 0;">Europastraße 1 | 5020 Salzburg </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="padding: 20px 0 30px; padding-bottom: 0;"> 
+                    <f:switch expression="{content}">
+                        <f:case value="invite"><f:render section="btn" arguments="{_all}" /></f:case>
+                        <f:case value="remind"><f:render section="btn" arguments="{_all}" /></f:case>
+                        <f:case value="push"><f:render section="btn" arguments="{_all}" /></f:case>
+                    </f:switch>
+                    <p style="color: white; text-align: center; font-family: 'Lato', sans-serif; line-height: 1.2; margin-top: 20px;">
+                        Um Anmeldung wird bis <f:format.date date="{accreditation.event.date->f:format.date(format:'d.m.Y')} - 12 days" format="d.m.Y" /> gebeten. <br>
+                        Die Einladung gilt für bis zu {accreditation.ticketsWish} Person{f:if(condition:'{accreditation.ticketsWish}', then:'en')} und ist nicht übertragbar. 
+                    </p>
+                    </td>
+                </tr>
+                
+                <!-- Es erwartet sie : BEGIN -->
+                <tr>
+                    <td>
+                        <img src="https://www.allegria.at/fileadmin/marketing/yaoyao/yaoco_schrift-erwartung.png" alt="Es erwartet sie…" align="center" style="width: 100%; margin: 0px; padding: 20px 0 0;">
+                    </td>
+                </tr>
+            <!-- Es erwartet sie : END -->
+            </table>
+        </td>
+    </tr>
+    </f:section>
+    
+    <f:section name="infos">
+    <!-- Bilderreihe : BEGIN -->
+    <tr style="padding: 0px;">
+        <td align="center" valign="top" style="padding: 0px; ">
+            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                    <td class="stack-column-center">
+                        <table cellspacing="0" cellpadding="0"  border="0">
+                            <tr>
+                                <td style="padding: 0px; text-align: center; line-height: 0;">
+                                    <img src="https://www.allegria.at/fileadmin/marketing/yaoyao/yaoco_fotos-spalte1.png" width="100%" height="auto" alt="alt_text" border="0" class="fluid" style="margin: 0px; padding: 0px;">
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="stack-column-center">
+                        <table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                                <td style="padding: 0px; text-align: center; line-height: 0;">
+                                    <img src="https://www.allegria.at/fileadmin/marketing/yaoyao/yaoco_fotos-spalte2.png" width="100%" height="auto" alt="alt_text" border="0" class="fluid">
+                                </td>
+                             </tr>
+                          </table>
+                    </td>
+                  </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- Bilderreihe : END --> 
+    </f:section>
+    
+    <f:section name="moderation">
+    <!-- Eva Poelzl : BEGIN -->
+    <tr>
+        <td style="padding: 40px; background-color: #2E6839;">
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                <tr>
+                    <td style="text-align: center; font-family: 'Lato', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 100%; color: #ffffff;">
+                        <p style="color: white; text-align: center; margin-bottom: 10px; line-height: 2; margin-top: 0;">Durch das Programm führt Sie:<br>
+                            <span style="font-size: 1.5rem;">Eva Pölzl</span>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+                
+            <f:render section="btn" arguments="{_all}" />
+        </td>
+    </tr>
+    <!-- Eva Poelzl : END -->
+    </f:section>
+
+    <f:section name="btn">
+    <!-- Button : Begin -->
+    <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+        <tr>
+        <td style="border-radius: 3px; background: #6BA539; text-align: center;" class="button-td">
+            <a href="###TICKET_LINK### style="background: #ffffff; border: 10px solid #ffffff; padding: 0 10px;color: #2E6839; font-family: 'Roboto Slab, serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 0px; font-weight: bold; text-transform: uppercase;'}" class="button-a">
+                Jetzt rückmelden
+            </a>
+        </td>
+        </tr>
+    </table>
+    <!-- Button : END -->
+    </f:section>
+ 
+    <f:section name="yaoyao">
+    <!-- Info: Yaoyao Hu : BEGIN -->
+    <tr>
+        <td background="https://www.allegria.at/fileadmin/marketing/yaoyao/yaoco_bg-image.png" bgcolor="#f7f4e3" valign="middle" style="background-position: center center !important; background-size: cover !important; padding: 40px; text-align: center; font-family: 'Lato', sans-serif;">
+            <p style="color: #2E6839; font-family: 'Roboto Slab', sans-serif; font-weight: bold;  font-size: 1.5rem; text-transform: uppercase; margin-top: 0;">Yaoyao Hu</p>
+            <p style="color: #808080; font-weight: 300; margin-bottom: 0;">… hat sein Leben der lebendigen Philosophie und ganzheitlich-nachhaltigen, fernöstlichen Küche gewidmet. Auf einzigartige Art verbindet er die gesundheitsfördernde Kochkunst Asiens mit der Verarbeitung von höchst qualitativen und überwiegend regionalen Produkten. Er legt großen Wert auf die Frische der Zutaten und verzichtet auf Glutamat und künstliche Geschmacksverstärker. Sein Ansatz ist geprägt von Nachhaltigkeit und der Wertschätzung für jede Zutat, getreu dem Motto „Wir brauchen keine Biotonne“. Er nutzt Lebensmittel vollständig und kreativ, was sich in seiner Praxis zeigt, selbst Fischgräten noch eine kulinarische Bestimmung zu geben.</p>
+
+        </td>
+    </tr>
+    <!-- Info: Yaoyao Hu : END -->
+    </f:section>
+    
+    <f:section name="website">
+    <!-- Website : BEGIN -->
+    <tr>
+        <td style="padding: 30px 40px; text-align: center; font-family: 'Roboto Slab', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; background-color: #2E6839; color: #ffffff; text-transform: uppercase; margin: 0px;">
+            <p style="margin: 0;"><a href="https://www.yaoyao.at" target="_blank" style="color: white; text-decoration: none;">www.yaoyao.at</a></p>
+        </td>
+    </tr>
+    <!-- Website : END -->
+    </f:section>
+
+    <f:section name="ticket">
+        <!-- 1 Column Approval : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Roboto Slab', sans-serif;">
+                <p><strong style="color: #2E6839;">Wie schön, dass Sie kommen können.</strong><br>
+                    Wir haben Sie mit folgenden Daten auf der Gästeliste.</p>
+                <div style="background: black; border: 1px solid white; border-radius: 15px; padding: 15px; text-align: center; margin-bottom: 0px; display: inline-block; padding: 20px 50px;">
+                    <p style="margin: 0; font-family: 'Roboto Slab', sans-serif; font-size: 1.2rem; color: #FFFFFF; font-weight: bold;">{accreditation.guestOutput.fullName}</p>
+                    <p style="margin-top: 0; color: #FFFFFF; font-family: 'Lato', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+                    <p style="margin: 0; margin-top: 10px; font-family: 'Lato', sans-serif; font-size: 0.65rem; color: #FFFFFF;"><span style="font-size: 0.8rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong></span><br>Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr gesendet.</p>
+                </div>
+            </td>
+        </tr>
+        <!-- 1 Column Approval : END -->
+    </f:section>
+
+    <f:section name="sick">
+        <!-- 1 Column Feedback : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Roboto Slab', sans-serif;">
+                <h2 style="margin-top: 0px; margin-bottom: 0; font-family: 'Roboto Slab', sans-serif; font-size: 1.4rem; text-transform: uppercase;">Krank oder verhindert?</h2>
+                <p style="margin: 0; font-family: 'Lato', sans-serif; font-size: 0.75rem;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider Erwarten nicht kommen können.</p>
+                <p style="margin: 27px 0px 20px 0px"><a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank" style="background: #2E6839; padding: 7px 14px; color: #FFFFFF; font-weight: 500; text-decoration: none;">Email senden</a></p>
+            </td>
+        </tr>
+        <!-- 1 Column Feedback : END -->
+    </f:section>
+    
+</f:section>
+
+</html>

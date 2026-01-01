@@ -1,0 +1,8 @@
+<f:spaceless><f:render section="Title" optional="true" />
+<f:render section="Main" /></f:spaceless>
+
+{settings.company.name}
+Inhaber: {settings.company.owner}
+
+Firmensitz: {settings.company.city} | Firmenbuch: {settings.company.register}, {settings.company.court}
+tel {settings.company.phone} | mail {settings.company.email}

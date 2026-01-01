@@ -1,0 +1,487 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+  xmlns:acdist="http://typo3.org/ns/Allegria/AcDistribution/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+<f:section name="preheader">
+    <f:switch expression="{content}">
+        <f:case value="invite">Persönliche Einladung an {accreditation.guestOutput.fullName} | Cirque du Soleil ALIZE
+        </f:case>
+        <f:case value="remind">Nicht verpassen! Persönliche Einladung an {accreditation.guestOutput.fullName} | Cirque
+            du Soleil ALIZE</f:case>
+        <f:case value="push">Letzte Chance! Persönliche Einladung an {accreditation.guestOutput.fullName} | Cirque du
+            Soleil ALIZE</f:case>
+        <f:case value="approve">Wie schön, dass wir Sie zur Weltpremiere von Cirque du Soleils ALIZÉ begrüßen dürfen.
+        </f:case>
+        <f:case value="reject">Schade, dass es nicht klappt. Cirque du Soleil und Live Nation würden sich über einen
+            baldigen Besuch freuen.</f:case>
+    </f:switch>
+</f:section>
+
+<f:section name="headline">
+    <f:switch expression="{content}">
+        <f:case value="invite"><span style="padding: 5px 10px; background-color: #FFF; color: #026977;">Persönliche
+                Einladung</span></f:case>
+        <f:case value="remind"><span style="font-size: 70%; text-transform: none;">Erinnerung zur</span><br><span
+                style="padding: 5px 10px; background-color: #FFF; color: #026977;">Einladung</span></f:case>
+        <f:case value="push"><span style="font-size: 70%; text-transform: none;">Finale Erinnerung zur</span><br><span
+                style="padding: 5px 10px; background-color: #FFF; color: #026977;">Einladung</span></f:case>
+        <f:case value="approve"><br><span style="padding: 5px 10px; background-color: #FFF; color: #026977;">Wir freuen
+                uns sehr!</span></f:case>
+        <f:case value="reject"><br><span style="padding: 5px 10px; background-color: #FFF; color: #026977;">Ihre
+                Absage!</span></f:case>
+        <f:case value="waiting"><br><span style="padding: 5px 10px; background-color: #FFF; color: #026977;">Bitte um
+                Geduld!</span></f:case>
+        <f:case value="reject_after_waiting"><br><span style="padding: 5px 10px; background-color: #FFF; color: #026977;">Es tut
+                uns leid!</span></f:case>
+        <f:case value="approve_after_waiting"><br><span style="padding: 5px 10px; background-color: #FFF; color: #026977;">Wir
+                freuen uns sehr!</span></f:case>
+        <f:case value="pending"><br><span style="padding: 5px 10px; background-color: #FFF; color: #026977;">Neu auf der
+                Warteliste!</span></f:case>
+    </f:switch>
+</f:section>
+
+<f:section name="headline-en">
+    <f:switch expression="{content}">
+        <f:case value="invite"><span style="padding: 5px 10px; background-color: #FFF; color: #022143;">Personal
+                Invitation</span></f:case>
+        <f:case value="remind"><span style="font-size: 70%; text-transform: none;">Reminder of</span><br><span
+                style="padding: 5px 10px; background-color: #FFF; color: #022143;">Invitation</span></f:case>
+        <f:case value="push"><span style="font-size: 70%; text-transform: none;">Last Reminder of</span><br><span
+                style="padding: 5px 10px; background-color: #FFF; color: #022143;">Invitation</span></f:case>
+        <f:case value="approve">We are delighted!</f:case>
+        <f:case value="reject">Your rejection!</f:case>
+        <f:case value="waiting">Please be patient!</f:case>
+        <f:case value="reject_after_waiting">We apologize!</f:case>
+        <f:case value="approve_after_waiting">We are delighted!</f:case>
+        <f:case value="pending">New on the waiting list!</f:case>
+    </f:switch>
+</f:section>
+
+<f:section name="content">
+    <f:switch expression="{content}">
+        <f:defaultCase>
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="invite" arguments="{_all}" />
+        </f:defaultCase>
+        <f:case value="approve">
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="showinfo" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+        </f:case>
+        <f:case value="reject">
+            <f:render section="header" arguments="{_all}" />
+            <!-- Ticket : BEGIN -->
+            <tr>
+                <td background="https://www.allegria.at/fileadmin/marketing/live-nation/LN_CdS-Alize_BG.png"
+                    bgcolor="#FFEFD1" valign="middle"
+                    style="padding: 40px; padding-top: 0px; text-align: center; background-position: top center !important; background-repeat: repeat-x; background-size: contain !important; font-family: 'Be Vietnam Pro', sans-serif; color: #026977;">
+                    <p style="font-weight:700; ">Cirque du Soleil & Live Nation<br>bedanken sich für Ihre Rückmeldung.
+                    </p>
+                    <hr style="border: solid 1px #022143;" width="80%">
+                    <p style="font-weight:700; color: #022143;">Cirque du Soleil & Live Nation<br>thank you for your
+                        feedback.</p>
+                </td>
+            </tr>
+            <!-- Ticket : BEGIN -->
+            <f:render section="showinfo" arguments="{_all}" />
+        </f:case>
+        <f:case value="waiting">
+        </f:case>
+        <f:case value="pending">
+        </f:case>
+        <f:case value="approve_after_waiting">
+        </f:case>
+        <f:case value="reject_after_waiting">
+        </f:case>
+    </f:switch>
+</f:section>
+
+<f:section name="header">
+    <!-- Header : BEGIN -->
+    <tr>
+        <td class="full-width-image">
+            <img src="https://www.allegria.at/fileadmin/marketing/live-nation/CdS_Alize_Einladung_HEADER_up.png"
+                width="600" alt="Cirque du Soleil ALIZE Header" border="0" align="center"
+                style="width: 100%; max-width: 600px; height: auto;">
+        </td>
+    </tr>
+    <!-- Header : END -->
+
+    <!-- Text : BEGIN -->
+    <tr>
+        <td background="https://www.allegria.at/fileadmin/marketing/live-nation/CdS_Alize_Einladung_HEADER_down.png"
+            bgcolor="#FFEFD1" valign="middle"
+            style="padding: 40px 0px; padding-top: 20px; text-align: center; background-position: top center !important; background-size: 100% !important; background-repeat: no-repeat;text-align: center; font-family: 'Be Vietnam Pro', sans-serif; color: #FFFFFF;">
+            <h1
+                style="font-size: 1.8rem;text-transform: uppercase; margin-top: 0; margin-bottom: 15px; line-height: 1.6;">
+                <f:render section="headline" arguments="{_all}" />
+            </h1>
+            <f:if condition="{content} == 'invite' || {content} == 'remind' || {content} == 'push'">
+                <p style="color: #026977; font-size: 1.4rem; font-weight: bold; margin-top: 0;">an
+                    {accreditation.guestOutput.fullName}</p>
+            </f:if>
+        </td>
+    </tr>
+    <!-- Text : END -->
+</f:section>
+
+<f:section name="savethedate">
+    <!-- Text : BEGIN -->
+    <tr>
+        <td background="https://www.allegria.at/fileadmin/marketing/live-nation/LN_CdS-Alize_BG.png" bgcolor="#FFEFD1"
+            valign="middle"
+            style="padding: 40px; text-align: center; background-position: top center !important; background-repeat: repeat-x; background-size: contain !important;">
+
+            <table cellspacing="0" cellpadding="0" border="0" align="center" width="85%" class="content-container">
+                <tr>
+                    <td
+                        style=" text-align: center; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 20px; color: #026977;">
+                        Cirque du Soleil und Live Nation laden Sie herzlich zur Weltpremiere ihrer ersten europäischen
+                        Residenz-Show in Berlin ein:<br>
+                        <br>
+                        <br>
+                        <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#026977">
+                            <tr>
+                                <td
+                                    style="text-align: center; font-family: 'Be Vietnam Pro', sans-serif; color: #ffffff; padding: 30px 40px; line-height: 1.4;">
+                                    <span
+                                        style="text-transform: uppercase; font-size: 1.15rem; font-weight: 600">Donnerstag,
+                                        <span style="white-space: nowrap;">20. November</span> 2025</span><br>
+                                    19:30 Uhr<br>
+                                    Theater am Potsdamer Platz in Berlin
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <br>
+                        Bitte merken Sie sich dieses Datum vor — Eine offizielle Einladung mit weiteren Details folgt.
+                        Es wäre uns eine große Freude, dieses einzigartige Ereignis mit Ihnen zu teilen.<br>
+                        <br>
+                        <a href="https://alize.show/de" target="_blank"
+                            style="display: inline-block;padding: 10px 20px;background-color: #026977;color: white;text-decoration: none;/* text-transform: uppercase; */font-weight: bold;border-radius: 9999px;">Über
+                            die Show</a>
+                        <br>
+                        <br>
+                        <hr style="border: solid 1px #022143;" width="80%"><br>
+                        <span style="color: #022143">Cirque du Soleil and Live Nation invite you to the World Premiere
+                            of their first European residency show:</span><br>
+                        <br>
+                        <br>
+                        <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#022143">
+                            <tr>
+                                <td
+                                    style="text-align: center; font-family: 'Be Vietnam Pro', sans-serif; color: #ffffff; padding: 30px 40px; line-height: 1.4;">
+                                    <span
+                                        style="text-transform: uppercase; font-size: 1.15rem; font-weight: 600">Thursday,
+                                        <span style="white-space: nowrap;">November 20,</span> 2025</span><br>
+                                    7:30 p.m.<br>
+                                    Theater am Potsdamer Platz in Berlin
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <br>
+                        <span style="color: #022143">Kindly save this date — An official invitation with further details
+                            will follow. We would be truly delighted to share this unique evening with you.</span><br>
+                        <br>
+                        <a href="https://alize.show/en" target="_blank"
+                            style="display: inline-block;padding: 10px 20px;background-color: #022143;color: white;text-decoration: none;/* text-transform: uppercase; */font-weight: bold;border-radius: 9999px;">About
+                            the show</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- Text : END -->
+</f:section>
+
+<f:section name="invite">
+    <!-- Text : BEGIN -->
+    <tr>
+        <td background="https://www.allegria.at/fileadmin/marketing/live-nation/LN_CdS-Alize_BG.png" bgcolor="#FFEFD1"
+            valign="middle"
+            style="padding: 40px; padding-top: 0px; text-align: center; background-position: top center !important; background-repeat: repeat-x; background-size: contain !important;">
+
+            <table cellspacing="0" cellpadding="0" border="0" align="center" width="85%" class="content-container">
+                <tr>
+                    <td
+                        style=" text-align: center; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #026977;">
+                        Cirque du Soleil und Live Nation laden Sie herzlich zur Weltpremiere ihrer ersten permanenten
+                        europäischen Show in Berlin ein:<br>
+                        <br>
+                        <br>
+                        <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#026977">
+                            <tr>
+                                <td
+                                    style="text-align: center; font-family: 'Be Vietnam Pro', sans-serif; color: #ffffff; padding: 30px 40px; line-height: 1.4;">
+                                    <span
+                                        style="text-transform: uppercase; font-size: 1.15rem; font-weight: 600">Donnerstag,
+                                        <span style="white-space: nowrap;">20. November</span> 2025</span><br>
+                                    19:30 Uhr<br>
+                                    Theater am Potsdamer Platz in Berlin
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <br>
+                        <strong>Wir freuen uns auf Ihren Besuch!</strong><br>
+                        <br>
+                        <f:render section="btn-feedback" arguments="{_all}" />
+                        <span style="font-size: 0.9rem;">
+                            Diese, nicht übertragbare Einladung gilt <span style="font-weight: 500;">2 Personen</span>.
+                            <br>Um Rückmeldung wird bis
+                            {accreditation.invitationType.feedbackDate->f:format.date(format:'d.')}
+                            {mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'month', lang:
+                            'at')} {accreditation.invitationType.feedbackDate->f:format.date(format:'%Y')} gebeten.
+                        </span>
+                        <br>
+                        <br>
+                        <hr style="border: solid 1px #022143;" width="80%"><br>
+                        <h1
+                            style="font-size: 2rem; color: #022143; text-transform: uppercase; margin-bottom: 15px; line-height: 1.6;">
+                            <f:render section="headline-en" arguments="{_all}" />
+                        </h1>
+                        <p style="color: #022143; font-size: 1.2rem; font-weight: bold; margin-top: 0;">to
+                            {accreditation.guestOutput.fullName}</p>
+                        <span style="color: #022143">Cirque du Soleil and Live Nation invite you to the World Premiere
+                            of its first permanent European show:</span><br>
+                        <br>
+                        <br>
+                        <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#022143">
+                            <tr>
+                                <td
+                                    style="text-align: center; font-family: 'Be Vietnam Pro', sans-serif; color: #ffffff; padding: 30px 40px; line-height: 1.4;">
+                                    <span
+                                        style="text-transform: uppercase; font-size: 1.15rem; font-weight: 600">Thursday,
+                                        <span style="white-space: nowrap;">November
+                                            20<small><sup>th</sup></small>,</span> 2025</span><br>
+                                    7:30 p.m.<br>
+                                    Theater am Potsdamer Platz in Berlin
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <br>
+                        <span style="color: #022143"><strong>We look forward to your visit!</strong></span><br>
+                        <br>
+                        <f:render section="btn-feedback-en" arguments="{_all}" />
+                        <span style="color: #022143; font-size: 0.9rem;">
+                            The invitation is valid for <span style="font-weight: 500;">two people</span> and is
+                            non-transferable.
+                            <br>Please RSVP by {mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}',
+                            type:'m', lang: 'en')}
+                            {accreditation.invitationType.feedbackDate->f:format.date(format:'d')},
+                            {accreditation.invitationType.feedbackDate->f:format.date(format:'%Y')}.
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- Text : END -->
+</f:section>
+
+<f:section name="ticket">
+    <!-- Ticket : BEGIN -->
+    <tr>
+        <td background="https://www.allegria.at/fileadmin/marketing/live-nation/LN_CdS-Alize_BG.png" bgcolor="#FFEFD1"
+            valign="middle"
+            style="padding: 40px; padding-top: 0px; text-align: center; background-position: top center !important; background-repeat: repeat-x; background-size: contain !important; font-family: 'Be Vietnam Pro', sans-serif; color: #026977;">
+            <p style="font-weight: 700;">Ihre Tickets wurden reserviert.</p>
+            <div
+                style="border: 0px solid #FFFFFF; background-color: #026977; padding: 20px; text-align: center; margin-bottom: 30px; margin-left: 10%; margin-right: 10%;">
+                <p
+                    style="margin: 0; font-family: 'Be Vietnam Pro', sans-serif;font-size: 1.4rem; color: #FFF; font-weight: 700; text-transform: uppercase;">
+                    {accreditation.guestOutput.fullName}</p>
+                <p
+                    style="margin-top: 0; color: #FFF; font-family: 'Be Vietnam Pro', sans-serif;font-size: 1rem; font-weight: 400; margin-bottom: 0px;">
+                    {accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1',
+                    else:'en')}</p>
+                <p
+                    style="margin: 0; margin-top: 10px; font-family: 'Be Vietnam Pro', sans-serif;font-size: 0.65rem; color: #FFF;">
+                    <span style="font-size: 0.7rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong>. Am
+                        {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr
+                        versendet.</span><br>
+                    *diese Bestätigung ist nicht übertragbar
+                </p>
+            </div>
+            <p style="margin: 0;">
+                <strong>Cirque du Soleil & Live Nation </strong><br>freuen sich Sie am<br>
+                <strong
+                    style="font-family: 'Be Vietnam Pro', sans-serif; font-weight: 700; font-size: 1.4rem; color: #026977;">{mb:dateFormatLocal(date:'{accreditation.event.date}',
+                    type:'d')}, {accreditation.event.date->f:format.date(format:'j.')}
+                    {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')}
+                    {accreditation.event.date->f:format.date(format:'%Y')}</strong><br>
+                <strong
+                    style="font-family: 'Be Vietnam Pro', sans-serif; font-weight: 700; font-size: 1.1rem; color: #026977;">im
+                    Theater am Potsdamer Platz in Berlin</strong><br>
+                begrüßen zu dürfen.<br>
+                <br>
+                <small>Tickets können mit dieser Email <strong>ab {f:format.date(format:'%k.%M Uhr',
+                        date:'{accreditation.event.date->f:format.date(format:\'H:i\')} -90 minutes')}</strong> an der
+                    Abendkasse abgeholt werden – Showstart ist um 19.30 Uhr.</small>
+            </p>
+            <hr style="border: solid 1px #022143;" width="80%"><br>
+            <p style="font-weight: 700;"><span style="color: #022143">Your tickets have been reserved.</span></p>
+            <div
+                style="border: 0px solid #FFFFFF; background-color: #022143; padding: 20px; text-align: center; margin-bottom: 30px; margin-left: 10%; margin-right: 10%;">
+                <p
+                    style="margin: 0; font-family: 'Be Vietnam Pro', sans-serif;font-size: 1.4rem; color: #FFF; font-weight: 700; text-transform: uppercase;">
+                    {accreditation.guestOutput.fullName}</p>
+                <p
+                    style="margin-top: 0; color: #FFF; font-family: 'Be Vietnam Pro', sans-serif;font-size: 1rem; font-weight: 400; margin-bottom: 0px;">
+                    {accreditation.ticketsApproved} person{f:if(condition:'{accreditation.ticketsApproved}==1',
+                    else:'s')}</p>
+                <p
+                    style="margin: 0; margin-top: 10px; font-family: 'Be Vietnam Pro', sans-serif;font-size: 0.65rem; color: #FFF;">
+                    <span style="font-size: 0.7rem;">Accreditation No. <strong>#{accreditation.uid}</strong>. Sent on
+                        {f:format.date(date:'now', format: 'Y-m-d')}, at {f:format.date(date:'now', format:
+                        'H:i')}.</span><br>
+                    *this confirmation is non-transferable
+                </p>
+            </div>
+            <p style="margin: 0; color: #022143;">
+                <strong>Cirque du Soleil & Live Nation </strong><br>look forward to welcoming you on<br>
+                <strong
+                    style="font-family: 'Be Vietnam Pro', sans-serif; font-weight: 700; font-size: 1.4rem; color: #022143;">{mb:dateFormatLocal(date:'{accreditation.event.date}',
+                    type:'d', lang:'en')}, {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang:
+                    'en')} {accreditation.event.date->f:format.date(format:'j')},
+                    {accreditation.event.date->f:format.date(format:'%Y')}</strong><br>
+                <strong
+                    style="font-family: 'Be Vietnam Pro', sans-serif; font-weight: 700; font-size: 1.1rem; color: #022143;">at
+                    the Theater am Potsdamer Platz in Berlin</strong><br>
+                <br>
+                <small>Tickets can be picked up at the box office <strong>starting at {f:format.date(format:'%k.%M pm',
+                        date:'{accreditation.event.date->f:format.date(format:\'h.i\')} -90 minutes')}</strong> with
+                    this email – the World Premiere starts at 7.30 pm.</small>
+            </p>
+        </td>
+    </tr>
+    <!-- Ticket : BEGIN -->
+</f:section>
+
+<f:section name="sick">
+    <tr>
+        <td align="center" valign="top"
+            style="padding: 40px; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; line-height: 1.2; background-color: #026977; color: white;">
+            <h2
+                style="margin-top: 0px; margin-bottom: 20px; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1.6rem; ">
+                Krank oder verhindert?</h2>
+            <p style="margin: 0; margin-bottom: 20px;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider
+                Erwarten nicht<br>zur WELTPREMIERE kommen können.</p>
+            <f:render section="btn-sick" arguments="{_all}" />
+        </td>
+    </tr>
+    <tr>
+        <td align="center" valign="top"
+            style="padding: 40px; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; line-height: 1.2; background-color: #022143; color: white;">
+            <h2
+                style="margin-top: 0px; margin-bottom: 20px; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1.6rem; ">
+                Sick or unable to attend?</h2>
+            <p style="margin: 0; margin-bottom: 20px;">Please let us know via email if,<br>contrary to expectations,<br>
+                you are unable to attend
+                the WORLD PREMIERE.</p>
+            <f:render section="btn-sick-en" arguments="{_all}" />
+        </td>
+    </tr>
+</f:section>
+
+<f:section name="showinfo">
+    <!-- Header : BEGIN -->
+    <tr>
+        <td class="full-width-image"
+            style="background-color: #FFF; text-align: center; font-family: 'Be Vietnam Pro', sans-serif; padding: 0px; line-height: 0;">
+            <a href="https://alize.show" target="_blank"><img
+                    src="https://www.allegria.at/fileadmin/marketing/live-nation/CdS_Alize_Einladung_about.png"
+                    width="600" alt="Cirque du Soleil ALIZE About The Show" border="0" align="center"
+                    style="width: 100%; max-width: 600px; height: auto;"></a>
+        </td>
+    </tr>
+    <!-- Text : END -->
+</f:section>
+
+<f:section name="btn-feedback">
+    <!-- Button : Begin -->
+    <div style="margin: 0 0 20px;">
+        <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+            <tr>
+                <td style="border-radius: 9999px; background: #026977; text-align: center;" class="button-td">
+                    <a href="{acdist:absoluteUri(parameter:38, additionalParams:'&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}')}" class="button-a" target="_blank"
+                        style="background: #026977; border: 8px solid #026977; padding: 5px 10px; color: #FFFFFF; font-family: 'Be Vietnam Pro', sans-serif; text-transform: uppercase; font-size: 1rem; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 9999px; font-weight: bold;">
+                        <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt
+                        Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- Button : END -->
+</f:section>
+
+<f:section name="btn-feedback-en">
+    <!-- Button : Begin -->
+    <div style="margin: 0 0 20px;">
+        <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+            <tr>
+                <td style="border-radius: 9999px; background: #022143; text-align: center;" class="button-td">
+                    <a href="{acdist:absoluteUri(parameter:38, additionalParams:'&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}&lang=en')}" class="button-b" target="_blank"
+                        style="background: #022143; border: 8px solid #022143; padding: 5px 10px; color: #FFFFFF; font-family: 'Be Vietnam Pro', sans-serif; text-transform: uppercase; font-size: 1rem; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 9999px; font-weight: bold;">
+                        <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Click to
+                        Respond<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- Button : END -->
+</f:section>
+
+<f:section name="btn-sick">
+    <!-- Button : Begin -->
+    <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+        <tr>
+            <td style="border-radius: 9999px; background: #FFF; text-align: center;" class="button-td"><a
+                    href="mailto:office@beeck-kommunikation.de?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}%20in%20{accreditation.event.location.city->f:format.htmlentities()}"
+                    target="_blank"
+                    style="background: #FFFFFF; border: 8px solid #FFFFFF; padding: 5px 10px;color: #000000; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 9999px; font-weight: bold;"
+                    class="button-b">
+                    <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->E-Mail
+                    senden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->
+                </a></td>
+        </tr>
+    </table>
+    <!-- Button : END -->
+</f:section>
+
+<f:section name="btn-sick-en">
+    <!-- Button : Begin -->
+    <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+        <tr>
+            <td style="border-radius: 9999px; background: #FFF; text-align: center;" class="button-td"><a
+                    href="mailto:office@beeck-kommunikation.de?Subject=Feedback%20on%20accreditation%20{accreditation.uid}%20for%20{accreditation.event.title->f:format.htmlentities()}%20in%20{accreditation.event.location.city->f:format.htmlentities()}"
+                    target="_blank"
+                    style="background: #FFFFFF; border: 8px solid #FFFFFF; padding: 5px 10px;color: #000000; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 9999px; font-weight: bold;"
+                    class="button-b">
+                    <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Send
+                    email<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->
+                </a></td>
+        </tr>
+    </table>
+    <!-- Button : END -->
+</f:section>
+
+<f:section name="btn-website">
+    <a href="https://alize.show/de" target="_blank"
+        style="display: inline-block;padding: 10px 20px;background-color: #026977; color: white;text-decoration: none;/* text-transform: uppercase; */font-weight: bold;border-radius: 9999px;">Über
+        die Show</a><br>
+</f:section>
+
+<f:section name="btn-website-en">
+    <a href="https://alize.show/en" target="_blank"
+        style="display: inline-block;padding: 10px 20px;background-color: #022143; color: white;text-decoration: none;/* text-transform: uppercase; */font-weight: bold;border-radius: 9999px;">About
+        the show</a><br>
+</f:section>
+</html>

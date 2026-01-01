@@ -1,0 +1,30 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Module" />
+
+<f:section name="Buttons">
+    Test
+</f:section>
+
+<f:section name="Content">
+    <h1>Clipping-Routen</h1>
+    <p>
+        Übersicht aller Clipping-Versandrouten.<br>
+        Filtermöglichkeiten: 
+        <strong data-filter-badges data-filter-target="#gridSearch">
+            <span class="badge badge-light" data-filter="uid:">uid:</span>
+            <span class="badge badge-light" data-filter="keyword:">keyword:</span>
+            <span class="badge badge-light" data-filter="email:">email:</span>
+            <span class="badge badge-light" data-filter="kunde:">kunde:</span>
+            <span class="badge badge-light" data-filter="projekt:">projekt:</span>
+        </strong>
+    </p>
+
+    <div class="mb-3">
+        <label for="gridSearch" class="visually-hidden">Suche</label>
+        <input type="search" id="gridSearch" class="form-control form-control-sm" placeholder="Suche in Routen..." />
+    </div>
+
+    <div id="gridTableContainer" data-module="ac-pr-clippingroutes-dashboard" data-initial-query="{initialQuery}"></div>
+
+</f:section>
+</html>

@@ -1,0 +1,31 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+  xmlns:acdist="http://typo3.org/ns/Allegria/AcDistribution/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+
+<p style="margin: 0px;"></p>
+<h3 style="background-color: #e8a33d; color: #FFF; padding-left: 10px;"><f:if condition="{content.eventTitle->f:format.raw()}"><f:then>{content.eventTitle}</f:then><f:else>{content.event.title}</f:else></f:if></h3>
+<table style="margin-bottom:20px">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; padding: 0 15px 0 0;" width="150px">
+        <f:if condition="{content.event.campaign.logo}">
+        <acdist:absoluteLink parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={content.event.campaign.uid}" target="_blank">
+          <acdist:absoluteImage image="{content.event.campaign.logo}" maxWidth="150" maxHeight="150" style="width: 150px; height: auto;" />
+        </a>
+        </f:if>
+      </td>
+      <td style="vertical-align: middle;">
+        <p style="margin-top: 10px;">
+          Termin: <f:if condition="{content.eventDate}"><f:then>{content.eventDate->f:format.raw()}</f:then><f:else><strong>{content.event.date->f:format.date(format:'%d.%m.%Y')}</strong> um {content.event.date->f:format.date(format:'%H:%M')} Uhr</f:else></f:if><br>
+          Ort: <strong><f:if condition="{content.eventLocation}"><f:then>{content.eventLocation->f:format.raw()}</f:then><f:else>{content.event.location.name}</f:else></f:if></strong>
+        </p>
+        <f:if condition="{content.eventDescription}"><f:then>{content.eventDescription->f:format.raw()->f:format.crop(maxCharacters: 160)}</f:then><f:else>{content.event.campaign.description->f:format.raw()->f:format.crop(maxCharacters: 160)}</f:else></f:if>
+        <f:if condition="{content.event.campaign.logo}"><p><acdist:absoluteLink parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={content.event.campaign.uid}" target="_blank"><strong>mehr Informationen & Pressematerial</strong></a></p></f:if>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</html>

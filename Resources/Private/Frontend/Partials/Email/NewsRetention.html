@@ -1,0 +1,8 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:if condition="{content.news.retentionDate} && {content.news.retentionDate->f:format.date(format:'YmdHi')}>{f:format.date(date:'now', format:'YmdHi')}">
+<div style="margin: 20px 0; padding:15px; color: var(--dark); background-color: #fcf1d5; border-color: #fbebc4; text-align: center;" role="alert">
+  <h4 style="color: #030305; text-transform: uppercase; font-style: normal; font-weight: bold; font-size: 16px; margin: 0; font-size: 1.8rem;">Sperrfrist</h4>
+  <p style="margin-bottom: 0;">Bitte beachten Sie die Sperrfrist bis: <strong><br>{content.news.retentionDate->f:format.date(format:'%e.%m.%Y um %H.%M Uhr')}</strong></p><f:if condition="{content.news.retentionInfo}"><p style="margin-top: 0; margin-bottom: 0;">{content.news.retentionInfo->f:format.nl2br()}</p></f:if>
+</div>
+</f:if>
+</html>

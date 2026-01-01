@@ -1,0 +1,77 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+<f:section name="content">
+<div class="container my-5">
+  <div class="row">
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <div class="col-12 col-md-6">
+      <h3><svg class="icon me-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#newspaper"></use></svg>Pressemeldungen</h3>
+      <p class="small">Hier finden Sie die aktuellen 5 Pressemeldungen unserer Kunden.<br/>Weitere Pressemeldungen finden Sie auf der jeweiligen <f:link.page pageUid="9">Kunden</f:link.page>-Seite.</p>
+      <f:for each="{pressnews}" as="news" iteration="ni">
+        <div class="card mb-3">
+          <div class="row g-0">
+            <div class="col-4 col-md-3 col-xl-2 d-none d-md-block">
+              <f:if condition="{news.client.logo}"><f:link.action pageUid="39" extensionName="Publicrelations" pluginName="ClientShow" controller="News" action="show" arguments="{news:news}"><f:image image="{news.client.logo}" class="img-fluid rounded-start" alt="{news.client.logo.originalResource.title}" cropVariant="thumb" /></f:link.action></f:if>
+            </div>
+            <div class="col">
+              <div class="card-body my-auto">
+                <p class="card-text small mb-0"><svg class="icon ms-n1 me-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg>{news.date->f:format.date(format:'%d. %B %Y')}</p>
+                <h3 class="card-title my-0 h6">{news.title}</h3>
+              </div>
+            </div>
+            <f:link.action pageUid="39" extensionName="Publicrelations" pluginName="ClientShow" controller="News" action="show" arguments="{news:news}" class="col-auto bg-primary">
+              <div class="row h-100">
+                <div class="col my-auto">
+                  <svg class="icon icon-h4 fill-white mx-1 align-self-center"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#eye"></use></svg>
+                </div>
+              </div>
+            </f:link.action>
+          </div>
+        </div>
+      </f:for>
+    </div>
+    <div class="col-12 col-md-6">
+      <h3><svg class="icon me-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg>Pressetermine</h3>
+      <p class="small">Hier finden Sie die nächsten 5 presserelevanten Termine.<br/>Bitte beachten Sie, dass eine Akkreditierung zu jedem Pressetermin nötig ist.<br/>Weitere Termine finden Sie auf der jeweiligen <f:link.page pageUid="9">Kunden</f:link.page>-Seite.</p>
+      <f:for each="{events}" as="event" iteration="ei">
+        <div class="card mb-3">
+          <div class="row g-0">
+            <div class="col-4 col-md-3 col-xl-2 d-none d-md-block">
+              <f:if condition="{event.campaign.logo}">
+                <f:then>
+                  <f:if condition="{event.campaign.logo}"><f:link.action pageUid="39" extensionName="Publicrelations" pluginName="ClientShow" controller="Campaign" action="show" arguments="{campaign:event.campaign}"><f:image image="{event.client.logo}" class="img-fluid rounded-start" alt="{event.client.logo.originalResource.title}" cropVariant="thumb" /></f:link.action></f:if>
+                </f:then>
+                <f:else>
+                  <f:if condition="{event.client.logo}"><f:link.action pageUid="39" extensionName="Publicrelations" pluginName="ClientShow" controller="Client" action="show" arguments="{client:event.client}"><f:image image="{event.client.logo}" class="img-fluid rounded-start" alt="{event.client.logo.originalResource.title}" cropVariant="thumb" /></f:link.action></f:if>
+                </f:else>
+              </f:if>
+            </div>
+            <div class="col">
+              <div class="card-body my-auto">
+                <p class="card-text small mb-0"><svg class="icon ms-n1 me-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg><f:if condition="{event.dateFulltime}"><f:then>{event.date->f:format.date(format:'%d. %B %Y')}</f:then><f:else>{event.date->f:format.date(format:'%d. %B %Y, %H:%M Uhr')}</f:else></f:if></p>
+                <h3 class="card-title my-0 h6">{event.title}</h3>
+                <p class="card-text small my-0">
+                  <f:if condition="{event.location}">{event.location.name}, {event.location.city}</f:if>
+                  <f:if condition="{event.notesOutput}"><br/><f:for each="{event.notesOutput}" as="note"><span class="badge bg-primary text-dark me-1">{note}</span></f:for></f:if>
+                </p>
+              </div>
+            </div>
+            <f:link.action pageUid="39" extensionName="Publicrelations" pluginName="ClientShow" controller="Client" action="show" arguments="{client:event.client}" section="event" additionalParams="{event-id:'{event.uid}'}" noCache="1" class="col-auto bg-primary">
+              <div class="row h-100">
+                <div class="col my-auto">
+                  <svg class="icon icon-h4 fill-white mx-1 align-self-center"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#eye"></use></svg>
+                </div>
+              </div>
+            </f:link.action>
+          </div>
+        </div>
+      </f:for>
+    </div>
+  </div>
+</div>
+</f:section>
+</html>

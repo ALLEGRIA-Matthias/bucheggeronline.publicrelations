@@ -1,0 +1,24 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Contacts" />
+
+<f:section name="buttons">
+<be:link.newRecord pid="3" table="sys_category" returnUrl="{be:moduleLink(route: 'allegria_contacts', query:'&action=pressList&controller=Contact')}" class="btn btn-sm btn-success"><svg class="icon icon-sm fill-white mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#filter-plus"></use></svg>Neuen Verteiler anlegen</be:link.newRecord>
+</f:section>
+
+<f:section name="shortcuts">
+<f:link.action controller="Contact" action="pressList" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+    <h1>Presseverteiler</h1>
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    
+    <p>{mailingLists->f:count()} Listen</p>
+    <f:render partial="Tree" arguments="{items:mailingLists, type:'mailinglists'}" />
+</f:section>
+</html>

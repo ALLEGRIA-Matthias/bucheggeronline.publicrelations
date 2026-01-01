@@ -1,0 +1,305 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+
+<f:section name="preheader">
+    <!-- Visually Hidden Preheader Text : BEGIN -->
+    <div style="display:none; font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">
+    <f:switch expression="{content}">
+        <f:case value="invitation">Ihre persönliche Einladung zu {accreditation.event.title} vor dem Schloss Schönbrunn.</f:case>
+        <f:case value="remind">Nicht verpassen: Ihre persönliche Einladung zu {accreditation.event.title} vor dem Schloss Schönbrunn.</f:case>
+        <f:case value="push">Letzte Chance: Ihre persönliche Einladung zu {accreditation.event.title} vor dem Schloss Schönbrunn.</f:case>
+        <f:case value="approve">Wie schön, dass wir Sie demnächst vor dem Schloss Schönbrunn begrüßen dürfen.</f:case>
+        <f:case value="reject">Schade, dass es nicht klappt. Wir hoffen auf ein baldiges Wiedersehen.</f:case>
+    </f:switch>
+    </div>
+    <!-- Visually Hidden Preheader Text : END --> 
+</f:section>
+
+<f:section name="content">
+    <f:switch expression="{content}">
+        <f:case value="approve">
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="infos" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+        </f:case>
+        <f:case value="reject">
+            <f:render section="header" arguments="{_all}" />
+            <!-- 1 Column Rejection : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: center; font-family: 'Lora', sans-serif; color: white;">
+                    <h1 style="font-family: 'Lora', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">Schade, dass es diesmal nicht klappt.</h1>
+                    <p style="font-family: 'Lora', sans-serif; text-align: center; font-weight: 100; font-size: 1rem; margin: 5px 0px 40px 0px">
+                        Danke für die, wenn auch negative, Rückmeldung.<br>Wir hoffen Sie bei einer der nächsten Veranstaltungen wieder begrüßen zu dürfen.
+                    </p>
+                </td>
+            </tr>
+            <!-- 1 Column Rejection : END -->
+
+
+        </f:case>
+        <f:case value="waiting">
+            <f:render section="header" arguments="{_all}" />
+            <!-- 1 Column Rejection : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: center; font-family: 'Lora', sans-serif; color: white;">
+                    <h1 style="font-family: 'Lora', sans-serif; font-weight: 600; font-size: 180%; text-align: center; color: #FFF06C;">{accreditation.guestOutput.fullName}</h1>
+                    <hr style="margin: 30px 0;">
+                    <h1 style="font-family: 'Lora', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">Die Nachfrage ist riesig!</h1>
+                    <p style="font-family: 'Lora', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir bedanken uns für die unglaublich großartige Nachfrage.</p>
+                    <p style="font-family: 'Lora', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;"><strong>Die Ticket-Kontingente sind aktuell bedauerlicherweise komplett erschöpft.</strong></p>
+                    <p style="font-family: 'Lora', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir prüfen derzeit eine Erweiterung der Kontingente und melden uns schnellstmöglich mit einer konkreten Rückmeldung.</p>
+                    <p style="font-family: 'Lora', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir bedanken uns für das Verständnis.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Rejection : END -->
+        </f:case>
+        <f:case value="waitingOK">
+            <f:render section="header" arguments="{_all}" />
+            <!-- 1 Column Approval : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: sans-serif, serif; color: white;">
+                    <h1 style="font-family: 'Lora', sans-serif; font-weight: 600; font-size: 2rem; text-align: center;">Danke für's Warten!</h1>
+                    <p>Wir freuen uns sehr vor dem Schloss Schönbrunn begrüßen zu können, folgend finden Sie die Reservierungsdaten.</p>
+                </td>
+            </tr>
+            <!-- 1 Column Approval : END -->
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="infos" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+        </f:case>
+        <f:case value="waitingNO">
+            <f:render section="header" arguments="{_all}" />
+            <!-- 1 Column Rejection : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: center; font-family: 'Lora', sans-serif; color: white;">
+                    <h1 style="font-family: 'Lora', sans-serif; font-weight: 600; font-size: 180%; text-align: center;">{accreditation.guestOutput.fullName}</h1>
+                    <hr style="margin: 30px 0;">
+                    <h1 style="font-family: 'Lora', sans-serif; font-weight: 600; font-size: 180%; text-align: center; color: #FFF06C;">Die Nachfrage ist riesig!</h1>
+                    <p style="font-family: 'Lora', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir sind von der ernormen Nachfrage überwältigt!<br><strong>Danke für Ihr Interesse.</strong></p>
+                    <p style="color: #FFF06C; font-family: 'Lora', sans-serif; font-weight: 700; text-align: center; font-size: 1rem;">Umso schwerer fällt es uns Ihnen sagen zu müssen, dass wir Ihnen leider keine Tickets zur Verfügung stellen können.</p>
+                    <p style="font-family: 'Lora', sans-serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir hoffen Sie bei einer unserer nächsten Premieren wieder begrüßen zu dürfen!</p>
+                </td>
+            </tr>
+            <!-- 1 Column Rejection : END -->
+        </f:case>
+        <f:case value="pending">
+            <f:render section="header" arguments="{_all}" />
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #000000;">    
+                    <h1 style="font-family: 'Lora', sans-serif; text-transform: uppercase; color: #FFF06C; font-size: 1.8rem; line-height: 1.2;">Neu auf der Warteliste!</h1>
+                    
+                    <!-- Fließtext -->			  
+                    <p style="font-family: 'Lora', sans-serif; font-weight: 300; text-align: center; font-size: 1.6rem; margin-bottom: 40px; color: white;"><strong>{accreditation.guestOutput.name}</strong></p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+        </f:case>
+        <f:defaultCase>
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="invitation" arguments="{_all}" />
+            <f:render section="infos" arguments="{_all}" />
+        </f:defaultCase>
+    </f:switch>
+
+    <f:section name="header">
+    <!-- Header : BEGIN -->
+    <tr>
+        <td class="full-width-image">
+            <img src="https://www.allegria.at/fileadmin/marketing/show-factory/eli-2024/SF_ELI-2024_Header-Einladung.png" width="600" alt="ELISABETH – Das Musical 2024 vor dem Schloss Schönbrunn" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;">
+        </td>
+    </tr>
+    <!-- Header : END --> 
+    </f:section>
+
+    <f:section name="invitation">
+    <!-- Einladungstext : BEGIN -->
+    <tr>
+        <td style="padding: 40px; text-align: center; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.2; color: #ffffff; font-family: 'Lora', serif;">
+            <f:switch expression="{content}">
+                <f:case value="invitation"><p style="color: #FFF06C; text-transform: uppercase; font-weight: 600; font-size: 1.5rem;">Persönliche Einladung!</p></f:case>
+                <f:case value="remind"><p style="color: #FFF06C; text-transform: uppercase; font-weight: 600; font-size: 1.5rem;">Erinnerung zur<br>persönlichen Einladung!</p></f:case>
+                <f:case value="push"><p style="color: #FFF06C; text-transform: uppercase; font-weight: 600; font-size: 1.5rem;">Finale Erinnerung zur<br>persönlichen Einladung!</p></f:case>
+                <f:case value="approve"><p style="color: #FFF06C; text-transform: uppercase; font-weight: 600; font-size: 1.5rem;">Persönliche Einladung!</p>Wir freuen uns sehr!<br>&nbsp;</f:case>
+                <f:case value="reject"><p style="color: #FFF06C; text-transform: uppercase; font-weight: 600; font-size: 1.5rem;">Persönliche Einladung!</p>Bis hoffentlich bald!<br>&nbsp;</f:case>
+                <f:case value="waiting"><p style="color: #FFF06C; text-transform: uppercase; font-weight: 600; font-size: 1.5rem;">Persönliche Einladung!</p>Wichtige Information<br><span style="font-size: 60%;">für</span></f:case>
+                <f:case value="waitingOK"><p style="color: #FFF06C; text-transform: uppercase; font-weight: 600; font-size: 1.5rem;">Persönliche Einladung!</p>Wir freuen uns sehr!<br>&nbsp;</f:case>
+                <f:case value="waitingNO"><p style="color: #FFF06C; text-transform: uppercase; font-weight: 600; font-size: 1.5rem;">Persönliche Einladung!</p>Bis hoffentlich bald!<br>&nbsp;</f:case>
+            </f:switch>
+            
+            <p style="line-height: 1.4;">
+                Show Factory & Semmel Entertainment freut sich<br>
+                <span style="text-transform: uppercase; font-size: 1rem; font-weight: bold;">{accreditation.guest.fullname}</span><br>
+                zur Premiere von
+            </p>
+            <p style="color: #fff; line-height: 1.4; font-size: 1rem;">
+                <span style="color: #FFF06C; font-size: 1.6rem; font-weight: bold;">ELISABETH – Das Musical</span><br>
+                KONZERTANTE AUFFÜHRUNG<br>
+                einzuladen.
+            </p>
+        </td>
+    </tr>
+        
+    <!-- Kasterl Details : BEGIN -->
+    <tr>
+        <td>
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style=" border-radius: 0px;">
+                <tr>
+                    <td style="text-align: center; font-family: sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.4; color: #ffffff; font-family: 'Lora', serif; background-color: #6C919CM; color: #fff;">
+                        <p style="font-size: 1.4rem; margin-bottom: 30px; background-color: #6C919C; padding: 15px 40px;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}<br>
+                        <span style="font-size: 1rem;">Beginn um {accreditation.event.date->f:format.date(format:'%k.%M')} Uhr<br>
+                        <small>Einlass ab <f:format.date date="{accreditation.event.date->f:format.date(format:'%k.%M')} - 1 hour" format="%k.%M Uhr" /><br>
+                        in {accreditation.event.location.city}, {accreditation.event.location.name}</small></span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    
+    <!-- Kasterl Details : END -->
+    
+    <f:render section="btn" arguments="{_all}" />
+
+    <!-- Einladungstext : END -->
+    </f:section>
+
+    <f:section name="btn">
+        <!-- Button : Begin -->
+        <tr>
+            <td>
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                <tr>
+                <td style="border-radius: 15px; background: #222222; text-align: center;" class="button-td">
+                    <f:link.typolink absolute="1" parameter="38" additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}" absolute="1" additionalAttributes="{style:'background: #FFF06C; border: 10px solid #FFF06C; padding: 0 10px;color: #101723; font-family: \'Lora\', serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 15px; font-weight: bold; text-transform: uppercase;'}" class="button-a">
+                        Jetzt rückmelden
+                    </f:link.typolink>
+                </td>
+                </tr>
+            </table>
+            </td>
+        </tr>
+        <!-- Button : END -->
+        
+        <!-- Wir freuen uns : BEGIN -->
+        <tr>
+            <td style="padding: 20px 20px 40px; text-align: center; font-family: sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.4; color: #ffffff; font-family: 'Lora', serif;">
+                <p>Die Einladung gilt für bis zu {accreditation.ticketsWish} Person{f:if(condition:'{accreditation.ticketsWish}', then:'en')} und ist nicht übertragbar.<br>
+                    Um Rückmeldung wird bis <f:format.date date="{accreditation.event.date->f:format.date(format:'d.m.Y')} - 14 days" format="d.m.Y" /> gebeten.</p>
+                <p style="text-transform: uppercase; font-size: 1.3rem;">Wir freuen uns auf Ihren Besuch!</p>
+            </td>
+        </tr>
+        <!-- Wir freuen uns : END -->
+    </f:section>
+    
+    <f:section name="infos">
+    <!-- Header : BEGIN -->
+    <tr>
+        <td class="full-width-image">
+            <img src="https://www.allegria.at/fileadmin/marketing/show-factory/eli-2024/SF_ELI-2024_Foto.png" width="600" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;">
+        </td>
+    </tr>
+    <!-- Header : END --> 
+
+    <!-- Darstellerfotos : BEGIN -->
+    <tr>
+        <td align="center" valign="top" style="background-color: #335A62; padding: 40px;">
+            <h1 style="text-align: center; color: #92c5d1; font-size: 1.4rem; font-family: 'Lora', sans-serif; margin-bottom: 0;">Hauptdarsteller:innen 2024</h1>
+            <div style="width: 100%; text-align: center; padding: 30px 0;">
+                <div style="width: 30%; display: inline-block; border-bottom: solid 1px white;"></div>
+            </div>
+            <table cellspacing="0" cellpadding="0" border="0" width="100%" style="">
+                <tr>
+                    <td class="stack-column-center">
+                        <table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                                <td style="padding: 10px; text-align: center">
+                                    <img src="https://www.allegria.at/fileadmin/marketing/show-factory/eli-2024/SF_ELI-2024_Van-Dam-Annemieke.png" width="auto" height="100%" alt="alt_text" border="0" class="fluid">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.4; color: #fff; padding: 0 10px 10px; text-align: center;" class="center-on-narrow">
+                                    <span style="font-family: 'Lora', sans-serif; color: #92c5d1; font-size: 1.2rem;">Kaiserin Elisabeth</span><br/>
+                                    Annemieke van Dam
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="stack-column-center">
+                        <table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                                <td style="padding: 10px; text-align: center">
+                                    <img src="https://www.allegria.at/fileadmin/marketing/show-factory/eli-2024/SF_ELI-2024_Emnes-Gino.png" width="auto" height="100%" alt="alt_text" border="0" class="fluid">
+                                </td>
+                            </tr>
+                    <tr>
+                        <td style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.4; color: #fff; padding: 0 10px 10px; text-align: center;" class="center-on-narrow">
+                            <span style="font-family: 'Lora', sans-serif; color: #92c5d1; font-size: 1.2rem;">Der Tod</span><br/>
+                            Gino Emnes
+                        </td>
+                    </tr>
+            </table></td>
+        </tr>
+        </table>
+        <p style="margin-bottom: 0;">&nbsp;</p>
+            <!-- Button : Begin -->
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                <tr>
+                    <td style="border-radius: 15px; background: #222222; text-align: center;" class="button-td">
+                        <a href="https://www.elisabeth-schoenbrunn.at/" style="background: #92c5d1; border: 10px solid #92c5d1; padding: 0 10px; color: #101723; font-family: 'Lora', serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 15px; font-weight: bold; text-transform: uppercase;" class="button-a"> 
+                            Zur Website
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <!-- Button : END -->
+        </td>
+    </tr>
+    <!-- Darstellerfotos : END --> 
+    </f:section>
+
+    <f:section name="ticket">
+        <!-- 1 Column Approval : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Lora', sans-serif; color: white;">
+                <h1 style="font-family: 'Lora', sans-serif; font-weight: 600; font-size: 180%; text-align: center; color: #FFF06C;">{accreditation.guestOutput.fullName}</h1>
+                <p><strong>Wie schön, dass Sie kommen können.</strong><br>
+                    Folgend finden Sie die Reservierungsdaten.</p>
+                <div style="background: #6C919C; border: 1px solid black; border-radius: 15px; padding: 15px 50px; text-align: center; margin-top: 30px; display: inline-block;">
+                    <p style="margin: 0; font-family: 'Lora', sans-serif; font-size: 1.2rem; color: #FFFFFF; font-weight: 700;">{accreditation.guestOutput.fullName}</p>
+                    <p style="margin-top: 0; color: #191919; font-family: sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+                    <p style="margin: 0; margin-top: 10px; font-family: sans-serif; font-size: 0.65rem; color: #000000;"><span style="font-size: 0.8rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong></span><br>Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr gesendet.</p>
+                </div>
+                <p style="font-size: 1.4rem; margin-bottom: 30px; padding: 15px 40px;">
+                    <span style="color: #FFF06C; font-size: 1.4rem; font-weight: bold;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'day')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}</span><br>
+                    <span style="font-size: 1.2rem;">Beginn um {accreditation.event.date->f:format.date(format:'%k.%M')} Uhr<br>
+                    <span style="font-size: 0.8rem;">Einlass ab <f:format.date date="{accreditation.event.date->f:format.date(format:'%k.%M')} - 1 hour" format="%k.%M Uhr" /><br>
+                    in {accreditation.event.location.city}, {accreditation.event.location.name}</span></span></p>
+            </td>
+        </tr>
+        <!-- 1 Column Approval : END -->
+    </f:section>
+    
+    <f:section name="sick">
+        <!-- 1 Column Feedback : BEGIN -->
+        <tr>
+            <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: 'Lora', sans-serif; color: white;">
+                <h1 style="text-align: center; color: #92c5d1; font-size: 1.4rem; font-family: 'Lora', sans-serif; margin-bottom: 0;">Krank oder verhindert?</h1>
+                <div style="width: 100%; text-align: center; padding: 30px 0;">
+                    <div style="width: 30%; display: inline-block; border-bottom: solid 1px white;"></div>
+                </div>
+                <p style="margin: 0; font-family: sans-serif; font-size: 0.75rem;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider Erwarten nicht kommen können.</p>
+                <p style="margin: 27px 0px 20px 0px"><a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank" style="background: #FFF06C; padding: 7px 14px; color: black; font-weight: 500; text-decoration: none;">Email senden</a></p>
+                <p style="font-family: sans-serif; font-weight: 700; margin-bottom: 30px; margin-top: 30px;">Mehr Informationen finden Sie unter<br>
+                    <a href="https://www.elisabeth-schoenbrunn.at/" style="color: #92c5d1; text-decoration: none;">www.elisabeth-schoebrunn.at</a>
+                </p>
+            </td>
+        </tr>
+        <!-- 1 Column Feedback : END -->
+    </f:section>
+
+</f:section>
+
+</html>

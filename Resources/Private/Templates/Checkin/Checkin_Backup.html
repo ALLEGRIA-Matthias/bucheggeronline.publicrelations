@@ -1,0 +1,109 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Checkin" />
+
+<f:section name="buttons">
+<f:link.action action="show" arguments="{event:accreditation.event}" class="btn btn-default btn-sm"><svg class="icon icon-sm fill-dark mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#times"></use></svg>Abbrechen</f:link.action>
+</f:section>
+
+<f:section name="shortcuts">
+<f:link.action action="checkin" arguments="{accreditation:accreditation}" class="btn btn-default btn-sm"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+<h1>Check-In</h1>
+<f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+<h2>{accreditation.guestOutput.name}</h2>
+<table class="table table-sriped table-hover">
+  <tr>
+    <th width="100px">Typ</th>
+    <td width="auto">{accreditation.guestTypeOutput}<f:if condition="{accreditation.facie}"><svg class="icon icon-sm fill-gold ml-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-star"></use></svg></f:if></td>
+  </tr>
+  <tr>
+    <th>Akkr. auf</th>
+    <td><f:render partial="ContactOutput" arguments="{contact:accreditation.guestOutput, settings:settings}" /></td>
+  </tr>
+  <f:if condition="{accreditation.notes} || {accreditation.notesSelect}">
+  <tr class="info">
+    <th>Anmerkungen</th>
+    <td>
+      {accreditation.notes->f:format.nl2br()}<br/>
+      <f:if condition="{accreditation.notesSelect}"><f:for each="{accreditation.notesSelect}" as="note" iteration="i"><span class="badge {f:if(condition:'{note.cssClass}', then:'{note.cssClass}', else:'primary')} mr-2"><f:if condition="{note.svg}"><svg class="icon fill-white mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{note.svg}"></use></svg></f:if>{note.title}</span></f:for><f:if condition="{accreditation.notes}"></f:if></f:if>
+
+    </td>
+  </tr>
+  </f:if>
+  <tr class="{f:if(condition:'{accreditation.ticketsPrepared}>0', then:'success', else:'danger')}">
+    <th>Tickets</th>
+    <td><svg class="icon icon-sm fill-dark mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#ticket"></use></svg>{accreditation.ticketsPrepared}</td>
+  </tr>
+  <f:if condition="{accreditation.program} || {accreditation.pass}">
+  <tr class="warning">
+    <th>Mitzugeben</th>
+    <td>
+      <f:if condition="{accreditation.program}"><svg class="icon icon-sm fill-dark mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#book-open"></use></svg>{accreditation.program}x Programm<br></f:if>
+      <f:if condition="{accreditation.pass}"><svg class="icon icon-sm fill-dark mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#camera"></use></svg>{accreditation.pass}x Fotopass<br></f:if>
+    </td>
+  </tr>
+  </f:if>
+  <f:if condition="{accreditation.ticketsReceived}">
+  <tr class="info">
+    <th>Abgeholt</th>
+    <td><svg class="icon icon-sm fill-dark mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#ticket"></use></svg>{accreditation.ticketsReceived}</td>
+  </tr>
+  </f:if>
+  <f:if condition="{accreditation.notesReceived}">
+  <tr class="info">
+    <th>Notiz</th>
+    <td>{accreditation.notesReceived}</td>
+  </tr>
+  </f:if>
+  <f:if condition="{accreditation.seats} || {accreditation.additionalAnswers}">
+  <tr class="active">
+    <td colspan="2" class="text-gold font-weight-bold text-center">ZUSATZINFOS</td>
+  </tr>
+  <f:if condition="{accreditation.seats}">
+  <tr class="info">
+    <th>Sitzplatz</th>
+    <td>{accreditation.seats}</td>
+  </tr>
+  </f:if>
+  <f:if condition="{accreditation.additionalAnswers} && {accreditation.event.additionalFields}">
+  <f:for each="{accreditation.additionalAnswers}" as="answer">
+  <tr class="info">
+    <th><f:for each="{accreditation.event.additionalFields}" as="field"><f:if condition="{field.uid}=={answer.field.uid}">{field.label}</f:if></f:for></th>
+    <td>
+      <f:for each="{answer.value}" as="value" iteration="vi">{value.value} x <f:for each="{accreditation.event.additionalFields}" as="field"><f:for each="{field.options}" as="option"><f:if condition="{option.value}=={value.key}">{option.label}</f:if></f:for></f:for>{f:if(condition:'{vi.isLast}', else:'<br>')}</f:for>
+    </td>
+  </tr>
+  </f:for>
+  </f:if>
+  </f:if>
+</table>
+
+<f:form controller="Accreditation" action="checkin" enctype="multipart/form-data" name="accreditation" object="{accreditation}">
+<p>
+  <div class="form-group">
+   <f:form.textarea class="form-control" property="notesReceived" placeholder="Anmerkungen zum Check-In" id="notesReceived" />
+ </div>
+
+ <div class="form-inline mb-3">
+   <div class="form-group text-center">
+     <span class="btn btn-default" onclick="formNumberMinus(this)" data-target="#ticketsReceived"><svg class="icon fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#minus"></use></svg></span>
+     <f:form.textfield class="form-control d-inline-block text-center form-control-lg" style="width:120px;" name="ticketsReceived" value="{accreditation.ticketsPrepared}" type="number" id="ticketsReceived" additionalAttributes="{min:'-{accreditation.ticketsReceived}', max:'{accreditation.ticketsPrepared}'}" />
+     <span class="btn btn-default" onclick="formNumberPlus(this)" data-target="#ticketsReceived"><svg class="icon fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#plus"></use></svg></span>
+   </div>
+ </div>
+ <div class="form-group text-center">
+   <f:form.button type="submit" class="btn btn-gold text-uppercase font-weight-bold mb-3 w-100"><svg class="icon icon-sm fill-dark mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#circle-check"></use></svg>Bestätigen</f:form.button>
+ </div>
+</p>
+</f:form>
+
+</f:section>
+</html>

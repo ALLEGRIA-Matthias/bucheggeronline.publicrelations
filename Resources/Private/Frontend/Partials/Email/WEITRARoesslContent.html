@@ -1,0 +1,343 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+
+<f:section name="preheader">
+    <!-- Visually Hidden Preheader Text : BEGIN -->
+    <div style="display:none; font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">
+    <f:switch expression="{content}">
+        <f:case value="invitation">Ihre persönliche Einladung zur Premiere des Schloss Weitra Festivals. 2023 mit dem Operettenklassiker IM WEISSEN RÖSSL</f:case>
+        <f:case value="remind">Nicht verpassen: Ihre persönliche Einladung zur Premiere des Schloss Weitra Festivals. 2023 mit dem Operettenklassiker IM WEISSEN RÖSSL</f:case>
+        <f:case value="push">Letzte Chance: Ihre persönliche Einladung zur Premiere des Schloss Weitra Festivals. 2023 mit dem Operettenklassiker IM WEISSEN RÖSSL</f:case>
+        <f:case value="approve">Wie schön, dass wir Sie demnächst auf Schloss Weitra begrüßen dürfen.</f:case>
+        <f:case value="reject">Schade, dass es nicht klappt. Das Schloss Weitra Festival würde sich über einen baldigen Besuch freuen.</f:case>
+    </f:switch>
+    </div>
+    <!-- Visually Hidden Preheader Text : END --> 
+</f:section>
+
+<f:section name="content">
+<f:switch expression="{content}">
+    <f:case value="approve">
+        <!-- 1 Column Approval : BEGIN -->
+        <tr>
+            <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: 'Bree Serif', serif;">
+                <h1 style="font-family: 'Bree Serif', serif; font-weight: 600; font-size: 2rem; text-align: center; color: #036DB6;">Wir freuen uns auf Ihr Kommen!</h1>
+                <p>Folgend finden Sie die Reservierungsdaten.</p>
+                <div style="background: #f1ecd8; border: 1px solid #036DB6; border-radius: 15px; padding: 15px; text-align: center; margin-bottom: 10px;">
+                    <p style="margin: 0; font-family: 'Bree Serif', serif; font-size: 1.6rem; color: #036DB6; font-weight: 700;">{accreditation.guestOutput.fullName}</p>
+                    <p style="margin-top: 0; color: #191919; font-family: 'Bree Serif', serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+                    <p style="margin: 0; margin-top: 10px; font-family: 'Bree Serif', serif; font-size: 0.65rem; color: #000000;"><span style="font-size: 0.8rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong></span><br>Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr gesendet.</p>
+                </div>
+                <p style="font-size: 1rem;">Die Ausgabe der Karten findet ab 18 Uhr am Empfang statt.</p>
+                <f:if condition="{accreditation.guestType}==4"><f:else><h3 style="font-family: 'Bree Serif', serif; font-weight: 600; font-size: 1.4rem; text-align: center; color: #036DB6;">Premierenfeier</h3><p style="font-size: 0.9rem;">Wir würden uns freuen Sie bei der <strong style="color: #036DB6;">Premierenfeier</strong> im Anschluss der Vorstellung zu sehen, die <strong style="color: #036DB6;">Zutrittsvoucher</strong> werden mit den Karten ausgegeben.</p></f:else></f:if>
+                <f:if condition="{accreditation.guestType}==2"><h3 style="font-family: 'Bree Serif', serif; font-weight: 600; font-size: 1.4rem; text-align: center; color: #036DB6;">Pressematerial</h3><p style="font-size: 0.9rem;">Pressematerial zur redaktionellen Berichterstattung finden Sie <a href="https://www.allegria.at/kunde/schloss-weitra-festival/im-weissen-roessl/#pressematerial" target="_blank" style="font-family: 'Bree Serif', serif; font-weight: 600; color: #036DB6;">HIER</a>!<br>Wir freuen uns auf Ihren Beitrag!</p></f:if>
+            </td>
+        </tr>
+        <!-- 1 Column Approval : END -->
+        <f:render section="eventinfo" arguments="{_all}" />
+        <f:render section="images" arguments="{_all}" />
+        <!-- 1 Column Feedback : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Bree Serif', serif;">
+                <hr style="margin: 0 0 30px 0;">
+                <h2 style="margin-top: 0px; margin-bottom: 0; font-family: 'Bree Serif', serif; font-size: 1.4rem; text-transform: uppercase;">Krank oder verhindert?</h2>
+                <p style="margin: 0; font-family: 'Bree Serif', serif; font-size: 0.75rem;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider Erwarten nicht zur Premiere kommen können.</p>
+                <p style="margin: 27px 0px 0px 0px"><a href="mailto:office@allegria.at" target="_blank" style="background: #036DB6; padding: 7px 14px; color: #FFFFFF; font-weight: 500; text-decoration: none;">Email senden</a></p>
+                <hr style="margin: 30px 0 0;">
+            </td>
+        </tr>
+        <!-- 1 Column Feedback : END -->
+        <f:render section="seeyou" arguments="{_all}" />
+    </f:case>
+    <f:case value="reject">
+        <!-- 1 Column Rejection : BEGIN -->
+        <tr>
+            <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: 'Bree Serif', serif;">
+                <h1 style="font-family: 'Bree Serif', serif; font-weight: 600; font-size: 2rem; text-align: center; color: #036DB6;">Schade, dass es nicht klappt!</h1>
+                <p style="font-family: 'Bree Serif', serif; text-align: center; font-weight: 100; font-size: 1rem; margin: 5px 0px 40px 0px">
+                    Danke für die, wenn auch negative, Rückmeldung.<br>Wir hoffen Sie bei einer der nächsten Veranstaltungen <span style="white-space: nowrap;">begrüßen zu dürfen</span>.
+                </p>
+                <h2 style="font-family: 'Bree Serif', serif; font-weight: 600; font-size: 1.6rem; text-align: center; color: #036DB6; margin-bottom: 0; line-height: 1.2;">Im weißen Rössl</h2>
+                <p style="font-family: 'Bree Serif', serif; text-align: center; font-weight: 100; font-size: 1rem; margin-bottom: 0px; line-height: 1.2;">
+                    nur von 7. Juli bis 6. August 2023<br>
+                    auf Schloss Weitra
+                </p>
+            </td>
+        </tr>
+        <!-- 1 Column Rejection : END -->
+        <f:render section="images" arguments="{_all}" />
+        <f:render section="seeyou" arguments="{_all}" />
+
+    </f:case>
+    <f:case value="sorry">
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Bree Serif', serif !important; color: #707070; font-size: 1rem; line-height: 1.2; ">
+                <p style="line-height: 1.2; font-size: 1rem;">
+                    <img src="https://www.allegria.at/fileadmin/marketing/weitra/warning.png" width="50px" height="auto" />
+                </p>
+                <p style="line-height: 1.2; font-size: 1rem;">
+                    <f:render partial="Salutation" arguments="{guestOutput:accreditation.guestOutput}" />
+                </p>
+                <p style="line-height: 1.2; font-size: 1rem;">
+                    wir möchten uns bei Ihnen für die vorangegangene, fehlerhafte Einladung zur Premiere von <span style="color: #036DB6;">IM WEISSEN RÖSSL</span> auf Schloss Weitra entschuldigen und bitten nur Sie folgende Einladung zu beachten.
+                </p>
+                <p>Herzlichst,<br>Ihr Schloss Weitra Festival Team</p>
+            </td>
+        </tr>
+    </f:case>
+    <f:case value="waiting">
+        <!-- 1 Column Rejection : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Merriweather', serif;">
+                <h1 style="font-family: 'Bree Serif', serif; font-weight: 600; font-size: 2rem; text-align: center; color: #036DB6;">Die Nachfrage ist riesig!</h1>
+                <p style="font-family: 'Merriweather', serif; font-weight: 300; text-align: center; font-size: 1rem;">Das Schloss Weitra Festival bedankt sich für die unglaublich großartige Nachfrage.</p>
+                <p style="font-family: 'Merriweather', serif; font-weight: 300; text-align: center; font-size: 1rem;"><strong>Die Ticket-Kontingente sind aktuell bedauerlicherweise komplett erschöpft.</strong></p>
+                <p style="font-family: 'Merriweather', serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir prüfen derzeit eine Erweiterung der Kontingente und melden uns schnellstmöglich mit einer konkreten Rückmeldung.</p>
+                <p style="font-family: 'Merriweather', serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir bedanken uns für das Verständnis.</p>
+            </td>
+        </tr>
+        <!-- 1 Column Rejection : END -->
+    </f:case>
+    <f:case value="waitingOK">
+        <!-- 1 Column Approval : BEGIN -->
+        <tr>
+            <td style="padding: 40px; padding-bottom: 0; text-align: center; font-family: 'Bree Serif', serif;">
+                <h1 style="font-family: 'Bree Serif', serif; font-weight: 600; font-size: 2rem; text-align: center; color: #036DB6;">Danke für's Warten!</h1>
+                <p>Wir freuen uns sehr Sie in Weitra begrüßen zu können, folgend finden Sie die Reservierungsdaten.</p>
+                <div style="background: #f1ecd8; border: 1px solid #036DB6; border-radius: 15px; padding: 15px; text-align: center; margin-bottom: 10px;">
+                    <p style="margin: 0; font-family: 'Bree Serif', serif; font-size: 1.6rem; color: #036DB6; font-weight: 700;">{accreditation.guestOutput.fullName}</p>
+                    <p style="margin-top: 0; color: #191919; font-family: 'Bree Serif', serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+                    <p style="margin: 0; margin-top: 10px; font-family: 'Bree Serif', serif; font-size: 0.65rem; color: #000000;"><span style="font-size: 0.8rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong></span><br>Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr gesendet.</p>
+                </div>
+                <p style="font-size: 1rem;">Die Ausgabe der Karten findet ab 18 Uhr am Empfang statt.</p>
+                <f:if condition="{accreditation.guestType}==4"><f:else><h3 style="font-family: 'Bree Serif', serif; font-weight: 600; font-size: 1.4rem; text-align: center; color: #036DB6;">Premierenfeier</h3><p style="font-size: 0.9rem;">Wir würden uns freuen Sie bei der <strong style="color: #036DB6;">Premierenfeier</strong> im Anschluss der Vorstellung zu sehen, die <strong style="color: #036DB6;">Zutrittsvoucher</strong> werden mit den Karten ausgegeben.</p></f:else></f:if>
+                <f:if condition="{accreditation.guestType}==2"><h3 style="font-family: 'Bree Serif', serif; font-weight: 600; font-size: 1.4rem; text-align: center; color: #036DB6;">Pressematerial</h3><p style="font-size: 0.9rem;">Pressematerial zur redaktionellen Berichterstattung finden Sie <a href="https://www.allegria.at/kunde/schloss-weitra-festival/im-weissen-roessl/#pressematerial" target="_blank" style="font-family: 'Bree Serif', serif; font-weight: 600; color: #036DB6;">HIER</a>!<br>Wir freuen uns auf Ihren Beitrag!</p></f:if>
+            </td>
+        </tr>
+        <!-- 1 Column Approval : END -->
+        <f:render section="eventinfo" arguments="{_all}" />
+        <f:render section="images" arguments="{_all}" />
+        <!-- 1 Column Feedback : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Bree Serif', serif;">
+                <hr style="margin: 0 0 30px 0;">
+                <h2 style="margin-top: 0px; margin-bottom: 0; font-family: 'Bree Serif', serif; font-size: 1.4rem; text-transform: uppercase;">Krank oder verhindert?</h2>
+                <p style="margin: 0; font-family: 'Bree Serif', serif; font-size: 0.75rem;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider Erwarten nicht zur Premiere kommen können.</p>
+                <p style="margin: 27px 0px 0px 0px"><a href="mailto:office@allegria.at" target="_blank" style="background: #036DB6; padding: 7px 14px; color: #FFFFFF; font-weight: 500; text-decoration: none;">Email senden</a></p>
+                <hr style="margin: 30px 0 0;">
+            </td>
+        </tr>
+        <!-- 1 Column Feedback : END -->
+        <f:render section="seeyou" arguments="{_all}" />
+    </f:case>
+    <f:case value="waitingNO">
+        <!-- 1 Column Rejection : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Merriweather', serif;">
+                <h1 style="font-family: 'Bree Serif', serif; font-weight: 600; font-size: 2rem; text-align: center; color: #036DB6;">Die Nachfrage ist riesig!</h1>
+                <p style="font-family: 'Merriweather', serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir sind von der ernormen Nachfrage überwältigt!<br><strong>Danke für Ihr Interesse.</strong></p>
+                <p style="color: #036DB6; font-family: 'Merriweather', serif; font-weight: 700; text-align: center; font-size: 1rem;">Umso schwerer fällt es uns Ihnen sagen zu müssen, dass wir Ihnen leider keine Tickets zur Verfügung stellen können.</p>
+                <p style="font-family: 'Merriweather', serif; font-weight: 300; text-align: center; font-size: 1rem;">Wir hoffen Sie bei einer unserer nächsten Premieren wieder begrüßen zu dürfen!</p>
+            </td>
+        </tr>
+        <!-- 1 Column Rejection : END -->
+        <f:render section="seeyou" arguments="{_all}" />
+    </f:case>
+    <f:case value="pending">
+        <!-- 1 Column Text : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.2; color: #000000;">    
+                <h1 style="font-family: 'Bree Serif', serif; font-weight: 600; font-size: 2rem; text-align: center; color: #036DB6;">Neu auf der Warteliste!</h1>
+                
+                <!-- Fließtext -->			  
+                <p style="font-family: 'Merriweather', serif; font-weight: 300; text-align: center; font-size: 1rem;"><strong>{accreditation.guestOutput.name}</strong></p>
+            </td>
+        </tr>
+        <!-- 1 Column Text : END -->
+    </f:case>
+    <f:defaultCase>
+        <tr>
+            <td style="text-align: center; font-family: 'Bree Serif', serif !important; color: #707070; font-size: 1.2rem; line-height: 1.4; ">
+                <f:switch expression="{content}">
+                    <f:case value="remind"><h1 style="text-align: center; color: #036DB6; font-family: 'Bree Serif', serif; font-size: 2rem; text-transform: uppercase;">Erinnerung</h1></f:case>
+                    <f:case value="push"><h1 style="text-align: center; color: #036DB6; font-family: 'Bree Serif', serif; font-size: 2rem; text-transform: uppercase;">Finale Erinnerung</h1></f:case>
+                </f:switch>
+                <p style="text-align: center; font-family: 'Bree Serif', serif !important; color: #707070; font-size: 1.2rem; line-height: 1.4; margin-top: 30px;">Wir freuen uns <br>
+                    <span style="color: #036DB6; font-weight: bold;">{accreditation.guestOutput.fullName}</span><br>
+                    zur Premiere von <br>
+                    <span style="color: #036DB6; font-size: 1.6rem; font-weight: bold;">Im wei&szlig;en Rössl</span><br>
+                    <f:if condition="{accreditation.guestType}==2"><span style="display: inline-block; background-color: #036DB6; color: #FFFFFF; font-size: 1rem; padding: 3px 5px;">zur redaktionellen Berichterstattung</span><br></f:if>
+                    einzuladen.
+                </p>
+            </td>
+        </tr>
+        <f:render section="eventinfo" arguments="{_all}" />
+        <tr>
+            <td style="text-align: center; font-family: 'Bree Serif', serif !important; color: #707070; font-size: 1.2rem; line-height: 1.4; ">
+                <!-- Button : Begin -->
+                <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto; padding: 10px 20px;">
+                <tr>
+                    <td style="border-radius: 5px; background: #036DB6; color: #ffffff; text-align: center;" class="button-td">
+                        <f:link.typolink
+                            absolute="1"
+                            parameter="38"
+                            additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}"
+                            absolute="1"
+                            additionalAttributes="{style:'display: inline-block; background-color: #036DB6; font-family: \'Bree Serif\', serif; font-weight: 400; color: white; text-decoration: none; padding: 5px 15px; margin: 0px auto; font-size: 1.4rem; border-radius: 25px;'}">
+                            Jetzt Zu- oder Absagen
+                        </f:link.typolink>
+                    </td>
+                </tr>
+                </table>         
+                <!-- Button : END -->       
+                <p style="font-size: 0.8em; line-height: 1.2; margin-top: 35px; margin-bottom: 30px;">
+                    Um Rückmeldung wird bis <strong>30. Juni 2023</strong> gebeten.<br>
+                    Die Einladung gilt für <span style="color: #036DB6;">{f:if(condition:'{accreditation.ticketsWish}>1', then:'bis zu ')}{accreditation.ticketsWish} Person{f:if(condition:'{accreditation.ticketsWish}>1', then:'en')}</span> und ist nicht übertragbar.
+                </p>
+            </td>
+        </tr>
+        <f:render section="bus" arguments="{_all}" />
+        <f:render section="images" arguments="{_all}" />
+        <f:render section="seeyou" arguments="{_all}" />
+    </f:defaultCase>
+</f:switch>
+</f:section>
+
+<f:section name="eventinfo">
+    <tr>
+        <td style="text-align: center; font-family: 'Bree Serif', serif !important; color: #707070; font-size: 1.2rem; line-height: 1.4; ">
+            <p style="line-height: 120%; margin-top: 40px; font-size: 1.2rem;">
+                <img src="https://www.allegria.at/fileadmin/marketing/weitra/roessl_calendar.png" width="50px" height="auto" /><br>
+                {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'day')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')} | {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}<br>
+                <span style="font-size: 0.9rem;">Einlass ab {f:format.date(format:'%k.%M Uhr', date:'{accreditation.event.date->f:format.date(format:\'H:i\')} -90 minutes')} | Schloss Weitra</span>
+            </p>
+        </td>
+    </tr>
+</f:section>
+
+<f:section name="images">
+    <!-- Three Even Columns : BEGIN -->
+    <tr>
+        <td align="center" valign="top" style="padding: 10px;">
+            
+            <table cellspacing="0" cellpadding="0" border="0" width="95%">
+            <tr>
+            <!-- Foto 1 -->
+                <td width="33.33%" class="stack-column-center">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                        <td style="padding: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/weitra/roessl_mailing-image-01.jpg" width="250" height="250" alt="Im weißen Rössl auf Schloss Weitra – Foto" border="0" class="fluid" style="max-width: 100%; height: auto;"></td>
+                    </tr>
+                    </table></td>
+            <!-- Foto 2 -->  
+                <td width="33.33%" class="stack-column-center">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                        <td style="padding: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/weitra/roessl_mailing-image-02.jpg" width="250" height="250" alt="Im weißen Rössl auf Schloss Weitra – Foto" border="0" class="fluid" style="max-width: 100%; height: auto;"></td>
+                    </tr>
+                    </table></td>
+            <!-- Foto 3 -->
+                <td width="33.33%" class="stack-column-center">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                        <td style="padding: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/weitra/roessl_mailing-image-03.jpg" width="250" height="250" alt="Im weißen Rössl auf Schloss Weitra – Foto" border="0" class="fluid" style="max-width: 100%; height: auto;"></td>
+                    </tr>
+                    </table></td>
+            </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- Three Even Columns : END -->
+</f:section>
+
+<f:section name="seeyou">
+    <tr>
+        <td style="text-align: center; font-family: 'Bree Serif', serif; color: #707070; font-size: 0.9rem; ">
+            <p style="font-size: 1.2rem; margin-bottom: 10px;">Wir freuen uns auf Ihren Besuch!</p>
+            
+            <table cellspacing="0" cellpadding="0" border="0" align="center">
+                <tr>
+                    <td style="text-align: center;" class="button-td">
+                        <a href="https://www.schloss-weitra.at" style="display: inline-block;
+                                            background-color: #036DB6; 
+                                            font-family: 'Bree Serif', serif;
+                                            color: white;
+                                            text-decoration: none;
+                                            padding: 3px 10px;
+                                            border-radius: 5px;
+                                            margin: 5px auto;
+                                            font-size: 1rem;
+                                            " class="button-a"> 
+                        www.schloss-weitra.at
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <p>&nbsp;</p>
+        </td>
+    </tr>
+</f:section>
+
+<f:section name="bus">
+    <!-- Two Even Columns : BEGIN -->
+    <tr>
+        <td align="center" valign="top" style="background-color: #f1ecd8; padding: 40px;">
+            
+            <h2 style="text-align: center; font-family: 'Bree Serif', serif; color: #036DB6; font-size: 1.4rem; margin: 0 0 10px 0;">Schloss Weitra Festival<br>Premierenshuttle</h2>
+            <img src="https://www.allegria.at/fileadmin/marketing/weitra/roessl_bus.png" width="80px" height="auto">
+            <p style="text-align: center; font-family: 'Bree Serif', serif; color: #707070; font-size: 1rem; margin-top: 0px">Wien – WEITRA – Wien</p>
+            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tr>
+            <td class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                <td style="font-family: 'Bree Serif', serif; color: #707070; font-size: 0.85rem; margin: 0; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
+                    <h3 style="font-family: 'Bree Serif', serif; color: #036DB6; font-size: 1.2rem; margin-bottom: 0;">Hinfahrt</h3>
+                    <p style="margin-top: 0;"><span style="color: #036DB6;">16.15 Uhr</span> Treffpunkt<br>
+                    Haltestelle ALBERTINA <span style="color: #036DB6;">[NEU]</span><br>
+                    1010 Wien, Operngasse 4-8</p>
+                    <p>16.30 Uhr Abfahrt in Wien<br>
+                        <span style="color: #036DB6;">19.00 Uhr Ankunft</span> in Weitra<br>
+                        Busparkplatz WEITRA</p>
+                    </td>
+              </tr>
+              </table></td>
+            <td class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                <td style="font-family: 'Bree Serif', serif; color: #707070; font-size: 0.85rem; margin: 0; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
+                    <h3 style="font-family: 'Bree Serif', serif; color: #036DB6; font-size: 1.2rem; margin-bottom: 0;">Rückfahrt</h3>
+                    <p style="margin-top: 0;"><span style="color: #036DB6;">23.45 Uhr</span> Treffpunkt<br>
+                    Busparkplatz WEITRA<br>
+                    3970 Weitra, Bergzeile</p>
+                    <p>Mitternacht Abfahrt in Weitra<br>
+                        <span style="color: #036DB6;">02.30 Uhr Ankunft</span> in Wien<br>
+                        Haltestelle ALBERTINA</p>
+                    </td>
+              </tr>
+              </table>
+            </td>
+            </tr>
+            </table>
+            <!-- Button : Begin -->
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
+            <tr>
+                <td style="border-radius: 5px; background: #036DB6; color: #ffffff; text-align: center;" class="button-td">
+                    <f:link.typolink
+                        absolute="1"
+                        parameter="38"
+                        additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}"
+                        absolute="1"
+                        additionalAttributes="{style:'display: inline-block; background-color: #036DB6; font-family: \'Bree Serif\', serif; font-weight: 400; color: white; text-decoration: none; padding: 5px 15px; margin: 0px auto; font-size: 1.4rem; border-radius: 25px;'}">
+                        Jetzt Zu- oder Absagen
+                    </f:link.typolink>
+                </td>
+            </tr>
+            </table>         
+            <!-- Button : END --> 
+            <p style="text-align: center; font-family: 'Bree Serif', serif; color: #707070; font-size: 0.8rem; font-style: italic; margin-top: 20px; margin-bottom: 0;">Die Nutzung des Shuttles ist <strong style="color: #036DB6;">gratis</strong>, bei limitierten Plätzen!<br>Eine Voranmeldung über den Rückmeldelink ist obligat.</p>
+        </td>
+    </tr>
+    <!-- Two Even Columns : END -->
+</f:section>
+</html>

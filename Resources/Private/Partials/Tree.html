@@ -1,0 +1,9 @@
+<ul class="treelist">
+<f:for each="{items -> v:iterator.sort(sortBy: 'title')}" as="topLevelItem">
+    <f:switch expression="{type}">
+        <f:case value="importer"><f:render partial="Contact/TreeImporter" arguments="{treeItems: topLevelItem, iteration: '{for:iteration}'}" /></f:case>
+        <f:case value="mailinglists"><f:render partial="Contact/TreeLists" arguments="{treeItems: topLevelItem, iteration: '{for:iteration}'}" /></f:case>
+        <f:defaultCase><f:render partial="TreeBuild" arguments="{treeItems: topLevelItem, iteration: '{for:iteration}'}" /></f:defaultCase>
+    </f:switch>
+</f:for>
+</ul>

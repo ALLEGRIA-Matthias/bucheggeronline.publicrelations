@@ -1,0 +1,49 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+    
+    <f:asset.css identifier="pressecenter-usermenu-style">
+        .initials-avatar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: #0d6efd; /* Blau, passend zum Theme */
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+        }
+    </f:asset.css>
+
+    <ul id="main-navbar" class="nav navbar-nav nav-flex-icons ml-auto ms-auto flex-row">
+    <f:if condition="{isLoggedIn}">
+        <f:then>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#" id="navbarUserMenu" role="button" data-mdb-dropdown-init aria-expanded="false">
+                    <f:if condition="{image}">
+                        <f:then><f:image image="{image.0}" width="24c" height="24c" class="avatar avatar-24 photo rounded-circle" /></f:then>
+                        <f:else><div class="initials-avatar" title="{fullName}">{initials}</div></f:else>
+                    </f:if>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUserMenu">
+                    
+                    <li><f:link.page pageUid="97" class="dropdown-item">Mein Profil</f:link.page></li>
+                    <f:comment>
+                        <li><a class="dropdown-item" href="#">Einstellungen</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                    </f:comment>
+                    <li><a class="dropdown-item" href="{logoutLink}?logintype=logout">Logout</a></li>
+                </ul>
+            </li>
+        </f:then>
+        <f:else>
+            <li class="nav-item">
+                <a class="nav-link" href="{loginLink}">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                </a>
+            </li>
+        </f:else>
+    </f:if>
+    </ul>
+
+</html>

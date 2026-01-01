@@ -1,0 +1,381 @@
+<!doctype html>
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:v="urn:schemas-microsoft-com:vml"
+    xmlns:o="urn:schemas-microsoft-com:office:office"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true" >
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style type="text/css">
+        @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&display=swap");
+        :root {
+            --primary: #efb72e;
+            --secondary: #c2e2f1;
+            --success: #91E25E;
+            --info: #c2e2f1;
+            --warning: #FF9C39;
+            --danger: #C60000;
+            --light: #f2f4f0;
+            --dark: #030305;
+        }
+        p {
+            margin:10px 0;
+            padding:0;
+        }
+        table {
+            border-collapse:collapse;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            display:block;
+            margin:0;
+            padding:0;
+        }
+        img,
+        a img {
+            border:0;
+            height:auto;
+            outline:none;
+            text-decoration:none;
+        }
+        body,
+        #bodyTable,
+        #bodyCell {
+            height:100%;
+            margin:0;
+            padding:0;
+            width:100%;
+        }
+        #outlook a {
+            padding:0;
+        }
+        img {
+            -ms-interpolation-mode:bicubic;
+        }
+        table {
+            mso-table-lspace:0pt;
+            mso-table-rspace:0pt;
+        }
+        .ReadMsgBody {
+            width:100%;
+        }
+        .ExternalClass {
+            width:100%;
+        }
+        p,
+        a,
+        td {
+            mso-line-height-rule:exactly;
+        }
+        a[href^=tel],
+        a[href^=sms] {
+            color:inherit;
+            cursor:default;
+            text-decoration:none;
+        }
+        p,
+        a,
+        td,
+        body,
+        table,
+        blockquote {
+            font-family:'IBM Plex Sans', sans-serif;
+            -ms-text-size-adjust:100%;
+            -webkit-text-size-adjust:100%;
+        }
+        .ExternalClass,
+        .ExternalClass p,
+        .ExternalClass td,
+        .ExternalClass div,
+        .ExternalClass span,
+        .ExternalClass font {
+            line-height:100%;
+        }
+        a[x-apple-data-detectors]{
+            color:inherit !important;
+            text-decoration:none !important;
+            font-size:inherit !important;
+            font-family:inherit !important;
+            font-weight:inherit !important;
+            line-height:inherit !important;
+        }
+
+        .templateContainer {
+            max-width:600px !important;
+        }
+        a.button {
+            display:block;
+        }
+        .image,.retinaImage {
+            vertical-align:bottom;
+        }
+        .textContent {
+            word-break:break-word;
+        }
+        .textContent img {
+            height:auto !important;
+        }
+        .dividerBlock {
+            table-layout:fixed !important;
+        }
+        h1 {
+            color:#222222;
+            font-family:'IBM Plex Sans', sans-serif;
+            font-size:40px;
+            font-style:normal;
+            font-weight:bold;
+            line-height:150%;
+            letter-spacing:normal;
+            text-align:center;
+        }
+        h2 {
+            color:#222222;
+            font-family:'IBM Plex Sans', sans-serif;
+            font-size:34px;
+            font-style:normal;
+            font-weight:bold;
+            line-height:150%;
+            letter-spacing:normal;
+            text-align:left;
+        }
+        h3, h5 {
+            color:#444444;
+            font-family:'IBM Plex Sans', sans-serif;
+            font-size:22px;
+            font-style:normal;
+            font-weight:bold;
+            line-height:150%;
+            letter-spacing:normal;
+            text-align:left;
+        }
+        h4 {
+            color:#999999;
+            font-family:'IBM Plex Sans', sans-serif;
+            font-size:20px;
+            font-style:italic;
+            font-weight:normal;
+            line-height:1;
+            letter-spacing:normal;
+            text-align:left;
+            margin: 0;
+        }
+        h6 {
+            color:var(--dark);
+            font-family:'IBM Plex Sans', sans-serif;
+            font-size:14px;
+            font-style:normal;
+            font-weight:bold;
+            text-transform:uppercase;
+            line-height:125%;
+            letter-spacing:normal;
+            text-align:left;
+        }
+        .subtitle {
+          font-size: 10px;
+          margin: 0;
+        }
+        .danger {
+          color: #C60000;
+        }
+        #templateHeader {
+            background-image:none;
+            background-repeat:no-repeat;
+            background-position:center;
+            background-size:cover;
+            border-top:0;
+            border-bottom:0;
+            padding-top:36px;
+            padding-bottom:0;
+        }
+        .headerContainer {
+            background-color:#ffffff;
+            background-image:none;
+            background-repeat:no-repeat;
+            background-position:center;
+            background-size:cover;
+            border-top:1px none ;
+            border-bottom:0;
+            padding-top:36px;
+            padding-bottom:36px;
+        }
+        .headerContainer .textContent,
+        .headerContainer .textContent p {
+            color:#808080;
+            font-family:'IBM Plex Sans', sans-serif;
+            font-size:16px;
+            line-height:150%;
+            text-align:left;
+        }
+        .headerContainer .textContent a,
+        .headerContainer .textContent p a {
+            color:#538bb3;
+            font-weight:normal;
+            text-decoration:underline;
+        }
+        #templateBody {
+            background-color:#f2f2f2;
+            background-image:none;
+            background-repeat:no-repeat;
+            background-position:center;
+            background-size:cover;
+            border-top:0;
+            border-bottom:0;
+            padding-top:0;
+            padding-bottom:0;
+        }
+        .bodyContainer {
+            background-color:#ffffff;
+            background-image:none;
+            background-repeat:no-repeat;
+            background-position:center;
+            background-size:cover;
+            border-top:0;
+            border-bottom:0;
+            padding-top:0;
+            padding-bottom:18px;
+        }
+        .bodyContainer .textContent,
+        .bodyContainer .textContent p {
+            color: var(--dark);
+            font-family:'IBM Plex Sans', sans-serif;
+            font-size:14px;
+            line-height:150%;
+            text-align:left;
+        }
+        .bodyContainer .textContent a,
+        .bodyContainer .textContent p a {
+            color:#538bb3;
+            font-weight:normal;
+            text-decoration:underline;
+        }
+        #templateFooter{
+            background-color:#f2f2f2;
+            background-image:none;
+            background-repeat:no-repeat;
+            background-position:center;
+            background-size:cover;
+            border-top:1px none ;
+            border-bottom:0;
+            padding-top:0;
+            padding-bottom:36px;
+        }
+        .footerContainer{
+            background-image:none;
+            background-repeat:no-repeat;
+            background-position:center;
+            background-size:cover;
+            border-top:0;
+            border-bottom:0;
+            padding-top:30px;
+            padding-bottom:30px;
+        }
+        .footerContainer .textContent,
+        .footerContainer .textContent p {
+            color:#FFFFFF;
+            font-family:'IBM Plex Sans', sans-serif;
+            font-size:12px;
+            line-height:150%;
+            text-align:center;
+        }
+        .footerContainer .textContent a,
+        .footerContainer .textContent p a {
+            color:#FFFFFF;
+            font-weight:normal;
+            text-decoration:underline;
+        }
+        .small {
+          font-size: 10px !important;
+        }
+    </style>
+</head>
+<body style="margin:0;">
+<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable"><tr><td align="center" valign="top" id="bodyCell" style="background-color:#f2f4f0">
+  <tbody>
+    <tr>
+      <td align="center" valign="top" id="bodyCell" style="background-color:#f2f4f0">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tbody>
+            <tr>
+              <td align="center" valign="top" id="templateHeader" style="background-color: #efb72e">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px !important;"><tr><td valign="top" style="background-color:#ffffff;
+            background-image:none;
+            background-repeat:no-repeat;
+            background-position:center;
+            background-size:cover;
+            border-top:1px none ;
+            border-bottom:0;
+            padding-top:36px;
+            padding-bottom:36px;" class="headerContainer">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="textBlock" style="min-width:100%;"><tbody class="textBlockOuter"><tr><td valign="top" class="textBlockInner" style="padding-top:9px;">
+
+                        <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="textContentContainer">
+                            <f:render section="Header" />
+                        </table>
+                        
+                    </td></tr></tbody></table>
+                </td></tr></table>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" valign="top" id="templateBody">
+
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px !important;"><tr><td valign="top" style="background-color:#ffffff;
+                    background-image:none;
+                    background-repeat:no-repeat;
+                    background-position:center;
+                    background-size:cover;
+                    border-top:1px none ;
+                    border-bottom:0;
+                    padding-top:36px;
+                    padding-bottom:36px;" class="headerContainer">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="textBlock" style="min-width:100%;"><tbody class="textBlockOuter"><tr><td valign="top" class="textBlockInner" style="padding: 36px 0px;">
+
+                        <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="textContentContainer">
+                            <f:render section="Content" />
+                        </table>
+
+                    </td></tr></tbody></table>
+                </td></tr></table>
+
+              </td>
+            </tr>
+            <tr>
+              <td align="center" valign="top" id="templateFooter">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px !important;">
+                  <tbody>
+                    <tr>
+                      <td valign="top" class="footerContainer">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="textBlock" style="min-width:100%;">
+                          <tbody class="textBlockOuter"><tr><td valign="top" class="textBlockInner">
+                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="textContentContainer">
+                              <tbody>
+                                <f:render partial="FooterStandard" arguments="{_all}" />
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+</tbody>
+</table>
+</body>
+</html>

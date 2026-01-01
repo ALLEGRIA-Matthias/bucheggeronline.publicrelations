@@ -1,0 +1,299 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+
+  <f:switch expression="{content}">
+      <f:defaultCase>
+          <f:render section="header" arguments="{_all}" />
+          <f:render section="invitation" arguments="{_all}" />
+          <f:render section="eventinfo" arguments="{_all}" />
+          <f:if condition="{accreditation.guestType}==2"><f:render section="pressinfo" arguments="{_all}" /></f:if>
+          <f:render section="showinfo" arguments="{_all}" />
+          <f:render section="trailer" arguments="{_all}" />
+      </f:defaultCase>
+      <f:case value="approve">
+          <f:render section="header" arguments="{_all}" />
+          <f:render section="ticket" arguments="{_all}" />
+          <f:if condition="{accreditation.guestType}==2"><f:render section="pressinfo" arguments="{_all}" /></f:if>
+          <f:render section="showinfo" arguments="{_all}" />
+          <f:render section="trailer" arguments="{_all}" />
+      </f:case>
+      <f:case value="reject">
+          <f:render section="header" arguments="{_all}" />
+          <!-- 1 Column Text : BEGIN -->
+          <tr>
+              <td style="padding: 40px; text-align: center; font-family: 'Jost', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.4; color: #000000;">
+                <h1 style="font-weight: 800; color: #E42011; text-transform: uppercase;">{headline}</h1>
+                  <p style="font-family: 'Jost', sans-serif; margin-top: 0; margin-bottom: 0px; font-weight: 400;">
+                      <strong style="font-size: 1.2rem;">Danke für die, wenn auch negative, Rückmeldung.</strong><br><br>Wir würden uns freuen, wenn es bei einer der nächsten Veranstaltungen wieder klappt.
+                  </p>
+              </td>
+          </tr>
+          <!-- 1 Column Text : BEGIN --> 
+          <f:render section="showinfo" arguments="{_all}" />
+          <f:render section="trailer" arguments="{_all}" />
+      </f:case>
+  </f:switch>
+
+    <f:section name="header">
+        <!-- HEADER Stomp -->
+        <tr>
+            <td class="full-width-image">
+                <img src="https://www.allegria.at/fileadmin/marketing/bb-promotion/header_stomp_30.gif" width="600" alt="STOMP …kommt! – Header" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;" />
+            </td>
+        </tr>
+    </f:section>
+
+    <f:section name="invitation">
+
+        <f:switch expression="{content}">
+            <f:case value="invitation"><f:variable name="headline" value="Persönliche Einladung" /></f:case>
+            <f:case value="remind"><f:variable name="headline" value="Erinnerung zur Einladung" /></f:case>
+            <f:case value="push"><f:variable name="headline" value="Letzte Erinnerung" /></f:case>
+            <f:case value="approve"><f:variable name="headline" value="Bis bald bei STOMP!" /></f:case>
+            <f:case value="reject"><f:variable name="headline" value="Schade, dass es diesmal nicht klappt" /></f:case>
+        </f:switch>
+
+        <!-- Überschrift -->
+        <tr>
+            <td style="padding: 40px; padding-bottom: 20px; text-align: center; font-family: 'Jost', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 20px; color: #000000; font-weight: 400;"> 
+                <h1 style="font-weight: 800; color: #E42011; text-transform: uppercase;">{headline}</h1>
+            </td>
+        </tr>
+        
+        <!-- Einleitung -->
+        <tr>
+            <td style="padding: 40px; padding-top: 0; text-align: center; font-family: 'Jost', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 20px; color: #555555; padding-bottom: 0px; font-weight: 400;"> 
+                <span style="font-weight: 500"> BB Promotion GmbH</span> in Zusammenarbeit mit <br>
+                <span style="font-weight: 500"> Stomp Productions &amp; Glynis Henderson Productions </span>laden<br>
+                <br>
+                <strong style="font-family: 'Jost', sans-serif; font-size: 1.4rem; color: #E42011; text-transform: uppercase;">{accreditation.guestOutput.fullName}</strong><br>
+                <f:if condition="{accreditation.guestType}==2"><br><strong>zur redaktionellen Berichterstattung</strong><br></f:if>
+                <f:if condition="{accreditation.guestType}==4"><strong>als Teilnehmer:in der #StompChallengeLinz</strong><br></f:if>
+                zur Premiere von
+            </td>
+        </tr>
+
+        <!-- STOMP Bild Schriftzug -->
+        <tr>
+            <td style="text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/bb-promotion/stomp-schriftzug.gif" alt="stomp-logo" border="0" align="center"  style="width: 80%; max-width: 291px; height: auto; margin: 0px; padding: 0px;">
+            </td>
+        </tr>
+
+        <!-- Einleitung Ende -->
+        <tr>
+            <td style="padding: 40px; padding-top: 0px; padding-bottom: 30px; text-align: center; font-family: 'Jost', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; font-weight: 400;"> ein.
+                <f:if condition="{accreditation.guestType}==4"><br><br>Wir möchten uns für die Teilnahme bei der <strong>#StompChallengeLinz</strong> sehr herzlich bedanken.<br><br>Euer Video wurde nicht als Gewinner-Video gezogen, allerdings würden wir uns freuen euch inkl. Begleitung bei der STOMP-Premiere in Linz begrüßen zu dürfen. Geschwister können eine Begleitperson mitbringen und somit bis zu 3 Tickets reservieren, andernfalls sind 2 Tickets pro Teilnehmer:in möglich.<br><br>Da unsere Ticketanzahl begrenzt ist, gilt das First-come-first-serve Prinzip.</f:if>
+            </td>
+        </tr>
+    </f:section>
+    
+    <f:section name="eventinfo">
+        <!-- Rahmen Neu -->
+        <tr>
+            <td style="background-color: #E42011; padding: 40px;">
+            <table cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="text-align: center; margin-left: 0%; margin-right: 0%;">
+                <tr>
+                    <td>
+                        <p style="margin: 0; font-family: 'Jost', sans-serif; font-size: 1rem; color: #FFFFFF; font-weight: 400; margin-top: 0;">
+                            
+                        <span style=" text-transfo rm: uppercase;"><strong style="font-size: 1.4rem;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')}</strong></span><br>
+                        um {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}<br><br>
+                        {accreditation.event.location.name}<br>
+                        {accreditation.event.location.street}, {accreditation.event.location.zip} {accreditation.event.location.city}
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <f:link.typolink
+                            absolute="1"
+                            parameter="38"
+                            additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}"
+                            absolute="1"
+                            additionalAttributes="{style:'display: inline-block; font-weight: 500; color: white; text-decoration: none; padding: 5px 15px; margin: 0px auto; font-size: 1.2rem; text-transform: uppercase;'}"
+                            class="button-a">
+                            <img src="https://www.allegria.at/fileadmin/marketing/bb-promotion/button-anim.gif" alt="Button">
+                        </f:link.typolink>
+                    </td>
+                </tr>
+                <tr style="padding-bottom: 20px;">
+                    <td>
+                        <p style="margin: 0; font-family: 'Jost', sans-serif; font-size: 0.8rem; color: #ffffff; font-weight: 400; margin-bottom: 0px;">
+                            u.A.w.g bis spätestens <strong>8. Februar 2023</strong><br>
+                            Die Einladung ist persönlich und nicht übertragbar.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            </td>
+        </tr>	
+    </f:section>
+        
+    <f:section name="ticket">
+        <!-- 1 Column Text : BEGIN -->
+        <tr>
+            <td style="padding: 40px; text-align: center; font-family: 'Jost', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.4; color: #000000;">
+                <p style="font-family: 'Jost', sans-serif; font-size: 1rem; margin-bottom: 0px;">Ihr Ticket <f:if condition="{accreditation.guestType}==2"><strong>zur redaktionellen Berichterstattung</strong> </f:if>zu</p>
+                <div style="text-align: center;">
+                    <img src="https://www.allegria.at/fileadmin/marketing/bb-promotion/stomp-schriftzug.gif" alt="stomp-logo" border="0" align="center"  style="width: 80%; max-width: 291px; height: auto; margin: 0px; padding: 0px;">
+                </div>
+
+                <div style="border: 0px solid #E42011; background-color: #E42011;; border-radius: 0rem; padding: 20px; text-align: center; margin-top: 30px; margin-bottom: 10px; margin-left: 10%; margin-right: 10%;">
+                    <p style="margin: 0; font-family: 'Jost', sans-serif; font-size: 1.4rem; color: #FFFFFF; font-weight: 700; text-transform: uppercase;">{accreditation.guestOutput.fullName}</p>
+                    <p style="margin-top: 0; color: #FFFFFF; font-family: 'Jost', sans-serif; font-size: 1rem; font-weight: 400; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+                    <p style="margin: 0; margin-top: 10px; font-family: 'Jost', sans-serif; font-size: 0.65rem; color: #FFFFFF;">
+                        <span style="font-size: 0.7rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong> versandt am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr.</span><br>
+                        *diese Bestätigung ist nicht übertragbar</p>
+                </div>
+
+                <p style="font-family: 'Jost', sans-serif; font-size: 1rem; margin-bottom: 0px;">
+                    <span style=" text-transfo rm: uppercase;"><strong style="font-size: 1.4rem;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')}</strong></span><br>
+                    um {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}<br><br>
+                    <span style="font-weight: 800; font-size: 1.4rem;">{accreditation.event.location.name}</span><br>
+                    {accreditation.event.location.street}, {accreditation.event.location.zip} {accreditation.event.location.city}<br>
+                    <span style="font-weight: 400; font-size: 0.8rem;">Einlass und Kartenausgabe ab <strong>60 Minuten</strong> vor Showbeginn.</span>
+                </p>
+
+                <h2 style="font-family: 'Jost', sans-serif; font-size: 1.4rem; text-transform: uppercase; margin-bottom: 0; margin-top: 40px; font-weight: 600;">Krank oder verhindert?</h2>
+                <p style="font-family: 'Jost', sans-serif; margin-top: 0; margin-bottom: 5px; font-weight: 400;">
+                    Bitte lassen Sie uns via E-Mail wissen,<br>
+                    sollten Sie wider Erwarten nicht zur Veranstaltung kommen können.
+                </p>
+                <p style="margin: 27px 0px 20px 0px"><a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank" style="display: inline-block; background-color: #E42011; font-family: 'Jost', sans-serif; font-weight: 500; color: white; text-decoration: none; padding: 5px 15px; margin: 0px auto; font-size: 1rem; border-radius: 0rem; text-transform: uppercase;">E-Mail senden</a></p>
+            </td>
+        </tr>
+        <!-- 1 Column Text : BEGIN --> 
+    </f:section>
+    
+    <f:section name="pressinfo">
+        <!-- Fotografen und TV-Team -->
+        <tr>
+            <td style="margin: 0; font-family: 'Jost', sans-serif; font-size: 0.85rem; line-height: 1.45; color: #000000; font-weight: 400; background-color: #FFFFFF; padding: 40px 0;">
+                <table  width="80%">
+                <tr>
+                    <td>
+                        <p style="font-size: 1.5rem; line-height: 1.3; font-weight: 600;">Fotografen &amp; TV-Team</p>
+                        <p> Für Fotografen und TV-Teams besteht die Möglichkeit, die ersten beiden Nummern „Brooms“ (Besen) und „Matches“ (Streichhölzer) ohne Blitz zu fotografieren bzw. mitzudrehen.<br> <br>
+                            Treffpunkt für Fotografen bzw. TV-Teams: </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" valign="top" style="padding: 10px;">
+                        <table cellspacing="0" cellpadding="0" border="0" width="100%"">
+                        <tr>
+                            <td class="stack-column-center">
+                                <table cellspacing="0" cellpadding="0" style="border: 5px solid #FFFFFF;">
+                                <tr>
+                                    <td style="font-family: 'Jost', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; color: #ffffff; padding: 10px; text-align: left; background-color: #2F2F2F; text-align: center;" class="center-on-narrow">
+                                        <p><span style="font-weight: 500; font-size: 1.2rem;">FOTOGRAFEN</span> <br>
+                                        19.25 Uhr<br>
+                                        an der Abendkassa <br>
+                                        Gemeinsamer Gang zum Fotoplatz</p>
+                                    </td>
+                                </tr>
+                                </table>
+                            </td>
+                            <td class="stack-column-center">
+                                <table cellspacing="0" cellpadding="0" style="border: 5px solid #FFFFFF;">
+                                <tr>
+                                    <td style="font-family: 'Jost', sans-serif;  font-size: 0.8rem; mso-height-rule: exactly; color: #ffffff; padding: 10px; text-align: left; background-color: #2F2F2F; text-align: center;" class="center-on-narrow">
+                                        <p><span style="font-weight: 500; font-size: 1.2rem;">TV-TEAMS</span> <br>
+                                        19:00 Uhr <br>
+                                        an der Abendkassa <br>
+                                        Vorbereitung Ton-Abnahme Show</p>
+                                    </td>
+                                </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        </table>
+                    </td>
+                </tr>				
+                <tr>
+                    <td>
+                        <p>Sollten Sie am Premierentag ein Interview mit den Performern wünschen, geben Sie uns bitte im Vorfeld Bescheid. Bitte akkreditieren Sie sich zum Interview wenn möglich bis zum 13.02.2024 per Mail bei Matthias Buchegger (<a href="mailto:matthias@allegria.at" target="_blank">matthias@allegria.at</a>).</p>
+                    </td>
+                </tr>
+                </table>
+            </td>
+        </tr>
+    </f:section>
+    
+    <f:section name="showinfo">
+        <!-- Rahmen, Datum, Button -->
+        <tr>
+            <td style="margin: 0; font-family: 'Jost', sans-serif; font-size: 0.85rem; line-height: 1.45; color: #000000; font-weight: 400; background-color: #EAEAEA; padding: 40px 0;"> 
+                <table width="80%;">
+                <tr>
+                    <td>
+                        <p style="font-size: 1.5rem; line-height: 1.3; font-weight: 600; margin-bottom: 15px;">STOMP ist ein weltumspannendes Phänomen – STOMP ist Kult!</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" valign="top" style="padding: 0px;">
+                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td class="stack-column-center" style="vertical-align: top;">
+                                <table cellspacing="0" cellpadding="0" border="0">
+                                <tr>
+                                    <td style="font-family: 'Jost', sans-serif; mso-height-rule: exactly; color: #555555; padding: 0; padding-right: 10px; text-align: left;" class="center-on-narrow"> Ob ausrangierte Waschbecken oder einfache Streichholzschachteln, die allseits beliebten Metall-Mülleimer oder in die Jahre gekommene Skischuhe: In all diesen Dingen steckt Rhythmus und Musik. Auch aus ein paar Besen kann ein fulminantes Orchester werden – wenn sie in die richtigen Hände gelangen: In die von STOMP, die seit mehr als 30 Jahren ihren furiosen und immer wieder überraschenden Klangkosmos entfachen. </td>
+                                </tr>
+                                </table>
+                            </td>
+                            <td class="stack-column-center" style="vertical-align: top;">
+                                <table cellspacing="0" cellpadding="0" border="0">
+                                <tr>
+                                    <td style="font-family: 'Jost', sans-serif; mso-height-rule: exactly;; color: #555555; padding: 0; text-align: left;" class="center-on-narrow"> Hardcore-Fans und STOMP-Neueinsteiger aufgepasst: Die unglaublichen Klangperformer sind wieder auf Tour in Deutschland, Österreich und der Schweiz. Live zu erleben – endlich wieder, nach fünfjähriger Abwesenheit – vom 20. bis 25. Februar 2024 im Brucknerhaus in Linz. Und das so frisch, so originell und so humorvoll wie am ersten Tag!</td>
+                                </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        </table>
+                    </td>
+                </tr>
+                </table>
+            </td>
+        </tr>
+    </f:section>
+
+    <f:section name="trailer">
+        <!-- FOTOS -->
+        <tr>
+        <td align="center" valign="top" style="padding: 30px 0; margin: 0px; font-family: 'Jost', sans-serif; font-size: 1rem; mso-height-rule: exactly; color: #555555; text-align: center;">
+            <table cellspacing="0" cellpadding="0" border="0" width="85%">
+                <tr>
+                    <td width="40%" class="stack-column-center">
+                        <table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                                <td style="padding: 5px; text-align: center">
+                                    <a href="https://www.youtube.com/watch?v=JULSSp03P24">
+                                    <img src="https://www.allegria.at/fileadmin/marketing/bb-promotion/stomp-trailer.gif"  alt="STOMP …kommt! – ab 20. Februar 2024 im Linzer Brucknerhaus" border="0" class="fluid">
+                                    </a>
+                            
+                                </td>
+                            </tr>
+                    
+                        </table>
+                        
+                        <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
+                            <tr>
+                                <td style="border-radius: 0px; background: inherit; color: #ffffff; text-align: center;">
+                                    <a href="https://www.youtube.com/watch?v=JULSSp03P24" style="display: inline-block; background-color: #E42011; font-family: 'Mukta', sans-serif; font-weight: 500; color: white; text-decoration: none;  margin: 20px 20px 10px 20px; padding: 5px 15px; font-size: 1.2rem; border-radius: 0px; text-transform: uppercase;">
+                                        Hier geht es zum Trailer
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <p>Für mehr Informationen<br>
+                <a href="https://www.youtube.com/watch?v=JULSSp03P24" style="font-family: 'Jost', sans-serif; color: #E42011; text-decoration: none;"><strong>www.stomp.de</strong></a>
+            </p>
+        </td>
+        </tr>
+    </f:section>
+    
+</html>

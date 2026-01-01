@@ -1,0 +1,383 @@
+<f:section name="preview">
+    <!-- Visually Hidden Preheader Text : BEGIN -->
+    <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: 'League Spartan', sans-serif;">
+    <f:switch expression="{content}">
+        <f:case value="invite">Persönliche Einladung zur Vernissage!</f:case>
+        <f:case value="remind">Freundlicher Reminder: Persönliche Einladung zur Vernissage!</f:case>
+        <f:case value="push">Letzte Chance: Persönliche Einladung zur Vernissage!</f:case>
+        <f:case value="approve">Wie schön, dass wir Sie bei der Vernissage begrüßen dürfen.</f:case>
+        <f:case value="reject">Schade, dass es nicht klappt. Dina Larot würde sich über ein baldiges Wiedersehen sehr freuen.</f:case>
+        <f:case value="waiting">Vorsicht, da scheint das Gäste-Kontingent aufgebraucht zu sein – wir melden uns in Kürze.</f:case>
+        <f:case value="pending">{accreditation.guestOutput.fullName} ist auf der Warteliste</f:case>
+        <f:case value="reject_after_waiting">Es tut uns schrecklich leid, dass es diesmal nicht klappt. Dina Larot würde sich über ein baldiges Wiedersehen sehr freuen.</f:case>
+        <f:case value="approve_after_waiting">Wir freuen uns sehr, dass wir Sie bei der Vernissage begrüßen dürfen.</f:case>
+    </f:switch>
+    </div>
+    <!-- Visually Hidden Preheader Text : END --> 
+</f:section>
+
+<f:switch expression="{content}">
+    <f:defaultCase>
+    <f:render section="header" arguments="{_all}" />
+    <f:render section="headline" arguments="{_all}" />
+    <f:render section="invite" arguments="{_all}" />
+    <f:render section="eventinfo" arguments="{_all}" />
+    <f:render section="program" arguments="{_all}" />
+    </f:defaultCase>
+    <f:case value="approve">
+        <f:render section="header" arguments="{_all}" />
+        <f:render section="headline" arguments="{_all}" />
+        <f:switch expression="{accreditation.event.uid}">
+        <f:case value="3738"><f:render section="ticket-qr" arguments="{_all}" /></f:case>
+        <f:case value="3556"><f:render section="ticket-qr" arguments="{_all}" /></f:case>
+        <f:defaultCase><f:render section="ticket" arguments="{_all}" /></f:defaultCase>
+        </f:switch>
+        <f:render section="program" arguments="{_all}" />
+    </f:case>
+    <f:case value="reject">
+        <f:render section="header" arguments="{_all}" />
+        <f:render section="headline" arguments="{_all}" />
+        <!-- Absagetext -->
+        <tr>
+            <td style="text-align: center; font-family: 'Open Sans', sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; background: #FFF; color: #7C7C7C; font-weight: 300; padding: 40px;">
+                <p style="margin-top: 0; padding: 0 40px; font-size: 1rem;"><strong>Dina Larot</strong> dankt herzlich für Ihre Rückmeldung<br>und hofft auf ein baldiges Wiedersehen.</p>
+            </td>
+        </tr>
+    </f:case>
+    <f:case value="waiting">
+    <f:render section="header" arguments="{_all}" />
+    <f:render section="headline" arguments="{_all}" />
+        <!-- Wartetext -->
+        <tr>
+            <td style="text-align: center; font-family: 'Open Sans', sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; background: white; color: #7C7C7C; font-weight: 300; padding: 40px;">
+            <p style="margin-top: 0; padding: 0 40px; font-size: 1rem;"><strong>Dina Larot</strong> bedankt sich für die unglaublich großartige Nachfrage.</p>
+            <p style="padding: 0 40px; font-size: 1rem; color: #BFC88C; font-weight: 700;">Aktuell ist unser Gästekontingent komplett ausgeschöpft.</p>
+            <p style="padding: 0 40px; font-size: 1rem;">Leider können wir erst <strong>bis spätestens {f:format.date(format:'d.m.Y', date:'{accreditation.event.date->f:format.date(format:\'d-m-Y\')} -2 days')}</strong> eine konkrete Rückmeldung geben, ob wir einen Besuch ermöglichen können.</p>
+            <p style="padding: 0 40px; font-size: 1rem; margin-bottom: 0;">Wir bedanken uns für Ihr Verständnis.</p>
+            </td>
+        </tr>
+    </f:case>
+    <f:case value="pending">
+    <f:render section="header" arguments="{_all}" />
+    <f:render section="headline" arguments="{_all}" />
+        <!-- Wartetext intern -->
+        <tr>
+            <td style="text-align: center; font-family: 'Open Sans', sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; background: white; color: #7C7C7C; font-weight: 300; padding: 40px;">
+            <p style="margin-top: 0; padding: 0 40px; font-size: 1.4rem;"><strong style="color: #BFC88C;">{accreditation.guestOutput.fullName}</strong></p>
+            </td>
+        </tr>
+    </f:case>
+    <f:case value="approve_after_waiting">
+    <f:render section="header" arguments="{_all}" />
+    <f:render section="headline" arguments="{_all}" />
+    <!-- Zusage möglich -->
+    <tr>
+        <td style="text-align: center; font-family: 'Open Sans', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #7C7C7C; font-weight: 300; padding: 40px; padding-bottom: 0; background: white;">
+                <p style="margin-top: 0; font-size: 1rem;">Wir können Ihren Besuch ermöglichen!</p>
+        </td>
+    </tr>
+    <f:render section="ticket" arguments="{_all}" />
+    <f:render section="program" arguments="{_all}" />
+    </f:case>
+    <f:case value="reject_after_waiting">
+    <f:render section="header" arguments="{_all}" />
+        <f:render section="headline" arguments="{_all}" />
+        <!-- Absagetext -->
+        <tr>
+            <td style="text-align: center; font-family: 'Open Sans', sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; background: white; color: #7C7C7C; font-weight: 300; padding: 40px;">
+                    <p style="margin-top: 0; padding: 0 40px; font-size: 1rem;">Wir sind von der ernormen Nachfrage überwältigt!<br><strong>Danke für Ihr Interesse.</strong></p>
+                    <p style="padding: 0 40px; font-size: 1rem;">Wir sind untröstlich den Besuch aufgrund des großen Andrangs nicht ermöglichen zu können.</p>
+                    <p style="padding: 0 40px; font-size: 1rem;">Wir hoffen dennoch auf ein baldiges Wiedersehen.</p>
+            </td>
+        </tr>
+    </f:case>
+</f:switch>
+        
+
+
+  <f:section name="ticket-qr">
+    <!-- Ticket : BEGIN -->
+    <tr>
+        <td style="background-color: white; padding: 40px; text-align: center; font-family: 'Open Sans', sans-serif;font-size: 1rem; font-weight: 400; color: #7C7C7C; mso-height-rule: exactly; line-height: 1.2;">
+            <h2>Wir freuen uns auf dein Kommen!</h2>
+            <p>Dein Eintritts-QR zur Veranstaltung,<br>bitte am Check-In vorweisen.</p>
+            <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="400" class="email-container" style="border: #FFFFFF thin solid;">
+                
+                <!-- Foto 400x200px : BEGIN -->
+                <tbody><tr>
+                    <td class="full-width-image"><img src="https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Sister-Act_Ticket-Header.png" width="400" alt="Ticket-Header" border="0" align="center" style="width: 100%; max-width: 400; height: auto;"></td>
+                </tr>
+                <!-- Foto 400x200px : END -->
+                
+                <!-- QR-Code : BEGIN -->
+                    <tr>
+                    <td align="center" style="padding-top: 25px;">
+                        <img src="{mb:qrCode(data:'{accreditation.uid}', label:'KEIN TICKET – Gilt am VIP-Schalter.')}" width="300" alt="Ticket-QR-{accreditation.uid}" border="0" style="width: 100%; max-width: 80%; height: auto;">
+                        </td></tr>
+                <!-- QR-Code : END -->
+                
+                <!-- Titel : BEGIN -->
+                <tr>
+                    <td style="text-align: center; font-family: 'Open Sans', sans-serif; color: #000000; font-size: 1.1rem;">
+                        <h2 style="font-size: 1.8rem; line-height: 1.2; color: #000; margin: 20px 0 10px 0;">FLASHDANCE<br><small>Das Musical</small></h2>
+                        <p style="margin-bottom: 10px;">
+                            {accreditation.event.location.name}, {accreditation.event.location.city}<f:if condition="{accreditation.event.locationNote}"> | {accreditation.event.locationNote}</f:if><br>
+                            <strong>{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')} | {f:format.date(date:'{accreditation.event.date}', format: 'H:i')}</strong>
+                        </p>
+                        <div style="background-color: #BFC88C; font-family: 'Open Sans', sans-serif; text-align: center; color: #fff; padding: 15px 0;">
+                            <p style="font-size: 1.3rem; line-height: 1.2; margin: 0;">
+                                <strong>{accreditation.guestOutput.fullName}</strong><br>
+                                <small>{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</small><br>
+                                <span style="font-size: 0.8rem; line-height: 1.2;">Akkr.Nr. #{accreditation.uid}</span>
+                            </p>
+                        </div>
+                </td>
+                </tr>
+                <!-- Titel : END --> 
+            </tbody></table>
+        </td>
+    </tr>
+    <!-- Ticket : BEGIN --> 
+</f:section>
+
+<f:section name="ticket">
+<!-- Ticket : BEGIN -->
+<tr>
+    <td style="background-color: white; padding: 40px; text-align: center; font-family: 'Open Sans', sans-serif;font-size: 1rem; font-weight: 400; color: #7C7C7C; mso-height-rule: exactly; line-height: 1.2;">
+        <p style="margin: 0; margin-bottom: 40px;">
+            <strong>Dina Larot</strong> freut sich Sie am<br>
+            <strong style="font-family: 'Open Sans', sans-serif;color: #BFC88C; font-weight: 700; font-size: 1.4rem;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')}</strong><br>
+            begrüßen zu dürfen.<br>
+            <br>
+            <small>Der Empfang findet <strong>ab {f:format.date(format:'%k.%M Uhr', date:'{accreditation.event.date->f:format.date(format:\'H:i\')} -30 minutes')}</strong> statt.</small>
+        </p>
+        <div style="border: 0px solid #FFFFFF; background-color: #7C7C7C; border-radius: 1rem; padding: 20px; text-align: center; margin-bottom: 0px; margin-left: 10%; margin-right: 10%;">
+            <p style="margin: 0; font-family: 'Open Sans', sans-serif;font-size: 1.4rem; color: #BFC88C; font-weight: 700; text-transform: uppercase;">{accreditation.guestOutput.fullName}</p>
+            <p style="margin-top: 0; color: #FFFFFF; font-family: 'Open Sans', sans-serif;font-size: 1rem; font-weight: 400; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+            <p style="margin: 0; margin-top: 10px; font-family: 'Open Sans', sans-serif;font-size: 0.65rem; color: #FFFFFF;">
+                <span style="font-size: 0.7rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong> versandt am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr.</span><br>
+                *diese Bestätigung ist nicht übertragbar</p>
+        </div>
+    </td>
+</tr>
+<!-- Ticket : BEGIN --> 
+</f:section>
+
+<f:section name="header">
+
+<!-- Location Header : BEGIN -->
+<tr>
+    <td class="full-width-image"><img src="https://www.allegria.at/fileadmin/marketing/dina-larot/DinaLarot_Header.png" width="600" alt="{accreditation.event.title}" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;"></td>
+</tr>
+<!-- Location Header : END --> 
+</f:section>
+
+<f:section name="headline">
+<f:switch expression="{content}">
+        <f:case value="invite"><f:variable name="headline">https://www.allegria.at/fileadmin/marketing/dina-larot/DinaLarot_PersoenlicheEinladung.png</f:variable></f:case>
+        <f:case value="remind"><f:variable name="headline">https://www.allegria.at/fileadmin/marketing/dina-larot/DinaLarot_Erinnerung.png</f:variable></f:case>
+        <f:case value="push"><f:variable name="headline">https://www.allegria.at/fileadmin/marketing/dina-larot/DinaLarot_Finale-Erinnerung.png</f:variable></f:case>
+        <f:case value="approve"><f:variable name="headline">https://www.allegria.at/fileadmin/marketing/dina-larot/DinaLarot_Wiewunderbar.png</f:variable></f:case>
+        <f:case value="reject"><f:variable name="headline">https://www.allegria.at/fileadmin/marketing/dina-larot/DinaLarot_Schade.png</f:variable></f:case>
+        <f:case value="approve_after_waiting"><f:variable name="headline">https://www.allegria.at/fileadmin/marketing/dina-larot/DinaLarot_Danke-fuer-Geduld.png</f:variable></f:case>
+        <f:case value="reject_after_waiting"><f:variable name="headline">https://www.allegria.at/fileadmin/marketing/dina-larot/DinaLarot_Wir-sind-untroestlich.png</f:variable></f:case>
+        <f:case value="waiting"><f:variable name="headline">https://www.allegria.at/fileadmin/marketing/dina-larot/DinaLarot_grosseNachfrage.png</f:variable></f:case>
+        <f:case value="pending"><f:variable name="headline">https://www.allegria.at/fileadmin/marketing/dina-larot/DinaLarot_Warteliste.png</f:variable></f:case>
+</f:switch>
+<!-- Headline : BEGIN -->
+<tr style="background-color: #fff; color: #7C7C7C; font-family: 'Open Sans', sans-serif; text-align: center; font-size: 1rem; line-height: 1.2;">
+    <td style="padding: 40px; padding-bottom: 10px;">
+        <img src="{headline}" width="auto" height="auto" alt="Headline" border="0" class="fluid">
+    </td>
+</tr>
+<!-- Headline : BEGIN -->
+</f:section>
+
+<f:section name="invite">
+<!-- Invitation : BEGIN -->
+<tr style="background-color: #fff; color: #7C7C7C; font-family: 'Open Sans', sans-serif; text-align: center; font-weight: 200; font-size: 1rem; line-height: 1.4;">
+    <td style="padding: 40px; padding-top: 0;">
+        <p>für<br>
+        <span style="text-transform: uppercase; color: #BFC88C; font-size: 1.2rem; font-weight: 600;">{accreditation.guestOutput.fullName}</span><br>
+        zur Vernissage</p>
+        <p><img src="https://www.allegria.at/fileadmin/marketing/dina-larot/DinaLarot_Highlights.png" width="auto" height="auto" alt="Headline" border="0" class="fluid"></p>
+        <p>
+            aus dem Schaffen von Dina Larot.<br>
+            (Ölgemälde und graphische Werke)<br>
+            sowie <span style="font-weight: 500;">Präsentation des Dina-Larot-Kalender 2025</span>
+        </p>
+    </td>
+</tr>
+<!-- Invitation : BEGIN --> 
+</f:section>
+
+<f:section name="eventinfo">
+<!-- Datum : BEGIN -->
+<tr style="margin: 50px;">
+    <td>
+        <div style="border: 1px solid #707070; border-radius: 10px; max-width: 80%; margin: 0 auto;">
+            <table cellspacing="0" cellpadding="0" border="0" align="center">
+                <tr>
+                    <td align="center" style="font-family: 'Open Sans', sans-serif; color: #7C7C7C; font-size: 1rem; padding: 20px; font-weight: 200;">
+                        <span style="color: #F8622C; font-weight: 600; text-transform: uppercase;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')}</span><br>
+                        {f:format.date(format:'%k:%M Uhr', date:'{accreditation.event.date}')}<br><br>
+                        <span style="font-weight: 500;">{accreditation.event.location.name}</span><br>
+                        {accreditation.event.location.street}<br>
+                        {accreditation.event.location.zip} {accreditation.event.location.city}
+                    </td>
+                </tr>
+                
+                <!-- Button : Begin -->
+                <tr>
+                    <td><f:render section="rueckmelde-btn" arguments="{_all}" /></td>
+                </tr>
+                <!-- Button : END -->
+
+                <f:if condition="{content} == 'invite' || {content} == 'remind' || {content} == 'push'">
+                    <tr>
+                        <td align="center" style="font-family: 'Open Sans', sans-serif; color: #7C7C7C; font-size: 0.8rem; line-height: 1.3; padding: 20px; font-weight: 200;">
+                            <span>
+                                Die Einladung gilt für <strong>{accreditation.ticketsWish} Person{f:if(condition:'{accreditation.ticketsWish}==1', else:'en')}</strong> und darf nicht übertragen werden.<br>
+                                Um Antwort wird bis <strong>{mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'d')}, {accreditation.invitationType.feedbackDate->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'month', lang: 'at')} {accreditation.invitationType.feedbackDate->f:format.date(format:'%Y')}</strong> gebeten.
+                                </span>
+                        </td>
+                    </tr>
+                </f:if>
+                
+            </table>
+        </div>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="program">
+<!-- Programm : BEGIN -->
+<tr>
+    <td align="center" style="font-family: 'Open Sans', sans-serif; color: #7C7C7C; font-size: 1rem; font-weight: 200; padding: 40px; padding-bottom: 60px;">
+        <p style="margin: 0 0 30px 0;">
+        <span style="color: #BFC88C; text-transform: uppercase; font-weight: 600; font-size: 1.4rem;">Programm</span>
+        <br><br>
+        Moderation<br>
+        <span style="font-weight: 500;">
+            Senator Peter Horak</span><br><br>
+        Laudatio<br>
+        <span style="font-weight: 500;">
+            Prof. Beatrice Ferolli</span><br><br>
+        Gesang<br>
+        <span style="font-weight: 500;">
+            KS Ursula Pfitzner (Operette)<br>
+            Hanna Pfitzner (Musical)<br>
+            Alf Junghans (Rat Pack)</span><br><br>
+        Geigensolo<br>
+        <span style="font-weight: 500;">
+            Jakob Klein (Enkel von Dina Larot)</span><br><br>
+        Tanzperformance<br>
+        <span style="font-weight: 500;">
+            Katja und Fabe Zientek (Lateinamerikanisch)<br>
+            Nastasja Sas und Raffael Ramirez (Tango Argentino)</span>
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0" align="center">
+            <!-- Button : Begin -->
+            <tr>
+                <td><f:render section="rueckmelde-btn" arguments="{_all}" /></td>
+            </tr>
+            <!-- Button : END -->
+        </table>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="showinfo">
+<tr style="background-color: white; color: #7C7C7C; font-family: 'Open Sans', sans-serif; text-align: center; font-size: 0.9rem;">
+    <td align="center" valign="top" style="padding: 10px;">
+        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tbody><tr>
+                <td width="33.33%" class="stack-column-center">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                        <tbody><tr>
+                            <td style="padding: 10px; text-align: center">
+                                <img src="https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Sister-Act_Foto-03.png" width="170" height="auto" alt="{accreditation.event.title}, Szenenmotiv" border="0" class="fluid">
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </td>
+                <td width="33.33%" class="stack-column-center">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                        <tbody><tr>
+                            <td style="padding: 10px; text-align: center">
+                                <img src="https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Sister-Act_Foto-01.png" width="170" height="auto" alt="{accreditation.event.title}, Szenenmotiv" border="0" class="fluid">
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </td>
+                <td width="33.33%" class="stack-column-center">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                        <tbody><tr>
+                            <td style="padding: 10px; text-align: center">
+                                <img src="https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Sister-Act_Foto-02.png" width="170" height="auto" alt="{accreditation.event.title}, Szenenmotiv" border="0" class="fluid">
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </td>
+            </tr>
+        </tbody></table>
+    </td>
+</tr>
+<!-- Showinfo : BEGIN -->
+<tr>
+    <td class="full-width-image" style="background-color: white; padding: 40px 60px; text-align: center; font-family: 'Open Sans', sans-serif; font-size: 0.9rem; font-weight: 400; color: #7C7C7C; mso-height-rule: exactly; line-height: 1.2;">
+            <h3 style="font-family: 'Open Sans', sans-serif;margin-top: 0; font-weight: 700; font-size: 1.2rem; line-height: 1.2; color: #7C7C7C; text-transform: uppercase;">Singt hinauf zum Himmel!</span></h3>
+            <p style="">Stimme mit ein, wenn die exzentrische Disco-Diva Deloris im beschaulichen Kloster der Schwestern vom Heiligen Geist untertaucht und mit ihrer unwiderstehlichen Energie den eingestaubten Kirchenchor gehörig aufmischt. Die kultige Geschichte voll mit göttlichem Humor, lieb gewonnenen Charakteren und neuen, mitreißenden Show-Nummern des 8-fachen Oscar-Preisträgers Alan Menken (u.a. Disneys “Aladdin” & “Die Schöne und das Biest“) fegt den Staub von den Gesangbüchern und reißt jedes Publikum aus den Sitzen.</p>
+            <p style="font-size: 1.2rem; font-weight: 700; text-decoration: none; color: #7C7C7C; text-transform: uppercase;">HALLELUJA, DIE NONNEN SIND LOS!</p>
+            <f:render section="rueckmelde-btn" arguments="{_all}" />
+            <p><a href="https://showslot.com/sisteract/" target="_blank" style="font-weight: 700; text-decoration: none; color: #7C7C7C;">showslot.com/sisteract</a></p>
+    </td>
+  </tr>
+<!-- Showinfo : END --> 
+</f:section>
+
+<f:section name="trailer">
+<!-- Fotobanner Footer : BEGIN -->
+<tr>
+    <td class="full-width-image"><img src="https://www.allegria.at/fileadmin/marketing/showslot/ShSl_Sister-Act_Fotobanner.png" alt="{accreditation.event.title}" width="600" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;"></td>
+</tr>
+<!-- Fotobanner Footer : END --> 
+</f:section>
+
+<f:section name="rueckmelde-btn">
+    <f:if condition="{content} == 'invite' || {content} == 'remind' || {content} == 'push'">
+        <f:then>
+            <!-- Button : Begin -->
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                <tr>
+                    <td style="border-radius: 10px; background: #F8622C; text-align: center; text-transform: uppercase;" class="button-td">
+                        <a href="###FEEDBACK_LINK###"
+                            class="button-a"
+                            target="_blank"
+                            style="background: #F8622C; border: 5px solid #F8622C; padding: 0 10px;color: #ffffff; font-family: 'Open Sans, sans-serif; font-size: 0.9rem; font-weight: 200; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 10px; font-weight: bold; text-transform: uppercase;">
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <!-- Button : END -->
+        </f:then>
+        <f:else>
+            <!-- Button : Begin -->
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                <tr>
+                    <td style="border-radius: 10px; background: #F8622C; text-align: center; text-transform: uppercase;" class="button-td">
+                        <a
+                            href="https://maps.app.goo.gl/QpJuvNL3t7GPpw2Q9"
+                            class="button-a"
+                            target="_blank"
+                            style="background: #F8622C; border: 7px solid #F8622C; padding: 0 10px;color: #ffffff; font-family: 'Open Sans', sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 10px; font-weight: bold;">
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Anfahrt planen<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <!-- Button : END -->
+        </f:else>
+    </f:if>
+</f:section>

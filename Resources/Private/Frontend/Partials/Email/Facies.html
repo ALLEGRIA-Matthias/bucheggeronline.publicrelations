@@ -1,0 +1,8 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<h3 style="margin-top:20px">Angemeldete prominente Gäste</h3>
+<ul>
+  <f:for each="{event.facies -> v:iterator.sort(sortBy: 'guestOutput.lastName')}" as="facie">
+    <li><f:if condition="{facie.guestOutput.title}">{facie.guestOutput.title} </f:if>{facie.guestOutput.firstName} <f:if condition="{facie.guestOutput.middleName}">{facie.guestOutput.middleName} </f:if>{facie.guestOutput.lastName}</li>
+  </f:for>
+</ul>
+</html>

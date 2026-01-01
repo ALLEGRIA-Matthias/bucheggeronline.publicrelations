@@ -1,0 +1,243 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Eventcenter" />
+
+<f:section name="buttons">
+<f:link.action action="show" controller="Event" class="btn btn-sm btn-default" arguments="{event:event}"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#times"></use></svg>Abbrechen</f:link.action>
+</f:section>
+
+<f:section name="shortcuts">
+<f:link.action controller="Accreditation" action="new" arguments="{event:event}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+    <h1>Akkreditierung erstellen</h1>
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <f:form action="create" enctype="multipart/form-data" name="newAccreditation" object="{newAccreditation}" arguments="{event:event}">
+    <f:form.hidden property="type" value="0" />
+    <f:form.hidden property="status" value="1" />
+    <f:form.hidden name="formType" value="singleBackend" />
+    <f:form.hidden property="event" value="{event.uid}" />
+
+    <f:render partial="Accreditation/FormBasics" arguments="{_all}" />
+
+    <f:if condition="{event.additionalFields}"><f:render partial="Accreditation/FormAdditional" arguments="{_all}" /></f:if>
+
+    <div class="alert alert-dark">
+      <h4>Gastdaten</h4>
+      <div class="col-12">
+        <div class="form-group">
+          <label for="selectGuest"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg>Kontaktauswahl</label>
+          <div class="input-group w-100">
+            <f:form.select 
+              class="form-control select-contact select-toggle"
+              id="contactSelect" 
+              name="guest"
+              style="width: 100%;" 
+              data="{
+                  contacts-nomailing:'false',
+                  contacts-maxresults:'20',
+                  contacts-pid:'6,40,44',
+                  include-special-options: 'true',
+                  toggle-container-id: 'newContact'
+              }" 
+              placeholder="Kontakt suchen..."
+              required="1" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+      <div class="row" data-toggle-container="newContact">
+          <div class="col-12" data-toggle-value="new" style="display:none;padding-right:15px;padding-left:15px;"><h4>Neuen Kontakt speichern</h4></div>
+          <div class="col-12" data-toggle-value="manual" style="display:none;padding-right:15px;padding-left:15px;"><h4>Temporäre Kontaktdaten</h4></div>
+
+          <div class="col-12 col-md-4" data-toggle-value="new" style="display:none;">
+            <div class="form-group">
+              <label for="inputCompany"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#factory"></use></svg>Firma / Medium</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputCompany" name="newContact.company" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4" data-toggle-value="new" style="display:none;">
+            <div class="form-group">
+              <label for="selectGender"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-parents-alt"></use></svg>Geschlecht</label>
+              <div class="input-group w-100">
+                <f:form.select class="form-control tomselect-generic" id="selectGender" name="newContact.gender">
+                  <f:form.select.option value="">Bitte Geschlecht wählen...</f:form.select.option>
+                  <f:form.select.option value="m">Männlich</f:form.select.option>
+                  <f:form.select.option value="f">Weiblich</f:form.select.option>
+                  <f:form.select.option value="v">Sonstig</f:form.select.option>
+                </f:form.select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4" data-toggle-value="new" style="display:none;">
+            <div class="form-group">
+              <label for="inputTitle"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#crown"></use></svg>Titel</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputTitle" name="newContact.title" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4" data-toggle-value="new" style="display:none;">
+            <div class="form-group">
+              <label for="inputFirstName"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg>Vorname</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputFirstName" name="newContact.firstName" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4" data-toggle-value="new" style="display:none;">
+            <div class="form-group">
+              <label for="inputMiddleName"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg>Zweiter Vorname</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputMiddleName" name="newContact.middleName" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4" data-toggle-value="new" style="display:none;">
+            <div class="form-group">
+              <label for="inputLastName"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg>Nachname</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputLastName" name="newContact.lastName" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4" data-toggle-value="new" style="display:none;">
+            <div class="form-group">
+              <label for="inputEmail"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#email"></use></svg>E-Mail</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputEmail" name="newContact.email" type="email" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4" data-toggle-value="new" style="display:none;">
+            <div class="form-group">
+              <label for="inputPhone"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#phone-old"></use></svg>Telefon</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputPhone" name="newContact.phone" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4" data-toggle-value="new" style="display:none;">
+            <div class="form-group">
+              <label for="inputMobile"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#mobile-phone"></use></svg>Mobil</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputMobile" name="newContact.mobile" />
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="col-12 col-md-4" data-toggle-value="manual" style="display:none;">
+            <div class="form-group">
+              <label for="inputManualCompany"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#factory"></use></svg>Firma / Medium</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputManualCompany" property="medium" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4" data-toggle-value="manual" style="display:none;">
+            <div class="form-group">
+              <label for="selectManualGender"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-parents-alt"></use></svg>Geschlecht</label>
+              <div class="input-group w-100">
+                <f:form.select class="form-control tomselect-generic" id="selectManualGender" property="gender">
+                  <f:form.select.option value="">Bitte Geschlecht wählen...</f:form.select.option>
+                  <f:form.select.option value="m">Männlich</f:form.select.option>
+                  <f:form.select.option value="f">Weiblich</f:form.select.option>
+                  <f:form.select.option value="v">Sonstig</f:form.select.option>
+                </f:form.select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4" data-toggle-value="manual" style="display:none;">
+            <div class="form-group">
+              <label for="inputManualTitle"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#crown"></use></svg>Titel</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputManualTitle" property="title" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4" data-toggle-value="manual" style="display:none;">
+            <div class="form-group">
+              <label for="inputManualFirstName"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg>Vorname</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputManualFirstName" property="firstName" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4" data-toggle-value="manual" style="display:none;">
+            <div class="form-group">
+              <label for="inputManualMiddleName"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg>Zweiter Vorname</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputManualMiddleName" property="middleName" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4" data-toggle-value="manual" style="display:none;">
+            <div class="form-group">
+              <label for="inputManualLastName"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg>Nachname</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputManualLastName" property="lastName" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4" data-toggle-value="manual" style="display:none;">
+            <div class="form-group">
+              <label for="inputManualEmail"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#email"></use></svg>E-Mail</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputManualEmail" property="email" type="email" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4" data-toggle-value="manual" style="display:none;">
+            <div class="form-group">
+              <label for="inputManualPhone"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#phone-old"></use></svg>Telefon</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputManualPhone" property="phone" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4" data-toggle-value="manual" style="display:none;">
+            <div class="form-group">
+              <label for="inputMobile"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#mobile-phone"></use></svg>Mobil</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputMobile" property="phone" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <f:render partial="Accreditation/FormOptions" arguments="{_all}" />
+
+    <div class="col-12">
+      <f:form.submit value="Jetzt generieren" class="btn btn-sm btn-success mr-3" />
+    </div>
+
+    </f:form>
+</f:section>
+</html>

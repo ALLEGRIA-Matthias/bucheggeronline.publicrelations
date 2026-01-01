@@ -1,0 +1,66 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+<div class="btn-group">
+  <f:link.typolink parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={client.uid}" target="_blank" class="btn btn-sm btn-default" additionalAttributes="{data-toggle:'tooltip', data-placement:'top'}" title="Kunde im Frontend ansehen" absolute="true">
+  <span class="t3js-icon icon icon-size-small icon-state-default">
+    <span class="icon-markup">
+      <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#eye"></use></svg>
+    </span>
+  </span>
+  </f:link.typolink>
+  <be:link.editRecord uid="{client.uid}" table="tx_publicrelations_domain_model_client" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&action=backendList&controller=Client')}" class="btn btn-default btn-sm" additionalAttributes="{data-toggle:'tooltip', data-placement:'top'}" title="Kunde bearbeiten">
+  <span class="t3js-icon icon icon-size-small icon-state-default">
+    <span class="icon-markup">
+      <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg>
+    </span>
+  </span>
+  </be:link.editRecord>
+  <f:link.action action="list" controller="Campaign" arguments="{client:client}" class="btn btn-sm {f:if(condition:'{client.campaigns}', then:'btn-success', else:'btn-default')}" data="{toggle:'tooltip', placement:'top'}" title="Produkte aufrufen">
+  <span class="t3js-icon icon icon-size-small icon-state-default">
+    <span class="icon-markup">
+      <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#thumbnails-list"></use></svg>
+    </span>
+  </span>
+  </f:link.action>
+  <f:link.action action="list" controller="Event" arguments="{client:client}" class="btn btn-sm {f:if(condition:'{client.events}', then:'btn-success', else:'btn-default')}" data="{toggle:'tooltip', placement:'top'}" title="Termine aufrufen">
+  <span class="t3js-icon icon icon-size-small icon-state-default">
+    <span class="icon-markup">
+      <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg>
+    </span>
+  </span>
+  </f:link.action>
+  <f:link.action action="list" controller="News" arguments="{client:client}" class="btn btn-sm {f:if(condition:'{client.news}', then:'btn-success', else:'btn-default')}" data="{toggle:'tooltip', placement:'top'}" title="Pressemeldungen aufrufen">
+  <span class="t3js-icon icon icon-size-small icon-state-default">
+    <span class="icon-markup">
+      <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#newspaper"></use></svg>
+    </span>
+  </span>
+  </f:link.action>
+  <be:link.editRecord uid="{client.uid}" table="tx_publicrelations_domain_model_client" fields="mediagroups" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&action=backendList&controller=Client')}" class="btn btn-sm {f:if(condition:'{client.mediagroups}', then:'btn-success', else:'btn-default')}" additionalAttributes="{data-toggle:'tooltip', data-placement:'top'}" title="Pressemedien aufrufen">
+  <span class="t3js-icon icon icon-size-small icon-state-default">
+    <span class="icon-markup">
+      <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#camera"></use></svg>
+    </span>
+  </span>
+  </be:link.editRecord>
+  <a href="{be:moduleLink(route:'allegria_eventcenter', arguments:'{id:2}', query:'&tx_publicrelations_contacts[action]=clientList&tx_publicrelations_contacts[controller]=Contact')}" class="btn btn-sm {f:if(condition:'{client.contactlists}', then:'btn-success', else:'btn-default')}" data="{toggle:'tooltip', placement:'top'}" title="Kontaktlisten aufrufen">
+  <span class="t3js-icon icon icon-size-small icon-state-default">
+    <span class="icon-markup">
+      <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-binder"></use></svg>
+    </span>
+  </span>
+  </a>
+  <f:link.action action="list" controller="Mailing" arguments="{client:client}" class="btn btn-sm {f:if(condition:'{client.mailings}', then:'btn-success', else:'btn-default')}" data="{toggle:'tooltip', placement:'top'}" title="Mailings aufrufen">
+  <span class="t3js-icon icon icon-size-small icon-state-default">
+    <span class="icon-markup">
+      <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#send"></use></svg>
+    </span>
+  </span>
+  </f:link.action>
+</div>
+
+</html>

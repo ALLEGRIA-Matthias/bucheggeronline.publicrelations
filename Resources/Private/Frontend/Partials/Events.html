@@ -1,0 +1,318 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:section name="list">
+<div class="alert alert-white anchor" id="pressetermine">
+  <h2 class="h4 mt-2 mb-3"><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg> Kommende Pressetermine</h2>
+  <div class="table-responsive">
+    <table class="table table-sm table-borderless table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Typ</th>
+          <th scope="col">Termin</th>
+          <th scope="col">Titel</th>
+          <th scope="col">Location</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <f:for each="{events -> v:iterator.sort(sortBy: 'date')}" as="event" iteration="i">
+          <tr>
+            <td>{event.type.title}</td>
+            <td scope="row" class="text-nowrap"><f:if condition="{event.dateFulltime}"><f:then>{event.date->f:format.date(format:'%d.%m.%Y')}</f:then><f:else>{event.date->f:format.date(format:'%d.%m.%Y, %H.%M Uhr')}</f:else></f:if></td>
+            <td><strong>{event.title}</strong></td>
+            <td>{event.location.name}</td>
+            <td class="text-end text-nowrap">
+              <a class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#eventInfo{event.uid}" data-bs-trigger="focus"><svg class="icon me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#eye"></use></svg></a>
+              <f:if condition="{event.accreditationAllowed}">
+                <f:then><a class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#eventAccreditation{event.uid}" data-bs-trigger="focus"><svg class="icon me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-badge-lanyard"></use></svg></a></f:then>
+                <f:else><span class="cursor-pointer" data-bs-toggle="popover" data-bs-trigger="click" data-bs-html="true" data-bs-placement="left" title="Keine Akkreditierung möglich!<span class='close-popover float-end cursor-pointer' aria-label='Close'><span aria-hidden='true'>&times;</span></span>" data-bs-content="Für diesen Termin ist derzeit keine Akkreditierungsanfrage möglich. Eventuell ist das Kontingent bereits erschöpft. Gerne können Sie uns für weitere Fragen unter <a href='mailto:office@allegria.at?subject=<f:format.urlencode>Anfrage zum Termin {event.title} am {event.date->f:format.date(format:"%d.%m.%Y um %H.%M Uhr")}</f:format.urlencode>' target='_blank'>office@allegria.at</a> kontaktieren."><svg class="icon fill-secondary me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-badge-lanyard"></use></svg></span></f:else>
+              </f:if>
+              <f:comment><svg class="icon me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg></f:comment>
+            </td>
+          </tr>
+        </f:for>
+      </tbody>
+    </table>
+  </div>
+</div>
+</f:section>
+
+<f:section name="modals">
+<f:for each="{events}" as="event" iteration="i">
+<div class="modal" tabindex="-1" id="eventInfo{event.uid}">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-truncate"><svg class="icon me-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg>{event.title}</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6 class="h5 text-uppercase">Termindaten</h6>
+        <table class="table table-font-size-1">
+          <tr>
+            <th>Kunde</th>
+            <th>{event.client.name}</th>
+          </tr>
+          <f:if condition="{event.campaign}">
+          <tr>
+            <th>{event.campaign.type.title}</th>
+            <th>{event.campaign.title}</th>
+          </tr>
+          </f:if>
+          <tr>
+            <th>Termintyp</th>
+            <td>{event.type.title}</td>
+          </tr>
+          <tr>
+            <th>Betreff</th>
+            <th>{event.title}</th>
+          </tr>
+          <tr>
+            <th>Zeitpunkt</th>
+            <td><f:if condition="{event.dateFulltime}"><f:then>{event.date->f:format.date(format:'%A, %e. %B %Y')}</f:then><f:else>{event.date->f:format.date(format:'%A, %e. %B %Y um %H.%M Uhr')}</f:else></f:if></td>
+          </tr>
+          <f:if condition="{event.duration}">
+          <tr>
+            <th>Dauer</th>
+            <td>{f:if(condition:'{event.durationApprox}', then:'voraussichtlich ')}<strong>{event.duration} Minuten</strong>{f:if(condition:'{event.durationWithBreak}', then:' inkl. Pause')}</td>
+          </tr>
+          </f:if>
+          <tr>
+            <th>Ort</th>
+            <td>
+              <f:if condition="{event.locationManual}">
+                <f:then>
+                  <strong>{event.locationManual}</strong>
+                  <f:if condition="{event.locationNote}"><br/>{event.locationNote}</f:if>
+                </f:then>
+                <f:else>
+                <f:if condition="{event.location}">
+                  <strong>{event.location.name}</strong>
+                  <f:if condition="{event.location.additional}"><br/>{event.location.additional}</f:if>
+                  <br/>{event.location.street}
+                  <br/>{event.location.zip} {event.location.city}, {event.location.country.shortNameDe}
+                </f:if>
+                </f:else>
+              </f:if>
+            </td>
+          </tr>
+          <f:if condition="{event.notesOutput} || {event.notesManual}">
+          <tr>
+            <th>Hinweis</th>
+            <td>
+              <f:if condition="{event.notesOutput}">
+                <f:then>
+                  <f:if condition="{event.notesManual}">{event.notesManual}<br/></f:if>
+                  <f:for each="{event.notesOutput}" as="note" iteration="ni"><span class="badge bg-dark me-2 mb-3">{note}</span></f:for>
+                  <f:if condition="{event.accreditationAllowed}">
+                    <f:then><strong class="text-danger">Zutritt nur nach erfolgreicher Akkreditierung!</strong></f:then>
+                    <f:else><div class="alert alert-dark" role="alert">
+                      <h6 class="fw-bold text-uppercase text-danger">Derzeit keine Akkreditierung möglich!</h6>
+                      <small>Für diesen Termin ist derzeit keine Akkreditierungsanfrage möglich. Eventuell ist das Kontingent bereits erschöpft. Gerne können Sie uns für weitere Fragen unter <a class="text-dark fw-bold"href='mailto:office@allegria.at?subject=<f:format.urlencode>Anfrage zum Termin {event.title} am {event.date->f:format.date(format:"%d.%m.%Y um %H.%M Uhr")}</f:format.urlencode>' target='_blank'>office@allegria.at</a> kontaktieren.</small></div></f:else>
+                  </f:if>
+                </f:then>
+                <f:else>
+                  {event.notesManual}
+                </f:else>
+              </f:if>
+            </td>
+          </tr>
+          </f:if>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Schließen</button>
+        <f:comment><button type="button" class="btn btn-dark fw-bold"><svg class="icon me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#square-download"></use></svg>Kalendereintrag</button></f:comment>
+        <button type="button" class="btn btn-primary fw-bold" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#eventAccreditation{event.uid}" data-bs-trigger="focus" {f:if(condition:'{event.accreditationAllowed}', else:'disabled')}><svg class="icon fill-dark me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-badge-lanyard"></use></svg>Akkreditierung</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<f:if condition="{event.accreditationAllowed}">
+<div class="modal" tabindex="-1" role="dialog" id="eventAccreditation{event.uid}" aria-labelledby="eventAccreditation{event.uid}">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <f:form enctype="multipart/form-data" action="create" controller="Accreditation" name="newAccreditation" arguments="{event:event}">
+      <div class="modal-header">
+        <h5 class="modal-title text-truncate"><svg class="icon me-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg>{event.title}</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <small>Akkreditierungsanfrage zu:</small>
+        <h6 class="h5 text-uppercase fw-bold my-0">{event.title}</h6>
+        <small>
+          <svg class="icon icon-sm me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg><strong>{event.date->f:format.date(format:'%e. %B %Y, %H.%M Uhr')}</strong>
+          <svg class="icon icon-sm me-1 ms-3"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#crown"></use></svg><strong>{event.client.name}</strong><f:if condition="{event.campaign}"> • {event.campaign.title}</f:if>
+        </small>
+          <h6 class="fw-bold mt-3 mb-0">Allgemein</h6>
+          <div class="row">
+            <div class="input-group mb-2 col-md-12">
+              <f:form.textfield class="form-control" id="inputMedium" property="medium" placeholder="Name des Mediums / Berichterstattung im Namen von..." type="text" required="1" />
+            </div>
+            <div class="input-group mb-2 col-md-6">
+              <f:form.select class="form-control tomselect-generic" id="inputMediumType" property="mediumType" options="{mediumTypes}" optionsAfterContent="1" optionValueField="uid" optionLabelField="title" sortByOptionLabel="1" required="1">
+                <f:form.select.option value="">Bitte Medientyp wählen...</f:form.select.option>
+              </f:form.select>
+            </div>
+            <div class="input-group mb-2 col-md-6">
+              <f:form.select class="form-control tomselect-generic" id="inputAccreditationType" name="accreditationType" required="1">
+                <f:form.select.option value="">Akkreditierung als...</f:form.select.option>
+                <f:form.select.option value="1">Redakteur</f:form.select.option>
+                <f:form.select.option value="2">Fotograf</f:form.select.option>
+                <f:form.select.option value="3">Kamerateam</f:form.select.option>
+              </f:form.select>
+            </div>
+          </div>
+
+          <h6 class="fw-bold mt-3 mb-0">Details</h6>
+          <div class="row">
+            <div class="input-group mb-2 col-md-4">
+              <f:form.textfield class="form-control" id="inputTicketsWish" property="ticketsWish" placeholder="Anzahl der Pressekarten" required="1" type="number" value="2" additionalAttributes="{min:'1', max:'3'}" />
+            </div>
+            <div class="input-group mb-2 col-md-4">
+              <f:form.select class="form-control tomselect-generic" id="inputGender" property="gender" required="1">
+                <f:form.select.option value="">Anrede</f:form.select.option>
+                <f:form.select.option value="1">Frau</f:form.select.option>
+                <f:form.select.option value="2">Herr</f:form.select.option>
+                <f:form.select.option value="0">Divers</f:form.select.option>
+              </f:form.select>
+            </div>
+            <div class="input-group mb-2 col-md-4">
+              <f:form.textfield class="form-control" id="inputTitle" property="title" placeholder="Titel" type="text" />
+            </div>
+            <div class="input-group mb-2 col-md-6">
+              <f:form.textfield class="form-control" id="inputFirstName" property="firstName" placeholder="Vorname" type="text" required="1" />
+            </div>
+            <div class="input-group mb-2 col-md-6">
+              <f:form.textfield class="form-control" id="inputLastName" property="lastName" placeholder="Nachname" type="text" required="1" />
+            </div>
+            <div class="input-group mb-2 col-md-6">
+              <f:form.textfield class="form-control" id="inputEmail" property="email" placeholder="E-Mail Adresse" type="email" required="1" />
+            </div>
+            <div class="input-group mb-2 col-md-6">
+              <f:form.textfield class="form-control" id="inputPhone" property="phone" placeholder="Telefonnummer" type="phone" />
+            </div>
+          </div>
+          <f:if condition="{event.additionalfieldsAccreditation}">
+          <h6 class="fw-bold mt-3 mb-0">Weitere Angaben</h6>
+          <div class="row">
+          <f:for each="{event.additionalfieldsAccreditation}" as="field" iteration="fi">
+            <f:if condition="{field.type}==0">
+            <div class="form-check">
+              <f:form.checkbox
+                class="form-check-input"
+                id="field{field.uid}"
+                name="additionalAnswers[{field.uid}]"
+                value="1"
+                checked=""
+              />
+              <label for="field{field.uid}" class="form-check-label">
+                {field.label}
+                <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description}</small></f:if>
+              </label>
+            </div>
+            </f:if>
+
+            <f:if condition="{field.type}==3 || {field.type}==4">
+            <div class="form-group row">
+              <label for="field{field.uid}" class="col-12 col-form-label fw-bold">
+                {field.label}
+                <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description}</small></f:if>
+              </label>
+              <div class="col-12">
+                <f:form.select
+                  class="form-control tomselect-generic"
+                  data="{select2-id: 'field{field.uid}'}"
+                  id="selectNotes"
+                  name="additionalAnswers[{field.uid}]"
+                  multiple="{f:if(condition: '{field.type}==4', then: '1', else, '0')}"
+                >
+                  <f:if condition="{field.type}==3"><f:form.select.option value="">{f:if(condition:'{field.required}', then: 'Bitte', else: 'Optional')} auswählen</f:form.select.option></f:if>
+                  <f:for each="{field.options}" as="option"><f:if condition="{option.frontend}"><f:form.select.option value="{option.value}">{option.label}</f:form.select.option></f:if></f:for>
+                </f:form.select>
+              </div>
+            </div>
+            </f:if>
+
+            <f:if condition="{field.type}==6">
+            <div class="col-12 col-md-4">
+              <div class="form-group">
+                <label class="font-weight-bold"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{field.icon}"></use></svg> {field.label}</label>
+                <f:for each="{field.options}" as="option" iteration="oi">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><f:if condition="{option.icon}"><svg class="icon icon-sm fill-gold mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{option.icon}"></use></svg></f:if>{option.label}</span>
+                  </div>
+                  <f:form.textfield
+                    class="form-control proveMax"
+                    id="field{field.uid}.{option.value}"
+                    name="additionalAnswers[{field.uid}][{option.value}]"
+                    type="number"
+                    value="<f:spaceless>
+                            <f:if condition='{accreditation.additionalAnswers->f:count()}'>
+                            <f:then>
+                            <f:for each='{accreditation.additionalAnswers}' as='answer' iteration='ai'>
+                              <f:if condition='{answer.field.uid}=={field.uid}'>
+                                <f:then>
+                                <f:for each='{answer.value}' as='value'>
+                                  <f:if condition='{value.key}=={option.value}'>{value.value}</f:if>
+                                </f:for>
+                                </f:then>
+                                <f:else>0</f:else>
+                              </f:if>
+                            </f:for>
+                            </f:then>
+                            <f:else>0</f:else>
+                            </f:if>
+                            </f:spaceless>"
+                    additionalAttributes="{min:'{f:if(condition:\'{option.min}\', then:\'{option.min}\', else:\'0\')}', max:'{option.max}'}"
+                    data="{collection:'{field.uid}', prove-target:'#inputTicketsWish'}"
+                  />
+                </div>
+                </f:for>
+              </div>
+            </div>
+            </f:if>
+          </f:for>
+          </div>
+          </f:if>
+
+          <h6 class="fw-bold mt-3 mb-0">Anmerkungen</h6>
+          <div class="row">
+            <div class="input-group mb-2 col-md-12">
+              <f:form.textarea class="form-control" id="inputRequestNote" property="requestNote" rows="5" />
+            </div>
+          </div>
+
+          <h6 class="fw-bold mt-3 mb-0">Datenschutz</h6>
+          <div class="input-group">
+            <div class="form-check">
+              <f:form.checkbox class="form-check-input" id="inputDSGVO" property="dsgvo" value="1" additionalAttributes="{required:'1'}" />
+              <label class="form-check-label" for="inputDSGVO">Ich habe die <f:link.page pageUid="37" target="_blank">Datenschutzbestimmungen</f:link.page> von Allegria gelesen, verstanden und bin mit der verschlüsselten Datenübermittlung und damit einhergehenden Datenspeicherung zur weiteren Bearbeitung einverstanden. Ihre IP-Adresse wird dabei aus Sicherheitsgründen übermittelt, eine Weitergabe an Dritte erfolgt nicht.</label>
+            </div>
+          </div>
+
+          <f:form.hidden property="ip" value="{ip}" />
+          <f:form.hidden property="event" value="{event.uid}" />
+          <f:form.hidden property="type" value="1" />
+          <f:form.hidden property="guestType" value="2" />
+          <f:form.hidden property="status" value="0" />
+          <f:form.hidden name="formType" value="manualFrontend" />
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Schließen</button>
+        <f:form.button type="submit" class="btn btn-primary fw-bold"><svg class="icon fill-dark me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-badge-lanyard"></use></svg>Akkreditierung einreichen</f:form.button>
+      </div>
+      </f:form>
+    </div>
+  </div>
+</div>
+</f:if>
+
+</f:for>
+</f:section>

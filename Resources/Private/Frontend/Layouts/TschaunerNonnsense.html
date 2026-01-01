@@ -1,0 +1,251 @@
+<!doctype html>
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:v="urn:schemas-microsoft-com:vml"
+    xmlns:o="urn:schemas-microsoft-com:office:office"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true" >
+
+<head>
+    <!--[if gte mso 15]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:AllowPNG/>
+            <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+    </xml>
+    <![endif]-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{accreditation.invitationType.subject}</title>
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;1,300&family=IBM+Plex+Sans:ital,wght@0,300;0,500;0,700;1,300;1,500;1,700&display=swap');
+
+        body {
+	        margin: 0;
+        }
+        body, table, td, p, a, li, blockquote {
+            -webkit-text-size-adjust: none!important;
+            font-family: sans-serif;
+            font-style: normal;
+            font-weight: 400;
+        }
+        button {
+            width: 90%;
+        }
+
+    @media screen and (max-width:600px) {
+        /*styling for objects with screen size less than 600px; */
+        body, table, td, p, a, li, blockquote {
+            -webkit-text-size-adjust: none!important;
+            font-family: sans-serif;
+        }
+        table {
+            /* All tables are 100% width */
+            width: 100%;
+        }
+        .footer {
+            /* Footer has 2 columns each of 48% width */
+            height: auto !important;
+            max-width: 48% !important;
+            width: 48% !important;
+        }
+        table.responsiveImage {
+            /* Container for images in catalog */
+            height: auto !important;
+            max-width: 30% !important;
+            width: 30% !important;
+        }
+        table.responsiveContent {
+            /* Content that accompanies the content in the catalog */
+            height: auto !important;
+            max-width: 66% !important;
+            width: 66% !important;
+        }
+        .top {
+            /* Each Columnar table in the header */
+            height: auto !important;
+            max-width: 48% !important;
+            width: 48% !important;
+        }
+        .catalog {
+            margin-left: 0%!important;
+        }
+    }
+
+    @media screen and (max-width:480px) {
+        /*styling for objects with screen size less than 480px; */
+        body, table, td, p, a, li, blockquote {
+            -webkit-text-size-adjust: none!important;
+            font-family: sans-serif;
+        }
+        table {
+            /* All tables are 100% width */
+            width: 100% !important;
+            border-style: none !important;
+        }
+        .footer {
+            /* Each footer column in this case should occupy 96% width  and 4% is allowed for email client padding*/
+            height: auto !important;
+            max-width: 96% !important;
+            width: 96% !important;
+        }
+        .table.responsiveImage {
+            /* Container for each image now specifying full width */
+            height: auto !important;
+            max-width: 96% !important;
+            width: 96% !important;
+        }
+        .table.responsiveContent {
+            /* Content in catalog  occupying full width of cell */
+            height: auto !important;
+            max-width: 96% !important;
+            width: 96% !important;
+        }
+        .top {
+            /* Header columns occupying full width */
+            height: auto !important;
+            max-width: 100% !important;
+            width: 100% !important;
+        }
+        .catalog {
+            margin-left: 0%!important;
+        }
+        button {
+            width: 90%!important;
+        }
+    }
+    </style>
+</head>
+<body yahoo="yahoo" style="margin:0;">
+<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+  <tbody>
+    <tr>
+      <td align="center" valign="top" id="bodyCell" style="background-color:#ffffff">
+        <table border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="background-color: #ffffff; box-shadow: -5px 10px 10px #D9D9D9, 5px 10px 10px #D9D9D9; border: solid 1px #D9D9D9;">
+          <tbody>
+            <tr>
+              <td align="center" valign="top" id="templateHeader">
+                <!--[if (gte mso 9)|(IE)]><table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;"><tr><td align="center" valign="top" width="600" style="width:600px;"><![endif]-->
+                  <table align="center" border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                      <tr>
+                        <td valign="top" class="headerContainer">
+                          <table border="0" cellpadding="0" cellspacing="0" width="100%" class="textBlock" style="min-width:100%;">
+                            <tbody class="textBlockOuter">
+                              <tr>
+                                <td valign="top" class="textBlockInner" style="padding-top:0px;">
+                                  <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%; background-color: #FFFFFF" width="100%" class="textContentContainer">
+                                    <tbody>
+                                        <tr >
+                                            <td valign="bottom" width="600" height="186" style="background-image: url('https://www.allegria.at/fileadmin/marketing/tschauner/TSCHAUNER_Email_Header_bg.png'); background-position: center top;">
+                                                <h1 style="font-family: 'Cabin', sans-serif; font-size: 1.6rem; font-weight: 600; font-size: 180%; text-transform: uppercase; text-align: center; color: white; margin-bottom: 5px;">
+                                                    <f:switch expression="{content}">
+                                                        <f:case value="invitation">Persönliche Einladung</f:case>
+                                                        <f:case value="remind">Erinnerung zur Einladung</f:case>
+                                                        <f:case value="push">Finale Erinnerung</f:case>
+                                                        <f:case value="approve">Bestätigung</f:case>
+                                                        <f:case value="reject">Danke zur Rückmeldung</f:case>
+                                                    </f:switch>
+                                                </h1>
+                                                <h2 style="font-family: 'Cabin', sans-serif; font-size: 1.2rem; font-weight: 500; text-transform: uppercase; text-align: center; color: white; margin-top: 0; margin-bottom: 45px;">für</h2>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+                </td>
+              </tr>
+              <tr>
+                <td align="center" valign="top" id="templateBody">
+                  <!--[if (gte mso 9)|(IE)]><table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;"><tr><td align="center" valign="top" width="600" style="width:600px;"><![endif]-->
+                  <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
+                    <tbody>
+                      <tr>
+                        <td valign="top" class="bodyContainer">
+                          <table border="0" cellpadding="0" cellspacing="0" width="100%" class="textBlock" style="min-width:100%;">
+                            <tbody class="textBlockOuter">
+                              <tr>
+                                <td valign="top" class="textBlockInner" style="padding: 0px;">
+                                  <!--[if mso]><table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;"><tr><td valign="top" width="600" style="width:600px;"><![endif]-->
+                                  <table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="textContentContainer">
+                                    <tbody>
+                                      <tr align="center" style="text-align: center;">
+                                        <f:render partial="TschaunerContentNonnsense" arguments="{_all}" />
+                                        <table width="600px" border="0" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                              <tr>
+                                                <td>
+                                                    <img src="https://www.allegria.at/fileadmin/marketing/tschauner/TSCHAUNER_Email_Infozeile.png" width="600" height="auto">
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <!--[if mso]></td></tr></table><![endif]-->
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+                </td>
+              </tr>
+          </tbody>
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="background-color: #ffffff; margin-top: 30px;">
+            <tbody>
+                <tr>
+                    <td valign="top" class="footerContainer">
+                      <table border="0" cellpadding="0" cellspacing="0" width="100%" class="textBlock" style="min-width:100%;">
+                        <tbody class="textBlockOuter"><tr><td valign="top" class="textBlockInner">
+                          <!--[if mso]><table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;"><tr><td valign="top" width="600" style="width:600px;"><![endif]-->
+                          <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%; background-color: #FFFFFF;" width="100%" class="textContentContainer">
+                            <tbody>
+                              <tr>
+                                <td colspan="2">
+                                  <div style="padding: 15px 30px; text-align: center;">
+                                    <p style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.5rem; font-weight: 500; color: #062230;">
+                                      Versand der Email im Auftrag von<br>
+                                      Tschauner Bühne GmbH:
+                                    </p>
+                                    <p style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.5rem; font-weight: 400; color: #062230;">
+                                      <span style="font-weight: 500;">Allegria Communications GmbH</span><br>
+                                      Firmensitz: Wien | Firmenbuch: FN 637275 w, Handelsgericht Wien<br>
+                                      tel +43 1 / 479 02 60 | mail office@allegria.at
+                                    </p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <!--[if mso]></td></tr></table><![endif]-->
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<f:render section="menue" optional="true" />
+</body>
+</html>

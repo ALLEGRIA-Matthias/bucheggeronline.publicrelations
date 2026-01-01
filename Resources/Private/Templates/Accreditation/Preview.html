@@ -1,0 +1,101 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="AccreditationPreview" />
+
+<f:section name="buttons">
+<a href="javascript:close_window();" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#times"></use></svg>Fenster schließen</a>
+</f:section>
+
+<f:section name="shortcuts">
+  <f:link.action action="preview" controller="Mailing" arguments="{mailing:mailing}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<table bgcolor="#000000" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+<tr>
+    <td><center style="width: 100%;">
+        
+        <f:render section="Preview" />
+        <f:render section="HeaderNew" />
+    
+    </center></td>
+</tr>
+</table>
+
+<f:section name="Title">
+    <f:switch expression="{content}">
+        <f:case value="approve">
+            <f:variable name="type">Akkreditierung</f:variable>
+        </f:case>
+        <f:case value="pending">
+            <f:variable name="type">Akkreditierungsanfrage</f:variable>
+        </f:case>
+        <f:case value="reject">
+            <f:variable name="type">Akkreditierungsanfrage</f:variable>
+        </f:case>
+        <f:case value="sent">
+            <f:variable name="type">Akkreditierungsanfrage</f:variable>
+        </f:case>
+    </f:switch>
+    <title>{type} zu {accreditation.event.title}</title>
+</f:section>
+
+<f:section name="Preview">
+    <f:if condition="{accreditation.invitationType.preview}">
+        <!-- Visually Hidden Preheader Text : BEGIN -->
+        <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">{accreditation.invitationType.preview->f:format.raw()}</div>
+        <!-- Visually Hidden Preheader Text : END -->
+    </f:if>
+</f:section>
+
+<f:section name="HeaderNew">
+    <f:switch expression="{content}">
+        <f:case value="approve">
+            <f:variable name="type">Akkreditierung</f:variable>
+        </f:case>
+        <f:case value="pending">
+            <f:variable name="type">Akkreditierungsanfrage</f:variable>
+        </f:case>
+        <f:case value="reject">
+            <f:variable name="type">Akkreditierungsanfrage</f:variable>
+        </f:case>
+        <f:case value="sent">
+            <f:variable name="type">Akkreditierungsanfrage</f:variable>
+        </f:case>
+    </f:switch>
+    <!-- Email Header : BEGIN -->
+    <f:render partial="Email/HeaderNew" arguments="{type:type, title:accreditation.event.title}" />
+    
+    <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="600" class="email-container" style="background-color: #FFFFFF;">
+        
+        <f:if condition="!{accreditation.invitationType.noHeader} && {accreditation.invitationType.header}">
+        <!-- Hero Image, Flush : BEGIN -->
+        <tr>
+            <td class="full-width-image" align="center">
+                <f:image image="{accreditation.invitationType.header}" maxHeight="200" maxWidth="600" additionalAttributes="{border:'0',align:'center'}" style="{width:'100%',height:'auto',max-width:'600px',max-height:'200px'}" absolute="true" />
+            </td>
+        </tr>
+        <!-- Hero Image, Flush : END --> 
+        </f:if>
+        
+        <f:if condition="!{accreditation.invitationType.noSalutation}">
+        <!-- 1 Column Text : BEGIN -->
+        <tr>
+            <td style="padding: 40px 40px 0 40px; text-align: left; font-family: 'Quicksand', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305;"><f:render partial="Email/Salutation" arguments="{guestOutput:accreditation.guestOutput}" /></td>
+         </tr>
+        <!-- 1 Column Text : BEGIN -->
+        </f:if>
+
+    </table>
+    <!-- Email Header : END -->
+</f:section>
+
+<f:section name="ContentNew">
+    <f:render partial="Email/AccreditationNew" arguments="{_all}" />
+</f:section>
+
+</html>

@@ -1,0 +1,47 @@
+<div class="module-loading-indicator"></div>
+<div class="module-docheader t3js-module-docheader">
+    <div class="module-docheader-bar module-docheader-bar-navigation t3js-module-docheader-bar t3js-module-docheader-bar-navigation">
+        <div class="module-docheader-bar-column-left">
+            <f:if condition="{docHeader.menus}">
+                <div class="module-docheader-bar-container">
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Eventcenter Menue">
+                        <f:link.action action="overview" controller="Pressroom" class="btn btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#home"></use></svg><span class="ml-2 d-none d-sm-inline">Übersicht</span></f:link.action>
+                        <f:link.action action="backendList" controller="Client" class="btn btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#crown"></use></svg><span class="ml-2 d-none d-sm-inline">Kunden</span></f:link.action>
+                        <f:link.action action="list" controller="Event" class="btn btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg><span class="ml-2 d-none d-sm-inline">Termine</span></f:link.action>
+                        <f:link.action action="new" controller="Event" class="btn btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#circle-plus"></use></svg><span class="ml-2 d-none d-sm-inline">Termin(e) erstellen</span></f:link.action>
+                        <f:link.action action="archive" controller="Event" class="btn btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#archive"></use></svg><span class="ml-2 d-none d-sm-inline">Archiv</span></f:link.action>
+                    </div>
+                </div>
+            </f:if>
+        </div>
+        <div class="module-docheader-bar-column-right">
+            <f:if condition="{docHeader.metaInformation.recordInformation}">
+                <f:if condition="{docHeader.metaInformation.fileOrFolder}">
+                    <f:then>
+                        <f:format.raw>{docHeader.metaInformation.path}</f:format.raw>
+                    </f:then>
+                    <f:else>
+                        <span class="typo3-docheader-pagePath">
+                            <f:translate key="LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.path"/>: <f:format.raw>{docHeader.metaInformation.path}</f:format.raw>
+                        </span>
+                    </f:else>
+                </f:if>
+                <strong>
+                    <f:format.raw>
+                        {docHeader.metaInformation.recordInformationIcon} {docHeader.metaInformation.recordInformationTitle}
+                        <f:if condition="{docHeader.metaInformation.recordInformationUid}">[{docHeader.metaInformation.recordInformationUid}]</f:if>
+                    </f:format.raw>
+                </strong>
+                {docHeader.metaInformation.recordInformationAdditionalInfo}
+            </f:if>
+        </div>
+    </div>
+    <div class="module-docheader-bar module-docheader-bar-buttons t3js-module-docheader-bar t3js-module-docheader-bar-buttons">
+        <div class="module-docheader-bar-column-left">
+            <f:render partial="ButtonBar" arguments="{buttons:docHeader.buttons.left}" />
+        </div>
+        <div class="module-docheader-bar-column-right">
+            <f:render partial="ButtonBar" arguments="{buttons:docHeader.buttons.right}" />
+        </div>
+    </div>
+</div>

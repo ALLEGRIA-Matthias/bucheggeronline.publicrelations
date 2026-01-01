@@ -1,0 +1,205 @@
+@import 'EXT:allegria_communications/Configuration/TypoScript/Helper/settings.typoscript'
+@import 'EXT:publicrelations/Configuration/TypoScript/Helper/files.typoscript'
+
+plugin.tx_publicrelations_pressroom {
+    view {
+        templateRootPaths.0 = EXT:publicrelations/Resources/Private/Templates/
+        templateRootPaths.1 = {$plugin.tx_publicrelations_pressroom.view.templateRootPath}
+        partialRootPaths.0 = EXT:publicrelations/Resources/Private/Partials/
+        partialRootPaths.1 = {$plugin.tx_publicrelations_pressroom.view.partialRootPath}
+        layoutRootPaths.0 = EXT:publicrelations/Resources/Private/Layouts/
+        layoutRootPaths.1 = {$plugin.tx_publicrelations_pressroom.view.layoutRootPath}
+    }
+    persistence {
+        storagePid = {$plugin.tx_publicrelations.persistence.storagePid}
+        #recursive = 1
+    }
+    features {
+        #skipDefaultArguments = 1
+        # if set to 1, the enable fields are ignored in BE context
+        ignoreAllEnableFieldsInBe = 0
+        # Should be on by default, but can be disabled if all action in the plugin are uncached
+        requireCHashArgumentForActionArguments = 1
+    }
+    mvc {
+        callDefaultActionIfActionCantBeResolved = 1
+    }
+    settings {
+      iconRootPath = {$plugin.tx_publicrelations_pressroom.view.iconRootPath}
+      backgrounds {
+        clients = fileadmin/marketing/background_clients.jpg
+        presscenter = fileadmin/marketing/background_presscenter.jpg
+      }
+      showContacts = {$plugin.tx_publicrelations_pressroom.showContacts}
+      company < page.10.settings.company
+    }
+}
+
+module.tx_publicrelations {
+	view {
+		templateRootPaths.200 = EXT:publicrelations/Resources/Private/Backend/Templates/
+		partialRootPaths.200 = EXT:publicrelations/Resources/Private/Backend/Partials/
+		layoutRootPaths.200 = EXT:publicrelations/Resources/Private/Backend/Layouts/
+	}
+}
+
+# Module configuration eventcenter
+module.tx_publicrelations_allegria_eventcenter {
+    persistence {
+        storagePid = {$plugin.tx_publicrelations.persistence.storagePid}
+    }
+    view {
+        templateRootPaths.0 = EXT:publicrelations/Resources/Private/Templates/
+        templateRootPaths.1 = EXT:publicrelations/Resources/Private/Backend/Templates/
+        templateRootPaths.2 = {$module.tx_publicrelations.view.templateRootPath}
+        partialRootPaths.0 = EXT:publicrelations/Resources/Private/Partials/
+        partialRootPaths.1 = EXT:publicrelations/Resources/Private/Backend/Partials/
+        partialRootPaths.2 = {$module.tx_publicrelations.view.partialRootPath}
+        layoutRootPaths.0 = EXT:publicrelations/Resources/Private/Layouts/
+        layoutRootPaths.1 = EXT:publicrelations/Resources/Private/Backend/Layouts/
+        layoutRootPaths.2 = {$module.tx_publicrelations.view.layoutRootPath}
+    }
+    settings {
+      iconRootPath = {$module.tx_publicrelations.view.iconRootPath}
+      files < settings.files
+      company < settings.company
+    }
+}
+
+# Module configuration checkin
+module.tx_publicrelations_allegria_checkin {
+    persistence {
+        storagePid = {$plugin.tx_publicrelations.persistence.storagePid}
+    }
+    view {
+        templateRootPaths.0 = EXT:publicrelations/Resources/Private/Templates/
+        templateRootPaths.1 = EXT:publicrelations/Resources/Private/Backend/Templates/
+        templateRootPaths.2 = {$module.tx_publicrelations.view.templateRootPath}
+        partialRootPaths.0 = EXT:publicrelations/Resources/Private/Partials/
+        partialRootPaths.1 = EXT:publicrelations/Resources/Private/Backend/Partials/
+        partialRootPaths.2 = {$module.tx_publicrelations.view.partialRootPath}
+        layoutRootPaths.0 = EXT:publicrelations/Resources/Private/Layouts/
+        layoutRootPaths.1 = EXT:publicrelations/Resources/Private/Backend/Layouts/
+        layoutRootPaths.2 = {$module.tx_publicrelations.view.layoutRootPath}
+    }
+    settings {
+      iconRootPath = {$module.tx_publicrelations.view.iconRootPath}
+      files < settings.files
+      company < settings.company
+    }
+}
+
+# Module configuration mailer
+module.tx_publicrelations_mailer {
+    persistence {
+        storagePid = {$plugin.tx_publicrelations.persistence.storagePid}
+    }
+    view {
+        templateRootPaths.0 = EXT:publicrelations/Resources/Private/Templates/
+        templateRootPaths.1 = EXT:publicrelations/Resources/Private/Backend/Templates/
+        templateRootPaths.2 = {$module.tx_publicrelations.view.templateRootPath}
+        partialRootPaths.0 = EXT:publicrelations/Resources/Private/Partials/
+        partialRootPaths.1 = EXT:publicrelations/Resources/Private/Backend/Partials/
+        partialRootPaths.2 = {$module.tx_publicrelations.view.partialRootPath}
+        layoutRootPaths.0 = EXT:publicrelations/Resources/Private/Layouts/
+        layoutRootPaths.1 = EXT:publicrelations/Resources/Private/Backend/Layouts/
+        layoutRootPaths.2 = {$module.tx_publicrelations.view.layoutRootPath}
+    }
+    settings {
+      iconRootPath = {$module.tx_publicrelations.view.iconRootPath}
+      files < settings.files
+      company < settings.company
+    }
+}
+
+# Module configuration contacts
+module.tx_publicrelations_allegria_contacts {
+    persistence {
+        storagePid = 4
+    }
+    view {
+        templateRootPaths.0 = EXT:publicrelations/Resources/Private/Templates/
+        templateRootPaths.1 = EXT:publicrelations/Resources/Private/Backend/Templates/
+        templateRootPaths.2 = {$module.tx_publicrelations.view.templateRootPath}
+        partialRootPaths.0 = EXT:publicrelations/Resources/Private/Partials/
+        partialRootPaths.1 = EXT:publicrelations/Resources/Private/Backend/Partials/
+        partialRootPaths.2 = {$module.tx_publicrelations.view.partialRootPath}
+        layoutRootPaths.0 = EXT:publicrelations/Resources/Private/Layouts/
+        layoutRootPaths.1 = EXT:publicrelations/Resources/Private/Backend/Layouts/
+        layoutRootPaths.2 = {$module.tx_publicrelations.view.layoutRootPath}
+    }
+    settings {
+      iconRootPath = {$module.tx_publicrelations.view.iconRootPath}
+      files < settings.files
+      company < settings.company
+    }
+}
+
+plugin.tx_seo {
+  config {
+   xmlSitemap {
+      sitemaps {
+         clients {
+            provider = TYPO3\CMS\Seo\XmlSitemap\RecordsXmlSitemapDataProvider
+            config {
+               table = tx_publicrelations_domain_model_client
+               sortField = crdate
+               lastModifiedField = tstamp
+               pid = {$plugin.tx_publicrelations.persistence.storagePid}
+               url {
+                  pageId = 39
+                  fieldToParameterMap {
+                     uid = tx_publicrelations_pressroom[client]
+                  }
+                  additionalGetParameters {
+                     tx_publicrelations_pressroom.controller = Client
+                     tx_publicrelations_pressroom.action = show
+                  }
+                  useCacheHash = 1
+               }
+            }
+          }
+          campaigns {
+             provider = TYPO3\CMS\Seo\XmlSitemap\RecordsXmlSitemapDataProvider
+             config {
+                table = tx_publicrelations_domain_model_campaign
+                sortField = crdate
+                lastModifiedField = tstamp
+                pid = {$plugin.tx_publicrelations.persistence.storagePid}
+                url {
+                   pageId = 39
+                   fieldToParameterMap {
+                      uid = tx_publicrelations_pressroom[campaign]
+                   }
+                   additionalGetParameters {
+                      tx_publicrelations_pressroom.controller = Campaign
+                      tx_publicrelations_pressroom.action = show
+                   }
+                   useCacheHash = 1
+                }
+             }
+           }
+           news {
+              provider = TYPO3\CMS\Seo\XmlSitemap\RecordsXmlSitemapDataProvider
+              config {
+                 table = tx_publicrelations_domain_model_news
+                 sortField = crdate
+                 lastModifiedField = tstamp
+                 pid = {$plugin.tx_publicrelations.persistence.storagePid}
+                 url {
+                    pageId = 39
+                    fieldToParameterMap {
+                       uid = tx_publicrelations_pressroom[news]
+                    }
+                    additionalGetParameters {
+                       tx_publicrelations_pressroom.controller = News
+                       tx_publicrelations_pressroom.action = show
+                    }
+                    useCacheHash = 1
+                 }
+              }
+            }
+          }
+        }
+    }
+}

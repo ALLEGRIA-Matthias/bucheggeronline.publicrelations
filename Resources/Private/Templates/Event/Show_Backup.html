@@ -1,0 +1,264 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Eventcenter" />
+
+<f:section name="buttons">
+<f:if condition="!{print}">
+  <be:link.editRecord uid="{event.uid}" table="tx_publicrelations_domain_model_event" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&event={event.uid}&action=show&controller=Event')}" class="btn btn-default btn-sm"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg><span class="ml-2 d-none d-sm-inline">Termin ändern</span></be:link.editRecord>
+  <div class="btn-group">
+    <f:link.action controller="Accreditation" action="new" class="btn btn-sm btn-success" arguments="{event:event}"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-badge-lanyard"></use></svg><span class="ml-2 d-none d-sm-inline">Neue Akkreditierung</span></f:link.action>
+    <f:link.action controller="Accreditation" action="newWizzard" class="btn btn-sm btn-success" arguments="{event:event}"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#magic-wand"></use></svg><span class="ml-2 d-none d-sm-inline">Akkr.-Wizzard</span></f:link.action>
+    <f:comment><f:link.action controller="Accreditation" action="invitationManager" class="btn btn-sm btn-gold mr-3" arguments="{event:event}"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-plus"></use></svg><span class="ml-2 d-none d-sm-inline">Einladungs-Empf. wählen</span></f:link.action></f:comment>
+  </div>
+</f:if>
+</f:section>
+
+<f:section name="shortcuts">
+<f:if condition="{print}">
+  <f:then>
+    <a href="#" class="btn btn-sm btn-default" onclick="window.print();return false;"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#print"></use></svg></a>
+    <f:link.action action="show" controller="Event" arguments="{event:event, print:'guests'}" class="btn btn-default btn-sm"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+    <a href="javascript:close_window();" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#times"></use></svg></a>
+  </f:then>
+  <f:else>
+    <f:link.action action="show" controller="Event" arguments="{event:event, print:'guests'}" target="_blank" class="btn btn-default btn-sm"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#print"></use></svg></f:link.action>
+    <f:link.action action="show" controller="Event" arguments="{event:event}" class="btn btn-default btn-sm"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+  </f:else>
+</f:if>
+</f:section>
+
+<f:section name="content">
+<f:if condition="{print}">
+  <f:then>
+  <h1><small>{event.client.name}</small><br/>{event.title} <small>am <f:if condition="{event.dateFulltime}"><f:then>{event.date->f:format.date(format:'%d.%m.%Y')}</f:then><f:else>{event.date->f:format.date(format:'%d.%m.%Y um %H:%M Uhr')}</f:else></f:if></small></h1>
+  <p><strong>{guests->f:count()} Akkreditierungen</strong> [{event.ticketsApproved} Pax]<f:if condition="{event.programs}"> • <strong>{event.programs} Programme</strong></f:if><f:if condition="{event.passes}"> • <strong>{event.passes} Fotopässe</strong></f:if></p>
+  <f:render partial="Accreditation/Listing" arguments="{event:event, accreditations:guests, listType:'guests', print:1}" />
+
+  <p class="text-right">Stand: {f:format.date(date:'now', format:'%d.%m.%Y um %H:%M Uhr')}</p>
+  </f:then>
+  <f:else>
+  <h1>Terminübersicht</h1>
+  <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+  <p><span class="badge badge-gold">{event.type.title}</span></p>
+  <h2 class="mt-0">{event.title} <small>am <f:if condition="{event.dateFulltime}"><f:then>{event.date->f:format.date(format:'%a, %d.%m.%Y')}</f:then><f:else>{event.date->f:format.date(format:'%a, %d.%m.%Y um %H:%M Uhr')}</f:else></f:if> [UID: {event.uid}]</small></h2>
+  <div class="table-fit mb-5">
+    <table class="table table-hover">
+      <tr>
+        <th class="align-top" width="100px">Location:</th>
+        <td><f:if condition="{event.online}"><f:then><strong class="text-danger">Online-Event</strong><f:if condition="{event.locationNote}"> ({event.locationNote})</f:if></f:then><f:else><f:if condition="{event.location}"><strong class="text-danger">{event.location.name}</strong> • {event.location.street}, {event.location.zip} {event.location.city}<br/></f:if></f:else></f:if></td>
+      </tr>
+      <tr>
+        <th class="align-top">Kunde:</th>
+        <td><strong class="text-primary">{event.client.name}</strong><f:if condition="{event.campaign}"> | {event.campaign.title}<f:if condition="{event.campaign.subtitle}"> • {event.campaign.subtitle}</f:if></f:if></td>
+      </tr>
+      <tr>
+        <th class="align-top">Akkr.-Status:</th>
+        <td>
+          <f:form controller="Event" action="update" enctype="multipart/form-data" name="event" object="{event}">
+          <f:if condition="{event.accreditation}">
+            <f:then>
+              <f:form.button property="accreditation" value="0" type="submit" class="btn-link"><svg class="icon fill-success"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#hand-like"></use></svg></f:form.button>• Link zur Akkreditierung: <f:uri.typolink parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={event.client.uid}"/>?event-id={event.uid}#event
+            </f:then>
+            <f:else>
+              <f:form.button property="accreditation" value="1" type="submit" class="btn-link">
+                <svg class="icon fill-danger mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#hand-dislike"></use></svg>
+              </f:form.button>
+            </f:else>
+          </f:if>
+          </f:form>
+        </td>
+      </tr>
+      <tr>
+        <th class="align-top">Überblick:</th>
+        <td>
+          <f:if condition="{event.ticketsQuota}">
+            <f:then>
+              <span class="badge {f:if(condition:'{event.ticketsAvailable}>5', then:'bg-success')} {f:if(condition:'{event.ticketsAvailable}<=5 && {event.ticketsAvailable}>0', then:'bg-warning')} {f:if(condition:'{event.ticketsAvailable}<=0', then:'bg-danger')}">Gäste: {event.ticketsApproved}</span>
+              <be:link.editRecord uid="{event.uid}" table="tx_publicrelations_domain_model_event" fields="tickets_quota" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&event={event.uid}&action=show&controller=Event')}"><span class="badge badge-primary">Kontingent: {event.ticketsQuota} Tix</span></be:link.editRecord>
+            </f:then>
+            <f:else>
+              <span class="badge badge-success">Gäste: {event.ticketsApproved}</span>
+              <be:link.editRecord uid="{event.uid}" table="tx_publicrelations_domain_model_event" fields="tickets_quota" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&event={event.uid}&action=show&controller=Event')}">[Kein Kontingent hinterlegt!]</be:link.editRecord>
+            </f:else>
+          </f:if>
+          <f:if condition="{event.pendingAccreditations}"><span class="badge badge-warning">Angefragt: {event.ticketsPending}</span></f:if>
+          <br>
+          <f:if condition="{event.programs}"><span class="badge badge-gold"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#book-open"></use></svg>{event.programs} Programme</span></f:if>
+          <f:if condition="{event.passes}"><span class="badge badge-gold"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#camera"></use></svg>{event.passes} Fotopässe</span></f:if>
+          <f:for each="{summaries}" as="summary">
+            <span class="badge badge-default"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{summary.icon}"></use></svg>{summary.label}: {summary.sum}</span>
+          </f:for>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <f:if condition="{event.ticketsQuota}">
+    <f:if condition="{event.ticketsAvailable}<=0"><f:be.infobox title="Kontingent erschöpft!" state="2">Vorsicht, das Kontingent ist bereits komplett ausgeschöpft!</f:be.infobox></f:if>
+    <f:if condition="{event.ticketsAvailable}>0 && {event.ticketsAvailable}<=5"><f:be.infobox title="Kontingent fast aufgebraucht!" state="1">Vorsicht, das Kontingent ist beinahe ausgeschöpft! <strong>Es sind noch {event.ticketsAvailable} Tix verfügbar.</strong></f:be.infobox></f:if>
+  </f:if>
+
+  <div role="tabpanel">
+    <ul class="nav nav-tabs t3js-tabs" role="tablist" id="tabs-tab" data-store-last-tab="1">
+      <li role="presentation" class="t3js-tabmenu-item active">
+        <a href="#guests" aria-controls="guests" role="tab" data-toggle="tab">Gästeliste<span class="badge {f:if(condition:'{guests->f:count()}>0', then:'success')} ml-2">{guests->f:count()}</span></a>
+      </li>
+      <li role="presentation" class="t3js-tabmenu-item">
+        <a href="#pending" aria-controls="pending" role="tab" data-toggle="tab">Einladungen / Anfragen<span class="badge {f:if(condition:'{pending->f:count()}>0', then:'warning')} ml-2">{pending->f:count()}</span></a>
+      </li>
+      <li role="presentation" class="t3js-tabmenu-item">
+        <a data-toggle="tab" aria-controls="waiting" role="tab" href="#waiting">Warteliste<span class="badge {f:if(condition:'{waiting->f:count()}>0', then:'warning')} ml-2">{waiting->f:count()}</span></a>
+      </li>
+      <li role="presentation" class="t3js-tabmenu-item">
+        <a data-toggle="tab" aria-controls="reject" role="tab" href="#rejected">Absagen<span class="badge badge-dark ml-2">{rejected->f:count()}</span></a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="guests">
+        <div class="panel panel-tab">
+          <div class="panel-body">
+            <h3>Gästeliste</h3>
+            <f:form controller="Accreditation" action="editCollection" enctype="multipart/form-data" name="settings" arguments="{event:event, noMail:1}">
+            <div class="form-inline mb-4">
+                <div class="d-flex flex-column d-md-block row">
+                    <div class="col-12 col-md-3 order-last order-md-first">
+                        <div class="form-group mb-0 mt-4 mt-md-0">
+                            <input placeholder="Suche" class="form-control form-control-sm filter-table noEnterSubmit" data-filter-tbody-id="#guests-to-filter" data-counter-id="#guests-counter" data-counter-label="Gästen" type="search" />
+                        </div>
+                        <div class="form-group mb-0">
+                          <div class="form-control-plaintext" id="guests-counter">{guests->f:count()} von {guests->f:count()} Gästen</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-9 order-first order-md-last">
+                        <div class="btn-group pull-right-sm">
+                          <f:link.action controller="Accreditation" action="new" class="btn btn-sm btn-success mr-3" arguments="{event:event}"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-badge-lanyard"></use></svg><span class="ml-2 d-none d-sm-inline">Neue Akkreditierung</span></f:link.action>
+                          <f:link.action controller="Accreditation" action="newWizzard" class="btn btn-sm btn-success mr-3" arguments="{event:event}"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#magic-wand"></use></svg><span class="ml-2 d-none d-sm-inline">Akkr.-Wizzard</span></f:link.action>
+                          <f:form.button class="btn btn-sm btn-warning"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg><span class="ml-2 d-none d-sm-inline">Ausgewählte Akkr. ändern</span></f:form.button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <f:render partial="Accreditation/Listing" arguments="{event:event, accreditations:guests, listType:'guests'}" />
+            </f:form>
+          </div>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="pending">
+        <div class="panel panel-tab">
+          <div class="panel-body">
+            <h3>Einladungen / Anfragen</h3>
+            <f:form controller="Accreditation" action="statusUpdate" enctype="multipart/form-data" name="settings" arguments="{event:event}">
+            <div class="form-inline mb-4">
+              <div class="d-flex flex-column d-md-block row">
+                  <div class="col-12 col-md-3 order-last order-md-first">
+                        <div class="form-group mb-0 mt-4 mt-md-0">
+                            <input placeholder="Suche" class="form-control form-control-sm filter-table noEnterSubmit" data-filter-tbody-id="#pending-to-filter" data-counter-id="#pending-counter" data-counter-label="Gästen" type="search" />
+                        </div>
+                        <div class="form-group mb-0">
+                          <div class="form-control-plaintext" id="pending-counter">{pending->f:count()} von {pending->f:count()} Gästen</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-9 order-first order-md-last">
+                        <div class="pull-right-sm">
+                            <f:link.action controller="Accreditation" action="invitationManager" class="btn btn-sm btn-gold mr-3 font-weight-bold d-none d-md-inline" arguments="{event:event}"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-plus"></use></svg><span class="ml-2 d-none d-sm-inline">Einladungs-Empf. wählen</span></f:link.action>
+                            <f:if condition="{pending}">
+                              <div class="input-group" style="width:auto;">
+                                <f:form.select class="form-control select2 form-control" data="{select2-id: 'accreditation-pending-function'}" id="selectType" property="function" required="1">
+                                  <f:form.select.option value="">Bitte Funktion auswählen...</f:form.select.option>
+                                  <f:if condition="{event.invitationAllowed}">
+                                  <f:form.select.option value="send">Einladungen versenden</f:form.select.option>
+                                  <f:form.select.option value="remind">1. Erinnerung versenden</f:form.select.option>
+                                  <f:form.select.option value="push">2. Erinnerung versenden</f:form.select.option>
+                                  <f:form.select.option value="resend">Einladungskopie senden</f:form.select.option>
+                                  <f:form.select.option value="approve">Zusage erteilt (volle Tix)</f:form.select.option>
+                                  <f:form.select.option value="reject">Absage erteilt</f:form.select.option>
+                                  </f:if>
+                                  <f:form.select.option value="delete">LÖSCHEN!</f:form.select.option>
+                                </f:form.select>
+                              </div>
+                              <f:if condition="{event.invitationAllowed}">
+                                <f:form.checkbox class="form-check-input ml-3 mr-2" id="checkMails" property="mails" value="1" checked="1" />
+                                <label class="form-check-label mr-3" for="checkMails">inkl. Mail</label>
+                              </f:if>
+                              <f:form.button type="submit" class="btn btn-sm btn-success mr-3"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#play"></use></svg><span class="ml-2 d-none d-sm-inline">Funktion ausführen</span></f:form.button>
+                            </f:if>
+                            <be:link.editRecord uid="{event.uid}" table="tx_publicrelations_domain_model_event" fields="invitations,additional_fields,invitation_report_stop" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&event={event.uid}&action=show&controller=Event')}" class="btn btn-sm {f:if(condition:'{event.invitationAllowed}', then:'btn-default', else:'btn-danger')} font-weight-bold"><svg class="icon icon-sm {f:if(condition:'{event.invitationAllowed}', then:'fill-dark', else:'fill-white')}"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#settings"></use></svg></be:link.editRecord>
+                            <f:if condition="{event.invitationAllowed}">
+                              <f:then><f:link.action controller="Accreditation" action="invitationPreview" class="btn btn-sm btn-default font-weight-bold" arguments="{event:event}"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#send"></use></svg>Test</f:link.action></f:then>
+                              <f:else>
+                                <div class="tooltip-wrapper" data-toggle="tooltip" data-placement="left" title="Testmail aktuell nicht möglich - Einstellungen prüfen!">
+                                  <f:link.action controller="Accreditation" action="invitationPreview" class="btn btn-sm btn-default font-weight-bold disabled" arguments="{event:event}" additionalAttributes="{aria-disabled:'true', role:'button'}"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#send"></use></svg><span class="ml-2 d-none d-sm-inline">Test</span></f:link.action>
+                                </div>
+                              </f:else>
+                            </f:if>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <f:render partial="Accreditation/Listing" arguments="{event:event, accreditations:pending, listType:'pending'}" />
+            </f:form>
+          </div>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="waiting">
+        <div class="panel panel-tab">
+          <div class="panel-body">
+            <h3>Warteliste</h3>
+            <f:form controller="Accreditation" action="statusUpdate" enctype="multipart/form-data" name="settings" arguments="{event:event}">
+            <div class="form-inline mb-4">
+                <div class="d-flex flex-column d-md-block row">
+                    <div class="col-12 col-md-3 order-last order-md-first">
+                        <div class="form-group mb-0 mt-4 mt-md-0">
+                            <input placeholder="Suche" class="form-control form-control-sm filter-table noEnterSubmit" data-filter-tbody-id="#pending-to-filter" data-counter-id="#pending-counter" data-counter-label="Gästen" type="search" />
+                        </div>
+                        <div class="form-group mb-0">
+                          <div class="form-control-plaintext" id="waiting-counter">{waiting->f:count()} von {waiting->f:count()} Gästen</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-9 order-first order-md-last">
+                        <div class="pull-right-sm">
+                          <f:comment>
+                            <f:form.select class="form-control tomselect-generic" data="{select2-id: 'accreditation-waiting-function'}" id="selectType" property="function" required="1">
+                              <f:form.select.option value="">Bitte Funktion auswählen...</f:form.select.option>
+                            </f:form.select>
+                            <f:form.button type="submit" class="btn btn-sm btn-success"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#play"></use></svg><span class="ml-2 d-none d-sm-inline">Funktion ausführen</span></f:form.button>
+                          </f:comment>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <f:render partial="Accreditation/Listing" arguments="{event:event, accreditations:waiting, listType:'waiting'}" />
+            </f:form>
+          </div>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="reject">
+        <div class="panel panel-tab">
+          <div class="panel-body">
+            <h3>Ablehnungen / Absagen</h3>
+            <div class="form-inline mb-4">
+                <div class="col-12">
+                    <div class="form-group mb-0">
+                        <input placeholder="Suche" class="form-control form-control-sm filter-table noEnterSubmit" data-filter-tbody-id="#rejected-to-filter" data-counter-id="#rejected-counter" data-counter-label="Gästen" type="search" />
+                    </div>
+                    <div class="form-group mb-0">
+                      <div class="form-control-plaintext" id="rejected-counter">{rejected->f:count()} von {rejected->f:count()} Gästen</div>
+                    </div>
+                </div>
+            </div>
+            <f:render partial="Accreditation/Listing" arguments="{event:event, accreditations:rejected, listType:'reject'}" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </f:else>
+</f:if>
+
+</f:section>
+</html>

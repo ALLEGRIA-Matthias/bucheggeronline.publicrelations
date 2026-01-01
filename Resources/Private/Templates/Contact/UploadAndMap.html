@@ -1,0 +1,74 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Contacts" />
+
+<f:section name="buttons">
+<f:if condition="{mailingList}"><be:link.editRecord uid="{mailingList.uid}" table="sys_category" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', arguments:'{id:2}', query:'&action=list&controller=Contact&tx_publicrelations_eventcenter[mailingList]={mailingList.uid}')}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg>Kategorie bearbeiten</be:link.editRecord></f:if>
+</f:section>
+
+<f:section name="shortcuts">
+  <f:link.action controller="Contact" action="import" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+
+    <h1>Massenimport: Spalten zuordnen</h1>
+    <p class="text-muted">Bitte prüfe die automatisch erkannten Spalten und weise die restlichen Felder korrekt zu.</p>
+
+    <form id="mapping-form" data-validation-url="{f:uri.action(action: 'validate', controller: 'Contact')}">
+
+        <input type="hidden" name="tempFilePath" value="{tempFilePath}" />
+        <input type="hidden" name="contactType" value="{contactType}" />
+        <input type="hidden" name="client" value="{client}" />
+        <input type="hidden" name="additionalCategories" value="{additionalCategories}" />
+
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <strong>Schritt 2: Spalten aus deiner CSV-Datei zuordnen</strong>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 40%;">Spalte in deiner Datei</th>
+                            <th>Wird zugeordnet zu Datenbankfeld...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <f:for each="{fileHeaders}" as="header">
+                            <tr>
+                                <td>
+                                    <strong>{header}</strong>
+                                </td>
+                                <td>
+                                    <f:form.select 
+                                        name="mapping[{header}]" 
+                                        class="form-select" 
+                                        options="{availableDbFields}"
+                                        value="{mappedHeaders.{header}}"
+                                    />
+                                </td>
+                            </tr>
+                        </f:for>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <a href="{f:uri.action(action:'import')}" class="btn btn-light">
+                    <i class="fa-solid fa-arrow-left"></i> Abbrechen und neue Datei hochladen
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-check-double"></i> Zuordnung prüfen und Vorschau laden
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div id="step-3-validation-container"></div>
+</f:section>
+</html>

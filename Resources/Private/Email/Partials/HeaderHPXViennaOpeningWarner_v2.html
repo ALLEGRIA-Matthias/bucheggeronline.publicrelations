@@ -1,0 +1,160 @@
+<f:switch expression="{content}">
+<f:case value="invite">
+  <tr>
+    <td valign="top" class="image" align="center" style="padding: 50px 0 30px 0; text-align: center;">
+      <img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/WBD_logo.png" width="auto" height="55px" style="padding-bottom: 15px;">
+      <p style="font-size: 16px; color: #FFFFFF; font-family: 'sofia-pro',sans-serif; margin-top: 0;">Warner Bros. Discovery Global Themed Entertainment<br>invites you to</p>
+      <a href="https://www.harrypotter-ausstellung.at"><img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-logo-mailing.png"></a>
+    </td>
+  </tr>
+  <f:render section="dateOverview" />
+</f:case>
+<f:case value="approve">
+  <tr>
+    <td valign="top" class="image" align="center" style="padding: 50px 0 30px 0; text-align: center;">
+      <img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-broom-left.png" width="auto" height="25px" style="padding-right: 15px;"><span style="font-size: 36px; font-weight: 700; color: #C89211; font-family: 'mason-sans',sans-serif;">Your Ticket</span><img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-broom-right.png" width="auto" height="25px" style="padding-left: 15px;">
+      <div style="background-color: #C89211; width:100%; text-align: center; margin: 30px 0; padding: 15px 0;">
+        <h1 style="font-size: 36px; font-weight: 700; color: #060C2E; font-family: 'mason-sans',sans-serif; margin-bottom: 0;">{accreditation.guestOutput.name}</h1>
+        <p style="font-size: 14px; font-weight: 400; color: #060C2E; font-family: 'sofia-pro',sans-serif; margin-top: 0; line-height: 1.0 !important;">
+          <f:if condition="{accreditation.ticketsApproved}>1"><span style="font-size: 24px; font-weight: 700; color: #FFFFFF; font-family: 'mason-sans',sans-serif;">{accreditation.ticketsApproved} Guests</span></f:if><br>
+          Accreditation No. #{accreditation.uid}, sent {f:format.date(date:'now', format: 'm/d H:i')}<br>
+          <span style="font-size: 12px"><strong>please don't print, we're happy to check you in with this digital ticket</strong><br>*this invitation is non-transferable</span>
+        </p>
+      </div>
+      <p style="font-size: 24px; color: #FFFFFF; font-family: 'mason-sans',sans-serif; margin-top: 0;">The Grand Opening<br>at the Vienna METAStadt of</p>
+      <a href="https://www.harrypotter-ausstellung.at/en"><img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-logo-mailing.png"></a>
+    </td>
+  </tr>
+  <f:render section="dateOverview" />
+</f:case>
+<f:case value="reject">
+  <tr>
+    <td valign="top" class="image" align="center" style="padding: 50px 0 30px 0; text-align: center;">
+      <img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-broom-left.png" width="auto" height="25px" style="padding-right: 15px;"><span style="font-size: 36px; font-weight: 700; color: #C89211; font-family: 'mason-sans',sans-serif;">Thank you for your Respond</span><img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-broom-right.png" width="auto" height="25px" style="padding-left: 15px;">
+      <p style="font-size: 16px; color: #FFFFFF; font-family: 'sofia-pro',sans-serif; margin-top: 20px;">We have noted your rejection<br>and hope that we'll see you again at one of the next events.</p>
+      <a href="https://www.harrypotter-ausstellung.at"><img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-logo-de-mailing.png"></a>
+      <p><a href="https://harrypotter-ausstellung.at/en" target="_blank" style="background-color: #C89211; padding: 10px 15px; color: #060C2E !important; font-weight: 700; font-size: 20px;">HarryPotter-Ausstellung.at/en</a></p>
+    </td>
+  </tr>
+</f:case>
+<f:case value="remind">
+  <tr>
+    <td valign="top" class="image" align="center" style="padding: 50px 0 30px 0; text-align: center;">
+      <img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-broom-left.png" width="auto" height="25px" style="padding-right: 15px;"><span style="font-size: 36px; font-weight: 700; color: #C89211; font-family: 'mason-sans',sans-serif;">Invitation Reminder</span><img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-broom-right.png" width="auto" height="25px" style="padding-left: 15px;">
+      <p style="font-size: 28px; color: #FFFFFF; font-family: 'mason-sans',sans-serif; margin-top: 0;">for {accreditation.guestOutput.name}</p>
+      <p style="font-size: 24px; color: #FFFFFF; font-family: 'mason-sans',sans-serif; margin-top: 0;">The Grand Opening<br>at the Vienna METAStadt of</p>
+      <a href="https://www.harrypotter-ausstellung.at/en"><img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-logo-mailing.png"></a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <table width="550px" border="0" cellpadding="0" cellspacing="0" style="margin: 30px 0 0 0">
+        <tbody>
+          <tr>
+            <td align="center">
+              <p style="color: #FFFFFF; font-family: 'sofia-pro', sans-serif;">
+                We just wanted to make sure you received our invitation to<br><strong>Harry Potter™: The Exhibition</strong> on December 15.<br>Due to organizational reasons, we would ask for RSVP by <br><span style="font-weight: 700; color: #C89211;">December 6, 2022</span>.
+              </p>
+              <p style="margin: 50px 0">
+                <a href="###FEEDBACK_LINK###" style="background-color: #C89211; padding: 10px 15px; color: #060C2E !important; font-weight: 700; font-size: 20px;">Respond Now</a>
+              </p>
+              <p style="color: #FFFFFF; font-family: 'sofia-pro', sans-serif; font-size: 12px;">
+                You'll probably don't know until December 6 if you can join? Please contact us via <a href="mailto:office@allegria.at" target="_blank" style="color: #FFFFFF; font-family: 'sofia-pro', sans-serif; font-size: 12px;">office@allegria.at</a> and we will surely find a solution. We would be very happy to welcome you at the Grand Opening in the METAStadt in Vienna.
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  <f:render section="dateOverview" />
+</f:case>
+<f:case value="push">
+  <tr>
+    <td valign="top" class="image" align="center" style="padding: 50px 0 30px 0; text-align: center;">
+      <img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-broom-left.png" width="auto" height="25px" style="padding-right: 15px;"><span style="font-size: 36px; font-weight: 700; color: #C89211; font-family: 'mason-sans',sans-serif;">Final Invitation Reminder</span><img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-broom-right.png" width="auto" height="25px" style="padding-left: 15px;">
+      <p style="font-size: 28px; color: #FFFFFF; font-family: 'mason-sans',sans-serif; margin-top: 0;">for {accreditation.guestOutput.name}</p>
+      <p style="font-size: 24px; color: #FFFFFF; font-family: 'mason-sans',sans-serif; margin-top: 0;">The Grand Opening<br>at the Vienna METAStadt of</p>
+      <a href="https://www.harrypotter-ausstellung.at"><img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-logo-mailing.png"></a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <table width="550px" border="0" cellpadding="0" cellspacing="0" style="margin: 30px 0 0 0">
+        <tbody>
+          <tr>
+            <td align="center">
+              <p style="color: #FFFFFF; font-family: 'sofia-pro', sans-serif;">
+                We just wanted to make sure you received our invitation to the <br>Grand Opening of <strong>Harry Potter™: The Exhibition</strong> in Vienna.<br>For organizational reasons, we can only collect responses until <br><span style="font-weight: 700; color: #C89211;">Dezember 2, 2022</span> after which the final guest list will be prepared.
+              </p>
+              <p style="margin: 50px 0">
+                <a href="###FEEDBACK_LINK###" style="background-color: #C89211; padding: 10px 15px; color: #060C2E !important; font-weight: 700; font-size: 20px;">Respond Now</a>
+              </p>
+              <p style="color: #FFFFFF; font-family: 'sofia-pro', sans-serif; font-size: 12px;">
+                You'll probably don't know until December 2 if you can join? Please contact us via <a href="mailto:office@allegria.at" target="_blank" style="color: #FFFFFF; font-family: 'sofia-pro', sans-serif; font-size: 12px;">office@allegria.at</a> and we will surely find a solution. We would be very happy to welcome you at the Grand Opening in the METAStadt in Vienna.
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  <f:render section="dateOverview" />
+</f:case>
+</f:switch>
+
+<f:section name="dateOverview">
+<tr>
+  <td valign="top" class="image" align="center" style="padding: 30px 0; text-align: center;">
+    <p style="color: #FFFFFF; font-family: 'sofia-pro',sans-serif; font-size: 16px; margin-top: 0;">
+      <span style="color: #C89211; font-family: 'mason-sans',sans-serif; font-weight: 700; font-size: 36px;">Thu, December 15, 2022</span><br>
+    </p>
+    <p style="color: #FFFFFF; font-family: 'sofia-pro',sans-serif; font-size: 16px; margin: 0;">
+      <span style="font-family: 'mason-sans',sans-serif; font-weight: 500; font-size: 28px;">METAStadt</span><br>
+    </p>
+    <table width="600px" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="auto"> </td>
+        <td width="250px">
+          <div style="color: #FFFFFF; font-family: 'sofia-pro',sans-serif; font-size: 12px; font-weight: 400; display: block;">
+            <div style="display: inline-block;">
+              <img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-icon-nimbus.png" width="auto" height="25px" style="padding-right: 15px">
+            </div>
+            <div style="text-align: left; display: inline-block;">
+              <span>Dr.-Otto-Neurath-Gasse 3<br>1220 Wien</span>
+            </div>
+          </div>
+        </td>
+        <td width="auto"> </td>
+      </tr>
+    </table>
+    <table width="600px" border="0" cellpadding="0" cellspacing="0" style="margin-top: 30px;">
+      <tr>
+        <td width="60px"> </td>
+        <td width="200px">
+          <div style="color: #FFFFFF; font-family: 'sofia-pro',sans-serif; font-size: 12px; font-weight: 400; margin-top: 0; display: block;">
+            <div style="display: inline-block;">
+              <img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-icon-public-transport.png" width="auto" height="20px" style="padding-right: 15px">
+            </div>
+            <div style="text-align: left; display: inline-block;">
+              <span>Erzherzog-Karl-Straße<br>S-Bahn, Tram, Bus</span>
+            </div>
+          </div>
+        </td>
+        <td width="280px">
+          <div style="color: #FFFFFF; font-family: 'sofia-pro',sans-serif; font-size: 12px; font-weight: 400; margin-top: 0; display: flex; align-items: center; justify-content: space-around;">
+            <div style="margin-left: 30px; display: inline-block;">
+              <img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-icon-car.png" width="auto" height="20px" style="padding-right: 15px">
+            </div>
+            <div style="text-align: left; display: inline-block;">
+              <span>Limited on site<br>parking facilities</span>
+            </div>
+          </div>
+        </td>
+        <td width="60px"> </td>
+      </tr>
+    </table>
+    <img src="https://www.allegria.at/fileadmin/marketing/hpx-vienna/hpx-vienna-photo-grand-opening-01.png" width="600px" height="auto" style="margin: 30px 0 0 0">
+  </td>
+</tr>
+</f:section>

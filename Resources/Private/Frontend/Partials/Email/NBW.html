@@ -1,0 +1,316 @@
+<f:section name="preview">
+    <!-- Visually Hidden Preheader Text : BEGIN -->
+    <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: 'Roboto Slab', sans-serif">
+    <f:switch expression="{content}">
+        <f:case value="invitation">Die NEUE BÜHNE WIEN präsentiert: {accreditation.event.title}. Ihre persönliche Einladung!</f:case>
+        <f:case value="remind">Nicht verpassen! Die NEUE BÜHNE WIEN präsentiert: {accreditation.event.title}. Ihre persönliche Einladung!</f:case>
+        <f:case value="push">Letzte Chance! Die NEUE BÜHNE WIEN präsentiert: {accreditation.event.title}. Ihre persönliche Einladung!</f:case>
+        <f:case value="approve">Wie schön, dass wir Sie demnächst bei {accreditation.event.title} begrüßen dürfen.</f:case>
+        <f:case value="reject">Schade, dass es nicht klappt. Die NEUE BÜHNE WIEN würde sich über einen baldigen Besuch freuen.</f:case>
+    </f:switch>
+    </div>
+    <!-- Visually Hidden Preheader Text : END --> 
+</f:section>
+
+<f:section name="content">
+    <f:switch expression="{content}">
+        <f:defaultCase>
+            <f:render section="invitation" arguments="{_all}" />
+            <f:render section="showinfo" arguments="{_all}" />
+            <f:render section="footer" arguments="{_all}" />
+        </f:defaultCase>
+        <f:case value="approve">
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="showinfo" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+            <f:render section="footer" arguments="{_all}" />
+        </f:case>
+        <f:case value="reject">
+            <!-- Absagetext -->
+            <tr>
+                <td style="text-align: center; font-family: 'Roboto Slab', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #1D1D1B; font-weight: 300; padding: 40px;">
+                    <h1 style="font-family: 'Roboto Condensed', sans-serif; color: #ae191b; font-size: 2rem;">Danke für Ihre Rückmeldung!</h1>
+                    <p style="">
+                        Die <strong>{accreditation.event.client.shortName}</strong> bedankt sich für Ihre Rückmeldung.<br>
+                        Wir hoffen auf ein Wiedersehen bei einer der nächsten Veranstaltungen.
+                    </p>
+
+                    <!-- Button : Begin -->
+                    <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                        <tr>
+                            <td style="background: #1D1D1B; text-align: center;" class="button-td"><a href="https://www.nbw.at" target="_blank" style="background: #1D1D1B; border: 3px solid #1D1D1B; padding: 5px 10px; color: #ffffff; font-family: 'Roboto Slab', sans-serif; font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; font-weight: bold;" class="button-a"> 
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Zur Website<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                            </a></td>
+                        </tr>
+                    </table>
+                    <!-- Button : END -->
+                </td>
+            </tr>
+            <f:render section="footer" />
+        </f:case>
+        <f:case value="waiting">
+            <!-- Wartetext -->
+            <tr>
+                <td style="text-align: center; font-family: 'Roboto Slab', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #1D1D1B; font-weight: 300; padding: 40px;">
+                    <h1 style="font-family: 'Roboto Condensed', sans-serif; color: #ae191b; font-size: 2rem;">Danke vielmals für das große Interesse!</h1>
+                    <div style="width: 100%;">
+                        <p style="margin-top: 0; font-size: 1rem;">Die <strong>{accreditation.event.client.shortName}</strong> bedankt sich für die unglaublich großartige Nachfrage.</p>
+                        <p style="font-size: 1.2rem; color: #ae191b; font-weight: 700;">Sämtliche Kontingente sind aktuell komplett erschöpft.</p>
+                        <p style="font-size: 1rem;">Leider können wir erst <strong>bis spätestens {f:format.date(format:'j.m.Y', date:'{accreditation.event.date->f:format.date(format:\'d-m-Y\')} -2 days')}</strong> eine konkrete Rückmeldung geben, ob wir Ihrem Wunsch nachkommen können.</p>
+                        <p style="font-size: 1rem;">Wir bedanken uns für Ihr Verständnis und melden uns schnellstmöglich.</p>
+
+                        <!-- Button : Begin -->
+                        <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                            <tr>
+                                <td style="background: #1D1D1B; text-align: center;" class="button-td"><a href="https://www.nbw.at" target="_blank" style="background: #1D1D1B; border: 3px solid #1D1D1B; padding: 5px 10px; color: #ffffff; font-family: 'Roboto Slab', sans-serif; font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; font-weight: bold;" class="button-a"> 
+                                <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Zur Website<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                                </a></td>
+                            </tr>
+                        </table>
+                        <!-- Button : END -->
+                    </div>
+                </td>
+            </tr>
+            <f:render section="footer" />
+        </f:case>
+        <f:case value="pending">
+            <!-- Wartetext intern -->
+            <tr>
+                <td style="text-align: center; font-family: 'Roboto Slab', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #1D1D1B; font-weight: 300; padding: 40px;">
+                    <div style="width: 100%;">
+                        <h1 style="font-family: 'Roboto Condensed', sans-serif; color: #1D1D1B; font-size: 2rem;">Neu auf der Warteliste!</h1>
+                        <p style="margin-top: 0px; padding: 0 40px; font-size: 1rem; line-height: 1.4;"><strong style="font-size: 1.4rem; color: #ae191b;">{accreditation.guestOutput.fullName}</strong><br>zu <strong>{accreditation.event.title}</strong> am <strong>{accreditation.event.date->f:format.date(format:'d.m.Y')}</strong>.</p>
+                    </div>
+                </td>
+            </tr>
+        </f:case>
+        <f:case value="waitingOK">
+            <!-- Zusage möglich -->
+            <tr>
+                <td style="text-align: center; font-family: 'Roboto Slab', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #1D1D1B; font-weight: 300; padding: 40px; padding-bottom: 0px;">
+                    <div style="width: 100%;">
+                        <h2 style="margin-bottom: 0;">Tolle Neuigkeiten!</h2>
+                        <p style="margin-top: 0; font-size: 1rem;">Danke für die Geduld. Wir können Ihren Besuch ermöglichen!</p>
+                        <hr>
+                    </div>
+                </td>
+            </tr>
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="showinfo" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+            <f:render section="footer" arguments="{_all}" />
+        </f:case>
+        <f:case value="waitingNO">
+            <!-- Absagetext -->
+            <tr>
+                <td style="text-align: center; font-family: 'Roboto Slab', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #1D1D1B; font-weight: 300; padding: 40px;">
+                    <div style="">
+                        <h1 style="font-family: 'Roboto Condensed', sans-serif; color: #ae191b; font-size: 2rem;">Es tut uns wahnsinnig leid!</h1>
+                        <p style="font-size: 1rem;">Wir sind von der ernormen Nachfrage überwältigt!<br><strong>Danke für Ihr Interesse.</strong></p>
+                        <p style="font-size: 1rem;">Umso schwerer fällt es uns Ihnen sagen zu müssen, dass wir leider keine Kapazitäten mehr freischaufeln konnten.</p>
+                        <p style="font-size: 1rem;">Wir hoffen auf ein Wiedersehen bei einer der nächsten Veranstaltungen.</p>
+
+                        <!-- Button : Begin -->
+                        <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                            <tr>
+                                <td style="background: #1D1D1B; text-align: center;" class="button-td"><a href="https://www.nbw.at" target="_blank" style="background: #1D1D1B; border: 3px solid #1D1D1B; padding: 5px 10px; color: #ffffff; font-family: 'Roboto Slab', sans-serif; font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; font-weight: bold;" class="button-a"> 
+                                <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Zur Website<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                                </a></td>
+                            </tr>
+                        </table>
+                        <!-- Button : END -->
+                    </div>
+                </td>
+            </tr>
+            <f:render section="footer" />
+        </f:case>
+    </f:switch>
+</f:section>
+
+<f:section name="header">
+<!-- Email Header : BEGIN -->
+<table align="center" width="600" class="email-container">
+    <!-- Logo, Flush : BEGIN -->
+    <tr>
+        <td style="text-align: center; font-family: 'Roboto Condensed', sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; background-color: #111111; font-weight: 300; padding: 20px;">
+            <img src="https://www.allegria.at/fileadmin/marketing/nbw/NBW_Logo.png" width="150" height="auto" alt="NEUE BÜHNE WIEN Logo" border="0">
+        </td>
+    </tr>
+    <!-- Logo, Flush : END -->
+</table>
+<!-- Email Header : END --> 
+</f:section>
+
+<f:section name="invitation">
+<f:switch expression="{content}">
+    <f:case value="invitation"><f:variable name="headline">Persönliche Einladung</f:variable></f:case>    
+    <f:case value="remind"><f:variable name="headline">Erinnerung zur<br>persönlichen Einladung</f:variable></f:case>
+    <f:case value="push"><f:variable name="headline">Finale Erinnerung<br>zur persönlichen Einladung</f:variable></f:case>
+</f:switch>
+<tr>
+    <td style="text-align: center; font-family: 'Roboto Slab', sans-serif; font-size: 1.2rem; mso-height-rule: exactly; line-height: 1.2; background-color: #FFFFFF; font-weight: 300; padding: 40px; padding-bottom: 0;">
+        <h1 style="font-family: 'Roboto Condensed', sans-serif; color: #ae191b; margin-bottom: 15px; margin-top: 0; font-weight: 500;">{headline->f:format.raw()}</h1>
+        <p style="margin: 0;">für<br><strong>{accreditation.guestOutput.fullName}</strong></p>
+    </td>
+</tr>
+<!-- Two Even Columns : BEGIN -->
+<tr>
+    <td align="center" valign="top" style="padding: 40px;"><table cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #eeeeee;">
+        <tr>
+        <td class="stack-column-center" style="padding: 40px 0;"><table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td style="padding: 0px; text-align: center"><f:if condition="{accreditation.invitationType.image}"><f:then><f:image image="{accreditation.invitationType.image}" width="200" alt="{accreditation.event.title}" class="fluid" absolute="1" /></f:then><f:else><p><strong>ACHTUNG!</strong> Kein Foto zur Einladung gewählt: Einladungseinstellungen öffnen / Zusätzliches / Foto zur Einladung</p></f:else></f:if></td>
+              </tr>
+          </table></td>
+        <td class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+            <td style="font-family: 'Roboto Slab', sans-serif; line-height: 1.2; font-optical-sizing: auto; font-style: normal; font-size: 1rem; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: center;" class="center-on-narrow">
+                <h2 style="text-transform: uppercase; font-family: 'Roboto Condensed', sans-serif; color: #ae191b; margin: 0; font-weight: 500; font-size: 1.4rem;">{accreditation.event.title}</h2>
+                <f:if condition="{accreditation.event.campaign} && {accreditation.event.campaign.subtitle}"><p style="font-size: 0.7rem; margin-top: 5px;">{accreditation.event.campaign.subtitle}</p></f:if>
+                <p style="color: #1D1D1B; font-weight: 600;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}<br>
+                <span style="color:#1D1D1B; font-weight: 400; font-size: 70%;">Beginn: {accreditation.event.date->f:format.date(format:'%k:%M')} Uhr</span></p>
+                <p style="color: #1D1D1B; font-weight: 400; font-size: 0.7rem; line-height: 1.2; margin-bottom: 20px;">
+                    <strong style="font-size: 1rem;">{accreditation.event.location.name}</strong><br>
+                    {accreditation.event.location.street}<br>{accreditation.event.location.zip} {accreditation.event.location.city}
+                </p>
+                <f:if condition="{accreditation.invitationStatus} != -1 && {accreditation.status} < 1">
+                    <!-- Button : Begin -->
+                    <table cellspacing="0" cellpadding="0" border="0" class="center-on-narrow">
+                        <tr>
+                            <td style="background: #ae191b; text-align: center;" class="button-td">
+                                <f:link.typolink
+                                        absolute="1"
+                                        parameter="38"
+                                        additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}"
+                                        absolute="1"
+                                        class="button-a"
+                                        target="_blank"
+                                        additionalAttributes="{style:'background: #ae191b; border: 3px solid #ae191b; padding: 0 10px; color: #ffffff; font-family: \'Roboto Condensed\', sans-serif; line-height: 1.6; font-optical-sizing: auto; font-style: normal; font-size: 1rem; text-transform: uppercase; display: block; font-weight: bold; text-decoration: none;'}">
+                                        <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                                    </f:link.typolink>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- Button : END --><br>
+                    
+                    <p style="font-size: 0.7rem; line-height: 1.2; margin-top: 0px;">
+                        Die Einladung gilt für <strong>{accreditation.ticketsWish} Person{f:if(condition:'{accreditation.ticketsWish}==1', else:'en')}</strong> und ist <strong>nicht übertragbar</strong>. Um Rückmeldung wird bis <span style="font-weight: 700"><f:if condition="{accreditation.invitationType.feedbackDate}"><f:then>{f:format.date(date:'{accreditation.invitationType.feedbackDate}', format:'d.m.Y')}</f:then><f:else><f:format.date date="{accreditation.event.date->f:format.date(format:'d.m.Y')} - 2weeks friday" format="d.m.Y" /></f:else></f:if></span> gebeten.
+                    </p>
+                </f:if>
+            </td>
+          </tr>
+          </table></td>
+      </tr>
+      </table></td>
+  </tr>
+<!-- Two Even Columns : END --> 
+</f:section>
+
+<f:section name="ticket">
+<!-- Ticket : BEGIN -->
+<tr>
+    <td style="padding: 40px; text-align: center; font-family: 'Roboto Slab', sans-serif; font-size: 1rem; font-weight: 400; color: #1D1D1B; mso-height-rule: exactly; line-height: 1.2;">
+        <h1 style="font-family: 'Roboto Condensed', sans-serif; color: #ae191b; font-size: 2rem;">Wir freuen uns auf Ihr Kommen!</h1>
+        <p>Folgend Ihre Reservierungsdaten.</p>
+        <div style="background: #EEEEEE; border: 2px solid #EEEEEE; border-radius: 15px; padding: 15px 40px; text-align: center; margin-bottom: 10px; display: inline-block; ">
+            <p style="margin: 0; font-family: 'Roboto Slab', sans-serif; font-size: 1.6rem; color: #1D1D1B; font-weight: 700;">{accreditation.guestOutput.fullName}</p>
+            <p style="margin-top: 0; color: #ae191b; font-family: 'Roboto Slab', sans-serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+            <p style="margin: 0; margin-top: 10px; font-family: 'Roboto Slab', sans-serif; font-size: 0.65rem; color: #1D1D1B;"><span style="font-size: 0.8rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong></span><br>Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr gesendet.</p>
+        </div>
+        <h2 style="font-family: 'Roboto Condensed', sans-serif; color: #ae191b; text-transform: uppercase; margin-bottom: 0;">{accreditation.event.title}</h2>
+        <f:if condition="{accreditation.event.campaign} && {accreditation.event.campaign.subtitle}"><p style="margin-top: 0;">{accreditation.event.campaign.subtitle}</p></f:if>
+        <p style="color: #1D1D1B; font-weight: 600; margin-bottom: 0;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'m')}. {accreditation.event.date->f:format.date(format:'%Y')} | {accreditation.event.date->f:format.date(format:'%k:%M')} Uhr<br>
+        <p style="font-size: 0.8rem; margin-top: 0;">Einlass ab <f:format.date date="{accreditation.event.date->f:format.date(format:'%k.%M')} - 60 minutes" format="%k.%M Uhr" />.</p>
+        <f:if condition="{accreditation.guestType}==2"><h3 style="font-size: 1.4rem; color: #1D1D1B; text-transform: uppercase; display: inline-block; padding: 0px 20px; line-height: 1.4; margin-bottom: 0;">Pressematerial</h3><p style="font-size: 0.8rem;">Pressematerial zur redaktionellen Berichterstattung finden Sie <f:link.typolink absolute="1" parameter="39#pressematerial" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={accreditation.event.campaign.uid}" absolute="1" additionalAttributes="{style:'color: #ae191b; font-weight: bold;'}" target="_blank">HIER</f:link.typolink>!<br>Wir freuen uns auf Ihren Beitrag!</p></f:if>
+        
+
+        <p style="color: #1D1D1B; font-weight: 400; font-size: 0.9rem; line-height: 1.2; margin-top: 40px; margin-bottom: 0;">
+            <strong style="font-size: 1.2rem;">{accreditation.event.location.name}</strong><br>
+            {accreditation.event.location.street}<br>{accreditation.event.location.zip} {accreditation.event.location.city}
+        </p>
+        <!-- Button : Begin -->
+        <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+            <tr><td><p>&nbsp;</p></td></tr>
+            <tr>
+                <td style="background: #1D1D1B; text-align: center;" class="button-td"><a href="http://maps.google.de/maps?f=q&hl=de&q={accreditation.event.location.name},{accreditation.event.location.street},{accreditation.event.location.city}" target="_blank" style="background: #1D1D1B; border: 3px solid #1D1D1B; padding: 5px 10px; color: #ffffff; font-family: 'Roboto Slab', sans-serif; font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; font-weight: bold;" class="button-a"> 
+                  <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Anreise planen<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                  </a></td>
+            </tr>
+        </table>
+        <!-- Button : END -->
+    </td>
+</tr>
+<!-- Ticket : BEGIN --> 
+</f:section>
+
+<f:section name="showinfo">
+<f:if condition="{accreditation.invitationType.contents.0.content}">
+<!-- Background Image with Text : BEGIN -->
+<tr>
+    <td bgcolor="#1D1D1B" valign="middle" class="content" style="text-align: center; background-position: center center !important; background-size: cover !important; padding: 40px 100px;">
+    <div>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td valign="middle" style="text-align: center; font-family: 'Roboto Slab', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.4; color: #FFFFFF; font-weight: 500; padding-bottom: 20px;">{accreditation.invitationType.contents.0.content->f:format.raw()}</td>
+          </tr>
+          </table>
+        <f:if condition="{content} == 'invite' || {content} == 'remind' || {content} == 'push'">
+        <!-- Button : Begin -->
+        <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
+            <tr>
+                <td style="background: #ae191b; text-align: center;" class="button-td">
+                    <f:link.typolink
+                        absolute="1"
+                        parameter="38"
+                        additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}"
+                        absolute="1"
+                        class="button-a"
+                        target="_blank"
+                        additionalAttributes="{style:'background: #ae191b; border: 3px solid #ae191b; padding: 0 10px; color: #FFFFFF; font-family: \'Roboto Condensed\', sans-serif; line-height: 1.6; font-optical-sizing: auto; font-style: normal; font-size: 0.8rem; text-transform: uppercase; display: block; font-weight: bold; text-decoration: none;'}">
+                        <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                    </f:link.typolink>
+                </td>
+            </tr>
+        </table>
+        <!-- Button : END -->
+        </f:if>
+    </div>
+    <f:if condition="{content} == 'invite' || {content} == 'remind' || {content} == 'push'"><p style="font-family: 'Roboto Slab', sans-serif; line-height: 1.2; font-optical-sizing: auto; font-style: normal; font-size: 0.7rem; color: white;">Um Rückmeldung wird bis längstens <span style="font-weight: 700"><f:if condition="{accreditation.invitationType.feedbackDate}"><f:then>{f:format.date(date:'{accreditation.invitationType.feedbackDate}', format:'d.m.Y')}</f:then><f:else><f:format.date date="{accreditation.event.date->f:format.date(format:'d.m.Y')} - 2weeks friday" format="d.m.Y" /></f:else></f:if></span> gebeten.</p></f:if>
+    </td>
+</tr>
+<!-- Background Image with Text : END --> 
+</f:if>
+</f:section>
+
+<f:section name="sick">
+<tr>
+    <td align="center" valign="top" style="padding: 40px;">
+        <h2 style="margin-top: 0px; margin-bottom: 10px; font-family: 'Roboto Slab', sans-serif; font-size: 1.4rem; text-transform: uppercase;">Krank oder verhindert?</h2>
+        <p style="margin: 0; font-family: 'Roboto Slab', sans-serif; font-size: 0.9rem; margin-bottom: 20px;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider Erwarten nicht zur Veranstaltung kommen können.</p>
+        <table>
+            <tr>
+                <td style="background: #ae191b; text-align: center;" class="button-td"><a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank" style="background: #ae191b; border: 3px solid #ae191b; padding: 0 10px; color: #ffffff; font-family: 'Roboto Slab', sans-serif; font-size: 1rem; line-height: 1.6; text-align: center; text-decoration: none; text-transform: uppercase; display: block; font-weight: bold;" class="button-a"> 
+                <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Email senden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                </a></td>
+            </tr>
+        </table>
+        <p style="font-family: 'Roboto Slab', sans-serif; font-weight: 500; margin-bottom: 0px; margin-top: 30px;">Mehr Informationen finden Sie unter<br>
+            <a href="https://www.nbw.at" style="color: #ae191b; text-decoration: none; font-weight: bold;">www.nbw.at</a>
+        </p>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="footer">
+<f:if condition="{accreditation.invitationType.header}">
+<!-- Email Header : BEGIN -->
+<table align="center" width="600" class="email-container">
+    <!-- Hero Image, Flush : BEGIN -->
+    <tr>
+        <td class="full-width-image"><p style="line-height: 0; margin: 0;"><f:image image="{accreditation.invitationType.header}" width="600c" height="auto" style="width: 100%; max-width: 600px; height: auto; border: none;" absolute="1" /></p></td>
+      </tr>
+    <!-- Hero Image, Flush : END --> 
+</table>
+<!-- Email Header : END --> 
+</f:if>
+</f:section>

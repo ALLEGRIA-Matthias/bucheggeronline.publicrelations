@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:publicrelations/Resources/Private/Language/locallang_csh" date="2020-08-06T11:01:46Z" product-name="publicrelations">
+		<header/>
+		<body>
+			<trans-unit id="icon.description" resname="icon.description">
+				<source>icon</source>
+			</trans-unit>
+			<trans-unit id="svg.description" resname="svg.description">
+				<source>svg</source>
+			</trans-unit>
+			<trans-unit id="plural.description" resname="plural.description">
+				<source>plural</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

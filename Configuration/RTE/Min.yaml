@@ -1,0 +1,18 @@
+imports:
+    - { resource: "EXT:rte_ckeditor/Configuration/RTE/Processing.yaml" }
+    - { resource: "EXT:rte_ckeditor/Configuration/RTE/Editor/Base.yaml" }
+    - { resource: "EXT:rte_ckeditor/Configuration/RTE/Editor/Plugins.yaml" }
+
+editor:
+
+  config:
+
+    toolbarGroups:
+      - { name: basicstyles, groups: [basicstyles, cleanup] }
+      - { name: clipboard, groups: [clipboard, undo] }
+      - { name: paragraph, groups: [list] }
+
+    removeButtons:
+      - CopyFormatting
+      - Paste
+      - PasteFromWord

@@ -1,0 +1,109 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:if condition="{accreditation.guest}">
+  <f:then>
+  <div class="alert alert-default">
+    <p>Die Akkreditierung wurde bereits mit <strong>{accreditation.guestOutput.name}<f:if condition="{accreditation.guestOutput.company}"> von {accreditation.guestOutput.company}</f:if></strong> verknüpft. Datenänderungen müssen direkt im <strong>Kontaktdatensatz</strong> durchgeführt werden und sind global gültig!</p>
+    <be:link.editRecord uid="{accreditation.guest.uid}" table="tt_address" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&accreditation={accreditation.uid}&action=edit&controller=Accreditation')}" class="btn btn-sm btn-gold font-weight-bold text-decoration-none"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg>{accreditation.guestOutput.name} bearbeiten</be:link.editRecord>
+    <be:link.editRecord uid="{accreditation.uid}" table="tx_publicrelations_domain_model_accreditation" fields="guest" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&accreditation={accreditation.uid}&action=edit&controller=Accreditation')}" class="btn btn-sm btn-default text-white font-weight-bold text-decoration-none"><svg class="icon icon-sm fill-gold mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-star"></use></svg>anderem Gast zuordnen</be:link.editRecord>
+  </div>
+  </f:then>
+  <f:else>
+  <div class="alert alert-dark" role="alert">
+    <h4>Gastdaten</h4>
+
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="inputManualCompany"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#factory"></use></svg>Firma / Medium</label>
+          <div class="input-group w-100">
+            <f:form.textfield class="form-control" id="inputManualCompany" property="medium" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="selectManualGender"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-parents-alt"></use></svg>Geschlecht</label>
+          <div class="input-group w-100">
+            <f:form.select class="form-control tomselect-generic" id="selectManualGender" property="gender" value="{accreditation.gender}">
+              <f:form.select.option value="">Bitte Geschlecht wählen...</f:form.select.option>
+              <f:form.select.option value="m" selected="{f:if(condition:'{accreditation.gender}==m', then:'1')}">Männlich</f:form.select.option>
+              <f:form.select.option value="f" selected="{f:if(condition:'{accreditation.gender}==f', then:'1')}">Weiblich</f:form.select.option>
+              <f:form.select.option value="v" selected="{f:if(condition:'{accreditation.gender}==v', then:'1')}">Sonstig</f:form.select.option>
+            </f:form.select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="inputManualTitle"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#crown"></use></svg>Titel</label>
+          <div class="input-group w-100">
+            <f:form.textfield class="form-control" id="inputManualTitle" property="title" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="inputManualFirstName"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg>Vorname</label>
+          <div class="input-group w-100">
+            <f:form.textfield class="form-control" id="inputManualFirstName" property="firstName" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="inputManualMiddleName"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg>Zweiter Vorname</label>
+          <div class="input-group w-100">
+            <div class="input-group-prepend">
+
+            </div>
+            <f:form.textfield class="form-control" id="inputManualMiddleName" property="middleName" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="inputManualLastName"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg>Nachname</label>
+          <div class="input-group w-100">
+            <f:form.textfield class="form-control" id="inputManualLastName" property="lastName" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="inputManualEmail"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#email"></use></svg>E-Mail</label>
+          <div class="input-group w-100">
+            <f:form.textfield class="form-control" id="inputManualEmail" property="email" type="email" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="inputMobile"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#mobile-phone"></use></svg>Mobil</label>
+          <div class="input-group w-100">
+            <f:form.textfield class="form-control" id="inputMobile" property="phone" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <f:link.action action="update" arguments="{accreditation:accreditation, createContact:1}" class="btn btn-gold btn-sm font-weight-bold text-decoration-none"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg><span class="ml-2 d-inline">Kontakt erstellen</span></f:link.action>
+    <be:link.editRecord uid="{accreditation.uid}" table="tx_publicrelations_domain_model_accreditation" fields="guest" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&accreditation={accreditation.uid}&action=edit&controller=Accreditation')}" class="btn btn-sm btn-default text-white font-weight-bold text-decoration-none"><svg class="icon icon-sm fill-gold mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-star"></use></svg>anderem Gast zuordnen</be:link.editRecord>
+
+  </div>
+  </f:else>
+</f:if>
+
+</html>

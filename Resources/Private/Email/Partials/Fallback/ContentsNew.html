@@ -1,0 +1,500 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+  xmlns:acdist="http://typo3.org/ns/Allegria/AcDistribution/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+<f:for each="{contents}" as="content" iteration="contentI">
+    <f:switch expression="{content.type}">
+        <f:case value="0">
+            <f:render section="acmailer_text" arguments="{_all}" />
+        </f:case>
+        <f:case value="100">
+            <f:render section="acmailer_text" arguments="{_all}" />
+        </f:case>
+        <f:case value="acmailer_text">
+            <f:render section="acmailer_text" arguments="{_all}" />
+        </f:case>
+        <f:case value="1">
+            <f:render section="acmailer_html" arguments="{_all}" />
+        </f:case>
+        <f:case value="acmailer_html">
+            <f:render section="acmailer_html" arguments="{_all}" />
+        </f:case>
+        <f:case value="2">
+            <f:render section="publicrelations_news" arguments="{_all}" />
+        </f:case>
+        <f:case value="publicrelations_news">
+            <f:render section="publicrelations_news" arguments="{_all}" />
+        </f:case>
+        <f:case value="3">
+            <f:render section="publicrelations_event" arguments="{_all}" />
+        </f:case>
+        <f:case value="publicrelations_event">
+            <f:render section="publicrelations_event" arguments="{_all}" />
+        </f:case>
+        <f:case value="4">
+            <f:render section="publicrelations_media" arguments="{_all}" />
+        </f:case>
+        <f:case value="publicrelations_media">
+            <f:render section="publicrelations_media" arguments="{_all}" />
+        </f:case>
+        <f:case value="6">
+            <f:render section="publicrelations_eventlink" arguments="{_all}" />
+        </f:case>
+        <f:case value="publicrelations_eventlink">
+            <f:render section="publicrelations_eventlink" arguments="{_all}" />
+        </f:case>
+        <f:case value="7">
+            <f:render section="acmailer_image" arguments="{_all}" />
+        </f:case>
+        <f:case value="acmailer_image">
+            <f:render section="acmailer_image" arguments="{_all}" />
+        </f:case>
+        <f:case value="8">
+            <f:render section="publicrelations_facielist" arguments="{_all}" />
+        </f:case>
+        <f:case value="publicrelations_facielist">
+            <f:render section="publicrelations_facielist" arguments="{_all}" />
+        </f:case>
+        <f:case value="9">
+            <f:render section="publicrelations_eventinfo" arguments="{_all}" />
+        </f:case>
+        <f:case value="publicrelations_eventinfo">
+            <f:render section="publicrelations_eventinfo" arguments="{_all}" />
+        </f:case>
+        <f:case value="11">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: {f:if(condition:'{content.padding}', then:'{content.padding}', else:'40px')}; text-align: {content.content}; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; line-height: 1.4; color: {f:if(condition:'{content.color}', then:'{content.color}', else:'#030305')}; background-color: {f:if(condition:'{content.bgcolor}', then:'{content.bgcolor}', else:'#FFFFFF')}">
+                    <f:comment><p style="margin-bottom: 0;">{guestOutput.fullName},</p></f:comment>
+                    <f:render partial="Fallback/Salutation" arguments="{guestOutput:guestOutput}" />
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+        </f:case>
+        <f:case value="acmailer_salutation">
+            <f:render section="acmailer_salutation" arguments="{_all}" />
+        </f:case>
+        <f:case value="12">
+            <!-- HTML : BEGIN -->
+            <tr>
+                <v:render.inline>{content.content->f:format.raw()}</v:render.inline>
+            </tr>
+            <!-- HTML : END -->
+        </f:case>
+        <f:defaultCase>
+            <!-- 1 Column Text : BEGIN -->
+			<tr>
+				<td style="padding: {f:if(condition:'{content.padding}', then:'{content.padding}', else:'40px')}; text-align: center; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; line-height: 1.4; color: {f:if(condition:'{content.color}', then:'{content.color}', else:'#030305')}; background-color: {f:if(condition:'{content.bgcolor}', then:'{content.bgcolor}', else:'#FFFFFF')}">
+					<p>Bitte Matthias fragen – das wurde noch nicht programmiert.</p>					
+				</td>
+			</tr>
+			<!-- 1 Column Text : END -->
+        </f:defaultCase>
+        
+    </f:switch>
+</f:for>
+
+<f:section name="acmailer_text">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: {f:if(condition:'{content.padding}', then:'{content.padding}', else:'40px')}; {f:if(condition:'{contentI.isFirst}', then:'padding-top: 0;')} text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: {f:if(condition:'{content.color}', then:'{content.color}', else:'#030305')}; background-color: {f:if(condition:'{content.bgcolor}', then:'{content.bgcolor}', else:'#FFFFFF')}">
+            <v:render.inline>{content.content->f:format.raw()}</v:render.inline>
+        </td>
+    </tr>
+    <!-- 1 Column Text : END -->
+</f:section>
+
+<f:section name="acmailer_html">
+    <!-- HTML : BEGIN -->
+    <tr>
+        {content.content->v:render.inline()}
+    </tr>
+    <!-- HTML : END -->
+</f:section>
+
+<f:section name="acmailer_image">
+    <!-- 1 Column Image : BEGIN -->
+    <tr>
+        <td style="padding: {f:if(condition:'{content.padding}', then:'{content.padding}', else:'0')}; text-align: center; line-height: 0;">
+        <f:if condition="{content.image}">
+            <f:then>
+            <f:if condition="{content.imageFullWidth}">
+                <f:then><acdist:absoluteImage image="{content.image}" width="600" height="auto" maxWidth="600" maxHeight="500" style="max-height: 500px; margin: 0; line-height: 0;" class="fluid" /></f:then>
+                <f:else><acdist:absoluteImage image="{content.image}" width="450" height="auto" maxWidth="450" maxHeight="500" style="max-height: 500px; max-width: 450px; margin: 0; line-height: 0;" class="fluid" /></f:else>
+            </f:if>
+            </f:then>
+            <f:else><p>Kein Foto zugeordnet!</p></f:else>
+        </f:if>
+        </td>
+    </tr>
+    <!-- 1 Column Image : END -->
+</f:section>
+
+<f:section name="acmailer_salutation">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: {f:if(condition:'{content.padding}', then:'{content.padding}', else:'40px')}; text-align: {content.content}; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; line-height: 1.4; color: {f:if(condition:'{content.color}', then:'{content.color}', else:'#030305')}; background-color: {f:if(condition:'{content.bgcolor}', then:'{content.bgcolor}', else:'#FFFFFF')}">
+            <f:render partial="Fallback/SalutationNew" arguments="{contact:receiver.contact}" />
+        </td>
+    </tr>
+    <!-- 1 Column Text : END -->
+</f:section>
+
+<f:section name="publicrelations_news">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: 40px; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305;">
+            <f:render partial="Fallback/NewsRetention" arguments="{_all}" />
+            <h1 style="font-family: 'IBM Plex Sans', sans-serif; font-size: 1.4rem; color: #EFB72E; font-weight: 800;">{content.news.title}</h1>
+            {content.news.textToMail->f:format.raw()}
+        </td>
+    </tr>
+    <!-- 1 Column Text : END -->
+
+    <!-- Three Even Columns : BEGIN -->
+    <f:if condition="{content.newsMedia}">
+    <tr>
+        <td align="center" valign="top" style="padding: 0px 40px 20px 40px;"><table cellspacing="0" cellpadding="0" border="0" width="100%" style="border-top: 2px solid #EFB72E; border-bottom: 2px solid #EFB72E;">
+            <tr height="30px;"><td>&nbsp;</td></tr>
+            <tr height="30px;"><td style="padding: 0 10px;"><h2 style="font-family: 'IBM Plex Sans', sans-serif; color: #EFB72E; margin: 0;">Pressefotos</h2></td></tr>
+            <tr>
+                <td>
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <f:for each="{content.news.media}" as="file" iteration="mId">
+                            <td width="33.33%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                <td style="padding: 10px; text-align: center" width="100%"><acdist:absoluteImage image="{file}" width="500c" height="500c" cropVariant="thumb" class="fluid" additionalAttributes="{border:0}" style="max-width:100%; height: auto;" /></td>
+                                </tr>
+                                <tr>
+                                <td style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.4; color: #030305; padding: 0 10px 10px; text-align: center;" class="center-on-narrow">
+                                    <p style="margin-top: 0;"><strong>{file.originalResource.title}</strong><br>
+                                        {f:if(condition:'{file.originalResource.properties.copyright}', then:'© {file.originalResource.properties.copyright}', else:'© {content.news.client.name}')}</p>
+                                    <p><a href="https://www.allegria.at{file.originalResource.publicUrl}" download target="_blank" style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; color: #030305; font-weight: 700; text-decoration: none; display: inline-block; background-color: #EFB72E; padding: 7px 12px; border-radius: 5px;">Download</a></p>
+                                </td>
+                                </tr>
+                                </table></td>
+                            </f:for>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr height="30px;"><td>&nbsp;</td></tr>
+        </table></td>
+    </tr>
+    </f:if>
+    <tr>
+        <td style="padding: 40px; padding-top: 0; text-align: center; font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.4; color: #030305;">
+            <p style="margin: 0;">
+                <f:if condition="{content.news.campaigns}">
+                <f:then>
+                    <f:for each="{content.news.campaigns}" as="campaign" iteration="ci">
+                    <f:if condition="{campaign.mediagroups}">Druckfähige Fotos zu <acdist:absoluteLink parameter="39#pressematerial" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={campaign.uid}" target="_blank" additionalAttributes="{style:'color: #030305; text-transform: uppercase;'}">{campaign.title}.</acdist:absoluteLink><br/></f:if>
+                    </f:for>
+                    <f:if condition="{content.news.client.mediagroups}">Weitere druckfähige Fotos <acdist:absoluteLink parameter="39#pressematerial" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={content.news.client.uid}" target="_blank" additionalAttributes="{style:'color: #030305; text-transform: uppercase;'}">zum Kunden</acdist:absoluteLink></f:if>
+                </f:then>
+                <f:else>
+                    <f:if condition="{content.news.client.mediagroups}">Druckfähige Fotos finden Sie auf der <acdist:absoluteLink parameter="39#pressematerial" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={content.news.client.uid}" target="_blank" additionalAttributes="{style:'color: #030305; text-transform: uppercase;'}">Kundenseite</acdist:absoluteLink></f:if>
+                </f:else>
+                </f:if>
+            </p>
+        </td>
+    </tr>
+    <!-- Three Even Columns : END --> 
+</f:section>
+
+<f:section name="publicrelations_event">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: {f:if(condition:'{content.padding}', then:'{content.padding}', else:'40px')}; text-align: center; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; line-height: 1.4; color: {f:if(condition:'{content.color}', then:'{content.color}', else:'#FFFFFF')}; background-color: {f:if(condition:'{content.bgcolor}', then:'{content.bgcolor}', else:'#030305')}">
+            <p style="margin-top: 0; margin-bottom: 30px;">
+                <img src="https://www.allegria.at/fileadmin/marketing/allegria/calendar.png"><br>
+                <span style="font-size: 1.4rem; line-height: 1.2; text-transform: uppercase; font-weight: 800;">{f:if(condition:'{content.eventTitle}', then:'{content.eventTitle->f:format.raw()}', else:'{content.event.title}')}</span>
+            </p>
+            <p>
+                <strong style="font-size: 1rem;">Wir bitten um Rückmeldung zur Einladung via folgendem Link.</strong><br>
+                Bitte beachten Sie, dass Ihre Plätze erst nach Ihrer Rückmeldung fix reserviert werden und die verfügbaren Tickets limitiert sind – „first come, first serve“.
+            </p>
+            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                <td width="50%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td style="padding-top: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/allegria/time.png" alt="alt_text" border="0" class="fluid"></td>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.4; color: #FFFFFF; padding: 0 10px 10px; text-align: center;" class="center-on-narrow">
+                        <p style="margin-top: 0; margin-bottom: 20px;"><strong style="font-size: 1rem;">{mb:dateFormatLocal(date:'{content.event.date}', type:'d')}, {content.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{content.event.date}', type:'month')} {content.event.date->f:format.date(format:'%Y')}</strong><br>
+                        um {content.event.date->f:format.date(format:'%k.%M Uhr')}</p></td>
+                    </tr>
+                </table></td>
+                <td width="50%" class="stack-column-center" valign="top"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td style="padding-top: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/allegria/location.png" alt="alt_text" border="0" class="fluid"></td>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.4; color: #FFFFFF; padding: 0 10px 10px; text-align: center;" class="center-on-narrow">
+                        <p style="margin-top: 0; margin-bottom: 20px;"><strong style="font-size: 1rem;">{content.event.location.name}</strong><br>
+                            <f:if condition="{content.event.location.street}">{content.event.location.street}<br></f:if>
+                            <f:if condition="{content.event.location.zip}">{content.event.location.zip} </f:if><f:if condition="{content.event.location.city}">{content.event.location.city}</f:if>
+                        </p>
+                        </td>
+                    </tr>
+                </table></td>
+                </tr>
+            </table>
+
+            <f:if condition="{accreditation}">
+                <f:then>
+                    <!-- Button : Begin -->
+                    <table cellspacing="0" cellpadding="0" border="0" class="center-on-narrow" align="center" style="margin: auto;">
+                        <tr>
+                            <td style="border-radius: 3px; background: #EFB72E; text-align: center;" class="button-td"><a href="{acdist:absoluteUri(parameter:38, additionalParams:'&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}')}" target="_blank" style="background: #EFB72E; border: 15px solid #EFB72E; padding: 0;color: #030305; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; display: block; border-radius: 5px; font-weight: bold; text-transform: uppercase;" class="button-a">
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                            </a></td>
+                        </tr>
+                    </table>
+                    <!-- Button : END -->
+
+                    <f:if condition="{accreditation.guestType} == 2">
+                        <hr style="color: #EFB72E; margin: 30px 0;"/>
+                        <p>
+                            <span style="color: #EFB72E; font-size: 1.4rem; line-height: 1.2; text-transform: uppercase; font-weight: 800;">Redaktionelle Berichterstattung</span>
+                        </p>
+                        <p>Wir möchten uns bei Ihnen bereits über die redaktionelle Berichterstattung bedanken. Schon vorhandenes Pressematerial finden Sie natürlich online unter folgendem Link.</p>
+                        <p>
+                            <f:if condition="{accreditation.event.campaign}">
+                                <f:then>
+                                    <f:if condition="{accreditation.event.campaign.mediagroups}">Druckfähige Fotos zu <acdist:absoluteLink parameter="39#pressematerial" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={accreditation.event.campaign.uid}" target="_blank" additionalAttributes="{style:'color: #FFFFFF; text-transform: uppercase;'}">{accreditation.event.campaign.title}.</acdist:absoluteLink><br/></f:if>
+                                    <f:if condition="{accreditation.event.client.mediagroups}">Weitere druckfähige Fotos <acdist:absoluteLink parameter="39#pressematerial" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={accreditation.event.client.uid}" target="_blank" additionalAttributes="{style:'color: #FFFFFF; text-transform: uppercase;'}">zum Kunden</acdist:absoluteLink></f:if>
+                                </f:then>
+                                <f:else>
+                                    <f:if condition="{accreditation.event.client.mediagroups}">Druckfähige Fotos finden Sie auf der <acdist:absoluteLink parameter="39#pressematerial" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={accreditation.event.client.uid}" target="_blank" additionalAttributes="{style:'color: #FFFFFF; text-transform: uppercase;'}">Kundenseite</acdist:absoluteLink></f:if>
+                                </f:else>
+                            </f:if>
+                        </p>
+                    </f:if>
+                </f:then>
+                <f:else>
+                    <!-- Button : Begin -->
+                    <table cellspacing="0" cellpadding="0" border="0" class="center-on-narrow" align="center" style="margin: auto">
+                    <tr>
+                        <td style="border-radius: 3px; background: #EFB72E; text-align: center;" class="button-td">
+                            <acdist:absoluteLink parameter="39#event" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={content.event.client.uid}&event-id={content.event.uid}" target="_blank" additionalAttributes="{style:'background: #EFB72E; border: 15px solid #EFB72E; padding: 0;color: #030305; font-family: \'IBM Plex Sans\', sans-serif; font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; display: block; border-radius: 5px; font-weight: bold; text-transform: uppercase;'}" class="button-a">
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Akkreditieren<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                            </acdist:absoluteLink>
+                        </td>
+                    </tr>
+                    </table>
+                    <!-- Button : END -->
+                </f:else>
+            </f:if>
+            
+        </td>
+    </tr>
+    <!-- 1 Column Text : END -->
+</f:section>
+
+<f:section name="publicrelations_eventlink">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: {f:if(condition:'{content.padding}', then:'{content.padding}', else:'40px')}; text-align: center; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; line-height: 1.4; color: {f:if(condition:'{content.color}', then:'{content.color}', else:'#030305')}; background-color: {f:if(condition:'{content.bgcolor}', then:'{content.bgcolor}', else:'#EFB72E')}">
+            <p style="margin-top: 0;">
+                <img src="https://www.allegria.at/fileadmin/marketing/allegria/accreditation.png"><br>
+                <span style="font-size: 1.4rem; line-height: 1.2; text-transform: uppercase; font-weight: 800;">Akkreditierung</span>
+            </p>
+            <p>
+                <strong>Eine Akkreditierung zur Veranstaltung ist obligat.</strong><br>
+                Wir bitten um Akkreditierung über unser Online-Formular,<br>
+                das Sie via folgendem Link abrufen können.
+            </p>
+            
+                <!-- Button : Begin -->
+                <table cellspacing="0" cellpadding="0" border="0" class="center-on-narrow" align="center" style="margin: auto">
+                <tr>
+                    <td style="border-radius: 3px; background: #030305; text-align: center;" class="button-td">
+                        <acdist:absoluteLink parameter="39#event" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={content.event.client.uid}&event-id={content.event.uid}" target="_blank" additionalAttributes="{style:'background: #030305; border: 15px solid #030305; padding: 0;color: #FFFFFF; font-family: \'IBM Plex Sans\', sans-serif; font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; display: block; border-radius: 5px; font-weight: bold; text-transform: uppercase;'}" class="button-a">
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Akkreditieren<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                        </acdist:absoluteLink>
+                    </td>
+                    </tr>
+                </table>
+                <!-- Button : END -->
+            
+        </td>
+    </tr>
+    <!-- 1 Column Text : END -->
+</f:section>
+
+<f:section name="publicrelations_media">
+    <!-- TMedia Download : BEGIN -->
+    <f:if condition="{content.media}">
+        <tr>
+            <td align="center" valign="top" style="padding: 0px 40px 20px 40px;">
+                <table cellspacing="0" cellpadding="0" border="0" width="100%" style="border-top: 2px solid #EFB72E; border-bottom: 2px solid #EFB72E;">
+                    <tr height="30px;"><td>&nbsp;</td></tr>
+                    <tr height="30px;"><td style="padding: 0 10px;"><h2 style="font-family: 'IBM Plex Sans', sans-serif; color: #EFB72E; margin: 0;">Pressefotos</h2></td></tr>
+                    <tr>
+                        <td>
+                            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <f:for each="{content.media}" as="file" iteration="iter">
+                                    
+                                    <f:if condition="{iter.index} % 3 == 0">
+                                        <tr>
+                                    </f:if>
+
+                                    <td width="33.33%" class="stack-column-center" valign="top">
+                                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                            <tr>
+                                                <td style="padding: 10px; text-align: center" width="100%">
+                                                    <acdist:absoluteImage image="{file}" width="500c" height="500c" cropVariant="thumb" class="fluid" additionalAttributes="{border:0}" style="max-width:100%; height: auto;" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.8rem; mso-height-rule: exactly; line-height: 1.4; color: #030305; padding: 0 10px 10px; text-align: center;" class="center-on-narrow">
+                                                    <p style="margin-top: 0;">
+                                                        <strong>{file.originalResource.title}</strong><br>
+                                                        {f:if(condition:'{file.originalResource.properties.copyright}', then:'© {file.originalResource.properties.copyright}', else:'© {content.news.client.name}')}
+                                                    </p>
+                                                    <p>
+                                                        <a href="https://www.allegria.at{file.originalResource.publicUrl}" download target="_blank" style="font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; color: #030305; font-weight: 700; text-decoration: none; display: inline-block; background-color: #EFB72E; padding: 7px 12px; border-radius: 5px;">Download</a>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                    <f:if condition="{iter.cycle} % 3 == 0">
+                                        <f:then>
+                                            </tr>
+                                        </f:then>
+                                        <f:else>
+                                            <f:if condition="{iter.isLast}">
+                                                <f:if condition="{iter.cycle} % 3 == 1">
+                                                    <td width="33.33%">&nbsp;</td>
+                                                    <td width="33.33%">&nbsp;</td>
+                                                    </tr>
+                                                </f:if>
+                                                <f:if condition="{iter.cycle} % 3 == 2">
+                                                    <td width="33.33%">&nbsp;</td>
+                                                    </tr>
+                                                </f:if>
+                                            </f:if>
+                                        </f:else>
+                                    </f:if>
+
+                                </f:for>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr height="30px;"><td>&nbsp;</td></tr>
+                </table>
+            </td>
+        </tr>
+    </f:if>
+    <!-- Media Download : END -->
+</f:section>
+
+<f:section name="publicrelations_facielist">
+    <!-- 1 Column Text : BEGIN -->
+    <tr>
+        <td style="padding: {f:if(condition:'{content.padding}', then:'{content.padding}', else:'40px')}; color: {f:if(condition:'{content.color}', then:'{content.color}', else:'#030305;')}; background-color: {f:if(condition:'{content.bgcolor}', then:'{content.bgcolor}', else:'#EFB72E')}; text-align: center; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; font-weight: 500; line-height: 1.4;">
+            <p style="margin-top: 0;">
+                <img src="https://www.allegria.at/fileadmin/marketing/allegria/star_dark.png"><br>
+                <span style="font-size: 1.4rem; line-height: 1.2; text-transform: uppercase; font-weight: 800;">Prominente Gäste</span>
+            </p>
+            <p>
+                <strong>Folgende Promis sind aktuell für den {content.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{content.event.date}', type:'month')} {content.event.date->f:format.date(format:'%Y')} angemeldet:</strong>
+            </p>
+            <p>
+
+                <f:if condition="{content.event.facies}">
+                    <f:then>
+                        <ul style="list-style: none; padding: 0;">
+                            <f:for each="{content.event.facies -> v:iterator.sort(sortBy: 'guestOutput.lastName')}" as="facie">
+                            <li>{facie.guestOutput.fullName}</li>
+                            </f:for>
+                        </ul>
+                    </f:then>
+                    <f:else>
+                        Aktuell haben noch keine Promis fix zugesagt.
+                    </f:else>
+                </f:if>
+            </p>
+            <p style="font-weight: 700; font-size: 1.2rem; margin-top: 30px;">Akkreditieren Sie sich jetzt zur Berichterstattung!</p>
+            <f:if condition="{accreditation}">
+                <f:then>
+                    <!-- Button : Begin -->
+                    <table cellspacing="0" cellpadding="0" border="0" class="center-on-narrow" align="center" style="margin: auto;">
+                        <tr>
+                            <td style="border-radius: 3px; background: #030305; text-align: center;" class="button-td"><a href="{acdist:absoluteUri(parameter:38, additionalParams:'&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}')}" target="_blank" style="background: #030305; border: 15px solid #030305; padding: 0;color: #EFB72E; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; display: block; border-radius: 5px; font-weight: bold; text-transform: uppercase;" class="button-a">
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                            </a></td>
+                        </tr>
+                    </table>
+                    <!-- Button : END -->
+                </f:then>
+                <f:else>
+                    <!-- Button : Begin -->
+                    <table cellspacing="0" cellpadding="0" border="0" class="center-on-narrow" align="center" style="margin: auto">
+                    <tr>
+                        <td style="border-radius: 3px; background: #030305; text-align: center;" class="button-td">
+                            <acdist:absoluteLink parameter="39#event" additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={content.event.client.uid}&event-id={content.event.uid}" target="_blank" additionalAttributes="{style:'background: #030305; border: 15px solid #030305; padding: 0;color: #EFB72E; font-family: \'IBM Plex Sans\', sans-serif; font-size: 1rem; line-height: 1; text-align: center; text-decoration: none; display: block; border-radius: 5px; font-weight: bold; text-transform: uppercase;'}" class="button-a">
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Akkreditieren<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                            </acdist:absoluteLink>
+                        </td>
+                    </tr>
+                    </table>
+                    <!-- Button : END -->
+                </f:else>
+            </f:if>
+
+        </td>
+    </tr>
+    <!-- 1 Column Text : END -->
+</f:section>
+
+<f:section name="publicrelations_eventinfo">
+    <!-- Thumbnail Left, Text Right : BEGIN -->
+    <tr>
+        <td dir="ltr" align="center" valign="top" width="100%" style="padding: 10px;"><table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+            <td width="33.33%" class="stack-column-center"><table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                <td dir="ltr" valign="top" style="padding: 0 10px;"><f:if condition="{content.event.campaign.logo}"><acdist:absoluteImage image="{content.event.campaign.logo}" width="170" alt="{content.event.campaign.title}" additionalAttributes="{border:'0'}" class="center-on-narrow" /></f:if></td>
+                </tr>
+                </table></td>
+            <td width="66.66%" class="stack-column-center"><table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                <td dir="ltr" valign="top" style="font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 10px; text-align: left;" class="center-on-narrow"><strong style="color:#111111; background-color: #EFB72E; padding: 0 5px; font-size: 1.2rem;">{content.event.campaign.title}</strong> <br>
+                    <p>
+                        <strong>Termin:</strong> <f:if condition="{content.eventDate}"><f:then>{content.eventDate->f:format.raw()}</f:then><f:else>{content.event.date->f:format.date(format:'%d.%m.%Y')} um {content.event.date->f:format.date(format:'%H:%M')} Uhr</f:else></f:if><br>
+                        <strong>Location:</strong> <f:if condition="{content.eventLocation}"><f:then>{content.eventLocation->f:format.raw()}</f:then><f:else>{content.event.location.name}</f:else></f:if>
+                        <f:if condition="{content.eventDescription}"><f:then>{content.eventDescription->f:format.raw()->f:format.crop(maxCharacters: 160)}</f:then><f:else>{content.event.campaign.description->f:format.raw()->f:format.crop(maxCharacters: 160)}</f:else></f:if>
+                    </p>
+                    
+                    <f:if condition="{content.event.campaign}">
+                    <!-- Button : Begin -->
+                    
+                    <table cellspacing="0" cellpadding="0" border="0" class="center-on-narrow" style="float:left;">
+                    <tr>
+                        <td style="border-radius: 3px; background: #222222; text-align: center;" class="button-td"><acdist:absoluteLink parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={content.event.campaign.uid}" target="_blank" additionalAttributes="{style:'background: #222222; border: 10px solid #222222; padding: 0 5px;color: #ffffff; font-family: \'IBM Plex Sans\', sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;'}" class="button-a"> 
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->mehr Infos & Pressematerial<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                            </acdist:absoluteLink></td>
+                        </tr>
+                    </table>
+                    
+                    <!-- Button : END -->
+                </f:if>
+                </td>
+                </tr>
+                </table></td>
+            </tr>
+            </table>
+            <hr style="width: 60%;margin-top: 40px;margin-bottom: 20px;" />
+        </td>
+        </tr>
+    <!-- Thumbnail Left, Text Right : END --> 
+</f:section>
+</html>

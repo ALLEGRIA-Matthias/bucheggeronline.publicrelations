@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:publicrelations/Resources/Private/Language/locallang_be" date="2020-08-06T11:01:46Z" product-name="publicrelations">
+		<header/>
+		<body>
+			<trans-unit id="extmng.staffPid" resname="extmng.staffPid">
+				<source>Page ID for Staff</source>
+				<target state="translated">Page ID für Mitarbeiter</target>
+			</trans-unit>
+				<trans-unit id="extmng.journalistsPid" resname="extmng.journalistsPid">
+					<source>Page ID for Journalists</source>
+					<target state="translated">Page ID für Journalist*innen</target>
+				</trans-unit>
+			<trans-unit id="extmng.clientRootUid" resname="extmng.clientRootUid">
+				<source>Category Root UID for Clients</source>
+				<target state="translated">Kategoriestamm ID für Kunden</target>
+			</trans-unit>
+			<trans-unit id="extmng.campaignRootUid" resname="extmng.campaignRootUid">
+				<source>Category Root UID for Campaigns</source>
+				<target state="translated">Kategoriestamm ID für Produkte</target>
+			</trans-unit>
+			<trans-unit id="extmng.newsRootUid" resname="extmng.newsRootUid">
+				<source>Category Root UID for News</source>
+				<target state="translated">Kategoriestamm ID für News</target>
+			</trans-unit>
+			<trans-unit id="extmng.eventRootUid" resname="extmng.eventRootUid">
+				<source>Category Root UID for Events</source>
+				<target state="translated">Kategoriestamm ID für Termine</target>
+			</trans-unit>
+			<trans-unit id="extmng.eventNoteRootUid" resname="extmng.eventNoteRootUid">
+				<source>Category Root UID for Event Notes</source>
+				<target state="translated">Kategoriestamm ID für Terminnotizen</target>
+			</trans-unit>
+			<trans-unit id="extmng.contactRootUid" resname="extmng.contactRootUid">
+				<source>Category Root UID for Contacts</source>
+				<target state="translated">Kategoriestamm ID für Ansprechpartner</target>
+			</trans-unit>
+			<trans-unit id="extmng.linkRootUid" resname="extmng.linkRootUid">
+				<source>Category Root UID for Links</source>
+				<target state="translated">Kategoriestamm ID für Links</target>
+			</trans-unit>
+			<trans-unit id="extmng.logRootUid" resname="extmng.logRootUid">
+				<source>Category Root UID for Logs</source>
+				<target state="translated">Kategoriestamm ID für Logs</target>
+			</trans-unit>
+			<trans-unit id="extmng.mediumRootUid" resname="extmng.mediumRootUid">
+				<source>Category Root UID for Mediums</source>
+				<target state="translated">Kategoriestamm ID für Medien</target>
+			</trans-unit>
+			<trans-unit id="extmng.slideWorkRootUid" resname="extmng.slideWorkRootUid">
+				<source>Category Root UID for Slide Worktypes</source>
+				<target state="translated">Kategoriestamm ID für Tätigkeiten zum Slider</target>
+			</trans-unit>
+			<trans-unit id="extmng.contactTypesRootUid" resname="extmng.contactTypesRootUid">
+				<source>Category Root UID for Contact Types</source>
+				<target state="translated">Kategoriestamm ID für Kontakttypen</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

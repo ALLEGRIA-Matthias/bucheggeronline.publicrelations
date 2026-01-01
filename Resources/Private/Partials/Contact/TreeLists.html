@@ -1,0 +1,48 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+       xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+       xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+       v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+       data-namespace-typo3-fluid="true">
+ <li>
+     <f:variable name="hasChildren" value="{f:if(condition: treeItems.childs, then: 1, else: 0)}" />
+     <f:variable name="collapseId" value="collapse-tree-{treeItems.uid -> f:format.raw()}-{iteration.parentIteration.cycle}" />
+
+     <f:if condition="{hasChildren}">
+         <f:then>
+             <typo3-backend-tree-node-toggle
+                 class="treelist-control collapsed"
+                 data-bs-toggle="collapse"
+                 data-bs-target="#{collapseId}"
+                 aria-expanded="true">
+                 </typo3-backend-tree-node-toggle>
+             <span class="treelist-group treelist-group-monospace">
+                 <span class="treelist-label">
+                     <f:comment> Hier den Link oder nur den Titel platzieren, je nach Bedarf </f:comment>
+                     <f:link.action controller="Contact" action="list" arguments="{mailingList: treeItems}">
+                         {treeItems.title}
+                     </f:link.action>
+                 </span>
+             </span>
+             <div class="treelist-collapse collapse show" id="{collapseId}">
+                 <ul class="treelist">
+                     <f:for each="{treeItems.childs -> v:iterator.sort(sortBy: 'title')}" as="childItem" iteration="for">
+                         <f:render partial="Contact/TreeLists" arguments="{treeItems: childItem, iteration: '{for:iteration}', type:'mailinglists'}" />
+                     </f:for>
+                 </ul>
+             </div>
+         </f:then>
+         <f:else>
+             <span class="treelist-group treelist-group-monospace">
+                  <span class="treelist-label">
+                      <f:link.action controller="Contact" action="list" arguments="{mailingList: treeItems}">
+                          {treeItems.title}
+                      </f:link.action>
+                  </span>
+                  <f:comment> Falls es ein Key-Value-Paar sein soll, hier anpassen:
+                  <span class="treelist-label">{treeItems.key}</span> <span class="treelist-operator">=</span> <span class="treelist-value">{treeItems.value}</span> 
+                  </f:comment>
+             </span>
+         </f:else>
+     </f:if>
+ </li>
+ </html>

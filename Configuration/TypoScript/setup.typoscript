@@ -1,0 +1,137 @@
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:publicrelations/Configuration/TypoScript/Helper/files.typoscript">
+
+# 🔁 Vorlage für alle Publicrelations-Plugins
+lib.publicrelationsPlugin = USER
+lib.publicrelationsPlugin {
+  userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+  extensionName = Publicrelations
+  pluginName = DummyWillBeOverwritten
+}
+
+# 🧩 Plugin-Zuweisungen (jede nutzt die Vorlage)
+tt_content.list.20.publicrelations_clientlist         < lib.publicrelationsPlugin
+tt_content.list.20.publicrelations_clientlist.pluginName = ClientList
+
+tt_content.list.20.publicrelations_clientreferences   < lib.publicrelationsPlugin
+tt_content.list.20.publicrelations_clientreferences.pluginName = ClientReferences
+
+tt_content.list.20.publicrelations_clientshow         < lib.publicrelationsPlugin
+tt_content.list.20.publicrelations_clientshow.pluginName = ClientShow
+
+tt_content.list.20.publicrelations_accreditationform  < lib.publicrelationsPlugin
+tt_content.list.20.publicrelations_accreditationform.pluginName = AccreditationForm
+
+tt_content.list.20.publicrelations_presscenteroverview < lib.publicrelationsPlugin
+tt_content.list.20.publicrelations_presscenteroverview.pluginName = PresscenterOverview
+
+tt_content.list.20.publicrelations_presscenterhome    < lib.publicrelationsPlugin
+tt_content.list.20.publicrelations_presscenterhome.pluginName = PresscenterHome
+
+tt_content.list.20.publicrelations_slidelist          < lib.publicrelationsPlugin
+tt_content.list.20.publicrelations_slidelist.pluginName = SlideList
+plugin.tx_publicrelations_slidelist.persistence.storagePid = 2
+
+tt_content.list.20.publicrelations_eventical          < lib.publicrelationsPlugin
+tt_content.list.20.publicrelations_eventical.pluginName = EventIcal
+
+tt_content.list.20.publicrelations_searchresult       < lib.publicrelationsPlugin
+tt_content.list.20.publicrelations_searchresult.pluginName = SearchResult
+
+tt_content.list.20.publicrelations_mailview           < lib.publicrelationsPlugin
+tt_content.list.20.publicrelations_mailview.pluginName = MailView
+
+tt_content.list.20.publicrelations_eventprintlabels   < lib.publicrelationsPlugin
+tt_content.list.20.publicrelations_eventprintlabels.pluginName = EventPrintLabels
+
+plugin.tx_publicrelations {
+   view {
+      templateRootPaths.0 = EXT:publicrelations/Resources/Private/Frontend/Templates/
+      partialRootPaths.0 = EXT:publicrelations/Resources/Private/Frontend/Partials/
+      layoutRootPaths.0 = EXT:publicrelations/Resources/Private/Frontend/Layouts/
+   }
+   settings {
+      pages {
+         mydata = {$plugin.tx_publicrelations_pressecenter.settings.pages.mydata}
+         mailview = {$plugin.tx_publicrelations_pressecenter.settings.pages.mailview}
+         login = {$plugin.tx_publicrelations_pressecenter.settings.pages.login}
+         logout = {$plugin.tx_publicrelations_pressecenter.settings.pages.logout}
+      }
+   }
+}
+
+plugin.tx_publicrelations_mailview {
+   view {
+      templateRootPaths.0 = EXT:publicrelations/Resources/Private/Email/Templates/
+      partialRootPaths.0 = EXT:publicrelations/Resources/Private/Email/Partials/
+      layoutRootPaths.0 = EXT:publicrelations/Resources/Private/Email/Layouts/
+   }
+}
+
+plugin.tx_seo {
+  config {
+   xmlSitemap {
+      sitemaps {
+         clients {
+            provider = TYPO3\CMS\Seo\XmlSitemap\RecordsXmlSitemapDataProvider
+            config {
+               table = tx_publicrelations_domain_model_client
+               sortField = crdate
+               lastModifiedField = tstamp
+               pid = {$plugin.tx_publicrelations.persistence.storagePid}
+               url {
+                  pageId = 39
+                  fieldToParameterMap {
+                     uid = tx_publicrelations_pressroom[client]
+                  }
+                  additionalGetParameters {
+                     tx_publicrelations_pressroom.controller = Client
+                     tx_publicrelations_pressroom.action = show
+                  }
+                  useCacheHash = 1
+               }
+            }
+          }
+          campaigns {
+             provider = TYPO3\CMS\Seo\XmlSitemap\RecordsXmlSitemapDataProvider
+             config {
+                table = tx_publicrelations_domain_model_campaign
+                sortField = crdate
+                lastModifiedField = tstamp
+                pid = {$plugin.tx_publicrelations.persistence.storagePid}
+                url {
+                   pageId = 39
+                   fieldToParameterMap {
+                      uid = tx_publicrelations_pressroom[campaign]
+                   }
+                   additionalGetParameters {
+                      tx_publicrelations_pressroom.controller = Campaign
+                      tx_publicrelations_pressroom.action = show
+                   }
+                   useCacheHash = 1
+                }
+             }
+           }
+           news {
+              provider = TYPO3\CMS\Seo\XmlSitemap\RecordsXmlSitemapDataProvider
+              config {
+                 table = tx_publicrelations_domain_model_news
+                 sortField = crdate
+                 lastModifiedField = tstamp
+                 pid = {$plugin.tx_publicrelations.persistence.storagePid}
+                 url {
+                    pageId = 39
+                    fieldToParameterMap {
+                       uid = tx_publicrelations_pressroom[news]
+                    }
+                    additionalGetParameters {
+                       tx_publicrelations_pressroom.controller = News
+                       tx_publicrelations_pressroom.action = show
+                    }
+                    useCacheHash = 1
+                 }
+              }
+            }
+          }
+        }
+    }
+}

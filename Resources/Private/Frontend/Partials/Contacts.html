@@ -1,0 +1,33 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<div class="card-body">
+  <h6 class="fw-bold border-start border-primary border-3 ps-2 mb-3">Ansprechpartner:innen</h6>
+    <f:for each="{contacts}" as="contact" iteration="i">
+      <div class="d-flex align-items-start {f:if(condition:'!{i.isLast}', then:'mb-4')} small">
+        
+        <!-- Kontaktbild -->
+        <div class="flex-shrink-0 me-3">
+          <f:image image="{contact.staff.image.0}" class="rounded-circle img-fluid" style="width: 50px; height: 50px;" alt="{contact.staff.name}" />
+        </div>
+        
+        <!-- Kontaktinfo -->
+        <div class="flex-grow-1">
+          <p class="mb-1">
+            <strong>{contact.staff.fullName}</strong><br/>
+            <f:if condition="{contact.typesOutput}">
+              <small class="text-muted d-block mb-0">
+                <f:for each="{contact.typesOutput}" as="type" iteration="wi">
+                  <f:if condition="!{wi.isFirst}">, </f:if>{type}
+                </f:for>
+              </small>
+            </f:if>
+
+            <small>
+              <a href="mailto:{contact.staff.email}" class="text-dark">{contact.staff.email}</a><br/>
+            </small>
+          </p>
+        </div>
+
+      </div>
+    </f:for>
+</div>

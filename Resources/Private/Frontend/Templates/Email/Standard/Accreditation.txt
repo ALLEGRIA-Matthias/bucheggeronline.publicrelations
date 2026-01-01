@@ -1,0 +1,31 @@
+<f:layout name="DefaultEmail" />
+
+<f:section name="Title">
+<f:if condition="{content}=='approve'">
+  <f:render partial="Accreditation/Approved" section="Title" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='pending'">
+  <f:render partial="Accreditation/Pending" section="Title" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='reject'">
+  <f:render partial="Accreditation/Rejected" section="Title" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='sent'">
+  <f:render partial="Accreditation/Sent" section="Title" arguments="{_all}" />
+</f:if>
+</f:section>
+
+<f:section name="Main">
+<f:if condition="{content}=='approve'">
+  <f:render partial="Accreditation/Approved" section="Main" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='pending'">
+  <f:render partial="Accreditation/Pending" section="Main" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='reject'">
+  <f:render partial="Accreditation/Rejected" section="Main" arguments="{_all}" />
+</f:if>
+<f:if condition="{content}=='sent'">
+  <f:render partial="Accreditation/Sent" section="Main" arguments="{_all}" />
+</f:if>
+</f:section>

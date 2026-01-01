@@ -1,0 +1,83 @@
+<f:layout name="Checkin" />
+
+<f:section name="buttons">
+</f:section>
+
+<f:section name="shortcuts">
+<f:link.action controller="Checkin" action="list" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+    <h1>Checkin-Liste</h1>
+    <p>Folgende Events stehen zum Checkin bereit.</p>
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <f:if condition="{events}">
+      <f:then>
+      <div class="card-container">
+        <f:for each="{events -> v:iterator.sort(sortBy: 'date')}" as="event" iteration="ei">
+        <div class="card card-size-fixed-small">
+            <div class="row no-gutters">
+              <div class="col-auto mx-auto">
+                <div class="card-icon p-3">
+                  <f:if condition="{event.client.logo}">
+                    <f:then>
+                        <f:image image="{event.client.logo}" width="128" height="128" class="card-header-icon-image img-fluid" alt="{event.client.name} Logo" />
+                    </f:then>
+                    <f:else>
+                        <span class="card-icon-fallback d-flex align-items-center justify-content-center" style="width: 128px; height: 128px; background-color: #eee; border-radius: .25rem;">
+                            <svg class="icon icon-xl text-muted"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#building"></use></svg>
+                        </span>
+                    </f:else>
+                  </f:if>
+                </div>
+              </div>
+        <div class="col"> <div class="card-header border-0 pt-3 pb-0"> <span class="card-subtitle">{event.type.title}</span>
+                <h1 class="card-title h5 text-primary">{event.title}</h1> </div>
+            <div class="card-body py-2">
+                <div class="row">
+                    <div class="col-4 text-muted pr-0"> <small>
+                            <svg class="icon icon-sm fill-currentColor mr-1 align-text-bottom"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-group"></use></svg>Gäste
+                        </small>
+                    </div>
+                    <div class="col-8 pl-0">
+                        <small><strong class="text-body">{event.ticketsApproved}</strong></small>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-4 text-muted pr-0"> <small>
+                            <svg class="icon icon-sm fill-currentColor mr-1 align-text-bottom"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg>Termin
+                        </small>
+                    </div>
+                    <div class="col-8 pl-0"> <small>{f:format.date(date:'{event.date}', format:'%d.%m.%Y, %H:%M Uhr')}</small>
+                    </div>
+                </div>
+                <f:if condition="{event.location}">
+                    <div class="row mb-1">
+                        <div class="col-4 text-muted pr-0"> <small>
+                                <svg class="icon icon-sm fill-currentColor mr-1 align-text-bottom"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#map-marker"></use></svg>Ort
+                            </small>
+                        </div>
+                        <div class="col-8 pl-0">
+                            <small>
+                                {event.location.name -> f:format.crop(maxCharacters:30, append:'…')}<br/>
+                                {event.location.street -> f:format.crop(maxCharacters:30, append:'…')}<br/>
+                                <span class="text-nowrap">{event.location.zip} {event.location.city -> f:format.crop(maxCharacters:20, append:'…')}</span>
+                            </small>
+                        </div>
+                    </div>
+                </f:if>
+            </div>
+            <div class="card-footer">
+                <f:link.action action="show" arguments="{event:event}" class="btn btn-sm btn-primary btn-block"><svg class="icon icon-sm fill-white mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#circle-check"></use></svg>Check-In starten</f:link.action>
+            </div>
+        </div>
+    </div>
+</div>
+        </f:for>
+      </div>
+      </f:then>
+      <f:else>
+        <f:be.infobox title="Keine Termine zum Check-In verfügbar!" state="1">Aktuell ist der Check-In für keinen Termin freigegeben. Bitte wende dich an deinen zuständigen Ansprechpartner.</f:be.infobox>
+      </f:else>
+    </f:if>
+</f:section>

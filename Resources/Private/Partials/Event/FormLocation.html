@@ -1,0 +1,116 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<div class="alert alert-default" role="alert">
+  <h4>Location</h4>
+
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="selectLocation"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#map-marker"></use></svg>Locationauswahl</label>
+        <div class="input-group w-100">
+          <f:form.select class="form-control tomselect-generic select-toggle" data="{toggle-container-id: 'newLocation', disable-target:'location'}" property="location" optionsAfterContent="1" options="{locations}" optionValueField="uid" optionLabelField="selectTitle" sortByOptionLabel="selectTitle" disabled="{f:if(condition:'{disabled}', then:'1')}">
+            <f:form.select.option value="0">Bitte Location auswählen...</f:form.select.option>
+            <f:if condition="!{disabled}">
+            <f:form.select.optgroup label="NEUE LOCATION">
+              <f:form.select.option value="new">NEUE LOCATION erstellen</f:form.select.option>
+            </f:form.select.optgroup>
+            </f:if>
+          </f:form.select>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <div class="form-group">
+        <label for="inputLocationNote"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#square-info"></use></svg>Location-Hinweis</label>
+        <div class="input-group w-100">
+          <f:form.textfield class="form-control" id="inputLocationNote" property="locationNote" data="{disable-target:'locationNote'}" disabled="{f:if(condition:'{disabled}', then:'1')}" />
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-2">
+      <div class="form-group">
+        <label><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#star"></use></svg>Online</label>
+        <div class="form-check">
+          <f:form.checkbox class="form-check-input mt-0" id="checkOnline" property="online" value="1" data="{disable-target:'online'}" disabled="{f:if(condition:'{disabled}', then:'1')}" />
+          <label class="form-check-label" for="checkOnline">Ja/Nein</label>
+        </div>
+      </div>
+    </div>
+
+    <div data-toggle-container="newLocation" style="width:100%;">
+      <div style="display:none; padding: 0 15px;" data-toggle-value="new" >
+        <h4>Neue Location erstellen</h4>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label for="inputLocationName"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#map"></use></svg>Location-Name</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputLocationName" property="newLocation.name" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label for="inputLocationAdditional"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#map"></use></svg>Location-Zusatz</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputLocationAdditional" property="newLocation.additional" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+              <label for="inputLocationStreet"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#map"></use></svg>Location-Straße</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputLocationStreet" property="newLocation.street" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-2">
+            <div class="form-group">
+              <label for="inputLocationZip"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#map"></use></svg>Location-PLZ</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputLocationZip" property="newLocation.zip" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-3">
+            <div class="form-group">
+              <label for="inputLocationCity"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#map"></use></svg>Location-Stadt</label>
+              <div class="input-group w-100">
+                <f:form.textfield class="form-control" id="inputLocationCity" property="newLocation.city" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-3">
+            <div class="form-group">
+              <label for="inputLocationCountry"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#map"></use></svg>Location-Land</label>
+              <div class="input-group w-100">
+                <f:form.select class="form-control tomselect-generic" data="{tomselect-generic-id: 'event-select-country'}" id="inputLocationCountry" property="newLocation.country">
+                  <f:form.select.option value="13">Österreich</f:form.select.option>
+                  <f:form.select.option value="54">Deutschland</f:form.select.option>
+                  <f:form.select.option value="41">Schweiz</f:form.select.option>
+                </f:form.select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</html>

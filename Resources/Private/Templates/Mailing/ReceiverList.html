@@ -1,0 +1,49 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Mailer" />
+
+<f:section name="buttons">
+<a href="#" class="btn btn-sm btn-default" onclick="window.print();return false;"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#print"></use></svg>Jetzt drucken</a>
+<a href="javascript:close_window();" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#times"></use></svg>Fenster schließen</a>
+</f:section>
+
+<f:section name="shortcuts">
+<f:link.action action="receiverList" controller="Mailing" arguments="{mailing:mailing}" class="btn btn-default btn-sm"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+
+<h1><small>{mailing.typeOutput}</small><br/>{mailing.subject}</h1>
+<table class="table table-sm table-striped" id="mails">
+  <thead>
+    <tr>
+      <th data-sort-method="none"></th>
+      <th data-filterable data-sort-default>Name</th>
+      <th data-filterable>Unternehmen</th>
+      <th data-filterable>PLZ</th>
+      <th data-filterable>Versandt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <f:for each="{mailing.mails -> v:iterator.sort(sortBy: 'receiver.lastName')}" as="mail" iteration="i">
+    <tr>
+      <td>
+        <input type="checkbox">
+      </td>
+      <td>{mail.receiver.lastName}, {mail.receiver.firstName}</td>
+      <td>{mail.receiver.company}</td>
+      <td>{mail.receiver.zip}</td>
+      <td data-sort='{mail.sent->f:format.date(format:'%s')}'><f:if condition="{mail.sent}"><f:then>{f:format.date(date:'{mail.sent}', format:'%e.%m.%Y')}</f:then><f:else>vorbereitet</f:else></f:if></td>
+    </tr>
+    </f:for>
+  </tbody>
+</table>
+<p class="text-right">Stand: {f:format.date(date:'now', format:'%e.%m.%Y um %H:%M Uhr')}</p>
+
+</f:section>
+</html>

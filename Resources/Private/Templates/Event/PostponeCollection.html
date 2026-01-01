@@ -1,0 +1,71 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Eventcenter" />
+
+<f:section name="buttons">
+<f:link.action action="list" controller="Event" class="btn btn-sm btn-default" arguments="{event:event}"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#times"></use></svg>Abbrechen</f:link.action>
+</f:section>
+
+<f:section name="content">
+    <h1>Terminauswahl verschieben</h1>
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+
+    <p><span class="badge badge-warning">Es wurden {events->f:count()} Events ausgwählt!</span></p>
+
+    <f:form action="postponeCollection" enctype="multipart/form-data" name="eventsPostpone" class="validate">
+
+    <f:for each="{events -> v:iterator.sort(sortBy: 'date')}" as="event" iteration="i">
+    <div class="alert alert-primary" role="alert">
+      <h4>Termin {i.cycle} </br><small class="font-weight-bold">{event.title} am {f:format.date(date:'{event.date}', format:'%d.%m.%Y %H:%M')}</small></h4>
+      <f:form.hidden property="{event.uid}.uid" value="{event.uid}" />
+      <div class="row">
+        <div class="col-12 col-sm-2">
+          <div class="form-group">
+            <label><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#circle-remove"></use></svg>Absagen</label>
+            <div class="input-group">
+              <div class="form-check"></div>
+              <f:form.checkbox class="form-check-inline mt-0 checkbox-disable" id="checkCancel" property="{event.uid}.cancel" data="{disable-id:'event{event.uid}'}" value="1" />
+              <label class="form-check-label" for="checkCancel">Ja/Nein</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-10">
+          <div class="form-group">
+            <label for="inputNewDate{event.uid}"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#calendar"></use></svg>Neuer Termin</label>
+            <div class="input-group">
+              <div class="input-group-prepend"></div>
+              <f:form.textfield class="form-control" id="inputNewDate{event.uid}" property="{event.uid}.newDate" placeholder="dd.mm.yyyy hh:mm" data="{date-format:'MM.DD.YYYY HH:MM', disable-target:'event{event.uid}', disable-reverse:1}" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </f:for>
+
+    <div class="alert alert-light" role="alert">
+      <h4>Optionen</h4>
+
+      <div class="col-12">
+        <div class="form-group">
+          <label><svg class="icon mr-2 fill-danger"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-badge-lanyard"></use></svg>Vorhandene Akkreditierungen auf neue Termine übertragen?</label>
+          <div class="input-group">
+            <div class="form-check">
+              <f:form.checkbox class="form-check-input mt-0" id="checkMoveAccreditations" name="moveAccreditations" value="1" checked="checked" />
+              <label class="form-check-label" for="checkMoveAccreditations">Ja/Nein</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-12">
+      <f:form.button class="btn btn-sm btn-success">Änderungen bestätigen</f:form.button>
+    </div>
+
+    </f:form>
+</f:section>
+</html>

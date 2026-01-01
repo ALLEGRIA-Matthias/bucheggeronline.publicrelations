@@ -1,0 +1,55 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+This Template is responsible for displaying a single view for a domain object
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        Show.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="content">
+<div class="container my-4">
+  <div class="row">
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <div class="col-12 col-md-4 col-lg-3 mb-4 mb-md-0">
+      <f:render partial="Card" arguments="{type:'normal', campaign:campaign, image:campaign.logo, title:campaign.title, contacts:campaign.contacts, sticky:'sticky-top sticky-offset'}" />
+    </div>
+
+    <div class="col-12 col-md-8 col-lg-9 mb-md-n3">
+      <f:if condition="{campaign.covers}"><f:render partial="Covers" arguments="{covers:campaign.covers}" /></f:if>
+
+      <div class="line-l">
+        <p class="my-0 text-muted small"><f:link.page pageUid="9" class="text-muted fw-bold">Kunden</f:link.page> / <f:link.action extensionName="Publicrelations" pluginName="ClientShow" controller="Client" action="show" arguments="{client:campaign.client}" class="text-muted fw-bold">{campaign.client.name}</f:link.action> / {campaign.title}</p>
+        <h1 class="my-0 h2">{campaign.title}</h1>
+        <p class="my-0 text-muted small">
+          <f:if condition="{campaign.subtitle}">{campaign.subtitle}
+            <f:if condition="{campaign.locationManual}">
+              <f:then><f:if condition="{campaign.subtitle}"> • </f:if><strong>{campaign.locationManual}</strong><f:if condition="{campaign.locationNote}">, {campaign.locationNote}</f:if></f:then>
+              <f:else><f:if condition="{campaign.subtitle}"> • </f:if><f:if condition="{campaign.location}"><strong>{campaign.location.name}</strong>, {campaign.location.zip} {campaign.location.city}</f:if></f:else>
+            </f:if>
+          </f:if>
+        </p>
+      </div>
+      <div class="mt-3">{campaign.description->f:format.html()}</div>
+      <f:if condition="{campaign.schedule}"><f:render partial="Schedule" section="list" arguments="{schedule:schedule, campaign:campaign, client:campaign.client}" /></f:if>
+
+      <f:if condition="{campaign.releasedNews}"><f:render partial="News" arguments="{news:campaign.releasedNews}" /></f:if>
+      <f:if condition="{campaign.mediagroups}"><f:render partial="Mediagroups" arguments="{mediagroups:campaign.mediagroups, client:campaign.client}" /></f:if>
+
+    </div>
+
+  </div>
+</div>
+
+<f:if condition="{campaign.pressEvents}"><f:render partial="Events" section="modals" arguments="{events:campaign.pressEvents, mediumTypes:mediumTypes, ip:ip, newAccreditation:newAccreditation}" /></f:if>
+</f:section>
+</html>

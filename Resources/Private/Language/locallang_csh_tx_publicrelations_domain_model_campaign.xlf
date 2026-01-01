@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:publicrelations/Resources/Private/Language/locallang_csh" date="2020-08-06T11:01:46Z" product-name="publicrelations">
+		<header/>
+		<body>
+			<trans-unit id="title.description" resname="title.description">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="subtitle.description" resname="subtitle.description">
+				<source>subtitle</source>
+			</trans-unit>
+			<trans-unit id="description.description" resname="description.description">
+				<source>description</source>
+			</trans-unit>
+			<trans-unit id="archive_date.description" resname="archive_date.description">
+				<source>archiveDate</source>
+			</trans-unit>
+			<trans-unit id="location_note.description" resname="location_note.description">
+				<source>locationNote</source>
+			</trans-unit>
+			<trans-unit id="slug.description" resname="slug.description">
+				<source>slug</source>
+			</trans-unit>
+			<trans-unit id="seo_title.description" resname="seo_title.description">
+				<source>seoTitle</source>
+			</trans-unit>
+			<trans-unit id="seo_description.description" resname="seo_description.description">
+				<source>seoDescription</source>
+			</trans-unit>
+			<trans-unit id="location.description" resname="location.description">
+				<source>location</source>
+			</trans-unit>
+			<trans-unit id="events.description" resname="events.description">
+				<source>events</source>
+			</trans-unit>
+			<trans-unit id="links.description" resname="links.description">
+				<source>links</source>
+			</trans-unit>
+			<trans-unit id="contacts.description" resname="contacts.description">
+				<source>contacts</source>
+			</trans-unit>
+			<trans-unit id="mediagroups.description" resname="mediagroups.description">
+				<source>mediagroups</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

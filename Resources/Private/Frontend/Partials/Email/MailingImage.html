@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:if condition="{content.image}">
+  <f:then>
+  <div style="width:100%; text-align:center;">
+    <f:if condition="{content.imageFullWidth}">
+    <f:then>
+      <f:image image="{content.image}" maxWidth="600" absolute="1" style="width:100%;height:auto;" />
+    </f:then>
+    <f:else>
+      <f:image image="{content.image}" maxWidth="500" maxHeight="300" absolute="1" />
+    </f:else>
+    </f:if>
+  </div>
+  </f:then>
+  <f:else>
+  <p>KEIN MAILING-BILD ZUGEORDNET!</p>
+  </f:else>
+</f:if>
+</html>

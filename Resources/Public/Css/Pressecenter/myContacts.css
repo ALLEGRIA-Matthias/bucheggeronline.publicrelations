@@ -1,0 +1,4 @@
+/* Erzwingt den Zeilenumbruch für die Spalte "Mailinglisten" in der Datatable */
+td[data-mdb-field="mailinglists"] {
+    white-space: normal !important;
+}

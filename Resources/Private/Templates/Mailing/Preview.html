@@ -1,0 +1,92 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="MailerPreview" />
+
+<f:section name="buttons">
+<a href="javascript:close_window();" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#times"></use></svg>Fenster schließen</a>
+</f:section>
+
+<f:section name="shortcuts">
+  <f:link.action action="preview" controller="Mailing" arguments="{mailing:mailing}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="Header">
+<tr>
+    <td valign="top" class="image" align="center" style="padding: 0px 36px; padding-bottom: 20px; color: #222222;text-align: left;">
+      <f:render partial="Email/HeaderLogo" arguments="{_all}" />
+    </td>
+    <td valign="top" class="image" align="center" style="padding: 0px 36px; padding-bottom: 20px; text-align: right;vertical-align: middle;">
+      <h6 style="text-align: right;">{mailing.typeOutput}</h6>
+    </td>
+</tr>
+<tr>
+    <td valign="top" class="textContent" colspan="2" style="padding: 0px 36px;padding-top: 20px; color: var(--bs-dark);font-family: &quot;Quicksand&quot;, Helvetica, Arial, Verdana, sans-serif;font-size: 20px;text-align: center;">
+        <f:if condition="!{mailing.noLogo}"><f:link.typolink parameter="39"  additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={mailing.client.uid}" target="_blank"><f:image image="{mailing.client.logo}" cropVariant="email" maxWidth="100" maxHeight="100" absolute="1" style="margin-top: -20px; margin-bottom: 10px;" /></f:link.typolink></br></f:if>
+        <strong>{mailing.subject->f:format.raw()}</strong>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="Content">
+<tr>
+  <td valign="top" class="textContent" style="padding: 0px 36px;">
+  <f:render partial="Email/Salutation" arguments="{guestOutput:guestOutput}" />
+  <f:render partial="Email/Contents" arguments="{contents:mailing.contents}" />
+  <f:render partial="Email/Signature" arguments="{staff:staff, altSender:mailing.altSender}" />
+  </td>
+</tr>
+</f:section>
+</html>
+
+<f:section name="Footer">
+  <f:render partial="Email/FooterStandard" arguments="{_all}" />
+</f:section>
+
+
+<f:section name="Title"><title>{mailing.subject}</title></f:section>
+
+<f:section name="Preview">
+    <f:if condition="{mailing.preview}">
+        <!-- Visually Hidden Preheader Text : BEGIN -->
+        <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">{mailing.preview->f:format.raw()}</div>
+        <!-- Visually Hidden Preheader Text : END -->
+    </f:if>
+</f:section>
+
+<f:section name="HeaderNew">
+    <!-- Email Header : BEGIN -->
+    <f:render partial="Email/HeaderNew" arguments="{type:mailing.type, title:mailing.title}" />
+    
+    <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="600" class="email-container" style="background-color: #FFFFFF;">
+        
+        <f:if condition="!{mailing.noHeader} && {mailing.header}">
+        <!-- Hero Image, Flush : BEGIN -->
+        <tr>
+            <td class="full-width-image" align="center">
+                <f:image image="{mailing.header}" maxHeight="200" maxWidth="600" additionalAttributes="{border:'0',align:'center'}" style="{width:'100%',height:'auto',max-width:'600px',max-height:'200px'}" absolute="true" />
+            </td>
+        </tr>
+        <!-- Hero Image, Flush : END --> 
+        </f:if>
+        
+        <f:if condition="!{mailing.noSalutation}">
+        <!-- 1 Column Text : BEGIN -->
+        <tr>
+            <td style="padding: 40px 40px 0 40px; text-align: left; font-family: 'Quicksand', sans-serif; font-size: 1rem; line-height: 1.4; color: #030305;"><f:render partial="Email/Salutation" arguments="{guestOutput:guestOutput}" /></td>
+         </tr>
+        <!-- 1 Column Text : BEGIN -->
+        </f:if>
+
+    </table>
+    <!-- Email Header : END -->
+</f:section>
+
+<f:section name="ContentNew">
+    <f:render partial="Email/ContentsNew" arguments="{contents:mailing.contents}" />
+    <f:if condition="!{mailing.noSignature}"><f:render partial="Email/SignatureNew" /></f:if>
+</f:section>

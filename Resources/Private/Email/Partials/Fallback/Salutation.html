@@ -1,0 +1,32 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+  xmlns:acdist="http://typo3.org/ns/Allegria/AcDistribution/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+<p style="margin-bottom: 10px;">
+<f:if condition="{guestOutput.specialTitle}">
+  <f:then>
+    {guestOutput.specialTitle},
+  </f:then>
+  <f:else>
+    <f:if condition="{guest.personally} || {guestOutput.personally}">
+      <f:then>
+        <f:switch expression="{guestOutput.gender}">
+          <f:case value="f">{guestOutput.salutationInformal},</f:case>
+          <f:case value="m"> {guestOutput.salutationInformal},</f:case>
+          <f:defaultCase>{guestOutput.salutationInformal},</f:defaultCase>
+        </f:switch>
+      </f:then>
+      <f:else>
+        <f:switch expression="{guestOutput.gender}">
+          <f:case value="f">{guestOutput.salutation},</f:case>
+          <f:case value="m">{guestOutput.salutation},</f:case>
+          <f:defaultCase>{guestOutput.salutation},</f:defaultCase>
+        </f:switch>
+      </f:else>
+    </f:if>
+  </f:else>
+</f:if>
+</p>
+</html>

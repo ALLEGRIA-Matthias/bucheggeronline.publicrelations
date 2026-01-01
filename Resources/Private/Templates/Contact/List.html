@@ -1,0 +1,173 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Contacts" />
+
+<f:section name="buttons">
+<f:if condition="{mailingList}"><be:link.editRecord uid="{mailingList.uid}" table="sys_category" returnUrl="{be:moduleLink(route: 'allegria_contacts', query:'&action=list&controller=Contact&mailingList={mailingList.uid}')}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg>Kategorie bearbeiten</be:link.editRecord></f:if>
+<be:link.newRecord pid="3" table="sys_category" returnUrl="{be:moduleLink(route: 'allegria_contacts', query:'&action=list&controller=Contact')}" class="btn btn-sm btn-success"><svg class="icon icon-sm fill-white mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#filter-plus"></use></svg>Neuen Verteiler anlegen</be:link.newRecord>
+</f:section>
+
+<f:section name="shortcuts">
+  <f:link.action controller="Contact" action="list" arguments="{mailingList:filter.categories}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+  <f:link.action controller="Contact" action="export" arguments="{mailingList:mailingList, inclContactData:0}" class="btn btn-sm btn-success"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#export"></use></svg></f:link.action>
+  <f:link.action controller="Contact" action="export" arguments="{mailingList:mailingList, inclContactData:1}" class="btn btn-sm btn-warning"><svg class="icon icon-sm fill-white mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#export"></use></svg>inkl. Kontaktdaten</f:link.action>
+  <f:link.action controller="Contact" action="list" arguments="{filter:filter}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+
+  <h1>Kontaktübersicht</h1>
+  <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+
+  <f:if condition="!{mailingList}">
+    <f:then>
+
+      <f:form action="list" object="{filter}" objectName="filter">
+      <div class="row row-cols-auto align-items-end g-3 mb-4">
+        <div class="col">
+          <label for="mailingExclude" class="form-label">Status:</label>
+          <f:form.select property="mailingExclude" class="form-select tomselect-generic">
+            <f:form.select.option value="">[alle]</f:form.select.option>
+            <f:form.select.option value="0">nur aktive</f:form.select.option>
+            <f:form.select.option value="1">nur deaktive</f:form.select.option>
+          </f:form.select>
+        </div>
+        <div class="col">
+          <label for="personally" class="form-label">per Du:</label>
+          <f:form.select property="personally" class="form-select tomselect-generic">
+            <f:form.select.option value="">[alle]</f:form.select.option>
+            <f:form.select.option value="1">nur per Du</f:form.select.option>
+            <f:form.select.option value="0">ausgeschlossen</f:form.select.option>
+          </f:form.select>
+        </div>
+        <div class="col">
+          <label for="categories" class="form-label">Verteiler:</label><br>
+          <f:form.select property="categories" class="form-select select2ToTree">
+            <f:form.select.option value="">[Alle Verteiler]</f:form.select.option>
+            <f:for each="{categories}" as="category">
+              <f:form.select.option value="{category.uid}"  class="l1 {f:if(condition: '{category.childs}', then: 'non-leaf')}">{category.title}</f:form.select.option>
+              <f:if condition="{category.childs}">
+              <f:for each="{category.childs}" as="categoryChild1">
+                <f:form.select.option value="{categoryChild1.uid}" data="{pup:'{category.uid}'}" class="l2 {f:if(condition: '{categoryChild1.childs}', then: 'non-leaf')}">{categoryChild1.title}</f:form.select.option>
+                <f:if condition="{categoryChild1.childs}">
+                <f:for each="{categoryChild1.childs}" as="categoryChild2">
+                  <f:form.select.option value="{categoryChild2.uid}" data="{pup:'{categoryChild1.uid}'}" class="l3 {f:if(condition: '{categoryChild2.childs}', then: 'non-leaf')}">{categoryChild2.title}</f:form.select.option>
+                  <f:if condition="{categoryChild2.childs}">
+                  <f:for each="{categoryChild2.childs}" as="categoryChild3">
+                    <f:form.select.option value="{categoryChild3.uid}" data="{pup:'{categoryChild2.uid}'}" class="l4 {f:if(condition: '{categoryChild3.childs}', then: 'non-leaf')}">{categoryChild3.title}</f:form.select.option>
+                    <f:if condition="{categoryChild3.childs}">
+                    <f:for each="{categoryChild3.childs}" as="categoryChild4">
+                      <f:form.select.option value="{categoryChild4.uid}" data="{pup:'{categoryChild3.uid}'}" class="l5 {f:if(condition: '{categoryChild4.childs}', then: 'non-leaf')}">{categoryChild4.title}</f:form.select.option>
+                    </f:for>
+                    </f:if>
+                  </f:for>
+                  </f:if>
+                </f:for>
+                </f:if>
+              </f:for>
+              </f:if>
+            </f:for>
+          </f:form.select>
+        </div>
+        <div class="col">
+          <label for="max" class="form-label">Max:</label>
+          <f:form.select property="max" class="form-select tomselect-generic">
+            <f:form.select.option value="100">100</f:form.select.option>
+            <f:form.select.option value="25">25</f:form.select.option>
+            <f:form.select.option value="50">50</f:form.select.option>
+            <f:form.select.option value="250">250</f:form.select.option>
+            <f:form.select.option value="500">500</f:form.select.option>
+            <f:form.select.option value="1000">1000</f:form.select.option>
+            <f:form.select.option value="2500">2500</f:form.select.option>
+            <f:form.select.option value="5000">5000</f:form.select.option>
+          </f:form.select>
+        </div>
+        <div class="col">
+          <label for="query" class="form-label">Stichwort-Suche:</label>
+          <f:form.textfield property="query" class="form-control filter-table" data="{filter-table:'contacts', filter-counter:'contacts-counter'}" />
+        </div>
+        <div class="col">
+          <f:form.submit value="Filter" class="btn btn-primary" />
+          <f:link.action action="list" class="btn btn-default">Zurücksetzen</f:link.action>
+        </div>
+        <div class="col">
+          <span class="badge badge-info my-2" id="contacts-counter" data-counter-label="Kontakte">{contacts->f:count()->f:format.number(thousandsSeparator: '.', decimals: '0')} von {contacts->f:count()->f:format.number(thousandsSeparator: '.', decimals: '0')} Kontakte</span>
+        </div>
+      </div>
+      </f:form>
+
+      <f:render section="contactlist" arguments="{selectedContacts:contacts, pagination:pagination}" />
+    </f:then>
+    <f:else>
+      <f:render section="contactlist" arguments="{selectedContacts:selectedContacts, pagination:pagination}" />
+    </f:else>
+  </f:if>
+</f:section>
+
+<f:section name="contactlist">
+<f:render partial="pagination" arguments="{pagination:pagination, filter:filter, actionName:'list'}" />
+<div class="panel panel-default">
+  <div class="">
+    <table width="100%" class="table table-striped table-hover" id="contacts">
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Name</th>
+          <th>Kontaktdaten</th>
+          <th width="500px">Verteiler</th>
+          <th align="right" width="150">Funktionen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <f:for each="{pagination.paginator.paginatedItems}" as="contact" iteration="ci">
+        <tr>
+          <td class="nowrap">
+            <f:switch expression="{contact.mailingExclude}">
+              <f:case value="0"><span class="badge badge-success">aktiv</span></f:case>
+              <f:case value="1"><span class="badge badge-danger">deaktiv</span></f:case>
+            </f:switch>
+          </td>
+          <td class="nowrap">
+            <f:if condition="{contact.fullName}">
+              <f:then>
+                <b>{contact.fullName}</b>
+                <f:if condition="{contact.company}"><br>{contact.company}</f:if>
+              </f:then>
+              <f:else>
+                <b>{contact.company}</b>
+              </f:else>
+            </f:if>
+            <f:if condition="{contact.position}"><f:if condition="{contact.company}"></br></f:if><i>{contact.position}</i></f:if>
+          </td>
+          <td class="nowrap">
+            <f:if condition="{contact.zip} || {contact.city}">{contact.zip} {contact.city}<br></f:if>
+            <f:if condition="{contact.email}"><a href="#" data-copy-value="{contact.email}" class="js-copy-to-clipboard">{contact.email}</a><br/></f:if>
+            <f:if condition="{contact.mobile} && {contact.phone}">
+              <f:then>
+                <a href="#" data-copy-value="{contact.mobile}" class="js-copy-to-clipboard">{contact.mobile}</a><br/>
+                <a href="#" data-copy-value="{contact.phone}" class="js-copy-to-clipboard">{contact.phone}</a>
+              </f:then>
+              <f:else>
+                <a href="#" data-copy-value="{contact.mobile}" class="js-copy-to-clipboard">{contact.mobile}</a>
+                <a href="#" data-copy-value="{contact.phone}" class="js-copy-to-clipboard">{contact.phone}</a>
+              </f:else>
+            </f:if>
+          </td>
+          <td>
+            <f:for each="{contact.categories}" as="category" iteration="ci">
+              <span class="badge badge-info"><f:if condition="{category.parent}">{category.parent.title} – </f:if>{category.title}<f:if condition="!{ci.isLast}"></span></f:if><f:if condition="{ci.cycle}%5"><f:else><br></f:else></f:if>
+            </f:for>
+          </td>
+          <td><f:render partial="Functions/Contact" arguments="{contact:contact}" /></td>
+        </tr>
+        </f:for>
+      </tbody>
+    </table>
+  </div>
+</div>
+</f:section>
+</html>

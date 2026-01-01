@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:publicrelations/Resources/Private/Language/locallang_csh" date="2020-08-06T11:01:46Z" product-name="publicrelations">
+		<header/>
+		<body>
+			<trans-unit id="title.description" resname="title.description">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="media.description" resname="media.description">
+				<source>media</source>
+			</trans-unit>
+			<trans-unit id="links.description" resname="links.description">
+				<source>links</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

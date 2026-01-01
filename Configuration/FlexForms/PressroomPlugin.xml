@@ -1,0 +1,80 @@
+<T3DataStructure>
+  <sheets>
+    <sDEF>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>Einstellungen</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+          <switchableControllerActions>
+            <TCEforms>
+              <label>Konfiguration der Ausgabe</label>
+              <config>
+                <type>select</type>
+								<renderType>selectSingle</renderType>
+                <items>
+                    <numIndex index="0">
+                      <numIndex index="0">Kundenliste</numIndex>
+                      <numIndex index="1">Client->list;Accreditation->create;</numIndex>
+                    </numIndex>
+                    <numIndex index="1">
+                      <numIndex index="0">Referenzliste</numIndex>
+                      <numIndex index="1">Client->references;</numIndex>
+                    </numIndex>
+                    <numIndex index="2">
+                      <numIndex index="0">Kundenseite</numIndex>
+                      <numIndex index="1">Client->show;Campaign->show;News->show;Accreditation->create;</numIndex>
+                    </numIndex>
+                    <numIndex index="3">
+                      <numIndex index="0">Rückmeldungsformular</numIndex>
+                      <numIndex index="1">Accreditation->report;Accreditation->updateFrontend;</numIndex>
+                    </numIndex>
+                    <numIndex index="4">
+                      <numIndex index="0">Pressecenter</numIndex>
+                      <numIndex index="1">Presscenter->overview;Accreditation->expressApprove;</numIndex>
+                    </numIndex>
+                    <numIndex index="5">
+                      <numIndex index="0">Homeinfos</numIndex>
+                      <numIndex index="1">Presscenter->home;</numIndex>
+                    </numIndex>
+                    <numIndex index="6">
+                      <numIndex index="0">Slider</numIndex>
+                      <numIndex index="1">Slide->list;</numIndex>
+                    </numIndex>
+                    <numIndex index="7">
+                      <numIndex index="0">iCalender</numIndex>
+                      <numIndex index="1">Event->iCal;</numIndex>
+                    </numIndex>
+                    <numIndex index="8">
+                      <numIndex index="0">Suche</numIndex>
+                      <numIndex index="1">Search->result;</numIndex>
+                    </numIndex>
+                    <numIndex index="9">
+                      <numIndex index="0">Mail-Ansicht</numIndex>
+                      <numIndex index="1">Mail->view;</numIndex>
+                    </numIndex>
+                    <numIndex index="10">
+                      <numIndex index="0">LabelPrint</numIndex>
+                      <numIndex index="1">Event->printLabels;</numIndex>
+                    </numIndex>
+                 </items>
+              </config>
+            </TCEforms>
+          </switchableControllerActions>
+            <!-- Time limit High -->
+          <settings.list.limit>
+          <TCEforms>
+              <label>Limit für Listen (nicht überall implementiert)</label>
+              <config>
+                  <type>input</type>
+                  <size>4</size>
+                  <eval>num</eval>
+              </config>
+          </TCEforms>
+          </settings.list.limit>
+        </el>
+      </ROOT>
+    </sDEF>
+  </sheets>
+</T3DataStructure>

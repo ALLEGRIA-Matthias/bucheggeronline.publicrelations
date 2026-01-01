@@ -1,0 +1,292 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+
+<f:switch expression="{content}">
+    <f:defaultCase>
+        <f:render section="header" arguments="{_all}" />
+        <f:render section="invite" arguments="{_all}" />
+        <f:render section="eventinfos" arguments="{_all}" />
+        <f:render section="showinfos" arguments="{_all}" />
+    </f:defaultCase>
+    <f:case value="approve">
+        <f:render section="header" arguments="{_all}" />
+        <f:render section="ticket" arguments="{_all}" />
+        <f:render section="showinfos" arguments="{_all}" />
+    </f:case>
+    <f:case value="reject">
+        <f:render section="header" arguments="{_all}" />
+        <!-- Absagetext -->
+        <tr>
+            <td style="text-align: center; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #000000; font-weight: 300; padding: 0;">
+                <div style="width: 100%; padding: 0 0 40px 0; background: #FFFFFF; border-radius: 0 0 1rem 1rem;">
+                    <p style="margin-top: 0; padding: 0 40px; font-size: 1rem;"><strong style="font-weight: 500;">Live Nation Wien</strong> & <strong style="font-weight: 500;">Cirque du Soleil</strong> bedanken sich für Ihre Rückmeldung.</p>
+                    <p style="padding: 0 40px; font-size: 1rem;">Wir hoffen auf ein Wiedersehen bei einer der nächsten Veranstaltungen.</p>
+                    <p>
+                        <img src="https://www.allegria.at/fileadmin/marketing/live-nation/CdS_OVO_Logo.png" width="50%" style="width: 100%; max-width: 150px; height: auto;" /><br>
+                        <span style="font-size: 1.4rem;">1. – 4. Februar 2024</span><br>
+                        <span style="">Wien | Stadthalle</span>
+                    </p>
+                    <p style="margin: 27px 0px 0px 0px"><a href="https://www.cirquedusoleil.com/ovo" target="_blank" style="display: inline-block; background-color: #E3C235; font-family: 'Be Vietnam Pro', sans-serif; font-weight: 600; color: black; text-decoration: none; padding: 5px 20px; border-radius: 20px; margin: 0px auto; font-size: 1rem;">Tickets buchen</a></p>
+                </div>
+            </td>
+        </tr>
+        <f:render section="showinfos" arguments="{_all}" />
+    </f:case>
+    <f:case value="waiting">
+        <f:render section="header" arguments="{_all}" />
+        <!-- Wartetext -->
+        <tr>
+            <td style="text-align: center; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #000000; font-weight: 300; padding: 0;">
+                <div style="width: 100%; padding: 0 0 40px 0; background: #FFFFFF; border-radius: 0 0 1rem 1rem;">
+                    <p style="margin-top: 0; padding: 0 40px; font-size: 1rem;"><strong style="font-weight: 500;">Live Nation Wien</strong> & <strong style="font-weight: 500;">Cirque du Soleil</strong> bedanken sich für die unglaublich großartige Nachfrage.</p>
+                    <p style="padding: 0 40px; font-size: 1rem; color: #DD0031; font-weight: 700;">Die Ticket-Kontingente sind aktuell bedauerlicherweise komplett erschöpft.</p>
+                    <p style="padding: 0 40px; font-size: 1rem;">Leider können wir erst <strong>bis spätestens 30. Jänner 2024</strong> eine konkrete Rückmeldung geben, ob wir Ihrem Ticketwunsch nachkommen können.</p>
+                    <p style="padding: 0 40px; font-size: 1rem; margin-bottom: 0;">Wir bedanken uns für Ihr Verständnis.</p>
+                </div>
+            </td>
+        </tr>
+        <f:render section="showinfos" arguments="{_all}" />
+    </f:case>
+    <f:case value="pending">
+        <f:render section="header" arguments="{_all}" />
+        <!-- Wartetext intern -->
+        <tr>
+            <td style="text-align: center; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #000000; font-weight: 300; padding: 0;">
+                <div style="width: 100%; padding: 0 0 40px 0; background: #FFFFFF; border-radius: 0 0 1rem 1rem;">
+                    <p style="margin-top: 0; padding: 0 40px; font-size: 1.4rem;"><strong>{accreditation.guestOutput.fullName}</strong></p>
+                </div>
+            </td>
+        </tr>
+    </f:case>
+    <f:case value="approve_after_waiting">
+        <f:render section="header" arguments="{_all}" />
+        <!-- Zusage möglich -->
+        <tr>
+            <td style="text-align: center; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #000000; font-weight: 300; padding: 0;">
+                <div style="width: 100%; padding: 0 0 10px 0; background: #FFFFFF;">
+                    <p style="margin-top: 0; padding: 0 40px; font-size: 1rem;">Wir können Ihren Besuch ermöglichen!</p>
+                </div>
+            </td>
+        </tr>
+        <f:render section="ticket" arguments="{_all}" />
+        <f:render section="showinfos" arguments="{_all}" />
+    </f:case>
+    <f:case value="reject_after_waiting">
+        <f:render section="header" arguments="{_all}" />
+        <!-- Absagetext -->
+        <tr>
+            <td style="text-align: center; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #000000; font-weight: 300; padding: 0;">
+                <div style="width: 100%; padding: 0 0 40px 0; background: #FFFFFF; border-radius: 0 0 1rem 1rem;">
+                    <p style="margin-top: 0; padding: 0 40px; font-size: 1rem;">Wir sind von der ernormen Nachfrage überwältigt!<br><strong style="font-weight: 500;">Danke für Ihr Interesse.</strong></p>
+                    <p style="padding: 0 40px; font-size: 1rem;">Umso schwerer fällt es uns Ihnen sagen zu müssen, dass wir Ihnen leider keine Tickets zur Verfügung stellen können.</p>
+                    <p style="padding: 0 40px; font-size: 1rem;">Wir hoffen auf ein Wiedersehen bei einer der nächsten Veranstaltungen.</p>
+                    <p>
+                        <img src="https://www.allegria.at/fileadmin/marketing/live-nation/CdS_OVO_Logo.png" width="50%" style="width: 100%; max-width: 150px; height: auto;" /><br>
+                        <span style="font-size: 1.4rem;">1. – 4. Februar 2024</span><br>
+                        <span style="">Wien | Stadthalle</span>
+                    </p>
+                    <p style="margin: 27px 0px 0px 0px"><a href="https://www.cirquedusoleil.com/ovo" target="_blank" style="display: inline-block; background-color: #E3C235; font-family: 'Be Vietnam Pro', sans-serif; font-weight: 600; color: black; text-decoration: none; padding: 5px 20px; border-radius: 20px; margin: 0px auto; font-size: 1rem;">Tickets buchen</a></p>
+                </div>
+            </td>
+        </tr>
+        <f:render section="showinfos" arguments="{_all}" />
+    </f:case>
+</f:switch>
+
+
+<f:section name="header">
+<!-- HEADER -->
+<tr>
+    <td class="full-width-image">
+        <img src="https://www.allegria.at/fileadmin/marketing/live-nation/LN_CdS_Ovo-Header.png" width="600" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;">
+    </td>
+</tr>
+
+<f:switch expression="{content}">
+    <f:case value="invite"><f:variable name="headline" value="Persönliche Einladung" /></f:case>
+    <f:case value="remind"><f:variable name="headline" value="ERINNERUNG!" /></f:case>
+    <f:case value="push"><f:variable name="headline" value="LETZTE ERINNERUNG" /></f:case>
+    <f:case value="approve"><f:variable name="headline" value="Ihre Zusage!" /></f:case>
+    <f:case value="reject"><f:variable name="headline" value="Ihre Absage!" /></f:case>
+    <f:case value="approve_after_waiting"><f:variable name="headline" value="Danke für's Warten!" /></f:case>
+    <f:case value="reject_after_waiting"><f:variable name="headline" value="Es tut uns so leid!" /></f:case>
+    <f:case value="waiting"><f:variable name="headline" value="Die Nachfrage ist riesig!" /></f:case>
+    <f:case value="pending"><f:variable name="headline" value="Neu auf der Warteliste!" /></f:case>
+</f:switch>
+      
+<!-- Überschrift -->
+<tr>
+    <td style="padding: 40px; padding-bottom: 20px; text-align: center; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #000000; font-weight: 300; background: #FFFFFF;"> 
+        <h1 style="font-weight: 800; color: #DD0031; text-transform: none; ">{headline}</h1>
+    </td>
+</tr>
+</f:section>
+
+
+<f:section name="invite">
+<!-- Einleitung -->
+<tr>
+    <td style="text-align: center; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #000000; font-weight: 300; padding: 0;">
+        <div style="width: 100%; padding: 0 0 40px 0; background: #FFFFFF; border-radius: 0 0 1rem 1rem;">
+            <p style="margin: 0;">
+                <span><strong style="font-weight: 500;">Live Nation Wien</strong> & <strong style="font-weight: 500;">Cirque du Soleil</strong><br>freuen sich</span>
+                <br>
+                <strong style="font-family: 'Be Vietnam Pro', sans-serif; font-size: 1.2rem; color: #000000; text-transform: uppercase;">{accreditation.guestOutput.fullName}</strong><br>
+                zur Premiere von<br>
+                <img src="https://www.allegria.at/fileadmin/marketing/live-nation/CdS_OVO_Logo.png" width="50%" style="width: 100%; max-width: 150px; height: auto;" /><br>
+                <f:if condition="{accreditation.guestType}==2"><strong>zur redaktionellen Berichterstattung</strong><br></f:if>
+                einzuladen.
+            </p>
+        </div>
+    </td>
+</tr>
+</f:section>
+
+
+<f:section name="eventinfos">
+<!-- Eventinfos -->
+<tr>
+    <td style="text-align: center; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #000000; font-weight: 300; padding: 0;">
+        <div style="width: 100%; padding: 0px; background: #FFFFFF; border-radius: 1rem; margin-top: 20px;">
+            <div style="padding: 40px;">
+                <p style="margin: 0;">
+                    {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'day')}, <strong>{accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')}</strong> um <strong>{accreditation.event.date->f:format.date(format:'%k.%M Uhr')}</strong><br>
+                    (Einlass ab 19 Uhr)<br>
+                    <strong>{accreditation.event.location.name} – {accreditation.event.locationNote}</strong>
+                </p>
+                <f:if condition="{accreditation.guestType}==2">
+                    <f:then><p>Wir freuen uns über Ihre Teilnahme!</p></f:then>
+                    <f:else><p>Wir freuen uns auf Ihren Besuch!</p></f:else>
+                </f:if>
+                
+                <p style="text-align: center;">
+                    <a href="###FEEDBACK_LINK###"
+                    style="display: inline-block; background-color: #E3C235; font-family: 'Be Vietnam Pro, sans-serif; font-weight: 600; color: black; text-decoration: none; padding: 10px 25px; border-radius: 20px; margin: 10px auto; font-size: 1.4rem;">Jetzt rückmelden!</a></p>
+
+                <p style="font-family: 'Be Vietnam Pro', sans-serif; font-weight: 300; text-align: center; font-size: 0.7rem; margin-bottom: 0;">
+                    Die Einladung gilt für 2 Personen und ist nicht übertragbar.<br>
+                    Hinweis: Tickets werden nach dem First-come-first-serve Prinzip vergeben.
+                    <br><span style="font-weight: 500;">Um Rückmeldung wird bis 19.01.2024 gebeten.</span>
+                </p>
+            </div>
+            <div><img src="https://www.allegria.at/fileadmin/marketing/live-nation/CdS_OVO_Foto.png" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;" /></div>
+        </div>
+    </td>
+</tr>
+</f:section>
+        
+
+<f:section name="ticket">
+<!-- Ticket -->
+<tr>
+    <td style="text-align: center; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #000000; font-weight: 300; padding: 0;">
+        <div style="width: 100%; padding: 0 0 40px 0; background: #FFFFFF; border-radius: 0 0 1rem 1rem;">
+            <div style="border: 0px solid #E3C235; background-color: #E3C235; border-radius: 1rem; padding: 20px; text-align: center; margin-bottom: 10px; margin-left: 10%; margin-right: 10%;">
+                <p style="margin: 0; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1.4rem; color: #000000; font-weight: 700; text-transform: uppercase;">{accreditation.guestOutput.fullName}</p>
+                <p style="margin-top: 0; color: #000000; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; font-weight: 400; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+                <p style="margin: 0; margin-top: 10px; font-family: 'Be Vietnam Pro', sans-serif; font-size: 0.65rem; color: #000000;">
+                    <span style="font-size: 0.7rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong> versandt am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr.</span><br>
+                    *diese Bestätigung ist nicht übertragbar</p>
+            </div>
+            <p style="margin-bottom: 0; margin-top: 30px;">
+                <span><strong style="font-weight: 500;">Live Nation Wien</strong> & <strong style="font-weight: 500;">Cirque du Soleil</strong><br>freuen sich</span><br>
+                Sie zur Premiere von<br>
+                <img src="https://www.allegria.at/fileadmin/marketing/live-nation/CdS_OVO_Logo.png" width="50%" style="width: 100%; max-width: 150px; height: auto;" /><br>
+                <f:if condition="{accreditation.guestType}==2"><strong>zur redaktionellen Berichterstattung</strong><br></f:if>
+                begrüßen zu dürfen.
+            </p>
+        </div>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #FFFFFF; font-weight: 300; padding: 0;">
+        <div style="width: 100%; padding: 0px; background: #0D5B38; border-radius: 1rem; margin-top: 20px;">
+            <div style="padding: 40px;">
+                <p style="margin-top: 0;">
+                    {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'day')}, <strong>{accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')}</strong> um <strong>{accreditation.event.date->f:format.date(format:'%k.%M Uhr')}</strong><br>
+                    (Einlass ab 19 Uhr)<br>
+                    <strong>{accreditation.event.location.name} – {accreditation.event.locationNote}</strong>
+                </p>
+
+                <p style="font-family: 'Be Vietnam Pro', sans-serif; margin-top: 0; margin-bottom: 0px; font-weight: 400; font-size: 0.8rem;">
+                    Ihre Tickets können ab 19 Uhr an der Presse- & Ehrenkarten-Ausgabe zwischen Halle F und Halle D abgeholt werden.
+                </p>
+            </div>
+        </div>
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #000000; font-weight: 300; padding: 0;">
+        <div style="width: 100%; padding: 0px; background: #FFFFFF; border-radius: 1rem; margin-top: 20px;">
+            <div style="padding: 40px;">
+                <h2 style="font-weight: 800; color: #000000; text-transform: none; margin-top: 0;">Krank oder verhindert?</h2>
+                <p style="font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; margin-bottom: 0px;">Bitte lassen Sie uns via Email wissen, sollten Sie wider Erwarten nicht zur Premiere kommen können.</p>
+                <p style="margin: 27px 0px 0px 0px"><a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank" style="display: inline-block; background-color: #E3C235; font-family: 'Be Vietnam Pro', sans-serif; font-weight: 600; color: black; text-decoration: none; padding: 5px 20px; border-radius: 20px; margin: 0px auto; font-size: 1rem;">E-Mail senden</a></p>
+            </div>
+            <div><img src="https://www.allegria.at/fileadmin/marketing/live-nation/CdS_OVO_Foto.png" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;" /></div>
+        </div>
+    </td>
+</tr>
+</f:section>
+
+
+<f:section name="showinfos">
+<!-- Showinfos -->
+<tr>
+    <td style="text-align: center; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #FFFFFF; font-weight: 300; padding: 0;">
+        <div style="width: 100%; background: #0D5B38; border-radius: 1rem; margin: 20px 0;">
+            <div style="padding: 40px 10px 30px;">
+                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td style="text-align: center; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #FFFFFF; font-weight: 500; padding: 0;">
+                            <p style="margin: 0;">
+                                Für mehr Informationen<br>
+                                <a href="https://www.cirquedusoleil.com/ovo" target="_blank" style="color: #FFFFFF; text-decoration: none;">www.cirquedusoleil.com/ovo</a>
+                            </p>
+                            <p style="text-align: center; margin: 0;">
+                                <a href="https://www.youtube.com/watch?v=-P6CfpzJd9M" target="_blank" style="display: inline-block; background-color: #FFFFFF; font-family: 'Be Vietnam Pro', sans-serif; font-weight: 600; color: black; text-decoration: none; padding: 5px 20px; border-radius: 20px; margin: 10px auto 20px; font-size: 1rem;">Zum Trailer</a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td width="33.33%" class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                            <td style="padding: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/live-nation/CdS_OVO_Show-amazing-ants.png" width="400" height="400" alt="alt_text" border="0" class="fluid" style="width: 100%; max-width: 400px; height: auto;"></td>
+                        </tr>
+                        </table></td>
+                        <td width="33.33%" class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                            <td style="padding: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/live-nation/CdS_OVO_Show-flexible-dragonfly.png" width="400" height="400" alt="alt_text" border="0" class="fluid" style="width: 100%; max-width: 400px; height: auto;"></td>
+                        </tr>
+                        </table></td>
+                        <td width="33.33%" class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                            <td style="padding: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/live-nation/CdS_OVO_Show-brave-butterflies.png" width="400" height="400" alt="alt_text" border="0" class="fluid" style="width: 100%; max-width: 400px; height: auto;"></td>
+                        </tr>
+                        </table></td>
+                    </tr>
+                </table>
+                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td width="50%" class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                            <td style="padding: 10px; text-align: right"><img src="https://www.allegria.at/fileadmin/marketing/live-nation/CdS_OVO_Show-colourful-ecosystem.png" width="400" height="400" alt="alt_text" border="0" class="fluid" style="width: 100%; max-width: 400px; height: auto;"></td>
+                            </tr>
+                            </table></td>
+                        <td width="50%" class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                            <td style="padding: 10px; text-align: left"><img src="https://www.allegria.at/fileadmin/marketing/live-nation/CdS_OVO_Show-crazy-crickets.png" width="400" height="400" alt="alt_text" border="0" class="fluid" style="width: 100%; max-width: 400px; height: auto;"></td>
+                            </tr>
+                            </table></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </td>
+</tr>
+</f:section>
+</html>

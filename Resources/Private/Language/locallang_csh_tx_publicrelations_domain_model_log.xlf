@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:publicrelations/Resources/Private/Language/locallang_csh" date="2020-08-06T11:01:46Z" product-name="publicrelations">
+		<header/>
+		<body>
+			<trans-unit id="category_overwrite.description" resname="category_overwrite.description">
+				<source>categoryOverwrite</source>
+			</trans-unit>
+			<trans-unit id="notes.description" resname="notes.description">
+				<source>notes</source>
+			</trans-unit>
+			<trans-unit id="email_view.description" resname="email_view.description">
+				<source>emailView</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

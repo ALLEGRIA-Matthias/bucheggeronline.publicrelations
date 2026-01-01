@@ -1,0 +1,35 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+<f:section name="content">
+<div class="container my-4">
+  <div class="row">
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <div class="col-12 col-md-4 col-lg-3 mb-4 mb-md-0">
+      <f:render partial="Card" arguments="{type:'normal', client:client, image:client.logo, title:client.shortName, contacts:client.contacts, sticky:'sticky-top sticky-offset'}" />
+    </div>
+
+    <div class="col-12 col-md-8 col-lg-9 mb-md-n3">
+
+      <f:if condition="{client.covers}"><f:render partial="Covers" arguments="{covers:client.covers}" /></f:if>
+      <div class="line-l">
+        <h1 class="my-0 h2">{client.name}</h1>
+        <p class="my-0 text-muted small"><f:if condition="{client.location}">{client.location.street}, {client.location.zip} {client.location.city}</f:if><f:if condition="{client.shortinfo}"><f:if condition="{client.location}"> • </f:if>{client.shortinfo}</f:if><f:if condition="{client.types}"><f:if condition="{client.location} || {client.shortinfo}"> • </f:if><f:for each="{client.types}" as="type" iteration="i"><f:if condition="!{i.isFirst}">, </f:if>{type.title}</f:for></f:if></p>
+      </div>
+      <div class="mt-3">{client.description->f:format.html()}</div>
+
+      <f:if condition="{schedule}"><f:render partial="Schedule" section="list" arguments="{schedule:schedule, client:client}" /></f:if>
+
+      <f:if condition="{client.ongoingCampaigns}"><f:render partial="Campaigns" arguments="{campaigns:client.ongoingCampaigns}" /></f:if>
+      <f:if condition="{client.releasedNews}"><f:render partial="News" arguments="{news:client.releasedNews}" /></f:if>
+      <f:if condition="{client.mediagroups}"><f:render partial="Mediagroups" arguments="{mediagroups:client.mediagroups, client:client}" /></f:if>
+
+    </div>
+
+  </div>
+</div>
+
+
+<f:if condition="{client.pressEvents}"><f:render partial="Events" section="modals" arguments="{events:client.pressEvents, mediumTypes:mediumTypes, ip:ip, newAccreditation:newAccreditation}" /></f:if>
+</f:section>
+</html>

@@ -1,0 +1,22 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+<f:section name="content">
+<div class="container my-5">
+  <div class="row">
+
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <div class="col-12 mb-4 text-uppercase text-center text-md-left"><h1 class="h2"><svg class="icon me-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#crown"></use></svg>Unsere Kunden</h1></div>
+    <f:for each="{clients -> v:iterator.sort(sortBy: 'sortName')}" as="client">
+      <div class="col-12 col-md-4 col-lg-3 col-xl-2 mb-3">
+        <f:render partial="Card" arguments="{type:'list', client:client, image:client.logo, title:client.shortName}" />
+      </div>
+    </f:for>
+
+  </div>
+</div>
+</f:section>
+</html>

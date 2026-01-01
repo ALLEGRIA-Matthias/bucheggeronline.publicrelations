@@ -1,0 +1,45 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Eventcenter" />
+
+<f:section name="buttons">
+  <f:link.action action="show" controller="Event" class="btn btn-sm btn-default" arguments="{event:accreditation.event}"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#times"></use></svg>Abbrechen</f:link.action>
+</f:section>
+
+<f:section name="shortcuts">
+  <f:link.action action="edit" controller="Accreditation" arguments="{accreditation:accreditation}" class="btn btn-default btn-sm"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+    <h1>Akkreditierung bearbeiten</h1>
+    <f:if condition="{accreditation.status}==-2"><p class="badge badge-danger">Ticketwunsch: {accreditation.ticketsWish} Tix</p></f:if>
+
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+
+    <f:form action="update" enctype="multipart/form-data" name="accreditation" object="{accreditation}" class="mb-5">
+    <f:form.hidden name="formType" value="singleBackend" />
+
+    <f:render partial="Accreditation/FormBasics" arguments="{_all}" />
+
+    <f:render partial="Accreditation/FormAdditional" arguments="{accreditation:accreditation, edit:1}" />
+
+    <f:render partial="Accreditation/FormGuestdata" arguments="{_all}" />
+
+    <f:render partial="Accreditation/FormOptions" arguments="{_all}" />
+
+    <div class="col-12">
+      <f:form.button type="submit" class="btn btn-success"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#check"></use></svg><span class="ml-2 d-inline">{f:if(condition:'{accreditation.status}!=1', then:'Zusage erteilt', else:'Änderung bestätigen')}</span></f:form.button>
+      <f:form.button type="submit" name="reject" value="1" class="btn btn-danger"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#circle-minus"></use></svg><span class="ml-2 d-inline">Absage erteilt</span></f:form.button>
+      <f:if condition="{accreditation.invitationStatus} || {accreditation.status} == 99"><f:link.action action="update" arguments="{accreditation:accreditation, invitationReset:1}" class="btn btn-warning"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#undo"></use></svg><span class="ml-2 d-inline">Einladung zurücksetzen</span></f:link.action></f:if>
+    </div>
+    </f:form>
+
+    <f:render partial="Accreditation/Infos" arguments="{_all}" />
+
+</f:section>
+</html>

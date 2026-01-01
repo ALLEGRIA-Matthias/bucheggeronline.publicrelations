@@ -1,0 +1,12 @@
+## RTE Preset
+RTE.default.preset = t3sbootstrap
+
+## Allowed New Tables in Database Folder
+mod.web_list.allowedNewTables = tx_publicrelations_domain_model_news,tx_publicrelations_domain_model_client,tx_publicrelations_domain_model_campaign,tx_publicrelations_domain_model_slide,tx_publicrelations_domain_model_location,tx_publicrelations_domain_model_mailing,tx_publicrelations_domain_model_report,tx_publicrelations_domain_model_clippingroute
+mod.web_list.tableDisplayOrder.tx_publicrelations_domain_model_client {
+    before = tx_publicrelations_domain_model_campaign, tx_publicrelations_domain_model_news
+}
+mod.wizards.newRecord.order = tx_publicrelations_domain_model_client
+
+## Default Image cropping
+TCEFORM.sys_file_reference.crop.config.cropVariants >

@@ -1,0 +1,7 @@
+<f:debug>{_all}</f:debug>
+<tr>
+    <td valign="top" class="textContent" colspan="2" style="padding: 0px 36px;padding-top: 20px; color: var(--dark);font-family: &quot;IBM Plex Sans&quot;, Helvetica, Arial, Verdana, sans-serif;font-size: 20px;text-align: center;">
+      <f:if condition="!{mailing.noLogo}"><f:link.typolink absolute="1" parameter="39"  additionalParams="&tx_publicrelations_clientshow[controller]=Client&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[client]={mailing.client.uid}" target="_blank"><f:image image="{mailing.client.logo}" cropVariant="email" maxWidth="100" maxHeight="100" absolute="1" style="margin-top: -20px; margin-bottom: 10px;" /></a></br></f:if>
+      <strong>{mailing.subject->f:format.raw()}</strong>
+    </td>
+</tr>

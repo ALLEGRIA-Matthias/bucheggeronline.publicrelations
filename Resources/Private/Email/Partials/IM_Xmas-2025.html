@@ -1,0 +1,441 @@
+<f:section name="preview">
+    <!-- Visually Hidden Preheader Text : BEGIN -->
+    <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: 'League Spartan', sans-serif;">
+    <f:switch expression="{content}">
+        <f:case value="invite">Der Weihnachtszauber kehrt zurück! Ihre persönliche Einladung zur feierlichen Eröffnung des Marktes Schloss Schönbrunn.</f:case>
+        <f:case value="remind">Nicht verpassen: Die Eröffnung des Weihnachtsmarktes Schloss Schönbrunn steht bevor. Wir freuen uns auf Sie!</f:case>
+        <f:case value="push">Letzte Chance: Erleben Sie mit uns die feierliche Eröffnung des Weihnachtsmarktes Schloss Schönbrunn. Sind Sie dabei?</f:case>
+        <f:case value="approve">Wie schön, dass Sie dabei sind! Wir sehen uns bei der Eröffnung des Weihnachtsmarktes Schloss Schönbrunn.</f:case>
+        <f:case value="reject">Schade, dass Sie nicht dabei sein können. Wir hoffen, Sie bald am Weihnachtsmarkt Schloss Schönbrunn begrüßen zu dürfen.</f:case>
+    </f:switch>
+    </div>
+    <!-- Visually Hidden Preheader Text : END --> 
+</f:section>
+
+<f:switch expression="{content}">
+    <f:defaultCase>
+    <f:render section="header" arguments="{_all}" />
+    <f:render section="headline" arguments="{_all}" />
+    <f:render section="intro" arguments="{_all}" />
+    <f:render section="invite" arguments="{_all}" />
+    <f:render section="photo" arguments="{_all}" />
+    <f:render section="programm" arguments="{_all}" />
+    <f:render section="duration" arguments="{_all}" />
+    <f:render section="highlights" arguments="{_all}" />
+    <f:render section="footer" arguments="{_all}" />
+    <f:render section="website" arguments="{_all}" />
+    </f:defaultCase>
+    <f:case value="approve">
+        <f:render section="header" arguments="{_all}" />
+        <f:render section="headline" arguments="{_all}" />
+        <f:render section="ticket-qr" arguments="{_all}" />
+        <f:render section="photo" arguments="{_all}" />
+        <f:render section="programm" arguments="{_all}" />
+        <f:render section="duration" arguments="{_all}" />
+        <f:render section="highlights" arguments="{_all}" />
+        <f:render section="footer" arguments="{_all}" />
+    <f:render section="website" arguments="{_all}" />
+    </f:case>
+    <f:case value="reject">
+    <f:render section="header" arguments="{_all}" />
+    <f:render section="headline" arguments="{_all}" />
+        <!-- Absagetext -->
+        <tr>
+            <td style="text-align: center; font-family: sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; background: #063635; color: white; font-weight: 300; padding: 40px; padding-top: 0;">
+                <p style="margin-top: 0; padding: 0 40px; font-size: 1rem;"><strong>Imperial Markets</strong> bedankt sich für die Rückmeldung.</p>
+                <p style="padding: 0 40px; font-size: 1rem;">Wir hoffen auf einen baldigen Besuch am Weihnachtsmarkt Schloss Schönbrunn.</p>
+            </td>
+        </tr>
+        <f:render section="photo" arguments="{_all}" />
+        <f:render section="duration" arguments="{_all}" />
+        <f:render section="website" arguments="{_all}" />
+    </f:case>
+    <f:case value="waiting">
+    <f:render section="header" arguments="{_all}" />
+        <!-- Wartetext -->
+        <tr>
+            <td style="text-align: center; font-family: sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; background: #063635; color: white; font-weight: 300; padding: 40px;">
+            <p style="margin-top: 0; padding: 0 40px; font-size: 1rem;"><strong>Imperial Markets</strong> bedankt sich für die unglaublich großartige Nachfrage.</p>
+            <p style="padding: 0 40px; font-size: 1rem; color: #FA8B57; font-weight: 700;">Das Kontingent für den Empfang ist aktuell komplett erschöpft.</p>
+            <p style="padding: 0 40px; font-size: 1rem;">Leider können wir erst <strong>bis spätestens {f:format.date(format:'d.m.Y', date:'{accreditation.event.date->f:format.date(format:\'d-m-Y\')} -2 days')}</strong> eine konkrete Rückmeldung geben, ob wir dem Besuchswunsch nachkommen können.</p>
+            <p style="padding: 0 40px; font-size: 1rem; margin-bottom: 0;">Wir bedanken uns für das Verständnis.</p>
+            </td>
+        </tr>
+        <f:render section="footer" arguments="{_all}" />
+    </f:case>
+    <f:case value="pending">
+    <f:render section="header" arguments="{_all}" />
+        <!-- Wartetext intern -->
+        <tr>
+            <td style="text-align: center; font-family: sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; background: #063635; color: white; font-weight: 300; padding: 40px;">
+            <p style="margin-top: 0; padding: 0 40px; font-size: 1.4rem;">Neu auf der Warteliste<br><strong style="color: #FA8B57;">{accreditation.guestOutput.fullName}</strong></p>
+            </td>
+        </tr>
+    </f:case>
+    <f:case value="approve_after_waiting">
+
+    <f:render section="header" arguments="{_all}" />
+    <!-- Zusage möglich -->
+    <tr>
+        <td style="text-align: center; font-family: sans-serif;f ont-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: white; font-weight: 300; padding: 40px; padding-bottom: 0; background: #063635;">
+                <p style="margin-top: 0; font-size: 1rem; font-weight: 700; color: #FA8B57;">Wir können den Besuch ermöglichen!</p>
+        </td>
+    </tr>
+    <f:render section="ticket-qr" arguments="{_all}" />
+    <f:render section="photo" arguments="{_all}" />
+    <f:render section="programm" arguments="{_all}" />
+    <f:render section="duration" arguments="{_all}" />
+    <f:render section="highlights" arguments="{_all}" />
+    <f:render section="footer" arguments="{_all}" />
+    </f:case>
+    <f:case value="reject_after_waiting">
+        <f:render section="header" arguments="{_all}" />
+        <!-- Absagetext -->
+        <tr>
+            <td style="text-align: center; font-family: sans-serif;font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; background: #063635; color: white; font-weight: 300; padding: 40px;">
+                    <p style="margin-top: 0; padding: 0 40px; font-size: 1rem;">Wir sind von der enormen Nachfrage überwältigt!<br><strong>Danke für das Interesse.</strong></p>
+                    <p style="padding: 0 40px; font-size: 1rem;">Umso schwerer fällt es uns sagen zu müssen, dass wir den Besuch diesmal <strong>leider nicht ermöglichen können</strong>.</p>
+                    <p style="padding: 0 40px; font-size: 1rem;">Wir hoffen dennoch auf ein baldiges Wiedersehen bei einer der nächsten Veranstaltungen am Weihnachtsmarkt Schloss Schönbrunn.</p>
+            </td>
+        </tr>
+        <f:render section="footer" arguments="{_all}" />
+    </f:case>
+</f:switch>
+        
+
+
+  <f:section name="ticket-qr">
+    <!-- Ticket : BEGIN -->
+    <tr>
+        <td style="background-color: #063635; padding: 40px; padding-top: 0; text-align: center; font-family: sans-serif;font-size: 1rem; font-weight: 400; color: white; mso-height-rule: exactly; line-height: 1.2;">
+            <p>Mit folgendem QR-Code<br>ist der Zugang zum Empfang gewährleistet.</p>
+            <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="400" class="email-container" style="border: #FFFFFF thin solid;">
+                
+                <!-- QR-Code : BEGIN -->
+                    <tr>
+                    <td align="center" style="padding-top: 25px;">
+                        <img src="{mb:qrCode(data:'{accreditation.uid}', label:'KEIN TICKET – Gilt am VIP-Schalter.')}" width="300" alt="Ticket-QR-{accreditation.uid}" border="0" style="width: 100%; max-width: 60%; height: auto;">
+                        </td></tr>
+                <!-- QR-Code : END -->
+                
+                <!-- Titel : BEGIN -->
+                <tr>
+                    <td style="text-align: center; font-family: sans-serif; color: #000000; font-size: 1.1rem;">
+                        <h2 style="font-size: 1.8rem; line-height: 1.2; color: #000; margin: 20px 0 10px 0;">Empfang zur Eröffnung<br><small>des "Weihnachtsmarkt Schloss Schönbrunn"</small></h2>
+                        <p style="margin-bottom: 10px;">
+                            <a href="https://maps.app.goo.gl/JpY5kU5p3ayfvi2H7" target="_blank" style="text-decoration: none; color: #FA8B57; font-weight: 700;">Schlosstreppe Schloss Schönbrunn</a><br>
+                            <i><small>(Hinter dem großen Weihnachtsbaum)</small></i><br>
+                            <br>
+                            <strong>{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')} | {f:format.date(date:'{accreditation.event.date}', format: 'H:i')}</strong>
+                        </p>
+                        <div style="background-color: #FBEAD1; font-family: sans-serif; text-align: center; color: #063635; padding: 15px 0;">
+                            <p style="font-size: 1.3rem; line-height: 1.2; margin: 0;">
+                                <strong>{accreditation.guestOutput.fullName}</strong><br>
+                                <small>{accreditation.ticketsApproved} Erwachsene{f:if(condition:'{accreditation.ticketsApproved}==1', then:'n')}</small><br>
+                                <span style="font-size: 0.8rem; line-height: 1.2;">Akkr.Nr. #{accreditation.uid}</span>
+                            </p>
+                        </div>
+                </td>
+                </tr>
+                <!-- Titel : END --> 
+            </tbody></table>
+        </td>
+    </tr>
+    <!-- Ticket : BEGIN --> 
+</f:section>
+
+<f:section name="ticket">
+<!-- Ticket : BEGIN -->
+<tr>
+    <td style="background-color: #081969; padding: 40px; text-align: center; font-family: sans-serif;font-size: 1rem; font-weight: 400; color: white; mso-height-rule: exactly; line-height: 1.2;">
+        <div style="border: 0px solid #FFFFFF; background-color: #FFFFFF; border-radius: 1rem; padding: 20px; text-align: center; margin-bottom: 30px; margin-left: 10%; margin-right: 10%;">
+            <p style="margin: 0; font-family: sans-serif;font-size: 1.4rem; color: #fe2017; font-weight: 700; text-transform: uppercase;">{accreditation.guestOutput.fullName}</p>
+            <p style="margin-top: 0; color: #000000; font-family: sans-serif;font-size: 1rem; font-weight: 400; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+            <p style="margin: 0; margin-top: 10px; font-family: sans-serif;font-size: 0.65rem; color: #000000;">
+                <span style="font-size: 0.7rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong> versandt am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr.</span><br>
+                *diese Bestätigung ist nicht übertragbar</p>
+        </div>
+        <p style="margin: 0;">
+            <strong>ShowSlot</strong> freut sich dich am<br>
+            <strong style="font-family: sans-serif;color: #fe2017; font-weight: 700; font-size: 1.4rem;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')}</strong><br>
+            begrüßen zu dürfen.<br>
+            <br>
+            <small>Tickets können <strong>ab {f:format.date(format:'%k.%M Uhr', date:'{accreditation.event.date->f:format.date(format:\'H:i\')} -60 minutes')}</strong> an der Abendkassa bzw. Presse- und Ehrenkartenausgabe abgeholt werden.</small>
+        </p>
+    </td>
+</tr>
+<!-- Ticket : BEGIN --> 
+</f:section>
+
+<f:section name="header">
+<!-- Header : BEGIN -->
+<tr>
+    <td class="full-width-image"><img src="https://www.allegria.at/fileadmin/marketing/imperial-markets/IM_Xmas-2025_Header.png" width="600" alt="{accreditation.event.title}" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;" class="fluid"></td>
+</tr>
+<!-- Header : END --> 
+</f:section>
+
+<f:section name="headline">
+
+    <f:switch expression="{content}">
+        <f:case value="invite"><f:variable name="headline">Persönliche Einladung</f:variable></f:case>
+        <f:case value="remind"><f:variable name="headline"><small style="text-transform: none;">Erinnerung zur</small><br>Persönlichen Einladung</f:variable></f:case>
+        <f:case value="push"><f:variable name="headline"><small style="text-transform: none;">Finale Erinnerung zur</small><br>Persönlichen Einladung</f:variable></f:case>
+        <f:case value="approve"><f:variable name="headline">Wir freuen uns sehr!</f:variable></f:case>
+        <f:case value="reject"><f:variable name="headline">Schade, dass es nicht klappt!</f:variable></f:case>
+    </f:switch>
+
+    <!-- Invitation : BEGIN -->
+    <tr>
+        <td style="background-color: #063635; color: #FBEAD1; font-family: 'Red Hat Display', sans-serif; text-align: center; font-size: 1rem; line-height: 1.2; padding: 15px;">
+            <h1 style="font-weight: 300; text-transform: uppercase; font-size: 1.8rem; margin: 0;">{headline->f:format.raw()}</h1>
+        </td>
+    </tr>
+    <!-- Invitation : BEGIN --> 
+
+</f:section>
+
+<f:section name="intro">
+<tr>
+    <td style="background-color: #FBEAD1; color: #063635; padding: 40px; text-align: center; font-family: 'Red Hat Display', sans-serif; font-size: 1rem;">
+        <h2 style="font-size: 1.2rem; text-transform: uppercase;">Der Adventzauber geht weiter</h2>
+        <p>
+            Nach dem erfolgreichen Neustart im vergangenen Jahr setzt der Weihnachtsmarkt Schloss Schönbrunn seine Geschichte in festlichem Glanz fort. Auch heuer erwarten die Gäste traditionelles Kunsthandwerk, regionale Köstlichkeiten und neue Attraktionen, die für unvergessliche Erlebnisse für die ganze Familie sorgen.<br>
+            Kinder sind wieder besonders herzlich willkommen.
+        </p>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="invite">
+<!-- Invitation : BEGIN -->
+<tr>
+    <td style="background-color: #FFFFFF; color: #063635; font-family: 'Red Hat Display', sans-serif; text-align: center; font-size: 1rem; line-height: 1.4; padding: 40px;">
+        <p>Imperial Markets lädt<br>
+        <strong>{accreditation.guestOutput.fullName}</strong><br>zur<br>
+        <f:if condition="{accreditation.guestType}==2"><strong style="background-color: #FA8B57; color: white;">redaktionellen Berichterstattung</strong><br>zur<br></f:if>
+        <strong style="color: #FA8B57; text-transform: uppercase;">Eröffnung des<br>
+        „Weihnachtsmarkt Schloss Schönbrunn“</strong><br>
+        ein.</p>
+        <p><img src="https://www.allegria.at/fileadmin/marketing/imperial-markets/IM_Xmas-2025_Sternenportal.png" alt="Weihnachtsbaum und Tasse" /></p>
+        <p>
+            <span style="font-size: 1.2rem; color: #063635; font-weight: 700; text-transform: uppercase;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'day', lang: 'at')}, {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')}</span><br>
+            <span style="text-transform: uppercase;">Empfang um {f:format.date(format:'%k:%M Uhr', date:'{accreditation.event.date}')}</span>
+        </p>
+        <f:render section="rueckmelde-btn" arguments="{_all}" />
+        <p style="font-size: 0.8rem;">
+            Die Einladung ist nicht übertragbar und gilt für {accreditation.ticketsWish} Erwachsen{f:if(condition:'{accreditation.ticketsWish}==1', then:'en', else:'e')}. Kinder sind zur Eröffnung herzlich willkommen, bitte geben Sie sie bei der Rückmeldung mit an.
+        </p>
+        <p>
+            <img src="https://www.allegria.at/fileadmin/marketing/imperial-markets/IM_Xmas-2024_Eislaufen.png" alt="Eislaufen am Weihnachtsmarkt Schloss Schönbrunn" /><br>
+            <span style="font-size: 1.2rem; font-weight: bold;">Ein Erlebnis für die ganze Familie.</span><br>
+            Um Rückmeldung wird bis <f:if condition="{accreditation.invitationType.feedbackDate}"><f:then>{mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'d', lang: 'at')}, {accreditation.invitationType.feedbackDate->f:format.date(format:'d.')} {mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'month', lang: 'at')} {accreditation.invitationType.feedbackDate->f:format.date(format:'%Y')}</f:then><f:else><f:format.date date="{accreditation.event.date->f:format.date(format:'d.m.Y')} - 2weeks friday" format="d.m.Y" /></f:else></f:if> gebeten.
+        </p>
+    </td>
+</tr>
+<!-- Invitation : BEGIN --> 
+</f:section>
+
+<f:section name="eventinfo">
+<!-- Location Banner : END --> 
+<tr style="background-color: #081969; color: #fff; font-family: sans-serif; text-align: center; font-size: 0.9rem;">
+    <td style="padding: 40px; line-height: 1.3;">
+        <p>
+            <span style="font-size: 1.3rem; font-weight: 600;">
+            {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')}</span><br>
+            {f:format.date(format:'%k:%M Uhr', date:'{accreditation.event.date}')} | {accreditation.event.location.name}<br>
+            <small>Einlass ab {f:format.date(format:'%k.%M Uhr', date:'{accreditation.event.date->f:format.date(format:\'H:i\')} -60 minutes')}</small>
+        </p>
+        
+        <f:render section="rueckmelde-btn" arguments="{_all}" />
+        <f:if condition="{content} == 'invite' || {content} == 'remind' || {content} == 'push'">
+            <p style="font-size: 0.7rem; line-height: 1.2;  padding-top: 15px;">
+                Um Rückmeldung wird bis <strong>{mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'d')}, {accreditation.invitationType.feedbackDate->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'month', lang: 'at')} {accreditation.invitationType.feedbackDate->f:format.date(format:'%Y')}</strong> gebeten.<br>
+                Die Einladung gilt für <strong>{accreditation.ticketsWish} Person{f:if(condition:'{accreditation.ticketsWish}==1', else:'en')}</strong> und ist <strong>nicht übertragbar.</strong>
+            </p>
+        </f:if>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="photo">
+
+<!-- Foto : BEGIN -->
+<tr>
+    <td class="full-width-image"><img src="https://www.allegria.at/fileadmin/marketing/imperial-markets/IM_Xmas-2025_Foto-Markt.png" width="600" alt="{accreditation.event.title}" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;" class="fluid"></td>
+</tr>
+<!-- Foto : END --> 
+</f:section>
+
+<f:section name="programm">
+<tr>
+    <td style="background-color: #FBEAD1; color: #063635; padding: 40px; text-align: center; font-family: 'Red Hat Display', sans-serif; font-size: 1rem;">
+        <p>
+            <span style="font-weight: 700; font-size: 1.2rem;">16:00 Uhr Empfang</span><br>
+            mit Getränken<br>
+            <span style="font-weight: 300;">Treffpunkt: Schlosstreppe Schloss Schönbrunn<br>
+            <i>(hinter dem großen Weihnachtsbaum)</i></span>
+        </p>
+        <h2 style="color: #FA8B57; text-transform: uppercase; margin-top: 30px;">Programm</h2>
+        <p style="margin-top: 30px;">
+            <span style="font-weight: 700;">Offizielle Begrüßung</span>
+        </p>
+        <p style="margin-top: 30px;">
+            <span style="font-weight: 700;">Carol of the Bells</span><br>
+            präsentiert von Kinderchor Rising Voices
+        </p>
+        <p style="margin-top: 30px;">
+            <span style="font-weight: 700;">Segnung und Illumination des Weihnachtsbaums</span><br>
+            mit Dompfarrer Toni Faber
+        </p>
+        <p style="margin-top: 30px;">
+            <span style="font-weight: 700;">Still, still, still</span><br>
+            präsentiert von Kinderchor Rising Voices
+        </p>
+        <h2 style="color: #FA8B57; text-transform: uppercase; margin-top: 50px;">ES BEGRÜSSEN</h2>
+        <p style="margin-top: 30px;">
+            <span style="font-weight: 700;">Mag. Klaus Panholzer</span><br>
+            Geschäftsführer Schönbrunn Group
+        </p>
+        <p style="margin-top: 30px;">
+            <span style="font-weight: 700;">Katrin Edtmeier</span><br>
+            Geschäftsführerin Imperial Markets
+        </p>
+        <p style="margin-top: 30px;">
+            <span style="font-weight: 600; font-size: 1.2rem;">Sylvia Graf</span><br>
+            Moderation
+        </p>
+        <f:render section="rueckmelde-btn" arguments="{_all}" />
+    </td>
+</tr>
+</f:section>
+
+<f:section name="duration">
+    <tr>
+        <td style="background-color: #FFFFFF; color: #063635; padding: 40px; text-align: center; font-family: 'Red Hat Display', sans-serif; font-size: 1rem;">
+            <h2 style="font-size: 1.2rem; color: #063635; text-transform: uppercase; margin-top: 0;">Es weihnachtet wieder im Ehrenhof von Schloss Schönbrunn</h2>
+            <p style="padding: 0 30px; margin-bottom: 0;">
+                Nach dem erfolgreichen Neustart im Vorjahr präsentiert sich der Weihnachtsmarkt Schloss Schönbrunn auch heuer wieder von seiner schönsten Seite:<br>
+                <br>
+                Vom 06. November 2025 bis 06. Jänner 2026 wird der Ehrenhof zum stimmungsvollen Treffpunkt für Groß und Klein.
+            </p>
+        </td>
+    </tr>
+</f:section>
+
+<f:section name="highlights">
+<tr style="background-color: #063635; color: #FBEAD1; font-family: sans-serif; text-align: center; font-size: 0.9rem;">
+    <td align="center" valign="top" style="padding: 40px 10px;">
+        <h2 style="color: #FA8B57; text-transform: uppercase; margin-top: 0px;">Highlights</h2>
+        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tbody><tr>
+                <td width="33.33%" class="stack-column-center" valign="top">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                        <tbody><tr>
+                            <td style="padding: 10px; text-align: center">
+                                <img src="https://www.allegria.at/fileadmin/marketing/imperial-markets/IM_Xmas-2025_Foto-Kunsthandwerk.png" width="170" height="auto" alt="Kunsthandwerk" border="0" class="fluid">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'Red Hat Display', sans-serif; font-size: 0.9rem; mso-height-rule: exactly; line-height: 1.2; color: #FBEAD1; padding: 0 10px 10px; text-align: center; text-transform: uppercase;" class="center-on-narrow">Kunsthandwerk</td>
+                        </tr>
+                    </tbody></table>
+                </td>
+                <td width="33.33%" class="stack-column-center" valign="top">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                        <tbody><tr>
+                            <td style="padding: 10px; text-align: center">
+                                <img src="https://www.allegria.at/fileadmin/marketing/imperial-markets/IM_Xmas-2025_Foto-Kulinarik.png" width="170" height="auto" alt="Kulinarik" border="0" class="fluid">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'Red Hat Display', sans-serif; font-size: 0.9rem; mso-height-rule: exactly; line-height: 1.2; color: #FBEAD1; padding: 0 10px 10px; text-align: center; text-transform: uppercase;" class="center-on-narrow">Kulinarik</td>
+                        </tr>
+                    </tbody></table>
+                </td>
+                <td width="33.33%" class="stack-column-center" valign="top">
+                    <table cellspacing="0" cellpadding="0" border="0">
+                        <tbody><tr>
+                            <td style="padding: 10px; text-align: center">
+                                <img src="https://www.allegria.at/fileadmin/marketing/imperial-markets/IM_Xmas-2025_Foto-Familienangebote.png" width="170" height="auto" alt="Familienangebote" border="0" class="fluid">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'Red Hat Display', sans-serif; font-size: 0.9rem; mso-height-rule: exactly; line-height: 1.2; color: #FBEAD1; padding: 0 10px 10px; text-align: center; text-transform: uppercase;" class="center-on-narrow">Familienangebote</td>
+                        </tr>
+                    </tbody></table>
+                </td>
+            </tr>
+        </tbody></table>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="footer">
+<!-- Fotobanner Footer : BEGIN -->
+<tr>
+    <td style="background-color: #FFFFFF; color: #063635; padding: 40px; text-align: center; font-family: 'Red Hat Display', sans-serif; font-size: 1rem;">
+        <p style="padding: 0 30px;">
+            Nach dem offiziellen Programm lädt der Weihnachtsmarkt Schloss Schönbrunn dazu ein, in stimmungsvoller Atmosphäre das vielfältige Kunsthandwerk und die regionalen Köstlichkeiten zu genießen. Gemeinsam mit Familie und Freunden lässt sich die Zeit nicht nur bei einer Fahrt im Riesenrad verbringen, sondern auch beim Eislaufen, Eisstockschießen oder beim Entdecken des großen Strohlabyrinths. Eigene Schlittschuhe können mitgebracht werden, ein Verleih steht ebenso zur Verfügung.
+        </p>
+        <h2 style="font-size: 1.1rem; color: #063635; text-transform: uppercase; margin-top: 30px;">Auf Ihr Kommen freut sich das Imperial Markets Team und seine Gesellschafter:</h2>
+        <p>
+            Josip Susnjara<br>
+            Andreas Rescheneder<br>
+            Markus Fischer<br>
+            Ronald Gollatz<br>
+            Philipp Stainer
+        </p>
+    </td>
+</tr>
+<!-- Fotobanner Footer : END --> 
+</f:section>
+
+<f:section name="website">
+    <!-- Invitation : BEGIN -->
+    <tr>
+        <td style="background-color: #063635; color: #FBEAD1; font-family: 'Red Hat Display', sans-serif; text-align: center; font-size: 1rem; line-height: 1.2; padding: 30px;">
+            <a href="https://www.weihnachtsmarkt-schoenbrunn.at" target="_blank" style="color: #FA8B57; text-decoration: none; font-weight: 600; text-transform: uppercase;">weihnachtsmarkt-schoenbrunn.at</a>
+        </td>
+    </tr>
+    <!-- Invitation : BEGIN --> 
+</f:section>
+
+<f:section name="rueckmelde-btn">
+    <f:if condition="{content} == 'invite' || {content} == 'remind' || {content} == 'push'">
+        <f:then>
+            <!-- Button : Begin -->
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                <tr>
+                    <td style="border-radius: 3px; background: #063635; text-align: center; text-transform: uppercase;" class="button-td">
+                        <a href="###FEEDBACK_LINK###"
+                            class="button-a"
+                            target="_blank"
+                            style="background: #063635; border: 7px solid #063635; padding: 10px 20px;color: #FBEAD1; font-family: sans-serif; font-size: 1.1rem; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;">
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <!-- Button : END -->
+        </f:then>
+        <f:else>
+
+            <!-- Button : Begin -->
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                <tr>
+                    <td style="border-radius: 3px; background: #063635; text-align: center; text-transform: uppercase;" class="button-td">
+                        <a
+                            href="https://maps.app.goo.gl/JpY5kU5p3ayfvi2H7"
+                            class="button-a"
+                            target="_blank"
+                            style="background: #063635; border: 7px solid #063635; padding: 0 10px;color: #ffffff; font-family: sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;">
+                            <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Anfahrt planen<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <!-- Button : END -->
+        </f:else>
+    </f:if>
+</f:section>

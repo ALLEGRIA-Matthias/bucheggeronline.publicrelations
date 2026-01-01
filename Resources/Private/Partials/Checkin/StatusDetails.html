@@ -1,0 +1,33 @@
+<div class="table-fit mb-5">
+    <table class="table table-hover">
+        <tr>
+            <th class="align-top" width="100px">Location</th>
+            <td><f:if condition="{event.location}"><strong class="text-primary">{event.location.name}</strong> • {event.location.street}, {event.location.zip} {event.location.city}<br/></f:if></td>
+        </tr>
+        <tr>
+            <th class="align-top">Summen</th>
+            <td>
+                <span class="badge badge-info">{event.ticketsApproved} Gäste</span>
+                <f:if condition="{event.programs}"><span class="badge badge-default ms-2"><svg class="icon fill-gold"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#book-open"></use></svg> {event.programs} Programme</span></f:if>
+                <f:if condition="{event.passes}"><span class="badge badge-default ms-2"><svg class="icon fill-gold"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#camera"></use></svg> {event.passes} Fotopässe</span></f:if>
+            </td>
+        </tr>
+        <tr>
+            <th class="align-top">Status</th>
+            <td>
+                <div class="mb-2">
+                    <span class="badge badge-success">{event.ticketsReceived} eingecheckt</span>
+                    <span class="badge badge-warning">{event.ticketsPrepared} ausständig</span>
+                </div>
+                <typo3-backend-progress-bar value="{event.ticketsReceived}" max="{event.ticketsApproved}" label="{event.ticketsReceived}/{event.ticketsApproved} Tickets abgeholt" severity="1"></typo3-backend-progress-bar> 
+                </td>
+        </tr>
+        <tr>
+            <th class="align-top">Facie-Status</th>
+            <td>
+                <span class="badge badge-danger">{faciesCheckedin->f:count()} eingecheckt</span>
+                <f:if condition="{faciesCheckedin}"><p><f:for each="{faciesCheckedin->v:iterator.sort(sortBy: 'guestOutput.lastName')}" as="facie" iteration="fId">{facie.guestOutput.firstName} <strong>{facie.guestOutput.lastName}</strong>{f:if(condition:fId.isLast, else:', ')}</f:for></p></f:if>
+            </td>
+        </tr>
+    </table>
+</div>

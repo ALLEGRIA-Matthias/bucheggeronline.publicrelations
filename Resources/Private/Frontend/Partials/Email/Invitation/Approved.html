@@ -1,0 +1,44 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:section name="Header">
+<tr>
+    <td valign="top" class="image" align="center" style="padding: 0px 36px; padding-bottom: 20px; color: #222222;text-align: left;">
+      <f:render partial="HeaderLogo" arguments="{_all}" />
+    </td>
+    <td valign="top" class="image" align="center" style="padding: 0px 36px; padding-bottom: 20px; text-align: right;vertical-align: middle;">
+      <h6 style="text-align: right;">Bestätigung der Einladung</h6>
+      <p class="subtitle"><f:if condition="{accreditation.invitationType.invitationSubtitleOverwrite}"><f:then>{accreditation.invitationType.invitationSubtitleOverwrite}</f:then><f:else>{accreditation.event.title}</f:else></f:if></p>
+    </td>
+</tr>
+<tr>
+    <td valign="top" class="textContent" colspan="2" style="padding: 0px 36px;padding-top: 20px; color: var(--dark);font-family: &quot;IBM Plex Sans&quot;, Helvetica, Arial, Verdana, sans-serif;font-size: 20px;text-align: center;">
+      <f:render partial="LogoInHeader" arguments="{_all}" />
+      <strong>Wir freuen uns auf <f:if condition="{accreditation.guest.personally}"><f:then>dein </f:then><f:else>Ihr </f:else></f:if> Kommen!</strong>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="Content">
+<tr>
+    <td valign="top" class="textContent" style="padding: 0px 36px;">
+
+        <p>
+          <f:render partial="Invitation/Salutation" arguments="{accreditation:accreditation, personallyAllowed:personallyAllowed}" />
+        </p>
+
+        <p>
+          herzlichen Dank für <f:if condition="{accreditation.guest.personally}"><f:then>deine </f:then><f:else>Ihre </f:else></f:if> Zusage<f:if condition="{accreditation.ticketsApproved}>1">, inkl. Begleitung</f:if>.
+        </p>
+
+        <f:render partial="Invitation/EventOverview" arguments="{accreditation:accreditation, event:accreditation.event, approved:1}" />
+
+        <f:render partial="Invitation/Questions" arguments="{_all}" />
+
+        <p>
+          Wir freuen uns auf <f:if condition="{accreditation.guest.personally} || {testType}=='personally'"><f:then>dein </f:then><f:else>Ihr </f:else></f:if> Kommen.
+        </p>
+
+        <f:if condition="!{accreditation.invitationType.altTemplate}"><f:render partial="Signature" arguments="{_all}" /></f:if>
+    </td>
+</tr>
+</f:section>
+</html>

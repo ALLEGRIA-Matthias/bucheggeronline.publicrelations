@@ -1,0 +1,69 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<div class="typo3-messages">
+  <f:for each="{flashMessages}" as="flashMessage">
+  <div class="alert {f:render(section:'class', arguments:'{severity:flashMessage.severity}')}">
+    <div class="media">
+      <div class="media-left">
+        <f:render section="media" arguments="{severity:flashMessage.severity}" />
+      </div>
+      <div class="media-body">
+        <f:if condition="{flashMessage.title}"><h4 class="alert-title">{flashMessage.title}</h4></f:if>
+        <p class="alert-message">{flashMessage.message -> f:sanitize.html()}</p>
+      </div>
+    </div>
+  </div>
+  </f:for>
+</div>
+
+<f:section name="class">
+  <f:spaceless>
+    <f:switch expression="{severity}">
+      <f:case value="-2">alert-notice</f:case>
+      <f:case value="-1">alert-info</f:case>
+      <f:case value="0">alert-success</f:case>
+      <f:case value="1">alert-warning</f:case>
+      <f:case value="2">alert-danger</f:case>
+    </f:switch>
+  </f:spaceless>
+</f:section>
+
+<f:section name="media">
+  <f:spaceless>
+    <f:switch expression="{severity}">
+      <f:case value="-2">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-lightbulb-o fa-stack-1x"></i>
+      </span>
+      </f:case>
+      <f:case value="-1">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-info fa-stack-1x"></i>
+      </span>
+      </f:case>
+      <f:case value="0">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-check fa-stack-1x"></i>
+      </span>
+      </f:case>
+      <f:case value="1">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-exclamation fa-stack-1x"></i>
+      </span>
+      </f:case>
+      <f:case value="2">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-times fa-stack-1x"></i>
+      </span>
+      </f:case>
+    </f:switch>
+  </f:spaceless>
+</f:section>
+
+</html>

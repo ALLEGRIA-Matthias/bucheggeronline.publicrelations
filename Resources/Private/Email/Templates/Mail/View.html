@@ -1,0 +1,51 @@
+<f:layout name="{template}" />
+
+<f:section name="Title">
+    <f:if condition="{type}=='accreditation'"><f:render partial="Fallback/DefaultAccreditationContent.html" arguments="{_all}" section="Title" /></f:if>
+    <f:if condition="{type}=='mailing'"><f:render partial="Fallback/DefaultMailingContent.html" arguments="{mailing:mailing}" section="Title" /></f:if>
+    <f:if condition="{type}=='mail'"><f:render partial="Fallback/DefaultMailingContent.html" arguments="{mailing:mail.mailing, mail:mail}" section="Title" /></f:if>
+</f:section>
+
+<f:section name="Preview">
+    <f:if condition="{type}=='accreditation'"><f:render partial="Fallback/DefaultAccreditationContent.html" arguments="{_all}" section="Preview" /></f:if>
+    <f:if condition="{type}=='mailing'"><f:render partial="Fallback/DefaultMailingContent.html" arguments="{mailing:mailing}" section="Preview" /></f:if>
+    <f:if condition="{type}=='mail'"><f:render partial="Fallback/DefaultMailingContent.html" arguments="{mailing:mail.mailing, mail:mail}" section="Preview" /></f:if>
+</f:section>
+
+<f:section name="HeaderNew">
+    <f:if condition="{type}=='accreditation'"><f:render partial="Fallback/DefaultAccreditationContent.html" arguments="{_all}" section="Header" /></f:if>
+    <f:if condition="{type}=='mailing'"><f:render partial="Fallback/DefaultMailingContent.html" arguments="{_all}" section="Header" /></f:if>
+    <f:if condition="{type}=='mail'"><f:render partial="Fallback/DefaultMailingContent.html" arguments="{mailing:mail.mailing, mail:mail, guestOutput:guestOutput}" section="Header" /></f:if>
+</f:section>
+
+<f:section name="ContentNew">
+    <f:if condition="{type}=='accreditation'"><f:render partial="Fallback/DefaultAccreditationContent.html" arguments="{_all}" section="Content" /></f:if>
+    <f:if condition="{type}=='mailing'"><f:render partial="Fallback/DefaultMailingContent.html" arguments="{mailing:mailing, guestOutput:guestOutput}" section="Content" /></f:if>
+    <f:if condition="{type}=='mail'"><f:render partial="Fallback/DefaultMailingContent.html" arguments="{mailing:mail.mailing, mail:mail, guestOutput:guestOutput}" section="Content" /></f:if>
+
+    <f:if condition="{accreditation} && {backend}">
+        <div style="position: fixed; bottom: 0; width: 100%; height: 40px; background-color: #000000; text-align: center;">
+            <f:link.action action="view" arguments="{accreditation:accreditation, type:type, content:'invite'}">Einladung</f:link.action>
+            <f:link.action action="view" arguments="{accreditation:accreditation, type:type, content:'remind'}">Erinnerung</f:link.action>
+            <f:link.action action="view" arguments="{accreditation:accreditation, type:type, content:'push'}">2. Erinnerung</f:link.action>
+            <f:link.action action="view" arguments="{accreditation:accreditation, type:type, content:'approve'}">Bestätigung</f:link.action>
+            <f:link.action action="view" arguments="{accreditation:accreditation, type:type, content:'reject'}">Ablehnung</f:link.action>
+        </div>
+    </f:if>
+</f:section>
+
+<f:section name="menue">
+    <f:if condition="{accreditation} && {backend}">
+        <div style="position: fixed; bottom: 0; width: 100%; height: 50px; background-color: #000000; text-align: center;">
+            <f:link.action action="view" style="display: inline-block; padding: 3px 10px; border: solid thin white; color: white; margin: 5px; text-decoration: none; font-weight: bold;" arguments="{accreditation:accreditation, type:type, content:'invite'}">Einladung</f:link.action>
+            <f:link.action action="view" style="display: inline-block; padding: 3px 10px; border: solid thin white; color: white; margin: 5px; text-decoration: none; font-weight: bold;" arguments="{accreditation:accreditation, type:type, content:'remind'}">Erinnerung</f:link.action>
+            <f:link.action action="view" style="display: inline-block; padding: 3px 10px; border: solid thin white; color: white; margin: 5px; text-decoration: none; font-weight: bold;" arguments="{accreditation:accreditation, type:type, content:'push'}">2. Erinnerung</f:link.action>
+            <f:link.action action="view" style="display: inline-block; padding: 3px 10px; border: solid thin white; color: white; margin: 5px; text-decoration: none; font-weight: bold;" arguments="{accreditation:accreditation, type:type, content:'approve'}">Bestätigung</f:link.action>
+            <f:link.action action="view" style="display: inline-block; padding: 3px 10px; border: solid thin white; color: white; margin: 5px; text-decoration: none; font-weight: bold;" arguments="{accreditation:accreditation, type:type, content:'reject'}">Ablehnung</f:link.action>
+            <f:link.action action="view" style="display: inline-block; padding: 3px 10px; border: solid thin white; color: white; margin: 5px; text-decoration: none; font-weight: bold;" arguments="{accreditation:accreditation, type:type, content:'waiting'}">Warteliste</f:link.action>
+            <f:link.action action="view" style="display: inline-block; padding: 3px 10px; border: solid thin white; color: white; margin: 5px; text-decoration: none; font-weight: bold;" arguments="{accreditation:accreditation, type:type, content:'pending'}">Warteliste Intern</f:link.action>
+            <f:link.action action="view" style="display: inline-block; padding: 3px 10px; border: solid thin white; color: white; margin: 5px; text-decoration: none; font-weight: bold;" arguments="{accreditation:accreditation, type:type, content:'waitingOK'}">Warte OK</f:link.action>
+            <f:link.action action="view" style="display: inline-block; padding: 3px 10px; border: solid thin white; color: white; margin: 5px; text-decoration: none; font-weight: bold;" arguments="{accreditation:accreditation, type:type, content:'waitingNO'}">Warte NOPE</f:link.action>
+        </div>
+    </f:if>
+</f:section>

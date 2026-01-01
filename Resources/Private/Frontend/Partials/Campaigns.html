@@ -1,0 +1,48 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:groupedFor each="{campaigns}" as="campaigns" groupBy="type" groupKey="type">
+  <div class="alert alert-white">
+    <h2 class="h4 mt-2 mb-3"><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{type.svg}"></use></svg> {type.plural}</h2>
+    <f:for each="{campaigns -> v:iterator.sort(sortBy: 'sortTitle', sortFlags: 'SORT_STRING')}" as="campaign" iteration="i">
+      <div class="card {f:if(condition:'!{i.isLast}', then:'mb-3')}">
+        <div class="row g-0">
+          <div class="col-12 col-md-4 col-lg-3 col-xl-2">
+            <f:if condition="{campaign.logo}"><f:link.action extensionName="Publicrelations" pluginName="ClientShow" controller="Campaign" action="show" arguments="{campaign:campaign}"><f:image image="{campaign.logo}" class="img-fluid rounded-start" alt="{campaign.logo.originalResource.title}" cropVariant="thumb" /></f:link.action></f:if>
+          </div>
+          <div class="col">
+            <div class="card-body my-auto">
+              <h4 class="card-title text-uppercase mt-3 mb-0 my-md-0 h5">{campaign.title}</h4>
+              <f:if condition="{campaign.subtitle}"><p class="card-text mt-n2 mb-0"><small>{campaign.subtitle}</small></p></f:if>
+              <f:if condition="{campaign.location} || {campaign.locationManual}">
+                <p class="card-text small">
+                  <svg class="icon fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#nearby"></use></svg>
+                  <f:if condition="{campaign.locationManual}">
+                    <f:then>
+                      <strong>{campaign.locationManual}</strong>
+                      <f:if condition="{campaign.locationNote}"><br/><span class="badge bg-danger">{campaign.locationNote}</span></f:if>
+                    </f:then>
+                    <f:else>
+                      <strong>{campaign.location.name}</strong>
+                      <f:if condition="{campaign.locationNote}"><br class="d-none d-md-block"/><span class="badge bg-danger text-truncate">{campaign.locationNote}</span></f:if>
+                      <br/><f:if condition="{campaign.location.additional}">{campaign.location.additional}, </f:if>{campaign.location.street}, {campaign.location.zip} {campaign.location.city}
+                    </f:else>
+                  </f:if>
+                </p>
+              </f:if>
+            </div>
+          </div>
+          <f:link.action extensionName="Publicrelations" pluginName="ClientShow" controller="Campaign" action="show" arguments="{campaign:campaign}" class="col-auto bg-primary">
+            <div class="row h-100">
+              <div class="col my-auto">
+                <svg class="icon icon-h4 fill-white mx-1 align-self-center"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#eye"></use></svg>
+              </div>
+            </div>
+          </f:link.action>
+        </div>
+      </div>
+    </f:for>
+  </div>
+</f:groupedFor>

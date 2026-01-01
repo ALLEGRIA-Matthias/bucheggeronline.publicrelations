@@ -1,0 +1,235 @@
+<div class="modal-content-wrapper">
+
+    <div class="mb-4 p-3 border rounded bg-light">
+        <div class="row g-3">
+            <div class="col-md-7">
+                <div class="mb-2">
+                    <span class="badge badge-primary me-2">{accreditation.guestTypeOutput}</span>
+                    <f:if condition="{accreditation.facie}">
+                        <span class="badge badge-warning text-dark">
+                            <svg class="icon icon-sm fill-currentColor me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-star"></use></svg>VIP
+                        </span>
+                    </f:if>
+                </div>
+
+                <h4 class="fw-bold mb-1">
+                    {accreditation.guestOutput.name} <small class="text-muted fw-normal">[{accreditation.uid}]</small>
+                </h4>
+
+                <f:if condition="{accreditation.guestOutput.company}">
+                    <p class="mb-1 text-muted">{accreditation.guestOutput.company}</p>
+                </f:if>
+                <f:if condition="{accreditation.email}">
+                    <p class="mb-2"><small><a href="mailto:{accreditation.email}">{accreditation.email}</a></small></p>
+                </f:if>
+
+                <f:if condition="{accreditation.guest.image.0}">
+                    <div class="mb-2">
+                        <f:image image="{accreditation.guest.image.0}" maxWidth="150" maxHeight="150" class="img-thumbnail" alt="Foto von {accreditation.guestOutput.name}" />
+                    </div>
+                </f:if>
+            </div>
+
+            <div class="col-md-5 text-md-end"> 
+                <p class="mb-1">
+                    <strong>Status:</strong>
+                    <span class="badge badge-{accreditation.checkinStatusBadgeClass} fs-6">{accreditation.checkinStatusOutput}</span>
+                </p>
+                <p class="mb-1"><small>Genehmigt: {accreditation.ticketsApproved}</small></p>
+                <p class="mb-1"><small>Bereits abgeholt: {accreditation.ticketsReceived}</small></p>
+                <p class="mb-0"><strong>Noch offen: {accreditation.ticketsPrepared}</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-4"> 
+        <h5 class="mb-3">Weitere Details zur Akkreditierung</h5>
+        <table class="table table-sm table-bordered table-striped"> 
+            <tbody>
+                <f:if condition="{accreditation.notes} || {accreditation.notesSelect -> f:count()} > 0">
+                    <tr>
+                        <th>Anmerkungen (intern)</th>
+                        <td>
+                            <f:if condition="{accreditation.notes}">
+                                <div class="mb-1">{accreditation.notes -> f:format.nl2br()}</div>
+                            </f:if>
+                            <f:if condition="{accreditation.notesSelect -> f:count()} > 0">
+                                <div>
+                                    <f:for each="{accreditation.notesSelect}" as="noteCat">
+                                        <span class="badge {noteCat.cssClass -> f:or(content: 'badge-secondary text-light')} me-1 mb-1">
+                                            <f:if condition="{noteCat.svg}">
+                                                <svg class="icon icon-sm fill-currentColor me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{noteCat.svg}"></use></svg>
+                                            </f:if>
+                                            {noteCat.title}
+                                        </span>
+                                    </f:for>
+                                </div>
+                            </f:if>
+                        </td>
+                    </tr>
+                </f:if>
+
+                <f:if condition="{accreditation.program} > 0 || {accreditation.pass} > 0">
+                    <tr class="table-info"> 
+                        <th>Mitzugeben</th>
+                        <td>
+                            <f:if condition="{accreditation.program} > 0">
+                                <div><svg class="icon icon-sm fill-currentColor me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#book-open"></use></svg>{accreditation.program}x Programm</div>
+                            </f:if>
+                            <f:if condition="{accreditation.pass} > 0">
+                                <div><svg class="icon icon-sm fill-currentColor me-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#camera"></use></svg>{accreditation.pass}x Fotopass</div>
+                            </f:if>
+                        </td>
+                    </tr>
+                </f:if>
+                
+                <f:if condition="{accreditation.seats}">
+                    <tr>
+                        <th>Sitzplatz</th>
+                        <td>
+                            <f:switch expression="{accreditation.event.uid}">
+                                <f:case value="4271"><div style="font-size: 130%;">{accreditation.seats->f:format.raw()}</div></f:case>
+                                <f:defaultCase>{accreditation.seats->f:format.raw()}</f:defaultCase>
+                            </f:switch>
+                        </td>
+                    </tr>
+                </f:if>
+
+                <f:if condition="{accreditation.event.additionalFields}">
+                <f:for each="{accreditation.event.additionalFields}" as="column" iteration="ci">
+                <f:switch expression="{column.type}">
+                    <f:case value="6">
+                    <tr>
+                        <th>{column.label}</th>
+                        <td>
+                            <table>
+                                <f:for each="{column.options}" as="option" iteration="oId">
+                                <tr>
+                                    <th><svg class="icon {f:if(condition:'{print}', then:'fill-dark')}"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{option.icon}"></use></svg> {option.label}</th>
+                                    <td>
+                                    <f:for each="{accreditation.additionalAnswers}" as="answer" iteration="ai">
+                                        <f:if condition="{answer.field.uid}=={column.uid}">
+                                        <f:switch expression="{column.type}">
+                                            <f:case value="4">
+                                            <td class="text-center">
+                                            <f:for each="{answer.value}" as="value" iteration="vi"><f:if condition="{oId.index}=={vi.index}">>{value.value}</f:if></f:for>
+                                            </td>
+                                            </f:case>
+                                            <f:case value="6">
+                                            <f:for each="{answer.value}" as="value" iteration="vi"><f:if condition="{oId.index}=={vi.index}">{value.value}</f:if></f:for>
+                                            </f:case>
+                                            <f:defaultCase>
+                                            <td class="text-center">
+                                            <f:if condition="{column.type}==0">
+                                            <f:then>
+                                                <f:switch expression="{answer.value}">
+                                                <f:case value="0"><svg class="icon fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#square-empty"></use></svg></f:case>
+                                                <f:case value="1"><svg class="icon fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#square-checkbox"></use></svg></f:case>
+                                                </f:switch>
+                                            </f:then>
+                                            <f:else>{answer.value}</f:else>
+                                            </f:if>
+                                            </td>
+                                            </f:defaultCase>>
+                                        </f:switch>
+                                        </f:if>
+                                    </f:for>
+                                    </td>
+                                </tr>
+                                </f:for>
+                            </table>
+                        </td>
+                    </tr>
+                    </f:case>
+                    <f:defaultCase>
+                    <tr>
+                        <th>{column.label}</th>
+                        <td>
+                        <f:for each="{accreditation.additionalAnswers}" as="answer" iteration="ai">
+                            <f:if condition="{answer.field.uid}=={column.uid}">
+                            <f:switch expression="{column.type}">
+                                <f:case value="4">
+                                <td class="text-center">
+                                <f:for each="{answer.value}" as="value" iteration="vi"><f:if condition="{oId.index}=={vi.index}">>{value.value}</f:if></f:for>
+                                </td>
+                                </f:case>
+                                <f:case value="6">
+                                <f:for each="{answer.value}" as="value" iteration="vi"><f:if condition="{oId.index}=={vi.index}">{value.value}</f:if></f:for>
+                                </f:case>
+                                <f:defaultCase>
+                                {answer.value}
+                                </f:defaultCase>
+                            </f:switch>
+                            </f:if>
+                        </f:for>
+                        </td>
+                    </tr>
+                    </f:defaultCase>
+                </f:switch>
+                </f:for>
+                </f:if>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div id="checkinFormContainer" data-accreditation-uid="{accreditation.uid}">
+        <div class="form-group mb-3">
+            <label for="checkinNotesReceived" class="form-label">Anmerkungen zum Check-In:</label>
+            <textarea class="form-control"
+                      id="checkinNotesReceived"
+                      name="notesReceived"
+                      rows="2"
+                      placeholder="Optionale Anmerkung...">{accreditation.notesReceived}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="checkinTicketsToProcess" class="form-label d-block text-center">Anzahl Tickets für diesen Vorgang (+/-):</label>
+            <div class="input-group w-auto mx-auto" style="max-width: 220px;">
+                <button class="btn btn-outline-secondary" type="button" id="formNumberMinusBtn" data-target-input="#checkinTicketsToProcess">
+                    <svg class="icon fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#minus"></use></svg>
+                </button>
+                <input type="number"
+                       class="form-control text-center form-control-lg"
+                       id="checkinTicketsToProcess"
+                       name="ticketsToProcess"
+                       value="{accreditation.ticketsPrepared}"
+                       min="-{accreditation.ticketsReceived}"
+                       max="{accreditation.ticketsPrepared}"
+                       data-initial-value="{accreditation.ticketsPrepared}"
+                       data-max-abholbar="{accreditation.ticketsPrepared}"
+                       data-aktuell-abgeholt="{accreditation.ticketsReceived}"
+                       aria-label="Anzahl Tickets" />
+                <button class="btn btn-outline-secondary" type="button" id="formNumberPlusBtn" data-target-input="#checkinTicketsToProcess">
+                    <svg class="icon fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#plus"></use></svg>
+                </button>
+            </div>
+            <div class="form-text text-center mt-1">
+                <small>Positiv: Abholen. Negativ: Zurücknehmen.</small>
+            </div>
+        </div>
+
+        <f:if condition="{accreditation.lockingBeUserUid} > 0 && {accreditation.lockingBeUserUid} != {currentBeUser.uid} && {f:format.date(date: '@{accreditation.lockingTstamp}', format: 'U')} > {f:format.date(date: 'now -5 minutes', format: 'U')}">
+            <div class="alert alert-danger mt-2 p-1 text-center small">
+                Geöffnet durch: {accreditation.lockingBeUserName} (um {f:format.date(date: '@{accreditation.lockingTstamp}', format: 'H:i')} Uhr)
+            </div>
+        </f:if>
+
+        <div class="form-group text-center mt-4">
+            <button type="button" id="submitCheckinBtn" class="btn btn-primary btn-lg text-uppercase fw-bold w-100">
+                <svg class="icon icon-sm fill-white mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#circle-check"></use></svg>Check-In Bestätigen
+            </button>
+        </div>
+
+        <f:if condition="{accreditation.lockingBeUserUid} == {currentBeUser.uid} && {accreditation.lockingBeUserUid} > 0">
+            <div class="form-group text-center mt-2">
+                <button type="button" class="btn btn-sm btn-warning w-100" id="releaseLockBtn">
+                    <svg class="icon icon-sm"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#lock-open"></use></svg>
+                    Meine Bearbeitungssperre freigeben
+                </button>
+            </div>
+        </f:if>
+    </div>
+
+</div>
+</html>

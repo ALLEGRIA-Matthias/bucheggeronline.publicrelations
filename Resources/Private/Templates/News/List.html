@@ -1,0 +1,44 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Eventcenter" />
+
+<f:section name="buttons">
+<be:link.newRecord table="tx_publicrelations_domain_model_news" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&action=list&controller=News&tx_publicrelations_eventcenter[client]={client.uid}')}" pid="2" class="btn btn-sm btn-success"><svg class="icon icon-sm fill-white mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#circle-plus"></use></svg>Neue Presseinformation erstellen</be:link.newRecord>
+</f:section>
+
+<f:section name="shortcuts">
+<f:if condition="{client}"><f:link.action controller="News" action="list" arguments="{client:client}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action></f:if>
+<f:if condition="{campaign}"><f:link.action controller="News" action="list" arguments="{campaign:campaign}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action></f:if>
+</f:section>
+
+<f:section name="content">
+    <h1>Presseinformationen <small>zu <f:if condition="{client}">{client.name}</f:if><f:if condition="{campaign}">{campaign.title}</f:if></small></h1>
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <div class="panel panel-default">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th width="30px"></th>
+            <th width="100px">Datum</th>
+            <th>Presseinformation</th>
+            <th align="right" width="150">Funktionen</th>
+          </tr>
+        </thead>
+        <tbody>
+          <f:for each="{newsitems -> v:iterator.sort(sortBy: 'date', order: 'DESC')}" as="news" iteration="ci">
+          <tr>
+            <td><f:if condition="{news.media.0}"><f:image image="{news.media.0}" height="30c" width="30c" class="rounded" /></f:if></td>
+            <td class="nowrap">{news.date->f:format.date(format:'d.m.Y')}</td>
+            <td class="nowrap">{news.title}</td>
+            <td><f:render partial="Functions/News" arguments="{news:news}" /></td>
+          </tr>
+          </f:for>
+        </tbody>
+      </table>
+    </div>
+</f:section>
+</html>

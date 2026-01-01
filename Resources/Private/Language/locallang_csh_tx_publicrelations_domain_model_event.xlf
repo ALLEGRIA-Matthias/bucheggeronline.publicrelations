@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:publicrelations/Resources/Private/Language/locallang_csh" date="2020-08-06T11:01:46Z" product-name="publicrelations">
+		<header/>
+		<body>
+			<trans-unit id="date.description" resname="date.description">
+				<source>date</source>
+			</trans-unit>
+			<trans-unit id="accreditation.description" resname="accreditation.description">
+				<source>accreditation</source>
+			</trans-unit>
+			<trans-unit id="online.description" resname="online.description">
+				<source>online</source>
+			</trans-unit>
+			<trans-unit id="type_overwrite.description" resname="type_overwrite.description">
+				<source>typeOverwrite</source>
+			</trans-unit>
+			<trans-unit id="notes_overwrite.description" resname="notes_overwrite.description">
+				<source>notesOverwrite</source>
+			</trans-unit>
+			<trans-unit id="notes_manual.description" resname="notes_manual.description">
+				<source>notesManual</source>
+			</trans-unit>
+			<trans-unit id="location_note.description" resname="location_note.description">
+				<source>locationNote</source>
+			</trans-unit>
+			<trans-unit id="location.description" resname="location.description">
+				<source>location</source>
+			</trans-unit>
+			<trans-unit id="notes.description" resname="notes.description">
+				<source>notes</source>
+			</trans-unit>
+			<trans-unit id="links.description" resname="links.description">
+				<source>links</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

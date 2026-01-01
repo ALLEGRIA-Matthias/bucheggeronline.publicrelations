@@ -1,0 +1,235 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Eventcenter" />
+
+<f:section name="buttons">
+<f:link.action controller="Event" action="new" class="btn btn-sm btn-success"><svg class="icon icon-sm fill-white mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#circle-plus"></use></svg>Termin(e) generieren</f:link.action>
+</f:section>
+
+<f:section name="shortcuts">
+<f:link.action controller="Event" action="list" arguments="{filter:filter}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+    <h1>Terminverwaltung</h1>
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+
+    <f:form action="list" object="{filter}" objectName="filter">
+    <div class="row row-cols-auto align-items-end g-3 mb-4">
+      <div class="col-12">
+        <label for="selectEvents" class="form-label">Direktsuche</label>
+        <select id="selectEvents" 
+            class="form-control select-event"
+            data-menu="true" 
+            data-menu-target="_self"
+            placeholder="Nach Event suchen...">
+        </select>
+      </div>
+    </div>
+    <div class="row row-cols-auto align-items-end g-3 mb-4">
+      <div class="col">
+        <label for="manualDateStart" class="form-label"><f:translate key="LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:from" /></label>
+        <div class="input-group">
+          <f:form.textfield
+              name="manualDateStart"
+              value="{f:if(condition: filter.manualDateStart, then: \"{f:format.date(format:'d-m-Y', date: '{filter.manualDateStart}')}\", else: \"{f:format.date(format:'d-m-Y', date: 'now')}\")}"
+              id="manualDateStart"
+              additionalAttributes="{'autocomplete': 'off'}"
+              class="form-control t3js-datetimepicker t3js-clearable"
+              data="{date-type: 'date'}"
+          />
+          <f:form.hidden
+              property="manualDateStart"
+              value="{f:if(condition: filter.manualDateStart, then: \"{f:format.date(format:'c', date: '{filter.manualDateStart}')}\", else: \"{f:format.date(format:'c', date: 'now')}\")}"
+          />
+          <label class="mb-0 btn btn-default" for="manualDateStart">
+              <core:icon identifier="actions-calendar" />
+          </label>
+        </div>
+      </div>
+
+      <div class="col">
+        <label for="manualDateStop" class="form-label"><f:translate key="LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:to" /></label>
+        <div class="input-group">
+          <f:form.textfield
+              name="manualDateStop"
+              value="{f:if(condition: filter.manualDateStop, then: \"{f:format.date(format:'d-m-Y', date: '{filter.manualDateStop}')}\")}"
+              additionalAttributes="{'autocomplete': 'off'}"
+              id="manualDateStop"
+              class="form-control t3js-datetimepicker t3js-clearable"
+              data="{date-type: 'date'}"
+          />
+          <f:form.hidden
+              property="manualDateStop"
+              value="{f:if(condition: filter.manualDateStop, then: \"{f:format.date(format:'c', date: '{filter.manualDateStop}')}\")}"
+          />
+          <label class="mb-0 btn btn-default" for="manualDateStop">
+              <core:icon identifier="actions-calendar" />
+          </label>
+        </div>
+      </div>
+      <div class="col">
+        <label for="max" class="form-label">Max:</label>
+        <f:form.select property="max" class="form-select tomselect-generic">
+          <f:form.select.option value="10">10</f:form.select.option>
+          <f:form.select.option value="25" selected="{f:if(condition:'{filter.max}', else: '1')}">25</f:form.select.option>
+          <f:form.select.option value="50">50</f:form.select.option>
+          <f:form.select.option value="100">100</f:form.select.option>
+          <f:form.select.option value="250">250</f:form.select.option>
+          <f:form.select.option value="500">500</f:form.select.option>
+        </f:form.select>
+      </div>
+      <div class="col">
+        <label for="query" class="form-label">Stichwort-Suche:</label>
+        <f:form.textfield property="query" class="form-control filter-table" data="{filter-table:'events', filter-counter:'events-counter'}" />
+      </div>
+      <div class="col">
+        <f:form.submit value="Filter" class="btn btn-primary" />
+        <f:link.action action="list" class="btn btn-default">Zurücksetzen</f:link.action>
+      </div>
+      <div class="col">
+        <span class="badge badge-info my-2" id="events-counter" data-counter-label="Events">{events->f:count()->f:format.number(thousandsSeparator: '.', decimals: '0')} von {events->f:count()->f:format.number(thousandsSeparator: '.', decimals: '0')} Events</span>
+      </div>
+    </div>
+
+    <div class="panel-group" id="accordionExampleSimple">
+      <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title" id="simple-heading-panel1">
+              <a href="#" class="collapsed" data-bs-toggle="collapse" data-bs-target="#simple-panel1" aria-expanded="false" aria-controls="simple-panel1">
+                <span class="caret"></span>
+                <strong>Erweiterter Filter</strong>
+              </a>
+            </h3>
+          </div>
+          <div id="simple-panel1" class="collapse" aria-labelledby="simple-heading-panel1">
+            <div class="panel-body">
+              <div class="row row-cols-auto align-items-end g-3 mb-4">
+                <div class="col">
+                  <label for="client" class="form-label">Kunde:</label><br>
+                  <f:form.select property="client" class="form-select tomselect-generic" options="{clients}" optionLabelField="shortName" optionValueField="uid" optionsAfterContent="true" sortByOptionLabel="true" style="width:300px">
+                    <f:form.select.option value="">[alle]</f:form.select.option>
+                  </f:form.select>
+                </div>
+                <div class="col">
+                  <label for="guests" class="form-label">Gäste:</label>
+                  <f:form.select property="guests" class="form-select tomselect-generic">
+                    <f:form.select.option value="">[alle]</f:form.select.option>
+                    <f:form.select.option value="1">mit Zusagen</f:form.select.option>
+                  </f:form.select>
+                </div>
+                <div class="col">
+                  <label for="canceled" class="form-label">Status:</label>
+                  <f:form.select property="canceled" class="form-select tomselect-generic">
+                    <f:form.select.option value="">[alle]</f:form.select.option>
+                    <f:form.select.option value="0">findet statt</f:form.select.option>
+                    <f:form.select.option value="1">abgesagt</f:form.select.option>
+                  </f:form.select>
+                </div>
+                <div class="col">
+                  <label for="type" class="form-label">Termintyp:</label>
+                  <f:form.select property="type" class="form-select tomselect-generic" options="{eventTypes}" optionLabelField="title" optionValueField="uid" optionsAfterContent="true" sortByOptionLabel="true">
+                    <f:form.select.option value="">[alle]</f:form.select.option>
+                  </f:form.select>
+                </div>
+                <div class="col">
+                  <label for="accreditation" class="form-label">Akkreditierung:</label>
+                  <f:form.select property="accreditation" class="form-select tomselect-generic">
+                    <f:form.select.option value="">[alle]</f:form.select.option>
+                    <f:form.select.option value="1">möglich</f:form.select.option>
+                    <f:form.select.option value="0">nicht möglich</f:form.select.option>
+                  </f:form.select>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    </f:form>
+
+    <f:form controller="Event" action="editCollection" enctype="multipart/form-data" name="events">
+    <div class="form-inline mb-3">
+        <div class="d-flex flex-column d-md-block row">
+            <div class="col-12 col-md-9 order-first order-md-last">
+                <div class="btn-group">
+                  <f:form.button class="btn btn-sm btn-warning"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg><span class="ml-2 d-none d-sm-inline">Gew. Termine ändern</span></f:form.button>
+                  <f:form.button class="btn btn-sm btn-danger" name="postponeCollection"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#step-forward"></use></svg><span class="ml-2 d-none d-sm-inline">Gew. Termine verschieben / absagen</span></f:form.button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-fit">
+      <table class="table table-hover table-striped" id="events">
+        <thead>
+          <tr>
+            <th data-sort-method="none" width="40px"><input type="checkbox" class="checkbox-toggle-all"></th>
+            <th data-filterable width="100px">Status</th>
+            <th data-filterable width="150px">Datum</th>
+            <th data-filterable width="auto">Titel / Spielort</th>
+            <th data-filterable width="auto">Kundeninfos</th>
+            <th data-filterable width="350px">Funktionen</th>
+          </tr>
+        </thead>
+        <tbody id="events-to-filter">
+          <f:for each="{pagination.paginator.paginatedItems}" as="event" iteration="i">
+          <tr class="{f:if(condition: event.ticketsWaiting, then: 'warning', else: '{f:if(condition: event.ticketsApproved, then: \'success\')}')}">
+            <td>
+              <f:if condition="{event.newEvent}">
+                <f:then><f:form.checkbox property="{event.uid}" value="1" disabled="1" /></f:then>
+                <f:else><f:form.checkbox property="{event.uid}" value="1" /></f:else>
+              </f:if>
+            </td>
+            <td class="js-copy-to-clipboard" data-copy-value="{event.uid}">
+              <f:if condition="{event.newEvent} || {event.canceled}">
+                <f:then>
+                  <f:if condition="{event.canceled}"><f:then><span class="badge badge-danger">abgesagt</span></f:then><f:else><span class="badge badge-warning">verschoben</span></f:else></f:if>
+                </f:then>
+                <f:else>
+                  <f:if condition="{event.ticketsApproved}">
+                    <f:then><span class="badge badge-success">{event.ticketsApproved} Gäste</span></f:then>
+                    <f:else><span class="badge badge-info">findet statt</span></f:else>
+                  </f:if>
+                  <f:if condition="{event.ticketsWaiting}">
+                    <f:if condition="{event.ticketsApproved}"><br/></f:if>
+                    <span class="badge badge-warning">{event.ticketsWaiting} Gäste warten</span>
+                  </f:if>
+                </f:else>
+              </f:if>
+            </td>
+            <td><f:if condition="{event.dateFulltime}"><f:then>{event.date->f:format.date(format:'%d.%m.%Y')}</f:then><f:else>{event.date->f:format.date(format:'%d.%m.%Y %H:%M')}</f:else></f:if></td>
+            <td>
+              <strong>{event.title}</strong>
+              <f:if condition="{event.location}"><br/>{event.location.name}, {event.location.city}</f:if>
+              <f:if condition="{event.locationNote}" ><br/><span class="badge badge-primary">{event.locationNote}</span></f:if>
+              <f:if condition="{event.newEvent}"><br/><span class="badge badge-danger">Verschoben auf {event.newEvent.date->f:format.date(format:'%d.%m.%Y %H:%M')}!</span><br/></f:if>
+              <f:if condition="{event.oldEvent}"><br/><span class="badge badge-warning">Ersatztermin für {event.oldEvent.date->f:format.date(format:'%d.%m.%Y %H:%M')}!</span><f:if condition="{event.oldEvent.date->f:format.date(format:'Y-m-d')}>{f:format.date(date:'now', format:'Y-m-d')}"><f:link.action action="undoPostpone" arguments="{event:event}" data="{toggle:'tooltip', placement:'top'}" title="Verschiebung rückgängig machen..."><svg class="icon fill-danger"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#undo"></use></svg></f:link.action></f:if></f:if>
+              <f:if condition="{event.notesOutput}"><br/><f:for each="{event.notesOutput}" as="note" iteration="i"><span class="badge badge-dark mr-2">{note}</span></f:for></f:if></td>
+            <td>
+              <f:if condition="{event.client}"><f:then><strong>{event.client.shortName}</strong></f:then><f:else><strong>{event.campaign.client.shortName}</strong></f:else></f:if>
+              <f:if condition="{event.campaign}"><br/>{event.campaign.title}</f:if>
+            </td>
+            <td><f:render partial="Functions/Event" arguments="{event:event}" /></td>
+          </tr>
+          </f:for>
+        </tbody>
+      </table>
+    </div>
+    </f:form>
+
+    <f:render partial="pagination" arguments="{pagination:pagination, actionName:'list'}" />
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setze den Fokus auf das Suchfeld, damit sofort gescannt werden kann
+            var searchField = document.querySelector('#selectEvents');
+            if (searchField) {
+                searchField.focus();
+            }
+        });
+    </script>
+</f:section>
+</html>

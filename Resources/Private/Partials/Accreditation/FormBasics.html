@@ -1,0 +1,83 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+<div class="alert alert-primary">
+  <h4>Grunddaten</h4>
+  <div class="row">
+    <f:if condition="!{approve}">
+      <div class="col-12 col-md-3">
+        <div class="form-group">
+          <label for="selectType"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#tag"></use></svg> Gästetyp</label>
+          <div class="input-group w-100">
+            <f:form.select class="form-control tomselect-generic select-collapse" data="{collapse-id: 'facieContainer', collapse-value: '1', disable-target:'guestType'}" disabled="{f:if(condition:'{disabled}', then:'1')}" id="selectType" property="guestType" required="1" value="{accreditation.guestType}">
+              <f:form.select.option value="">Bitte Gästetyp wählen...</f:form.select.option>
+              <f:form.select.option value="1" selected="{f:if(condition:'{accreditation.guestType}==1', then:'1')}">VIP</f:form.select.option>
+              <f:form.select.option value="6" selected="{f:if(condition:'{accreditation.guestType}==6', then:'1')}">Talent</f:form.select.option>
+              <f:form.select.option value="2" selected="{f:if(condition:'{accreditation.guestType}==2', then:'1')}">Presse</f:form.select.option>
+              <f:form.select.option value="3" selected="{f:if(condition:'{accreditation.guestType}==3', then:'1')}">Gewinnspiel</f:form.select.option>
+              <f:form.select.option value="4" selected="{f:if(condition:'{accreditation.guestType}==4', then:'1')}">Füllkarten</f:form.select.option>
+              <f:form.select.option value="5" selected="{f:if(condition:'{accreditation.guestType}==5', then:'1')}">Personal</f:form.select.option>
+            </f:form.select>
+          </div>
+        </div>
+      </div>
+
+      <f:if condition="{accreditation.guestType}==1 || {disabled}">
+        <f:then>
+          <div class="col-12 col-md-2" id="facieContainer">
+            <div class="form-group">
+              <label><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#star"></use></svg> Facie</label>
+              <div class="form-check">
+                <f:form.checkbox class="form-check-input mt-0" id="checkFacie" property="facie" value="1" data="{disable-target:'facie'}" disabled="{f:if(condition:'{disabled}', then:'1')}" />
+                <label class="form-check-label" for="checkFacie">Ja/Nein</label>
+              </div>
+            </div>
+          </div>
+        </f:then>
+        <f:else>
+          <div class="col-12 col-md-2" id="facieContainer" style="{f:if(condition:'{disabled}', else:'display:none;')}">
+            <div class="form-group">
+              <label><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#star"></use></svg> Facie</label>
+              <div class="form-check">
+                <f:form.checkbox class="form-check-input mt-0" id="checkFacie" property="facie" value="1" data="{disable-target:'facie'}" disabled="{f:if(condition:'{disabled}', then:'1')}" />
+                <label class="form-check-label" for="checkFacie">Ja/Nein</label>
+              </div>
+            </div>
+          </div>
+        </f:else>
+      </f:if>
+    </f:if>
+
+    <div class="col-12 col-md-2">
+      <div class="form-group">
+        <label for="inputTicketsApproved"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#ticket"></use></svg> Tickets</label>
+        <div class="input-group">
+          <f:form.textfield class="form-control" id="inputTicketsApproved" property="ticketsApproved" type="number" value="{f:if(condition:'{accreditation.ticketsApproved}', then:'{accreditation.ticketsApproved}', else:'{f:if(condition:\'{accreditation.ticketsWish}\', then:\'{accreditation.ticketsWish}\', else:\'2\')}')}" data="{disable-target:'ticketsApproved'}" disabled="{f:if(condition:'{disabled}', then:'1')}" />
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-2">
+      <div class="form-group">
+        <label for="inputProgram"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#book-open"></use></svg> Programm</label>
+        <div class="input-group">
+          <f:form.textfield class="form-control" id="inputProgram" property="program" type="number" value="{f:if(condition:'{accreditation.program}', then:'{accreditation.program}', else:'0')}" data="{disable-target:'program'}" disabled="{f:if(condition:'{disabled}', then:'1')}" />
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-2">
+      <div class="form-group">
+        <label for="inputPass"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#camera"></use></svg> Fotopass</label>
+        <div class="input-group">
+          <f:form.textfield class="form-control" id="inputPass" property="pass" type="number" value="{f:if(condition:'{accreditation.pass}', then:'{accreditation.pass}', else:'0')}" data="{disable-target:'pass'}" disabled="{f:if(condition:'{disabled}', then:'1')}" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</html>

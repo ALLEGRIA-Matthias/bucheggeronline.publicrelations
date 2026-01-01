@@ -1,0 +1,35 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+    <div class="btn-group">
+        <f:link.action
+            action="swapMaster"
+            controller="Accreditation"
+            arguments="{newMaster: accreditation, filter: filter}"
+            class="btn btn-info"
+            title="Diesen Kontakt zum neuen Master der Gruppe machen"
+        >
+            <span class="t3js-icon icon icon-size-small icon-state-default">
+                <span class="icon-markup">
+                <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#file-refresh"></use></svg>
+                </span>
+            </span>
+        </f:link.action>
+        <f:link.action
+            action="removeFromGroup"
+            controller="Accreditation"
+            arguments="{accreditation: accreditation, filter: filter}"
+            class="btn btn-warning"
+            title="Aus Duplikat-Gruppe entfernen"
+        >
+            <span class="t3js-icon icon icon-size-small icon-state-default">
+                <span class="icon-markup">
+                <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#eject"></use></svg>
+                </span>
+            </span>
+        </f:link.action>
+    </div>
+</html>

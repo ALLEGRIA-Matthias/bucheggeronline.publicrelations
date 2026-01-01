@@ -1,0 +1,31 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+<div class="btn-group">
+    <f:link.action action="show" arguments="{contact:contact}" class="btn btn-default btn-sm" additionalAttributes="{data-toggle:'tooltip', data-placement:'top'}" title="Kontakt anzeigen">
+    <span class="t3js-icon icon icon-size-small icon-state-default">
+        <span class="icon-markup">
+        <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#eye"></use></svg>
+        </span>
+    </span>
+    </f:link.action>
+    <be:link.editRecord uid="{contact.uid}" table="tt_address" returnUrl="{be:moduleLink(route: 'allegria_contacts', arguments:'{id:2}', query:'&tx_publicrelations_contacts[action]=list&tx_publicrelations_contacts[controller]=Contact')}" class="btn btn-default btn-sm" additionalAttributes="{data-toggle:'tooltip', data-placement:'top'}" title="Kontakt bearbeiten">
+    <span class="t3js-icon icon icon-size-small icon-state-default">
+        <span class="icon-markup">
+        <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg>
+        </span>
+    </span>
+    </be:link.editRecord>
+    <be:link.editRecord uid="{contact.uid}" table="tt_address" fields="categories" returnUrl="{be:moduleLink(route: 'allegria_contacts', arguments:'{id:2}', query:'&tx_publicrelations_contacts[action]=list&tx_publicrelations_contacts[controller]=Contact')}" class="btn btn-default btn-sm" additionalAttributes="{data-toggle:'tooltip', data-placement:'top'}" title="Verteiler bearbeiten">
+    <span class="t3js-icon icon icon-size-small icon-state-default">
+        <span class="icon-markup">
+        <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#tags"></use></svg>
+        </span>
+    </span>
+    </be:link.editRecord>
+</div>
+
+</html>

@@ -1,0 +1,82 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<div class="alert alert-default" role="alert">
+  <h4>Optionen</h4>
+
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="selectNotes"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#square-info"></use></svg> Hinweisauswahl</label>
+        <div class="input-group w-100">
+            <f:form.select class="form-control tomselect-generic" data="{disable-target:'notesSelect'}" disabled="{f:if(condition:'{disabled}', then:'1')}" id="selectNotes" property="notesSelect" optionsAfterContent="1" options="{notesItems}" optionValueField="uid" optionLabelField="title" multiple="1" />
+        </div>
+      </div>
+    </div>
+
+    <f:if condition="{disabled}">
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="checkNotesSelectOverwrite"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#square-alert"></use></svg> Vorhandene Hinweise überschreiben?</label>
+          <div class="form-check">
+            <f:form.checkbox class="form-check-input mt-0" id="checkNotesSelectOverwrite" property="notesSelectOverwrite" value="1" checked="1" data="{disable-target:'notesSelect'}" disabled="{f:if(condition:'{disabled}', then:'1')}" />
+            <label class="form-check-label" for="checkNotesSelectOverwrite">Ja/Nein</label>
+          </div>
+        </div>
+      </div>
+    </f:if>
+
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="inputNotes"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#speech-bubble-info"></use></svg> Sonstige Hinweise</label>
+        <div class="input-group w-100">
+          <f:form.textarea class="form-control" id="inputNotes" property="notes" data="{disable-target:'notes'}" disabled="{f:if(condition:'{disabled}', then:'1')}" />
+        </div>
+      </div>
+    </div>
+
+    <f:if condition="{event.invitations}">
+    <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="invitationType"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#envelope-full"></use></svg> Einladungstyp</label>
+          <div class="input-group w-100">
+            <f:form.select class="form-control tomselect-generic" data="{disable-target:'invitationType'}" disabled="{f:if(condition:'{disabled}', then:'1')}" id="invitationType" property="invitationType" options="{event.invitations}" optionValueField="uid" optionLabelField="title" multiple="0" />
+          </div>
+        </div>
+      </div>
+    </f:if>
+
+    <f:if condition="!{disabled} && !{approve}">
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="inputSeats"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#flag-triangle"></use></svg> Sitzplatzinfo</label>
+        <div class="input-group w-100">
+          <f:form.textarea class="form-control" id="inputSeats" property="seats" data="{disable-target:'seats'}" />
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="inputTickets"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#ticket"></use></svg> Tickets</label>
+          <div class="input-group w-100">
+            <f:form.textarea class="form-control" id="inputTickets" property="tickets" data="{disable-target:'tickets'}" />
+          </div>
+        </div>
+      </div>
+    </f:if>
+
+  </div>
+</div>
+
+<div class="col-12">
+  <div class="form-group">
+    <f:form.checkbox class="form-check-inline ml-3 mr-2" id="checkMails" name="mails" value="1" checked="{f:if(condition:'{noMail}', then:'0', else:'1')}"/>
+    <label class="form-check-label mr-3" for="checkMails">inkl. Mailversand</label>
+  </div>
+</div>
+
+</html>

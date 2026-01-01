@@ -1,0 +1,1428 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+This Template is responsible for displaying a single view for a domain object
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        Show.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="content">
+<div class="container my-4">
+  <div class="row">
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <f:if condition="{accreditation.uid}==46480">
+        <f:then>
+            <div class="col-12">
+                <div class="line-l mb-3">
+                    <h1 style="font-size:2rem;">Rückmeldung zur persönlichen Einladung</h1>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-3 col-lg-3">
+                    <f:image image="{accreditation.invitationType.image}" class="img-fluid mb-3" width="450" height="auto" />
+                    </div>
+                    <div class="col-12 col-md-9 col-lg-9">
+                    <h2 style="margin-top:0px; font-size:1.3rem;">Termindaten</h2>
+                    <table class="table table-sm table-borderless" style="font-size:1rem;">
+                        <tr>
+                        <th width="75px" style="padding-left:0;">Termin</th>
+                        <td>{accreditation.event.title}</td>
+                        </tr>
+                        <tr>
+                        <th style="padding-left:0;">Datum</th>
+                        <td><f:if condition="{accreditation.event.date->f:format.date(format:'%k.%M')} == '0.00'"><f:then>{accreditation.event.date->f:format.date(format:'%e. %B %Y')}</f:then><f:else><f:if condition="{accreditation.event.uid}==2265"><strong style="text-transform: uppercase;">{accreditation.event.date->f:format.date(format:'%A')}</strong>, </f:if>{accreditation.event.date->f:format.date(format:'%e. %B %Y um %k.%M Uhr')}</f:else></f:if></td>
+                        </tr>
+                        <tr>
+                        <th style="padding-left:0;">Location</th>
+                        <td>{accreditation.event.location.name} • {accreditation.event.location.street}, {accreditation.event.location.zip} {accreditation.event.location.city}</td>
+                        </tr>
+                    </table>
+                        <h2>Hier rückmelden</h2>
+                        <p>Bitte geben Sie uns Ihre Zu- oder Absage via E-Mail unter <a href="mailto:office@allegria.at?subject=Rückmeldung%20zur%20Einladung%20zur%20Eröffnungsfeier%20Community%20Nursing" target="_blank">office@allegria.at</a> bekannt.</p>
+                        <a href="mailto:office@allegria.at?subject=Rückmeldung%20zur%20Einladung%20zur%20Eröffnungsfeier%20Community%20Nursing" target="_blank" class="btn btn-primary fw-bold">Rückmeldung via E-Mail senden</a>
+                    </div>
+                </div>
+            </div>
+        </f:then>
+        <f:else>
+            <f:switch expression="{accreditation.event.uid}">
+                <f:case value="2755">
+                    <div class="col-12">
+                        <div class="line-l mb-3">
+                            <h1 style="font-size:2rem;">Finale Rückmeldung zur Premiere von LUZIA – Cirque du Soleil</h1>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-3 col-lg-3">
+                            <f:image image="{accreditation.invitationType.image}" class="img-fluid mb-3" width="450" height="auto" />
+                            </div>
+                            <div class="col-12 col-md-9 col-lg-9">
+                            <h2 style="margin-top:0px; font-size:1.3rem;">Termindaten</h2>
+                            <table class="table table-sm table-borderless" style="font-size:1rem;">
+                                <tr>
+                                <th width="80px" style="padding-left:0;">Termin</th>
+                                <td>{accreditation.event.title}</td>
+                                </tr>
+                                <tr>
+                                <th style="padding-left:0;">Datum</th>
+                                <td>{accreditation.event.date->f:format.date(format:'%e. %B %Y')}</td>
+                                </tr>
+                                <tr>
+                                <th style="padding-left:0;">Einlass</th>
+                                <td>18.00 bis <f:if condition="{accreditation.facie}"><f:then>19.00</f:then><f:else>19.15</f:else></f:if> Uhr</td>
+                                </tr>
+                                <tr>
+                                <th style="padding-left:0;">Location</th>
+                                <td>{accreditation.event.location.name}</td>
+                                </tr>
+                                <tr>
+                                <th style="padding-left:0;">Gast</th>
+                                <td>{accreditation.guestOutput.name}</td>
+                                </tr>
+                            </table>
+                            <f:if condition="{accreditation.reportAllowed}">
+                            <f:then>
+                                <div class="col-12">
+                                    <div class="alert bg-info">
+                                        <h4>Info zum erweiterten Ablauf</h4>
+                                        <p>Die unglaublich große Nachfrage zur neuen Show von Cirque du Soleil, <strong>LUZIA - Ein Traum von Mexiko</strong>, hat uns dazu bewogen, eine erweiterte Abfrage einzusetzen. Beinahe 1.500 geladene Gäste nehmen am 12. April Platz im Grand Chapiteau und wir führen nach wie vor Wartelisten – Ihre Tickets sind allerdings fix reserviert!</p>
+                                        <p>Wie wir alle wissen, können sich Pläne ändern und unvorhergesehene Situationen können einen Besuch im Theater unmöglich machen. Wir wollen unter allen Umständen leere Plätze vermeiden und die noch frei werdenden Plätze mit Wartenden füllen.</p>
+                                        <p>Bitte <strong>bestätigen Sie nun Ihr fixes Kommen</strong> zur Premiere, um Ihre Tickets bzw. den digitalen Zutrittspass direkt zu erhalten, oder sagen Sie noch zeitgerecht ab.</p>
+                                        <p style="margin-bottom: 0;"><small><strong>Ihre Tickets sind bis 12. April 2023, um 19.15 Uhr fix für Sie reserviert</strong> – danach werden nicht abgerufene Tickets an wartende Gäste vergeben.</small></p>
+                                    </div>
+                                </div>
+                                <f:form action="updateFrontend" enctype="multipart/form-data" name="accreditation" object="{accreditation}">
+                                <fieldset class="form-group">
+                                <div class="row">
+                                    <legend class="col-form-label col-12 pt-0 fw-bold" style="font-size:1.8rem;">Rückmeldung</legend>
+                                    <div class="col-12 radio-toggle" data-name="tx_publicrelations_pressroom[report]" data-toggle-target="details">
+                                    <div class="form-check">
+                                        <f:form.radio name="report" value="approve" class="form-check-input" id="approve" checked="0" additionalAttributes="{required:'required'}" />
+                                        <label class="form-check-label" for="approve">
+                                        <f:switch expression="{accreditation.ticketsWish}">
+                                            <f:case value="1"><strong>Ich komme</strong> wie angeküdigt – <strong>1 Ticket</strong> liegt für Sie bereit</f:case>
+                                            <f:defaultCase><strong>Ich komme</strong> wie angeküdigt – <strong>{accreditation.ticketsWish} Tickets</strong> liegen für Sie bereit</f:defaultCase>
+                                        </f:switch>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <f:form.radio name="report" value="reject" class="form-check-input" id="reject" checked="0" additionalAttributes="{required:'required'}" />
+                                        <label class="form-check-label" for="reject">
+                                        <strong>Leider ist etwas dazwischen gekommen</strong>, ich kann die Tickets nicht in Anspruch nehmen.
+                                        </label>
+                                    </div>
+                                    </div>
+                                </div>
+                                </fieldset>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <f:form.hidden id="ticketsApproved" value="{accreditation.ticketsWish}" property="ticketsApproved" />
+                                        <f:form.hidden property="status" value="1" />
+                                        <f:form.hidden property="invitationStatus" value="-1" />
+                                        <f:form.button type="submit" class="btn btn-primary fw-bold mt-3"><svg class="icon fill-dark me-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#send"></use></svg>Finale Rückmeldung absenden</f:form.button>
+                                    </div>
+                                </div>
+                                <f:if condition="{approved.ticketsWish}!=1">
+                                    <div class="col-12 mt-3">
+                                        <div class="alert bg-dark text-white">
+                                            <p style="margin: 0;">Sollten Sie nicht alle Ihre Tickets nutzen können, so informieren Sie uns bitte im Idealfall via E-Mail unter <a href="mailto:office@allegria.at" target="_blank">office@allegria.at</a>, damit wir die Restkarten erneut vergeben können.</p>
+                                        </div>
+                                    </div>
+                                </f:if>
+                                </f:form>
+                            </f:then>
+                            <f:else>
+                            <f:if condition="{accreditation.invitationStatus}==-1 || {accreditation.status} != 0">
+                                <f:then>
+                                <f:switch expression="{accreditation.status}">
+                                <f:case value="1">
+                                    <div class="alert alert-success">
+                                    <h4>Rückmeldung bereits erhalten!</h4>
+                                    <p>Danke für die Rückmeldung, eine Bestätigungsmail sollte bereits eingetroffen sein.<br>
+                                        <strong>Schön, dass wir uns demnächst sehen!</strong></p>
+                                    <p>Sollten noch Fragen auftauchen, oder die Bestätigung kam nicht an, stehen wir natürlich jederzeit unter <a href="mailto:office@allegria.at" target="_blank">office@allegria.at</a> zur Verfügung.</p>
+                                    </div>
+                                </f:case>
+                                <f:case value="-1">
+                                    <div class="alert alert-warning">
+                                    <h4>Rückmeldung bereits erhalten!</h4>
+                                    <p>Danke für die Rückmeldung, eine Bestätigungsmail sollte bereits eingetroffen sein.<br>
+                                        <strong>Schade, dass es diesmal nicht klappt!</strong></p>
+                                    <p>Sollten noch Fragen auftauchen, oder es ging etwas bei der Rückmeldung schief, stehen wir natürlich jederzeit unter <a href="mailto:office@allegria.at" target="_blank">office@allegria.at</a> zur Verfügung.</p>
+                                    </div>
+                                </f:case>
+                                </f:switch>
+                                </f:then>
+                                <f:else>
+                                <div class="alert alert-danger">
+                                    <h4>Gästeliste bereits vorbereitet</h4>
+                                    <p>Leider ist es nicht mehr möglich eine Rückmeldung zu geben, die Gästeliste wurde bereits vorbereitet. Gerne <f:if condition="{accreditation.guest.personally}"><f:then>kannst du</f:then><f:else>können Sie</f:else></f:if> uns telefonisch bzw. via Email kontaktieren, evtl. ist es noch kurzfristig möglich <f:if condition="{accreditation.guest.personally}"><f:then>dich</f:then><f:else>Sie</f:else></f:if> auf die Gästeliste zu schreiben.</p>
+                                    <p>Danke für <f:if condition="{accreditation.guest.personally}"><f:then>dein</f:then><f:else>Ihr</f:else></f:if> Verständnis.</p>
+                                </div>
+                                </f:else>
+                            </f:if>
+                            </f:else>
+                            </f:if>
+                            </div>
+                        </div>
+                    </div>
+                </f:case>
+                <f:case value="4271">
+                    <div class="col-12">
+                        <div class="line-l mb-3">
+                            <h1 style="font-size:2rem;">Rückmeldung zur Verabschiedung von Otto Schenk</h1>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-3 col-lg-3">
+                                <f:image image="{accreditation.invitationType.image}" class="img-fluid mb-3" width="450" height="auto" />
+                            </div>
+                            <div class="col-12 col-md-9 col-lg-9">
+                                <h2 style="margin-top:0px; font-size:1.3rem;">Termindaten</h2>
+                                <table class="table table-sm table-borderless" style="font-size:1rem;">
+                                    <tr>
+                                    <th width="80px" style="padding-left:0;">Termine</th>
+                                    <td>
+                                        Mi, <strong>29. Jänner 2025</strong> ab 15 Uhr im <strong>Wiener Stephansdom</strong><br>
+                                        Do, <strong>30. Jänner 2025</strong> ab 14 Uhr am <strong>Wiener Zentralfriedhof</strong>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <th style="padding-left:0;">Gast</th>
+                                    <td>{accreditation.guestOutput.name}</td>
+                                    </tr>
+                                </table>
+                                <f:if condition="{accreditation.reportAllowed}">
+                            <f:then>
+                                <f:form action="updateFrontend" enctype="multipart/form-data" name="accreditation" object="{accreditation}">
+                                <fieldset class="form-group">
+                                <div class="row">
+                                    <legend class="col-form-label col-12 pt-0 fw-bold" style="font-size:1.3rem;">Rückmeldung</legend>
+                                    <div class="col-12 radio-toggle" data-name="tx_publicrelations_pressroom[report]" data-toggle-target="details">
+                                    <div class="form-check">
+                                        <f:form.radio name="report" value="approve" class="form-check-input" id="approve" checked="0" additionalAttributes="{required:'required'}" />
+                                        <label class="form-check-label" for="approve">
+                                        Zusage zur Verabschiedung.
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <f:form.radio name="report" value="reject" class="form-check-input" id="reject" checked="0" additionalAttributes="{required:'required'}" />
+                                        <label class="form-check-label" for="reject">
+                                        Leider habe ich keine Zeit und muss absagen.
+                                        </label>
+                                    </div>
+                                    </div>
+                                </div>
+                                </fieldset>
+                                <div data-toggle-content="details" data-toggle-value="approve">
+                                <div class="form-group row">
+                                    <label for="ticketsApproved" class="col-12 col-form-label fw-bold">Kommende Personen</label>
+                                    <div class="col-12 mb-3">
+                                    <f:form.textfield id="ticketsApproved" class="form-control" value="1" additionalAttributes="{min:'1', max:'{accreditation.ticketsWish}'}" type="number" property="ticketsApproved" />
+                                    </div>
+                                </div>
+                                <f:if condition="{accreditation.event.invitationNotesTitle}">
+                                <div class="form-group row">
+                                    <label for="notes" class="col-12 col-form-label fw-bold">{accreditation.event.invitationNotesTitle}</label>
+                                    <f:if condition="{accreditation.event.invitationNotesDescription}"><p class="text-muted" style="padding-right: 15px; padding-left: 15px;">{accreditation.event.invitationNotesDescription->f:format.nl2br()}</p></f:if>
+                                    <div class="col-12">
+                                    <f:form.textarea id="notes" class="form-control required" property="notes" required="{accreditation.event.invitationNotesRequired}" />
+                                    </div>
+                                </div>
+                                </f:if>
+
+                                <f:if condition="{accreditation.event.additionalfieldsInvitation}">
+                                <legend class="col-form-label pt-0 fw-bold" style="font-size:1.3rem;">Nötige Angaben zu Ihrer Zusage</legend>
+                                <f:for each="{accreditation.event.additionalfieldsInvitation}" as="field" iteration="fi">
+                                    <f:if condition="{field.uid}==60">
+                                        <f:then>
+                                            <f:if condition="{accreditation.invitationType.uid}==445">
+                                                <f:if condition="{field.type}==3">
+                                                <div class="form-group row">
+                                                    <label for="field{field.uid}" class="col-12 col-form-label fw-bold">
+                                                    {field.label}<br>
+                                                    <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                                    </label>
+                                                    <div class="col-12">
+                                                    <f:form.select
+                                                        class="form-control tomselect-generic"
+                                                        data="{select2-id: 'field{field.uid}'}"
+                                                        id="selectNotes"
+                                                        name="additionalAnswers[{field.uid}]"
+                                                        required="{field.required}"
+                                                    >
+                                                        <f:form.select.option value="">{f:if(condition:'{field.required}', then: 'Bitte', else: 'Optional')} auswählen</f:form.select.option>
+                                                        <f:for each="{field.options}" as="option"><f:if condition="{option.frontend}"><f:form.select.option value="{option.value}">{option.label}</f:form.select.option></f:if></f:for>
+                                                    </f:form.select>
+                                                    </div>
+                                                </div>
+                                                </f:if>
+                                            </f:if>
+                                        </f:then>
+                                        <f:else>
+                                            <f:if condition="{field.invitation}">
+
+                                            <f:if condition="{field.type}==0">
+                                            <div class="form-check">
+                                                <f:if condition="{field.required}">
+                                                <f:then>
+                                                <f:form.checkbox
+                                                    class="form-check-input"
+                                                    id="field{field.uid}"
+                                                    name="additionalAnswers[{field.uid}]"
+                                                    value="1"
+                                                    checked=""
+                                                    additionalAttributes="{required:1}"
+                                                />
+                                                </f:then>
+                                                <f:else>
+                                                <f:form.checkbox
+                                                    class="form-check-input"
+                                                    id="field{field.uid}"
+                                                    name="additionalAnswers[{field.uid}]"
+                                                    value="1"
+                                                    checked=""
+                                                />
+                                                </f:else>
+                                                </f:if>
+                                                <label for="field{field.uid}" class="form-check-label">
+                                                {field.label}<br>
+                                                <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                                </label>
+                                            </div>
+                                            </f:if>
+
+                                            <f:if condition="{field.type}==1">
+                                                
+                                                <f:if condition="{accreditation.event.uid} == 3963 || {accreditation.event.uid} == 4302 || {accreditation.event.uid} == 4326 || {accreditation.event.uid} == 4494 || {accreditation.event.uid} == 4861">
+                                                    <f:then>
+                                                    <f:if condition="{accreditation.guestType}==2">
+                                                        <f:then>
+                                                            <f:form.hidden
+                                                                        id="field{field.uid}"
+                                                                        name="additionalAnswers[{field.uid}]"
+                                                                        value="0"
+                                                                    />
+                                                        </f:then>
+                                                        <f:else>
+                                                            <f:if condition="{accreditation.event.uid} == 3963"><img src="https://www.allegria.at/fileadmin/marketing/imperial-markets/IM_Xmas-2024_Eislaufen.png" alt="Familienattraktionen" /></f:if>
+                                                            <div>
+                                                                <label for="field{field.uid}" class="form-label">
+                                                                {field.label}<br>
+                                                                    <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                                                    </label>
+                                                                    <f:if condition="{field.required}">
+                                                                    <f:then>
+                                                                    <f:form.textfield
+                                                                        class="form-control"
+                                                                        type="number"
+                                                                        id="field{field.uid}"
+                                                                        name="additionalAnswers[{field.uid}]"
+                                                                        value=""
+                                                                        additionalAttributes="{required:1, min:'0', max:'4'}"
+                                                                    />
+                                                                    </f:then>
+                                                                    <f:else>
+                                                                    <f:form.textfield
+                                                                        class="form-control"
+                                                                        type="number"
+                                                                        id="field{field.uid}"
+                                                                        name="additionalAnswers[{field.uid}]"
+                                                                        value="0"
+                                                                        additionalAttributes="{min:'0', max:'4'}"
+                                                                    />
+                                                                    </f:else>
+                                                                    </f:if>
+
+                                                            </div>
+                                                        </f:else>
+                                                    </f:if>
+                                                    </f:then>
+                                                    <f:else>
+                                                        <div>
+                                                            <label for="field{field.uid}" class="form-label">
+                                                            {field.label}<br>
+                                                            <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                                            </label>
+                                                            <f:if condition="{field.required}">
+                                                            <f:then>
+                                                            <f:form.textfield
+                                                                class="form-control"
+                                                                id="field{field.uid}"
+                                                                name="additionalAnswers[{field.uid}]"
+                                                                value=""
+                                                                additionalAttributes="{required:1}"
+                                                            />
+                                                            </f:then>
+                                                            <f:else>
+                                                            <f:form.textfield
+                                                                class="form-control"
+                                                                id="field{field.uid}"
+                                                                name="additionalAnswers[{field.uid}]"
+                                                                value=""
+                                                            />
+                                                            </f:else>
+                                                            </f:if>
+                                                        </div>
+                                                    </f:else>
+                                                </f:if>
+                                            </f:if>
+
+                                            <f:if condition="{field.type}==2">
+                                            <div>
+                                                <label for="field{field.uid}" class="form-label">
+                                                {field.label}<br>
+                                                <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                                </label>
+                                                <f:if condition="{field.required}">
+                                                <f:then>
+                                                <f:form.textarea
+                                                    class="form-control"
+                                                    id="field{field.uid}"
+                                                    name="additionalAnswers[{field.uid}]"
+                                                    value=""
+                                                    additionalAttributes="{required:1}"
+                                                />
+                                                </f:then>
+                                                <f:else>
+                                                <f:form.textarea
+                                                    class="form-control"
+                                                    id="field{field.uid}"
+                                                    name="additionalAnswers[{field.uid}]"
+                                                    value=""
+                                                />
+                                                </f:else>
+                                                </f:if>
+                                            </div>
+                                            </f:if>
+
+                                            <f:if condition="{field.type}==3">
+                                            <div class="form-group row">
+                                                <label for="field{field.uid}" class="col-12 col-form-label fw-bold">
+                                                {field.label}<br>
+                                                <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                                </label>
+                                                <div class="col-12">
+                                                <f:form.select
+                                                    class="form-control tomselect-generic"
+                                                    data="{select2-id: 'field{field.uid}'}"
+                                                    id="selectNotes"
+                                                    name="additionalAnswers[{field.uid}]"
+                                                    required="{field.required}"
+                                                >
+                                                    <f:form.select.option value="">{f:if(condition:'{field.required}', then: 'Bitte', else: 'Optional')} auswählen</f:form.select.option>
+                                                    <f:for each="{field.options}" as="option"><f:if condition="{option.frontend}"><f:form.select.option value="{option.value}">{option.label}</f:form.select.option></f:if></f:for>
+                                                </f:form.select>
+                                                </div>
+                                            </div>
+                                            </f:if>
+
+                                            <f:if condition="{field.type}==4">
+                                            <div class="form-group row">
+                                                <label for="field{field.uid}" class="col-12 col-form-label fw-bold">
+                                                {field.label}<br>
+                                                <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                                </label>
+                                                <div class="col-12">
+                                                <f:form.select
+                                                    class="form-control tomselect-generic"
+                                                    data="{select2-id: 'field{field.uid}'}"
+                                                    id="selectNotes"
+                                                    name="additionalAnswers[{field.uid}]"
+                                                    multiple="1"
+                                                >
+                                                    <f:for each="{field.options}" as="option"><f:if condition="{option.frontend}"><f:form.select.option value="{option.value}">{option.label}</f:form.select.option></f:if></f:for>
+                                                </f:form.select>
+                                                </div>
+                                            </div>
+                                            </f:if>
+
+                                            <f:if condition="{field.type}==6">
+                                            <div class="col-12 col-md-4">
+                                                <div class="form-group">
+                                                <label class="font-weight-bold"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{field.icon}"></use></svg> {field.label}</label>
+                                                <f:for each="{field.options}" as="option" iteration="oi">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text"><f:if condition="{option.icon}"><svg class="icon icon-sm fill-gold mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{option.icon}"></use></svg></f:if>{option.label}</span>
+                                                    </div>
+                                                    <f:form.textfield
+                                                    class="form-control proveMax"
+                                                    id="field{field.uid}.{option.value}"
+                                                    name="additionalAnswers[{field.uid}][{option.value}]"
+                                                    type="number"
+                                                    value="<f:spaceless>
+                                                            <f:if condition='{accreditation.additionalAnswers->f:count()}'>
+                                                            <f:then>
+                                                            <f:for each='{accreditation.additionalAnswers}' as='answer' iteration='ai'>
+                                                                <f:if condition='{answer.field.uid}=={field.uid}'>
+                                                                <f:then>
+                                                                <f:for each='{answer.value}' as='value'>
+                                                                    <f:if condition='{value.key}=={option.value}'>{value.value}</f:if>
+                                                                </f:for>
+                                                                </f:then>
+                                                                <f:else>0</f:else>
+                                                                </f:if>
+                                                            </f:for>
+                                                            </f:then>
+                                                            <f:else>0</f:else>
+                                                            </f:if>
+                                                            </f:spaceless>"
+                                                    additionalAttributes="{min:'{f:if(condition:\'{option.min}\', then:\'{option.min}\', else:\'0\')}', max:'{option.max}'}"
+                                                    data="{collection:'{field.uid}', prove-target:'#ticketsApproved'}"
+                                                    />
+                                                </div>
+                                                </f:for>
+                                                </div>
+                                            </div>
+                                            </f:if>
+
+                                            </f:if>
+
+                                            
+                                        </f:else>
+                                    </f:if>
+                                </f:for>
+                                </f:if>
+                                </div>
+                                <div class="form-group row">
+                                <div class="col-12">
+                                    <f:form.hidden property="status" value="1" />
+                                    <f:form.hidden property="invitationStatus" value="-1" />
+                                    <f:form.button type="submit" class="btn btn-primary fw-bold mt-3"><svg class="icon fill-dark me-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#check"></use></svg>Rückmeldung absenden</f:form.button>
+                                </div>
+                                </div>
+                                </f:form>
+                            </f:then>
+                            <f:else>
+                            <f:if condition="{accreditation.invitationStatus}==-1 || {accreditation.status} != 0">
+                                <f:then>
+                                <f:switch expression="{accreditation.status}">
+                                <f:case value="1">
+                                    <div class="alert alert-success">
+                                    <h4>Rückmeldung bereits erhalten!</h4>
+                                    <p>Danke für die Rückmeldung, eine Bestätigungsmail sollte bereits eingetroffen sein.<br>
+                                        <strong>Schön, dass wir uns demnächst sehen!</strong></p>
+                                    <p>Sollten noch Fragen auftauchen, oder die Bestätigung kam nicht an, stehen wir natürlich jederzeit unter <a href="mailto:office@allegria.at" target="_blank">office@allegria.at</a> zur Verfügung.</p>
+                                    </div>
+                                </f:case>
+                                <f:case value="-1">
+                                    <div class="alert alert-warning">
+                                    <h4>Rückmeldung bereits erhalten!</h4>
+                                    <p>Danke für die Rückmeldung, eine Bestätigungsmail sollte bereits eingetroffen sein.<br>
+                                        <strong>Schade, dass es diesmal nicht klappt!</strong></p>
+                                    <p>Sollten noch Fragen auftauchen, oder es ging etwas bei der Rückmeldung schief, stehen wir natürlich jederzeit unter <a href="mailto:office@allegria.at" target="_blank">office@allegria.at</a> zur Verfügung.</p>
+                                    </div>
+                                </f:case>
+                                </f:switch>
+                                </f:then>
+                                <f:else>
+                                <div class="alert alert-danger">
+                                    <h4>Gästeliste bereits vorbereitet</h4>
+                                    <p>Leider ist es nicht mehr möglich eine Rückmeldung zu geben, die Gästeliste wurde bereits vorbereitet. Gerne <f:if condition="{accreditation.guest.personally}"><f:then>kannst du</f:then><f:else>können Sie</f:else></f:if> uns telefonisch bzw. via Email kontaktieren, evtl. ist es noch kurzfristig möglich <f:if condition="{accreditation.guest.personally}"><f:then>dich</f:then><f:else>Sie</f:else></f:if> auf die Gästeliste zu schreiben.</p>
+                                    <p>Danke für <f:if condition="{accreditation.guest.personally}"><f:then>dein</f:then><f:else>Ihr</f:else></f:if> Verständnis.</p>
+                                </div>
+                                </f:else>
+                            </f:if>
+                            </f:else>
+                            </f:if>
+                            </div>
+                        </div>
+                    </div>
+                </f:case>
+                <f:defaultCase>
+                    <f:if condition="{language}=='en'">
+                    <f:then>
+                        <div class="col-12">
+                        <div class="line-l mb-3">
+                            <h1 style="font-size:2rem;">Feedback on personal invitation</h1>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-3 col-lg-3">
+                            <f:image image="{accreditation.invitationType.image}" class="img-fluid mb-3" width="450" height="auto" />
+                            </div>
+                            <div class="col-12 col-md-9 col-lg-9">
+                            <h2 style="margin-top:0px; font-size:1.3rem;">Appointment data</h2>
+                            <table class="table table-sm table-borderless" style="font-size:1rem;">
+                                <tr>
+                                <th width="75px" style="padding-left:0;">Title</th>
+                                <td>{accreditation.event.title}</td>
+                                </tr>
+                                <tr>
+                                <th style="padding-left:0;">Date</th>
+                                <td><f:if condition="{accreditation.event.date->f:format.date(format:'%k.%M')} == '0.00'"><f:then>{accreditation.event.date->f:format.date(format:'%Y/%m/%d')}</f:then><f:else>{accreditation.event.date->f:format.date(format:'%Y/%m/%d at %R')}</f:else></f:if></td>
+                                </tr>
+                                <tr>
+                                <th style="padding-left:0;">Location</th>
+                                <td>{accreditation.event.location.name} • {accreditation.event.location.street}, {accreditation.event.location.zip} {accreditation.event.location.city}</td>
+                                </tr>
+                                <tr>
+                                <th style="padding-left:0;">Invited Guest</th>
+                                <td>{accreditation.guestOutput.name}</td>
+                                </tr>
+                            </table>
+                            <f:if condition="{accreditation.reportAllowed}">
+                            <f:then>
+                                <f:form action="updateFrontend" enctype="multipart/form-data" name="accreditation" object="{accreditation}">
+                                <fieldset class="form-group">
+                                <div class="row">
+                                    <legend class="col-form-label col-12 pt-0 fw-bold" style="font-size:1.3rem;">Feedback</legend>
+                                    <div class="col-12 radio-toggle" data-name="tx_publicrelations_pressroom[report]" data-toggle-target="details">
+                                    <div class="form-check">
+                                        <f:form.radio name="report" value="approve" class="form-check-input" id="approve" checked="0" additionalAttributes="{required:'required'}" />
+                                        <label class="form-check-label" for="approve">
+                                        I'll join on {accreditation.event.date->f:format.date(format:'%m/%d/%Y')}.
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <f:form.radio name="report" value="reject" class="form-check-input" id="reject" checked="0" additionalAttributes="{required:'required'}" />
+                                        <label class="form-check-label" for="reject">
+                                        Unfortunately, I am not available and have to decline.
+                                        </label>
+                                    </div>
+                                    </div>
+                                </div>
+                                </fieldset>
+                                <div data-toggle-content="details" data-toggle-value="approve">
+                                <div class="form-group row">
+                                    <label for="ticketsApproved" class="col-12 col-form-label fw-bold">People joining the event</label>
+                                    <div class="col-12 mb-3">
+                                    <f:form.textfield id="ticketsApproved" class="form-control" value="1" additionalAttributes="{min:'1', max:'{accreditation.ticketsWish}'}" type="number" property="ticketsApproved" />
+                                    </div>
+                                </div>
+                                <f:if condition="{accreditation.event.invitationNotesTitle}">
+                                <div class="form-group row">
+                                    <label for="notes" class="col-12 col-form-label fw-bold">{accreditation.event.invitationNotesTitle}</label>
+                                    <f:if condition="{accreditation.event.invitationNotesDescription}"><p class="text-muted" style="padding-right: 15px; padding-left: 15px;">{accreditation.event.invitationNotesDescription->f:format.nl2br()}</p></f:if>
+                                    <div class="col-12">
+                                    <f:form.textarea id="notes" class="form-control required" property="notes" required="{accreditation.event.invitationNotesRequired}" />
+                                    </div>
+                                </div>
+                                </f:if>
+
+                                <f:if condition="{accreditation.event.additionalfieldsInvitation}">
+                                <legend class="col-form-label pt-0 fw-bold" style="font-size:1.3rem;">Additional</legend>
+                                <f:for each="{accreditation.event.additionalfieldsInvitation}" as="field" iteration="fi">
+                                    <f:if condition="{field.invitation}">
+
+                                    <f:if condition="{field.type}==0">
+                                    <div class="form-check">
+                                        <f:if condition="{field.required}">
+                                        <f:then>
+                                        <f:form.checkbox
+                                            class="form-check-input"
+                                            id="field{field.uid}"
+                                            name="additionalAnswers[{field.uid}]"
+                                            value="1"
+                                            checked=""
+                                            additionalAttributes="{required:1}"
+                                        />
+                                        </f:then>
+                                        <f:else>
+                                        <f:form.checkbox
+                                            class="form-check-input"
+                                            id="field{field.uid}"
+                                            name="additionalAnswers[{field.uid}]"
+                                            value="1"
+                                            checked=""
+                                        />
+                                        </f:else>
+                                        </f:if>
+                                        <label for="field{field.uid}" class="form-check-label">
+                                        {field.label}<br>
+                                        <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                        </label>
+                                    </div>
+                                    </f:if>
+
+                                    <f:if condition="{field.type}==1">
+                                    <div>
+                                        <label for="field{field.uid}" class="form-label">
+                                        {field.label}<br>
+                                        <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                        </label>
+                                        <f:if condition="{field.required}">
+                                        <f:then>
+                                        <f:form.textfield
+                                            class="form-control"
+                                            id="field{field.uid}"
+                                            name="additionalAnswers[{field.uid}]"
+                                            value=""
+                                            additionalAttributes="{required:1}"
+                                        />
+                                        </f:then>
+                                        <f:else>
+                                        <f:form.textfield
+                                            class="form-control"
+                                            id="field{field.uid}"
+                                            name="additionalAnswers[{field.uid}]"
+                                            value=""
+                                        />
+                                        </f:else>
+                                        </f:if>
+                                    </div>
+                                    </f:if>
+
+                                    <f:if condition="{field.type}==2">
+                                    <div>
+                                        <label for="field{field.uid}" class="form-label">
+                                        {field.label}<br>
+                                        <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                        </label>
+                                        <f:if condition="{field.required}">
+                                        <f:then>
+                                        <f:form.textarea
+                                            class="form-control"
+                                            id="field{field.uid}"
+                                            name="additionalAnswers[{field.uid}]"
+                                            value=""
+                                            additionalAttributes="{required:1}"
+                                        />
+                                        </f:then>
+                                        <f:else>
+                                        <f:form.textarea
+                                            class="form-control"
+                                            id="field{field.uid}"
+                                            name="additionalAnswers[{field.uid}]"
+                                            value=""
+                                        />
+                                        </f:else>
+                                        </f:if>
+                                    </div>
+                                    </f:if>
+
+                                    <f:if condition="{field.type}==3">
+                                    <div class="form-group row">
+                                        <label for="field{field.uid}" class="col-12 col-form-label fw-bold">
+                                        {field.label}<br>
+                                        <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                        </label>
+                                        <div class="col-12">
+                                        <f:form.select
+                                            class="form-control tomselect-generic"
+                                            data="{select2-id: 'field{field.uid}'}"
+                                            id="selectNotes"
+                                            name="additionalAnswers[{field.uid}]"
+                                            required="{field.required}"
+                                        >
+                                            <f:form.select.option value="">{f:if(condition:'{field.required}', then: 'please', else: 'optional')} select</f:form.select.option>
+                                            <f:for each="{field.options}" as="option"><f:if condition="{option.frontend}"><f:form.select.option value="{option.value}">{option.label}</f:form.select.option></f:if></f:for>
+                                        </f:form.select>
+                                        </div>
+                                    </div>
+                                    </f:if>
+
+                                    <f:if condition="{field.type}==4">
+                                    <div class="form-group row">
+                                        <label for="field{field.uid}" class="col-12 col-form-label fw-bold">
+                                        {field.label}<br>
+                                        <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                        </label>
+                                        <div class="col-12">
+                                        <f:form.select
+                                            class="form-control tomselect-generic"
+                                            data="{select2-id: 'field{field.uid}'}"
+                                            id="selectNotes"
+                                            name="additionalAnswers[{field.uid}]"
+                                            multiple="1"
+                                        >
+                                            <f:for each="{field.options}" as="option"><f:if condition="{option.frontend}"><f:form.select.option value="{option.value}">{option.label}</f:form.select.option></f:if></f:for>
+                                        </f:form.select>
+                                        </div>
+                                    </div>
+                                    </f:if>
+
+                                    <f:if condition="{field.type}==6">
+                                    <div class="col-12 col-md-4">
+                                        <div class="form-group">
+                                        <label class="font-weight-bold"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{field.icon}"></use></svg> {field.label}</label>
+                                        <f:for each="{field.options}" as="option" iteration="oi">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                            <span class="input-group-text"><f:if condition="{option.icon}"><svg class="icon icon-sm fill-gold mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{option.icon}"></use></svg></f:if>{option.label}</span>
+                                            </div>
+                                            <f:form.textfield
+                                            class="form-control proveMax"
+                                            id="field{field.uid}.{option.value}"
+                                            name="additionalAnswers[{field.uid}][{option.value}]"
+                                            type="number"
+                                            value="<f:spaceless>
+                                                    <f:if condition='{accreditation.additionalAnswers->f:count()}'>
+                                                    <f:then>
+                                                    <f:for each='{accreditation.additionalAnswers}' as='answer' iteration='ai'>
+                                                        <f:if condition='{answer.field.uid}=={field.uid}'>
+                                                        <f:then>
+                                                        <f:for each='{answer.value}' as='value'>
+                                                            <f:if condition='{value.key}=={option.value}'>{value.value}</f:if>
+                                                        </f:for>
+                                                        </f:then>
+                                                        <f:else>0</f:else>
+                                                        </f:if>
+                                                    </f:for>
+                                                    </f:then>
+                                                    <f:else>0</f:else>
+                                                    </f:if>
+                                                    </f:spaceless>"
+                                            additionalAttributes="{min:'{f:if(condition:\'{option.min}\', then:\'{option.min}\', else:\'0\')}', max:'{option.max}'}"
+                                            data="{collection:'{field.uid}', prove-target:'#ticketsApproved'}"
+                                            />
+                                        </div>
+                                        </f:for>
+                                        </div>
+                                    </div>
+                                    </f:if>
+
+                                    </f:if>
+                                </f:for>
+                                </f:if>
+                                </div>
+                                <div class="form-group row">
+                                <div class="col-12">
+                                    <f:form.hidden property="status" value="1" />
+                                    <f:form.hidden property="invitationStatus" value="-1" />
+                                    <f:form.button type="submit" class="btn btn-primary fw-bold mt-3"><svg class="icon fill-dark me-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#check"></use></svg>Send Feedback</f:form.button>
+                                </div>
+                                </div>
+                                </f:form>
+                            </f:then>
+                            <f:else>
+                            <f:if condition="{accreditation.invitationStatus}==-1 || {accreditation.status} != 0">
+                                <f:then>
+                                <f:switch expression="{accreditation.status}">
+                                    <f:case value="1">
+                                    <div class="alert alert-success">
+                                        <h4>Feedback already received!</h4>
+                                        <p>Thanks for the feedback, a confirmation email should have already arrived.<br>
+                                        <strong>We're happy that you can join!</strong></p>
+                                        <p>If you have any questions or the confirmation did not reach you, please do not hesitate to contact us at <a href="mailto:office@allegria.at" target="_blank">office@allegria.at</a>.</p>
+                                    </div>
+                                    </f:case>
+                                    <f:case value="-1">
+                                    <div class="alert alert-warning">
+                                        <h4>Feedback already received!</h4>
+                                        <p>Thanks for the feedback, a confirmation email should have already arrived.<br>
+                                        <strong>It's a pity you cannot join!</strong></p>
+                                        <p>If you have any questions or something went wrong with your respond, please do not hesitate to contact us at <a href="mailto:office@allegria.at" target="_blank">office@allegria.at</a>.</p>
+                                    </div>
+                                    </f:case>
+                                </f:switch>
+                                </f:then>
+                                <f:else>
+                                <div class="alert alert-danger">
+                                    <h4>Guest list already prepared</h4>
+                                    <p>Unfortunately, it is no longer possible to give feedback, the guest list has already been prepared. You are welcome to contact us by phone or email, it may be possible to add you to the guest list at short notice.</p>
+                                    <p>Thank you for your understanding.</p>
+                                </div>
+                                </f:else>
+                            </f:if>
+                            </f:else>
+                            </f:if>
+                            </div>
+                        </div>
+                        </div>
+                    </f:then>
+                    <f:else>
+                        <div class="col-12">
+                        <div class="line-l mb-3">
+                            <h1 style="font-size:2rem;">Rückmeldung zur persönlichen Einladung</h1>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-3 col-lg-3">
+                            <f:image image="{accreditation.invitationType.image}" class="img-fluid mb-3" width="450" height="auto" />
+                            </div>
+                            <div class="col-12 col-md-9 col-lg-9">
+                            <h2 style="margin-top:0px; font-size:1.3rem;">Termindaten</h2>
+                            <table class="table table-sm table-borderless" style="font-size:1rem;">
+                                <tr>
+                                <th width="75px" style="padding-left:0;">Termin</th>
+                                <td>{accreditation.event.title}</td>
+                                </tr>
+                                <tr>
+                                <th style="padding-left:0;">Datum</th>
+                                <td><f:if condition="{accreditation.event.canceled}"><f:then><span class="badge bg-danger">ABGESAGT</span></f:then><f:else><f:if condition="{accreditation.event.date->f:format.date(format:'%k.%M')} == '0.00'"><f:then>{accreditation.event.date->f:format.date(format:'%e. %B %Y')}</f:then><f:else><f:if condition="{accreditation.event.uid}==2265"><strong style="text-transform: uppercase;">{accreditation.event.date->f:format.date(format:'%A')}</strong>, </f:if>{accreditation.event.date->f:format.date(format:'%e. %B %Y um %k.%M Uhr')}</f:else></f:if></f:else></f:if></td>
+                                </tr>
+                                <tr>
+                                <th style="padding-left:0;">Location</th>
+                                <td>{accreditation.event.location.name} • {accreditation.event.location.street}, {accreditation.event.location.zip} {accreditation.event.location.city}</td>
+                                </tr>
+                                <tr>
+                                <th style="padding-left:0;">Gast</th>
+                                <td>{accreditation.guestOutput.name}</td>
+                                </tr>
+                            </table>
+                            <f:if condition="{accreditation.reportAllowed}">
+                            <f:then>
+                                <f:form action="updateFrontend" enctype="multipart/form-data" name="accreditation" object="{accreditation}">
+                                <fieldset class="form-group">
+                                <div class="row">
+                                    <legend class="col-form-label col-12 pt-0 fw-bold" style="font-size:1.3rem;">Rückmeldung</legend>
+                                    <div class="col-12 radio-toggle" data-name="tx_publicrelations_pressroom[report]" data-toggle-target="details">
+                                    <div class="form-check">
+                                        <f:form.radio name="report" value="approve" class="form-check-input" id="approve" checked="0" additionalAttributes="{required:'required'}" />
+                                        <label class="form-check-label" for="approve">
+                                        Zusage für den {accreditation.event.date->f:format.date(format:'%e. %B %Y')}.
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <f:form.radio name="report" value="reject" class="form-check-input" id="reject" checked="0" additionalAttributes="{required:'required'}" />
+                                        <label class="form-check-label" for="reject">
+                                        Leider habe ich keine Zeit und muss absagen.
+                                        </label>
+                                    </div>
+                                    </div>
+                                </div>
+                                </fieldset>
+                                <div data-toggle-content="details" data-toggle-value="approve">
+                                <div class="form-group row">
+                                    <label for="ticketsApproved" class="col-12 col-form-label fw-bold">Kommende Personen</label>
+                                    <div class="col-12 mb-3">
+                                    <f:form.textfield id="ticketsApproved" class="form-control" value="1" additionalAttributes="{min:'1', max:'{accreditation.ticketsWish}'}" type="number" property="ticketsApproved" />
+                                    </div>
+                                </div>
+                                <f:if condition="{accreditation.event.invitationNotesTitle}">
+                                <div class="form-group row">
+                                    <label for="notes" class="col-12 col-form-label fw-bold">{accreditation.event.invitationNotesTitle}</label>
+                                    <f:if condition="{accreditation.event.invitationNotesDescription}"><p class="text-muted" style="padding-right: 15px; padding-left: 15px;">{accreditation.event.invitationNotesDescription->f:format.nl2br()}</p></f:if>
+                                    <div class="col-12">
+                                    <f:form.textarea id="notes" class="form-control required" property="notes" required="{accreditation.event.invitationNotesRequired}" />
+                                    </div>
+                                </div>
+                                </f:if>
+
+                                <f:if condition="{accreditation.event.additionalfieldsInvitation}">
+                                <legend class="col-form-label pt-0 fw-bold" style="font-size:1.3rem;">Zusätzliches</legend>
+                                <f:for each="{accreditation.event.additionalfieldsInvitation}" as="field" iteration="fi">
+                                    <f:if condition="{field.invitation}">
+
+                                    <f:if condition="{field.type}==0">
+                                    <div class="form-check">
+                                        <f:if condition="{field.required}">
+                                        <f:then>
+                                        <f:form.checkbox
+                                            class="form-check-input"
+                                            id="field{field.uid}"
+                                            name="additionalAnswers[{field.uid}]"
+                                            value="1"
+                                            checked=""
+                                            additionalAttributes="{required:1}"
+                                        />
+                                        </f:then>
+                                        <f:else>
+                                        <f:form.checkbox
+                                            class="form-check-input"
+                                            id="field{field.uid}"
+                                            name="additionalAnswers[{field.uid}]"
+                                            value="1"
+                                            checked=""
+                                        />
+                                        </f:else>
+                                        </f:if>
+                                        <label for="field{field.uid}" class="form-check-label">
+                                        {field.label}<br>
+                                        <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                        </label>
+                                    </div>
+                                    </f:if>
+
+                                    <f:if condition="{field.type}==1">
+                                        
+                                        <f:if condition="{accreditation.event.uid} == 3963 || {accreditation.event.uid} == 4302 || {accreditation.event.uid} == 4326 || {accreditation.event.uid} == 4494 || {accreditation.event.uid} == 4861">
+                                            <f:then>
+                                            <f:if condition="{accreditation.guestType}==2 && {accreditation.event.uid} != 4494">
+                                                <f:then>
+                                                    <f:form.hidden
+                                                                id="field{field.uid}"
+                                                                name="additionalAnswers[{field.uid}]"
+                                                                value="0"
+                                                            />
+                                                </f:then>
+                                                <f:else>
+                                                    <f:if condition="{accreditation.event.uid} == 3963"><img src="https://www.allegria.at/fileadmin/marketing/imperial-markets/IM_Xmas-2024_Eislaufen.png" alt="Familienattraktionen" /></f:if>
+                                                    <div>
+                                                        <label for="field{field.uid}" class="form-label">
+                                                        {field.label}<br>
+                                                            <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                                            </label>
+                                                            <f:if condition="{field.required}">
+                                                            <f:then>
+                                                            <f:form.textfield
+                                                                class="form-control"
+                                                                type="number"
+                                                                id="field{field.uid}"
+                                                                name="additionalAnswers[{field.uid}]"
+                                                                value=""
+                                                                additionalAttributes="{required:1, min:'0', max:'6'}"
+                                                            />
+                                                            </f:then>
+                                                            <f:else>
+                                                            <f:form.textfield
+                                                                class="form-control"
+                                                                type="number"
+                                                                id="field{field.uid}"
+                                                                name="additionalAnswers[{field.uid}]"
+                                                                value="0"
+                                                                additionalAttributes="{min:'0', max:'6'}"
+                                                            />
+                                                            </f:else>
+                                                            </f:if>
+
+                                                    </div>
+                                                </f:else>
+                                            </f:if>
+                                            </f:then>
+                                            <f:else>
+                                                <div>
+                                                    <label for="field{field.uid}" class="form-label">
+                                                    {field.label}<br>
+                                                    <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                                    </label>
+                                                    <f:if condition="{field.required}">
+                                                    <f:then>
+                                                    <f:form.textfield
+                                                        class="form-control"
+                                                        id="field{field.uid}"
+                                                        name="additionalAnswers[{field.uid}]"
+                                                        value=""
+                                                        additionalAttributes="{required:1}"
+                                                    />
+                                                    </f:then>
+                                                    <f:else>
+                                                    <f:form.textfield
+                                                        class="form-control"
+                                                        id="field{field.uid}"
+                                                        name="additionalAnswers[{field.uid}]"
+                                                        value=""
+                                                    />
+                                                    </f:else>
+                                                    </f:if>
+                                                </div>
+                                            </f:else>
+                                        </f:if>
+                                    </f:if>
+
+                                    <f:if condition="{field.type}==2">
+                                    <div>
+                                        <label for="field{field.uid}" class="form-label">
+                                        {field.label}<br>
+                                        <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                        </label>
+                                        <f:if condition="{field.required}">
+                                        <f:then>
+                                        <f:form.textarea
+                                            class="form-control"
+                                            id="field{field.uid}"
+                                            name="additionalAnswers[{field.uid}]"
+                                            value=""
+                                            additionalAttributes="{required:1}"
+                                        />
+                                        </f:then>
+                                        <f:else>
+                                        <f:form.textarea
+                                            class="form-control"
+                                            id="field{field.uid}"
+                                            name="additionalAnswers[{field.uid}]"
+                                            value=""
+                                        />
+                                        </f:else>
+                                        </f:if>
+                                    </div>
+                                    </f:if>
+
+                                    <f:if condition="{field.type}==3">
+                                    <div class="form-group row">
+                                        <label for="field{field.uid}" class="col-12 col-form-label fw-bold">
+                                        {field.label}<br>
+                                        <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                        </label>
+                                        <div class="col-12">
+                                        <f:form.select
+                                            class="form-control tomselect-generic"
+                                            data="{select2-id: 'field{field.uid}'}"
+                                            id="selectNotes"
+                                            name="additionalAnswers[{field.uid}]"
+                                            required="{field.required}"
+                                        >
+                                            <f:form.select.option value="">{f:if(condition:'{field.required}', then: 'Bitte', else: 'Optional')} auswählen</f:form.select.option>
+                                            <f:for each="{field.options}" as="option"><f:if condition="{option.frontend}"><f:form.select.option value="{option.value}">{option.label}</f:form.select.option></f:if></f:for>
+                                        </f:form.select>
+                                        </div>
+                                    </div>
+                                    </f:if>
+
+                                    <f:if condition="{field.type}==4">
+                                    <div class="form-group row">
+                                        <label for="field{field.uid}" class="col-12 col-form-label fw-bold">
+                                        {field.label}<br>
+                                        <f:if condition="{field.description}"><small id="field{field.uid}HelpBlock" class="form-text text-muted">{field.description->f:format.raw()}</small></f:if>
+                                        </label>
+                                        <div class="col-12">
+                                        <f:form.select
+                                            class="form-control tomselect-generic"
+                                            data="{select2-id: 'field{field.uid}'}"
+                                            id="selectNotes"
+                                            name="additionalAnswers[{field.uid}]"
+                                            multiple="1"
+                                        >
+                                            <f:for each="{field.options}" as="option"><f:if condition="{option.frontend}"><f:form.select.option value="{option.value}">{option.label}</f:form.select.option></f:if></f:for>
+                                        </f:form.select>
+                                        </div>
+                                    </div>
+                                    </f:if>
+
+                                    <f:if condition="{field.type}==6">
+                                    <div class="col-12 col-md-4">
+                                        <div class="form-group">
+                                        <label class="font-weight-bold"><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{field.icon}"></use></svg> {field.label}</label>
+                                        <f:for each="{field.options}" as="option" iteration="oi">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                            <span class="input-group-text"><f:if condition="{option.icon}"><svg class="icon icon-sm fill-gold mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}{option.icon}"></use></svg></f:if>{option.label}</span>
+                                            </div>
+                                            <f:form.textfield
+                                            class="form-control proveMax"
+                                            id="field{field.uid}.{option.value}"
+                                            name="additionalAnswers[{field.uid}][{option.value}]"
+                                            type="number"
+                                            value="<f:spaceless>
+                                                    <f:if condition='{accreditation.additionalAnswers->f:count()}'>
+                                                    <f:then>
+                                                    <f:for each='{accreditation.additionalAnswers}' as='answer' iteration='ai'>
+                                                        <f:if condition='{answer.field.uid}=={field.uid}'>
+                                                        <f:then>
+                                                        <f:for each='{answer.value}' as='value'>
+                                                            <f:if condition='{value.key}=={option.value}'>{value.value}</f:if>
+                                                        </f:for>
+                                                        </f:then>
+                                                        <f:else>0</f:else>
+                                                        </f:if>
+                                                    </f:for>
+                                                    </f:then>
+                                                    <f:else>0</f:else>
+                                                    </f:if>
+                                                    </f:spaceless>"
+                                            additionalAttributes="{min:'{f:if(condition:\'{option.min}\', then:\'{option.min}\', else:\'0\')}', max:'{option.max}'}"
+                                            data="{collection:'{field.uid}', prove-target:'#ticketsApproved'}"
+                                            />
+                                        </div>
+                                        </f:for>
+                                        </div>
+                                    </div>
+                                    </f:if>
+
+                                    </f:if>
+                                </f:for>
+                                </f:if>
+                                </div>
+                                <div class="form-group row">
+                                <div class="col-12">
+                                    <f:form.hidden property="status" value="1" />
+                                    <f:form.hidden property="invitationStatus" value="-1" />
+                                    <f:form.button type="submit" class="btn btn-primary fw-bold mt-3"><svg class="icon fill-dark me-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#check"></use></svg>Rückmeldung absenden</f:form.button>
+                                </div>
+                                </div>
+                                </f:form>
+                            </f:then>
+                            <f:else>
+                            <f:if condition="{accreditation.invitationStatus}==-1 || {accreditation.status} != 0">
+                                <f:then>
+                                <f:switch expression="{accreditation.status}">
+                                <f:case value="1">
+                                    <div class="alert alert-success">
+                                    <h4>Rückmeldung bereits erhalten!</h4>
+                                    <p>Danke für die Rückmeldung, eine Bestätigungsmail sollte bereits eingetroffen sein.<br>
+                                        <strong>Schön, dass wir uns demnächst sehen!</strong></p>
+                                    <p>Sollten noch Fragen auftauchen, oder die Bestätigung kam nicht an, stehen wir natürlich jederzeit unter <a href="mailto:office@allegria.at" target="_blank">office@allegria.at</a> zur Verfügung.</p>
+                                    </div>
+                                </f:case>
+                                <f:case value="-1">
+                                    <div class="alert alert-warning">
+                                    <h4>Rückmeldung bereits erhalten!</h4>
+                                    <p>Danke für die Rückmeldung, eine Bestätigungsmail sollte bereits eingetroffen sein.<br>
+                                        <strong>Schade, dass es diesmal nicht klappt!</strong></p>
+                                    <p>Sollten noch Fragen auftauchen, oder es ging etwas bei der Rückmeldung schief, stehen wir natürlich jederzeit unter <a href="mailto:office@allegria.at" target="_blank">office@allegria.at</a> zur Verfügung.</p>
+                                    </div>
+                                </f:case>
+                                </f:switch>
+                                </f:then>
+                                <f:else>
+                                <div class="alert alert-danger">
+                                    <h4>Gästeliste bereits vorbereitet</h4>
+                                    <p>Leider ist es nicht mehr möglich eine Rückmeldung zu geben, die Gästeliste wurde bereits vorbereitet. Gerne <f:if condition="{accreditation.guest.personally}"><f:then>kannst du</f:then><f:else>können Sie</f:else></f:if> uns telefonisch bzw. via Email kontaktieren, evtl. ist es noch kurzfristig möglich <f:if condition="{accreditation.guest.personally}"><f:then>dich</f:then><f:else>Sie</f:else></f:if> auf die Gästeliste zu schreiben.</p>
+                                    <p>Danke für <f:if condition="{accreditation.guest.personally}"><f:then>dein</f:then><f:else>Ihr</f:else></f:if> Verständnis.</p>
+                                </div>
+                                </f:else>
+                            </f:if>
+                            </f:else>
+                            </f:if>
+                            </div>
+                        </div>
+                        </div>
+                    </f:else>
+                    </f:if>
+                </f:defaultCase>
+            </f:switch> 
+        </f:else>
+    </f:if>
+    <div class="col-12 mt-3">
+
+    </div>
+  </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const accreditationForm = document.querySelector('form[name="accreditation"]');
+        if (!accreditationForm) {
+            // console.warn('Formular "accreditation" nicht gefunden.');
+            return;
+        }
+
+        const ticketsInput = document.getElementById("ticketsApproved");
+        const groupInputs = document.querySelectorAll('.proveMax[data-prove-target="#ticketsApproved"]');
+        const approveRadio = document.getElementById('approve');
+
+        if (ticketsInput) {
+            // Event-Listener für die 'input'-Ereignis (während der Eingabe)
+            // Hier kümmern wir uns primär um die Obergrenze (max).
+            ticketsInput.addEventListener("input", function() {
+                const maxAttr = this.getAttribute('max'); // Max-Attribut auslesen
+                
+                // Nur fortfahren, wenn max-Attribut vorhanden und eine Zahl ist
+                if (maxAttr !== null && !isNaN(Number(maxAttr))) {
+                    const max = Number(maxAttr);
+                    // Nur wenn der aktuelle Wert eine Zahl ist (verhindert Probleme bei unvollständiger Eingabe)
+                    if (this.value !== '' && !isNaN(Number(this.value))) {
+                        let value = Number(this.value);
+                        if (value > max) {
+                            this.value = max; // Auf Maximum begrenzen
+                        }
+                    }
+                }
+            });
+
+            // Event-Listener für das 'blur'-Ereignis (beim Verlassen des Feldes)
+            // Hier kümmern wir uns um die Untergrenze (min) und leere Eingaben.
+            ticketsInput.addEventListener("blur", function() {
+                const minAttr = this.getAttribute('min');
+                const maxAttr = this.getAttribute('max');
+
+                // Nur fortfahren, wenn min- und max-Attribute vorhanden und Zahlen sind
+                // oder zumindest das min-Attribut für die Minimalprüfung.
+                const hasMin = minAttr !== null && !isNaN(Number(minAttr));
+                const hasMax = maxAttr !== null && !isNaN(Number(maxAttr));
+
+                if (!hasMin) { // Wenn kein Minimum definiert ist, brauchen wir hier nichts zu tun
+                    // (Maximum wurde schon im 'input'-Event behandelt)
+                    return;
+                }
+
+                const min = Number(minAttr); // Sicher, da hasMin true ist
+                const max = hasMax ? Number(maxAttr) : Infinity; // Falls kein Max, dann unendlich
+
+                let value = this.value.trim(); // Leerzeichen entfernen
+
+                if (value === '') {
+                    // Wenn das Feld leer ist, auf Minimum setzen
+                    this.value = min;
+                } else if (!isNaN(Number(value))) {
+                    // Wenn es eine Zahl ist
+                    let numericValue = Number(value);
+                    if (numericValue < min) {
+                        this.value = min; // Auf Minimum begrenzen
+                    } else if (numericValue > max) {
+                        // Diese Prüfung ist eine zusätzliche Sicherheit, sollte aber
+                        // meist schon vom 'input'-Event abgefangen worden sein.
+                        this.value = max; // Auf Maximum begrenzen
+                    }
+                } else {
+                    // Wenn keine gültige Zahl eingegeben wurde (sollte bei type="number" selten sein, aber sicher ist sicher)
+                    this.value = min; // Auf Minimum zurücksetzen
+                }
+            });
+
+        }
+
+        /**
+         * PRÜFT, ob die Summe der Gruppenfelder mit der Ticketanzahl übereinstimmt.
+         * @returns {boolean} - true, wenn die Summe korrekt ist, sonst false.
+         */
+        function isGroupSumValid() {
+            if (!ticketsInput || groupInputs.length === 0) {
+                return true; // Wenn keine Validierung nötig ist, ist es immer "gültig".
+            }
+            const totalTickets = parseInt(ticketsInput.value, 10) || 0;
+            let selectionSum = 0;
+            groupInputs.forEach(input => {
+                selectionSum += parseInt(input.value, 10) || 0;
+            });
+            return totalTickets === selectionSum;
+        }
+
+        /**
+         * Setzt den visuellen Zustand (roter Rahmen) für alle Gruppenfelder.
+         * @param {boolean} isValid - Ob die Felder als gültig markiert werden sollen.
+         */
+        function updateGroupValidationUI(isValid) {
+            groupInputs.forEach(input => {
+                if (isValid) {
+                    input.classList.remove('is-invalid');
+                } else {
+                    input.classList.add('is-invalid');
+                }
+            });
+        }
+
+        // DEINE BESTEHENDE FUNKTION, die nun auch Live-Feedback gibt
+        function initializeGroupValidation() {
+            if (!ticketsInput || groupInputs.length === 0) return;
+
+            // Deine Logik, die verhindert, dass die Summe die Obergrenze überschreitet, bleibt erhalten.
+            groupInputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    const maxAllowed = parseInt(ticketsInput.value, 10) || 0;
+                    let currentSum = 0;
+                    document.querySelectorAll(`.proveMax[data-collection="${input.dataset.collection}"]`).forEach(sibling => {
+                        currentSum += parseInt(sibling.value, 10) || 0;
+                    });
+
+                    if (currentSum > maxAllowed) {
+                        const excess = currentSum - maxAllowed;
+                        const currentValue = parseInt(input.value, 10) || 0;
+                        input.value = Math.max(0, currentValue - excess);
+                    }
+                    
+                    if (isGroupSumValid()) {
+                        updateGroupValidationUI(true);
+                    }
+                });
+                input.addEventListener('blur', () => { if (input.value === '') input.value = 0; });
+            });
+        }
+
+        // FORMULAR-SUBMIT-HANDLER
+        accreditationForm.addEventListener('submit', function(event) {
+            
+            // KORREKTUR: Führe die Validierung NUR aus, wenn "Zusage" ausgewählt ist.
+            if (approveRadio && approveRadio.checked) {
+                const isFormValid = isGroupSumValid();
+                
+                // Wenn "Zusage" gewählt, aber die Summe falsch ist -> blockieren.
+                if (!isFormValid) {
+                    event.preventDefault(); // SUBMIT VERHINDERN
+                    updateGroupValidationUI(false); // Rote Rahmen anzeigen
+                    if (groupInputs.length > 0) {
+                        groupInputs[0].focus();
+                    }
+                    return; // Funktion hier beenden.
+                }
+            }
+
+            // Schritt 3: Wenn gültig, fahre mit der normalen Logik fort.
+            updateGroupValidationUI(true); // Sicherstellen, dass keine Rahmen mehr rot sind.
+
+            // Bestehende Logik zum Deaktivieren des Buttons
+            const submitButton = event.submitter || accreditationForm.querySelector('button[type="submit"]');
+            if (submitButton && !submitButton.disabled) {
+                submitButton.disabled = true;
+                const iconElement = submitButton.querySelector('svg.icon');
+                const newText = ' Rückmeldung wird verarbeitet...';
+                if (iconElement) {
+                    submitButton.innerHTML = iconElement.outerHTML + newText;
+                } else {
+                    submitButton.textContent = newText.trim();
+                }
+            }
+        });
+
+        // Event-Listener für den "Zusage"-Radio-Button
+        if (approveRadio) {
+            approveRadio.addEventListener('change', function() {
+                // Wenn "Zusage" ausgewählt wird, setze die Werte der Gruppenfelder auf 0
+                if (this.checked) {
+                    groupInputs.forEach(input => {
+                        input.value = 0;
+                    });
+                    // Gleichzeitig eventuelle rote Rahmen von einem vorherigen Versuch entfernen
+                    updateGroupValidationUI(true);
+                }
+            });
+        }
+
+        function initializeRadioContentTogglers() {
+            const radioGroupContainers = document.querySelectorAll('.radio-toggle[data-toggle-target]');
+
+            radioGroupContainers.forEach(container => {
+                const contentGroupName = container.dataset.toggleTarget;
+                if (!contentGroupName) {
+                    console.warn('[RadioContentToggler] Container fehlt das "data-toggle-target" Attribut.', container);
+                    return;
+                }
+
+                // Finde alle Radio-Buttons INNERHALB dieses spezifischen Containers.
+                const radioButtonsInGroup = container.querySelectorAll('input[type="radio"]');
+                if (radioButtonsInGroup.length === 0) {
+                    console.warn(`[RadioContentToggler] Keine Radio-Buttons im Container für die Inhaltsgruppe "${contentGroupName}" gefunden.`, container);
+                    return;
+                }
+
+                // Finde alle Inhalts-Elemente, die zu dieser Inhaltsgruppe gehören.
+                const contentElements = document.querySelectorAll(`[data-toggle-content="${contentGroupName}"][data-toggle-value]`);
+                if (contentElements.length === 0) {
+                    // Es ist nicht unbedingt ein Fehler, wenn keine Content-Elemente da sind,
+                    // vielleicht werden sie dynamisch hinzugefügt oder es gibt einfach keine für diese Gruppe.
+                    // console.log(`[RadioContentToggler] Keine Inhalts-Elemente für Gruppe "${contentGroupName}" gefunden.`);
+                }
+
+                const updateAffectedContent = () => {
+                    let selectedRadioValue = null;
+                    radioButtonsInGroup.forEach(radio => {
+                        if (radio.checked) {
+                            selectedRadioValue = radio.value;
+                        }
+                    });
+
+                    contentElements.forEach(contentElement => {
+                        // Finde alle Formular-Elemente im Inhalts-Container
+                        const formInputs = contentElement.querySelectorAll('input, textarea, select');
+
+                        if (contentElement.dataset.toggleValue === selectedRadioValue) {
+                            contentElement.style.display = ''; // Element anzeigen
+                            
+                            // NEU: Alle Felder im jetzt sichtbaren Bereich aktivieren
+                            formInputs.forEach(input => {
+                                input.disabled = false;
+                            });
+
+                        } else {
+                            contentElement.style.display = 'none'; // Element verstecken
+
+                            // NEU: Alle Felder im jetzt versteckten Bereich deaktivieren
+                            formInputs.forEach(input => {
+                                input.disabled = true;
+                            });
+                        }
+                    });
+                };
+
+                // Füge 'change'-Listener zu allen Radio-Buttons in dieser Gruppe hinzu
+                radioButtonsInGroup.forEach(radio => {
+                    radio.addEventListener('change', updateAffectedContent);
+                });
+
+                // Setze den initialen Zustand beim Laden der Seite
+                // (basierend auf dem ggf. vorausgewählten Radio-Button)
+                updateAffectedContent();
+            });
+        }
+
+        // Rufe die Initialisierungsfunktion auf
+        initializeRadioContentTogglers();
+        initializeGroupValidation();
+    });
+</script>
+
+</f:section>
+</html>

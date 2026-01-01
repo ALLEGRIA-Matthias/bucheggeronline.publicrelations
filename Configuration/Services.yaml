@@ -1,0 +1,70 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  BucheggerOnline\Publicrelations\Domain\Repository\:
+    resource: '../Classes/Domain/Repository/*'
+
+  # Automatische Registrierung für alle Klassen im Utility-Namespace (optional)
+  BucheggerOnline\Publicrelations\Utility\:
+    resource: '../Classes/Utility/*'
+
+  #Controller
+  BucheggerOnline\Publicrelations\Controller\:
+    resource: '../Classes/Controller/*'
+
+  #Service
+  BucheggerOnline\Publicrelations\Service\:
+    resource: '../Classes/Service/*'
+
+  #DataResolver
+  BucheggerOnline\Publicrelations\DataResolver\:
+    resource: '../Classes/DataResolver/*'
+  
+  BucheggerOnline\Publicrelations\Controller\AbstractPublicrelationsController:
+    calls:
+      - method: injectModuleTemplateFactory
+        arguments:
+          - '@TYPO3\CMS\Backend\Template\ModuleTemplateFactory'
+          - '@TYPO3\CMS\Core\Messaging\FlashMessageService'
+
+  BucheggerOnline\Publicrelations\Backend\Ajax\:
+    resource: '../Classes/Backend/Ajax/*'
+
+  #EmConfiguration
+  BucheggerOnline\Publicrelations\Domain\Model\Dto\EmConfiguration: ~
+
+  BucheggerOnline\Publicrelations\Task\CleanupTask:
+    public: true
+    tags:
+      - name: scheduler.task
+        identifier: 'contact.cleanup'
+        title: 'Kontakte aufräumen und Typen setzen'
+        description: 'Setzt den Kontakttyp basierend auf Kategorien/PIDs und führt weitere Bereinigungs-Schritte aus.'
+
+  BucheggerOnline\Publicrelations\Task\SplitContactsTask:
+    public: true
+    tags:
+      - name: scheduler.task
+        identifier: 'contact.split'
+        title: 'Kontakte bereinigen & aufsplitten'
+        description: 'Kopiert Kontakte mit gemischten (intern/extern) und splittet die Kategorien.'
+
+  BucheggerOnline\Publicrelations\Task\AssignClientContactsTask:
+    public: true
+    tags:
+      - name: scheduler.task
+        identifier: 'contact.assign'
+        title: 'Kundenkontakte bereinigen'
+        description: 'Splittet Kontakte die zu unterschiedlichen Kunden gehören.'
+
+  BucheggerOnline\Publicrelations\Task\DuplicateContactsTask:
+    public: true
+    tags:
+      - name: scheduler.task
+        identifier: 'contact.find_duplicates'
+        title: 'PR: Finde doppelte Kontakte (intern/pro Kunde)'
+        description: 'Erstellt eine CSV im fileadmin mit E-Mail-Duplikaten. Trennt dabei zwischen internen Kontakten (kein Kunde) und Kontakten pro Kunde.'
+

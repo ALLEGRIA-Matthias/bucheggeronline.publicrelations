@@ -1,0 +1,319 @@
+<f:section name="preheader">
+    <f:switch expression="{content}">
+        <f:case value="invite">Persönliche Einladung an {accreditation.guestOutput.fullName}</f:case>
+        <f:case value="remind">Nicht verpassen! Persönliche Einladung an {accreditation.guestOutput.fullName}</f:case>
+        <f:case value="push">Letzte Chance! Persönliche Einladung an {accreditation.guestOutput.fullName}</f:case>
+        <f:case value="approve">Wie schön, dass wir dich zur Jubiläumsaufzeichnung begrüßen dürfen.</f:case>
+        <f:case value="reject">Schade, dass es nicht klappt. Die Kernölamazonen würden sich über ein baldiges Wiedersehen freuen.</f:case>
+    </f:switch>
+</f:section>
+
+<f:section name="content">
+
+    <f:switch expression="{content}">
+        <f:case value="invite">
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="sujet" />
+            <f:render section="title" />
+            <f:render section="showfacts" arguments="{_all}" />
+            <f:render section="showtext" arguments="{_all}" />
+            <f:render section="btn-feedback" arguments="{_all}" />
+            <f:render section="feedback-info" arguments="{_all}" />
+            <f:render section="greetings" />
+        </f:case>
+        <f:case value="remind">
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="sujet" />
+            <f:render section="title" />
+            <f:render section="showfacts" arguments="{_all}" />
+            <f:render section="showtext" arguments="{_all}" />
+            <f:render section="btn-feedback" arguments="{_all}" />
+            <f:render section="feedback-info" arguments="{_all}" />
+            <f:render section="greetings" />
+        </f:case>
+        <f:case value="push">
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="sujet" />
+            <f:render section="title" />
+            <f:render section="showfacts" arguments="{_all}" />
+            <f:render section="showtext" arguments="{_all}" />
+            <f:render section="btn-feedback" arguments="{_all}" />
+            <f:render section="feedback-info" arguments="{_all}" />
+            <f:render section="greetings" />
+        </f:case>
+        <f:case value="approve">
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="sujet" />
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="showtext" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+            <f:render section="greetings" />
+        </f:case>
+        <f:case value="approve_after_waiting">
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="sujet" />
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="showtext" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+            <f:render section="greetings" />
+        </f:case>
+        <f:case value="waiting">
+            <f:render section="header" arguments="{_all}" />
+            <!-- Text 2 : BEGIN -->
+            <tr>
+                <td style="padding: 40px 60px; font-family: 'Jost', sans-serif; color: #ffffff; text-align: center;">
+                    Was für ein Zulauf – es tut uns wahnsinnig leid, du bist gerade auf die Warteliste gerutscht. Wir schauen gerade ob wir noch irgendwie Plätze verfügbar machen und meden uns schnellstmöglich zurück.
+                </td>
+            </tr>
+            <!-- Text 2 : END -->
+            <f:render section="greetings" />
+        </f:case>
+        <f:case value="pending">
+            <f:render section="header" arguments="{_all}" />
+            <!-- Text 2 : BEGIN -->
+            <tr>
+                <td style="padding: 40px 60px; font-family: 'Jost', sans-serif; color: #ffffff; text-align: center; font-size: 1.6rem;;">
+                    {accreditation.guestOutput.fullName}
+                </td>
+            </tr>
+            <!-- Text 2 : END -->
+            <f:render section="sujet" />
+        </f:case>
+        <f:case value="reject_after_waiting">
+            <f:render section="header" arguments="{_all}" />
+            <!-- Text 2 : BEGIN -->
+            <tr>
+                <td style="padding: 40px 60px; font-family: 'Jost', sans-serif; color: #ffffff; text-align: center;">
+                    Wir haben versucht noch ein Plätzchen zu finden, leider sind wir komplett voll und können den Besuch nicht ermöglichen. Hoffentlich klappt es bald mal wieder, wir freuen uns auf ein Wiedersehen.
+                </td>
+            </tr>
+            <!-- Text 2 : END -->
+            <f:render section="greetings" />
+        </f:case>
+        <f:case value="reject">
+            <f:render section="header" arguments="{_all}" />
+            <!-- Text 2 : BEGIN -->
+            <tr>
+                <td style="padding: 40px 60px; font-family: 'Jost', sans-serif; color: #ffffff; text-align: center;">
+                    Danke für das, wenn auch negative Feedback. Hoffentlich klappt es bald mal wieder, wir freuen uns auf ein Wiedersehen.
+                </td>
+            </tr>
+            <!-- Text 2 : END -->
+            <f:render section="greetings" />
+        </f:case>
+        <f:defaultCase>
+            <f:render section="sujet" />
+            <!-- Fehler : BEGIN -->
+            <tr>
+                <td bgcolor="#ED1E79" align="center" style="font-family: 'Jost', sans-serif; padding: 40px;">
+                    <p>Oje, da ist was schief gelaufen.<br><br>Wahrscheinlich haben wir es auch schon mitbekommen, aber wende dich gerne an office@allegria.at, wenn wir uns nicht innerhalb von 24 Stunden bei dir melden.</p>
+                </td>
+            </tr>
+            <!-- Fehler : END -->
+        </f:defaultCase>
+    </f:switch>
+
+</f:section>
+
+<f:section name="header">
+    <f:switch expression="{content}">
+        <f:case value="invite"><f:variable name="headline">Perönliche Einladung</f:variable></f:case>
+        <f:case value="remind"><f:variable name="headline"><small>Erinnerung zur</small><br>perönlichen Einladung</f:variable></f:case>
+        <f:case value="push"><f:variable name="headline"><small>Finale Erinnerung zur</small><br>perönlichen Einladung</f:variable></f:case>
+        <f:case value="approve"><f:variable name="headline">Wie schön, dass es klappt!</f:variable></f:case>
+        <f:case value="approve_after_waiting"><f:variable name="headline">Wie schön, dass es klappt!</f:variable></f:case>
+        <f:case value="reject"><f:variable name="headline">Schade, bis hoffentlich bald.</f:variable></f:case>
+        <f:case value="reject_after_waiting"><f:variable name="headline">Es tut uns so leid!</f:variable></f:case>
+        <f:case value="waiting"><f:variable name="headline">Ups, da ist das Kontingent schon voll!</f:variable></f:case>
+        <f:case value="pending"><f:variable name="headline">Neu auf der Warteliste!</f:variable></f:case>
+    </f:switch>
+    <!-- Persönliche Einladung Text : BEGIN -->
+    <tr>
+        <td bgcolor="#ED1E79" align="center" style="font-family: 'Jost', sans-serif; padding-top: 40px; padding-bottom: 40px;">
+            <span style="text-transform: uppercase; font-size: 1.2rem; color: #ffffff; font-weight: 600">{headline->f:format.raw()}</span>
+            <f:if condition="{content} == 'invite' || {content} == 'remind' || {content} == 'push'">
+                <br>
+                <span style="font-style: italic; font-size: 0.8rem; font-weight: 300;">für</span><br>
+                <span style="text-transform: uppercase; font-size: 1.1rem; color: #000000; font-weight: 600;">{accreditation.guestOutput.fullName}</span>
+            </f:if>
+        </td>
+    </tr>
+    <!-- Persönliche Einladung Text : END -->
+</f:section>
+
+<f:section name="sujet">
+    <!-- Foto : BEGIN -->
+    <tr>
+        <td class="full-width-image"><img src="https://www.allegria.at/fileadmin/marketing/kernoelamazonen/Kernoelamazonen_Foto.png" width="600" alt="Geburtstagssause" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;" class="fluid"></td>
+    </tr>
+    <!-- Foto : END -->
+</f:section>
+
+<f:section name="title">
+    <!-- Showtitel : BEGIN -->
+    <tr>
+        <td align="center" style="font-family: 'Jost', sans-serif; padding-top: 40px; padding-bottom: 40px; color: #ffffff;">
+            <span style="color: #ED1E79; text-transform: uppercase; font-weight: 600; font-size: 1.3rem;">Jubiläumsgala</span><br>
+            <span style="text-transform: uppercase; font-weight: 300; font-size: 1.2rem;">20 Jahre Kernölamazonen</span>
+        </td>
+    </tr>
+    <!-- Showtitel : END -->
+</f:section>
+
+<f:section name="showfacts">
+    <!-- Details : BEGIN -->
+    <tr>
+        <td>
+            <table cellspacing="0" cellpadding="0" border="0" class="email-container">
+                <tr>
+                    <td align="center" style="font-family: 'Jost', sans-serif; padding: 25px 45px; color: #000000; background-color: #ffffff;">
+                        <span style="color: #ED1E79;">Globe Wien – St. Marx</span><br>
+                        <span style="text-transform: uppercase; font-weight: 600;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'day', lang: 'at')}, {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')}</span><br>
+                        {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}<br>
+                        <span style="font-size: 0.8rem;">Einlass ab {f:format.date(format:'%k.%M Uhr', date:'{accreditation.event.date->f:format.date(format:\'H:i\')} -60 minutes')}</span>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- Details : END -->
+</f:section>
+
+<f:section name="showtext">
+    <!-- Text 2 : BEGIN -->
+    <tr>
+        <td style="padding: 40px 60px; font-family: 'Jost', sans-serif; color: #ffffff; text-align: center;">
+            {accreditation.invitationType.contents.0.content->v:render.inline()}
+        </td>
+    </tr>
+    <!-- Text 2 : END -->
+</f:section>
+
+<f:section name="feedback-info">
+    <!-- Text below Button : BEGIN -->
+    <tr>
+        <td align="center" style="font-family: 'Jost', sans-serif; padding: 15px; color: #ffffff; font-size: 0.8rem;">
+            Die Einladung ist persönlich und nicht übertragbar.<br>
+            Um Antwort wird bis <f:if condition="{accreditation.invitationType.feedbackDate}"><f:then>{accreditation.invitationType.feedbackDate->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'month', lang: 'at')} {accreditation.invitationType.feedbackDate->f:format.date(format:'%Y')}</f:then><f:else><f:format.date date="{accreditation.event.date->f:format.date(format:'d.m.Y')} - 2weeks friday" format="d.m.Y" /></f:else></f:if> gebeten.
+        </td>
+    </tr>
+    <!-- Text below Button : END -->
+</f:section>
+
+<f:section name="greetings">
+    <!-- Text below Button : BEGIN -->
+    <tr>
+        <td align="center" style="font-family: 'Jost', sans-serif; padding: 15px; color: #ffffff; font-size: 0.8rem;">
+            <span style="font-size: 1rem;">Viel Liebe &amp; Kernöl wünschen</span><br><br>
+            <img src="https://www.allegria.at/fileadmin/marketing/kernoelamazonen/Caro-Gudrun.png" class="fluid" alt="Unterschrift Caro & Gudrun" style="max-width: 250px; height: auto;"><br>
+            <img src="https://www.allegria.at/fileadmin/marketing/kernoelamazonen/Kernoelamazonen_Logo.png" width="90px" height="auto" alt="Kernölamazonen" class="fluid">
+        </td>
+    </tr>
+    <!-- Text below Button : END -->
+</f:section>
+
+
+
+<f:section name="btn-feedback">
+    <!-- Button : Begin -->
+    <tr>
+        <td>
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                <tr>
+                <td style="border-radius: 1.5px; background: #222222; text-align: center;" class="button-td">
+                    <a href="###FEEDBACK_LINK###"
+                        class="button-a"
+                        target="_blank"
+                        style="background: #ED1E79; border: 8px solid #ED1E79; padding: 0 10px;color: #ffffff; font-family: sans-serif; font-size: 1.2rem; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 1.5px; font-weight: bold; text-transform: uppercase;">
+                        <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                    </a>
+                </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- Button : END -->
+</f:section>
+
+<f:section name="btn-anfahrt">
+    <!-- Button : Begin -->
+    <tr>
+        <td>
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                <tr>
+                <td style="border-radius: 1.5px; background: #222222; text-align: center;" class="button-td">
+                    <a href="https://maps.app.goo.gl/6yLZRXmDmbFpUjBW8" class="button-a" target="_blank" style="background: #ED1E79; border: 8px solid #ED1E79; padding: 0 10px;color: #ffffff; font-family: sans-serif; font-size: 1.2rem; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 1.5px; font-weight: bold; text-transform: uppercase;">
+                        <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Anfahrt planen<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                    </a>
+                </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- Button : END -->
+</f:section>
+
+
+<f:section name="ticket">
+<!-- Ticket : BEGIN -->
+<tr>
+    <td valign="middle" style="text-align: center; background-position: top center !important; background-repeat: no-repeat; padding: 40px; font-family: sans-serif; font-size: 1rem; line-height: 1.2; text-align: center; text-decoration: none;">
+        <p style="color: white;">Zugang mittels QR – bitte vor Ort vorweisen.</p>
+        <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="400" class="email-container" style="border: #FFFFFF thin solid;">
+            
+            <tbody>
+            
+            <!-- QR-Code : BEGIN -->
+                <tr>
+                <td align="center" style="padding-top: 25px;">
+                    <img src="{mb:qrCode(data:'{accreditation.uid}', label:' ')}" width="300" alt="Ticket-QR-{accreditation.uid}" border="0" style="width: 100%; max-width: 80%; height: auto;">
+                    </td></tr>
+            <!-- QR-Code : END -->
+            
+            <!-- Titel : BEGIN -->
+            <tr>
+                <td style="text-align: center; font-family: sans-serif; color: #000000; font-size: 1.1rem;">
+                    <h2 style="font-size: 1.8rem; line-height: 1.2; color: #000; margin: 20px 0 10px 0;">Geburtstags Sause</h2>
+                    <p style="margin-bottom: 10px;">
+                        {accreditation.event.location.name}, {accreditation.event.location.city}<f:if condition="{accreditation.event.locationNote}"> | {accreditation.event.locationNote}</f:if><br>
+                        <strong>{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')} | {f:format.date(date:'{accreditation.event.date}', format: 'H:i')} Uhr</strong><br>
+                        <span style="font-size: 0.8rem;">Einlass ab {f:format.date(format:'%k.%M Uhr', date:'{accreditation.event.date->f:format.date(format:\'H:i\')} -60 minutes')}</span>
+                    </p>
+                    <div style="background-color: #000; font-family: sans-serif; text-align: center; color: #fff; padding: 15px 0;">
+                        <p style="font-size: 1.3rem; line-height: 1.2; margin: 0;">
+                            <strong>{accreditation.guestOutput.fullName}</strong><br>
+                            <small>{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</small><br>
+                            <span style="font-size: 0.8rem; line-height: 1.2;">Akkr.Nr. #{accreditation.uid}</span>
+                        </p>
+                    </div>
+            </td>
+            </tr>
+            <!-- Titel : END --> 
+        </tbody></table>
+        <f:render section="btn-anfahrt" />
+    </td>
+</tr>
+<!-- Ticket : BEGIN --> 
+</f:section>
+
+<f:section name="sick">
+<!-- Absage : BEGIN -->
+<tr>
+    <td bgcolor="#ED1E79" align="center" style="font-family: 'Jost', sans-serif; padding-top: 40px; padding-bottom: 40px;">
+        <span style="text-transform: uppercase; font-size: 1.2rem; color: #ffffff; font-weight: 600">Krank oder verhindert?</span>
+        <br>
+        <span style="font-style: italic; font-size: 1rem; font-weight: 500;">Bitte lass uns via Email wissen,<br>sollte der Besuch wider Erwarten doch nicht klappen.</span><br>
+        <br>
+        <table>
+            <tr>
+                <td style="border-radius: 1.5px; background: #222222; text-align: center;" class="button-td">
+                <a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank" style="background: #ED1E79; border: 8px solid #ED1E79; padding: 0 10px;color: #ffffff; font-family: sans-serif; font-size: 1.2rem; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 1.5px; font-weight: bold; text-transform: uppercase;" class="button-a">
+                <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Email senden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                </a>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<!-- Absage : END -->
+</f:section>

@@ -1,0 +1,20 @@
+<f:section name="preheader">
+    <f:switch expression="{content}">
+        <f:case value="invite">Persönliche Einladung an {accreditation.guestOutput.fullName}</f:case>
+        <f:case value="remind">Nicht verpassen! Persönliche Einladung an {accreditation.guestOutput.fullName} | Cirque du Soleil ALIZE</f:case>
+        <f:case value="push">Letzte Chance! Persönliche Einladung an {accreditation.guestOutput.fullName}</f:case>
+    </f:switch>
+</f:section>
+
+<f:section name="content">
+<tr>
+    <td style="padding-bottom: 80px">
+        <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="80%">
+            <f:for each="{accreditation.invitationType.contents}" as="content">
+                {content.content->v:render.inline()}
+            </f:for>
+        
+        </table>
+    </td>
+</tr>
+</f:section>

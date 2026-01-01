@@ -1,0 +1,86 @@
+<f:if condition="{accessPermissions}">
+    <li class="sidenav-item pb-3">
+        <span class="sidenav-subheading text-muted text-uppercase fw-bold">Meine Daten</span>
+    </li>
+    <f:for each="{accessPermissions}" as="permission">
+    <li class="sidenav-item pb-3">
+        <a class="sidenav-link ripple-surface" data-mdb-collapse-init="" href="#sidenav-collapse-1-0-0" role="button" aria-expanded="true" data-mdb-ripple-initialized="true" tabindex="1">
+            <f:if condition="{permission.client.logo}"><f:image image="{permission.client.logo}" width="15c" height="15c" class="me-3" /></f:if>
+            <span>{f:if(condition:permission.client.shortName,then:permission.client.shortName, else:permission.client.name)}</span>
+        </a>
+        <ul class="sidenav-collapse">
+            <f:if condition="{permission.viewClippings}">
+            <li class="sidenav-item">
+                <f:link.action
+                    pageUid="{settings.pages.mydata}"
+                    action="myClippings"
+                    arguments="{client:permission.client}"
+                    id="nav-item-{permission.client.uid}-clippings"
+                    class="sidenav-link"
+                >
+                    <i class="fas fa-rss fa-fw me-1"></i>
+                    <span>Clippings</span>
+                </f:link.action>
+            </li>
+            </f:if>
+            <f:if condition="{permission.viewContacts}">
+            <li class="sidenav-item">
+                <f:link.action
+                    pageUid="{settings.pages.mydata}"
+                    action="myContacts"
+                    arguments="{client:permission.client}"
+                    id="nav-item-{permission.client.uid}-contacts"
+                    class="sidenav-link"
+                >
+                    <i class="fas fa-address-book fa-fw me-1"></i>
+                    <span>Kontakte</span>
+                </f:link.action>
+            </li>
+            </f:if>
+            <f:if condition="{permission.viewEvents} || {permission.advancedEvents}">
+            <li class="sidenav-item">
+                <f:link.action
+                    pageUid="{settings.pages.mydata}"
+                    action="myEvents"
+                    arguments="{client:permission.client}"
+                    id="nav-item-{permission.client.uid}-events"
+                    class="sidenav-link"
+                >
+                    <i class="fas fa-calendar-check fa-fw me-1"></i>
+                    <span>Events</span>
+                </f:link.action>
+            </li>
+            </f:if>
+            <f:if condition="{permission.viewNews}">
+            <li class="sidenav-item">
+                <f:link.action
+                    pageUid="{settings.pages.mydata}"
+                    action="myNews"
+                    arguments="{client:permission.client}"
+                    id="nav-item-{permission.client.uid}-news"
+                    class="sidenav-link"
+                >
+                    <i class="fas fa-newspaper fa-fw me-1"></i>
+                    <span>News</span>
+                </f:link.action>
+            </li>
+            </f:if>
+            <f:if condition="{permission.viewMedia}">
+            <li class="sidenav-item">
+                <f:link.action
+                    pageUid="{settings.pages.mydata}"
+                    action="myMedia"
+                    arguments="{client:permission.client}"
+                    id="nav-item-{permission.client.uid}-media"
+                    class="sidenav-link"
+                >
+                    <i class="fas fa-photo-film fa-fw me-1"></i>
+                    <span>Medien</span>
+                </f:link.action>
+            </li>
+            </f:if>
+        </ul>
+    </li>
+    </f:for>
+    <hr class="hr">
+</f:if>

@@ -1,0 +1,124 @@
+## Basics
+###########################
+# cat=basics/enable/001; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.staffPid
+staffPid = 0
+
+# cat=basics/enable/002; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.journalistsPid
+journalistsPid = 0
+
+# cat=basics/enable/003; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.celebPid
+celebPid = 0
+
+# cat=basics/enable/006; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.mailingListsPid
+mailingListsPid = 0
+
+# cat=basics/enable/007; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.clientPid
+clientPid = 0
+
+# cat=basics/enable/013; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.contactPid
+contactPid = 0
+
+# cat=basics/enable/008; type=string; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.mediagroups
+mediagroups = Graphics;Pressimages;Videos
+
+# cat=basics/enable/011; type=string; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.mailingtypes
+mailingtypes = Pressnews;Invitation;Manual Mailing
+
+# cat=basics/enable/012; type=string; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.emailTemplates
+emailTemplates =
+
+# cat=basics/enable/009; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.accreditationStop
+accreditationStop = 0
+
+# cat=basics/enable/010; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.invitationReportStop
+invitationReportStop = 24
+
+
+## Categories
+###########################
+# cat=categories/enable/101; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.clientRootUid
+clientRootUid = 0
+
+# cat=categories/enable/102; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.campaignRootUid
+campaignRootUid = 0
+
+# cat=categories/enable/103; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.newsRootUid
+newsRootUid = 0
+
+# cat=categories/enable/104; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.eventRootUid
+eventRootUid = 0
+
+# cat=categories/enable/105; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.eventNoteRootUid
+eventNoteRootUid = 0
+
+# cat=categories/enable/106; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.contactRootUid
+contactRootUid = 0
+
+# cat=categories/enable/107; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.linkRootUid
+linkRootUid = 0
+
+# cat=categories/enable/108; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.accreditationNotesRootUid
+accreditationNotesRootUid = 0
+
+# cat=categories/enable/109; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.mediumRootUid
+mediumRootUid = 0
+
+# cat=categories/enable/110; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.slideWorkRootUid
+slideWorkRootUid = 0
+
+# cat=categories/enable/111; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.journalistsRootUid
+journalistsRootUid = 0
+
+# cat=categories/enable/112; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.celebRootUid
+celebRootUid = 0
+
+# cat=categories/enable/113; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.mailingListsRootUid
+mailingListsRootUid = 0
+
+# cat=categories/enable/114; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.contactTypesRootUid
+contactTypesRootUid = 0
+
+# cat=categories/enable/115; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.clientRootUid
+activitiesRootUid = 0
+
+
+## E-Mail
+###########################
+# cat=email/enable/201; type=string; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.emailFromAddress
+emailFromAddress = office@allegria.at
+
+# cat=email/enable/202; type=string; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.emailFromName
+emailFromName = Allegria • Public Relations & Events
+
+# cat=email/enable/203; type=string; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.emailToAddress
+emailToAddress = office@allegria.at
+
+# cat=email/enable/204; type=string; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.emailToName
+emailToName = Allegria • Public Relations & Events
+
+# cat=email/enable/205; type=string; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.emailReplyAddress
+emailReplyAddress = office@allegria.at
+
+# cat=email/enable/206; type=string; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.emailReplyName
+emailReplyName = Allegria • Public Relations & Events
+
+
+## InvitationsPlan
+###########################
+# cat=invitation/enable/301; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.invitationRemindAfter
+invitationRemindAfter = 7
+
+# cat=invitation/enable/302; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.invitationPushAfter
+invitationPushAfter = 3
+
+# cat=invitation/enable/303; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.invitationCancelAfter
+invitationCancelAfter = 3
+
+
+## Contacts
+###########################
+# cat=contacts/enable/401; type=int; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.importerPid
+importerPid =
+
+# cat=contacts/enable/402; type=string; label=LLL:EXT:publicrelations/Resources/Private/Language/locallang_be.xlf:extmng.importableColumns
+importableColumns =

@@ -1,0 +1,273 @@
+<f:section name="preview">
+    <!-- Visually Hidden Preheader Text : BEGIN -->
+    <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: 'Roboto Slab', sans-serif">
+    <f:switch expression="{content}">
+        <f:case value="invitation">Einladung zur Trauerfeier & Beisetzung von Otto Schenk</f:case>
+        <f:case value="remind">Erinnerung zur Einladung zur Trauerfeier & Beisetzung von Otto Schenk</f:case>
+        <f:case value="push">Letzte Erinnerung zur Einladung zur Trauerfeier & Beisetzung von Otto Schenk</f:case>
+        <f:case value="approve">Danke für die Zusage.</f:case>
+        <f:case value="reject">Danke für die Rückmeldung.</f:case>
+    </f:switch>
+    </div>
+    <!-- Visually Hidden Preheader Text : END --> 
+</f:section>
+
+<f:section name="content">
+    <f:switch expression="{content}">
+        <f:defaultCase>
+            <f:render section="header" />
+            <f:render section="invitation" arguments="{_all}" />
+            <f:render section="programm-trauerfeier" />
+            <f:render section="programm-beisetzung" arguments="{_all}" />
+        </f:defaultCase>
+        <f:case value="approve">
+            <f:render section="header" />
+            <f:render section="welcome" arguments="{_all}" />
+            <f:render section="programm-trauerfeier" />
+            <f:render section="programm-beisetzung" arguments="{_all}" />
+        </f:case>
+        <f:case value="reject">
+            <f:render section="header" />
+            <tr>
+                <td align="center" valign="top" style="text-align: center; padding: 40px; font-family: Roboto, sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 20px; color: #000000;">
+                    <h1 style="margin-top: 0;">Ihre Rückmeldung</h1>
+                    <div style="width: 66%; margin: auto;">
+                        <p>Danke für Ihre Rückmeldung, wir wünschen noch einen angenehmen Tag.</p>
+                    </div>
+                </td>
+            </tr>
+        </f:case>
+    </f:switch>
+</f:section>
+
+<f:section name="header">
+<!-- Header : BEGIN -->
+<tr>
+    <td class="full-width-image"><img src="https://www.allegria.at/fileadmin/marketing/schenk/Otto-Schenk-HEADER_NEU.png" width="600" alt="Addio Otti! | 12. Juni 1930 – 9. Jänner 2025" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;"></td>
+</tr>
+  <!-- Header : END --> 
+</f:section>
+
+<f:section name="invitation">
+<f:switch expression="{content}">
+    <f:case value="invitation"><f:variable name="headline">Einladung</f:variable></f:case>    
+    <f:case value="remind"><f:variable name="headline">Erinnerung zur Einladung</f:variable></f:case>
+    <f:case value="push"><f:variable name="headline">Finale Erinnerung<br>zur Einladung</f:variable></f:case>
+</f:switch>
+<!-- Einladung : BEGIN -->
+<tr>
+    <td style="padding: 40px; text-align: center; font-family: Roboto, sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.2; color: #000000;">
+        <h1 style="text-transform: uppercase; font-size: 1.8rem; margin-bottom: 0;">{headline->f:format.raw()}</h1>
+        <p style="margin-bottom: 0; margin-top: 10px; font-size: 1.2rem;">zur <strong>Trauerfeier & Beisetzung</strong><br>von <strong>Otto Schenk</strong></p>
+        <hr style="border: solid 1px #E42C1A; width: 33%;" />
+        <p>
+            am<br>
+            <strong>Mi, 29. JÄNNER</strong> und <strong>Do, 30. JÄNNER 2025</strong>
+        </p>
+        <p style="margin-bottom: 0;">für</p>
+        <h2 style="color: #E42C1A; text-transform: uppercase; margin-top: 0;">{accreditation.guestOutput.fullName}</h2>
+        <div style="width: 66%; margin: auto;">
+            <p style="margin-bottom: 30px;">
+                Unser Liebling, der uns allen so viele schöne Stunden geschenkt hat, unser österreichisches theatralisches Universalgenie, der mit seiner Kunst die Bühnen der Welt mit zutiefst menschlichen Inszenierungen verzaubert hat, der wie kein zweiter zum Sinnbild wienerischem Komödiantentums wurde.<br><br>
+                Er spielt jetzt in einer „höheren Liga“.<br>
+                Wir schauen traurig nach oben, wo sich die himmlischen Heerscharen über unseren Otti zerkugeln.
+            </p>
+        </div>
+    
+        <f:render section="btn-feedback" arguments="{_all}" />
+        
+        <p style="font-weight: 700;">In Ottis Sinne<br>bitte keine traditionelle Trauerkleidung!</p>
+        <p style="margin-top: 50px; margin-bottom: 0;">
+            <strong style="font-size: 1.1rem;">29. Jänner 2025</strong><br>
+            <br>
+            13:00 – 14:30<br>
+            <strong style="font-size: 1.2rem; text-transform: uppercase;">Öffentliche Aufbahrung</strong><br>
+            im Stephansdom
+        </p>
+    </td>
+  </tr>
+<!-- Einladung : BEGIN --> 
+</f:section>
+
+<f:section name="programm-trauerfeier">
+<!-- Trauerfeier Banner : BEGIN -->
+<tr>
+    <td bgcolor="#E42C1A" valign="middle" style="text-align: center; padding: 40px; font-family: Roboto, sans-serif; font-size: 1.2rem; mso-height-rule: exactly; line-height: 20px; color: #ffffff;">
+        <h2 style="margin: 0; text-transform: uppercase;">Trauerfeier</h2>
+        <p style="margin-top: 10px;">im Stephansdom</p>
+        <p style="font-weight: bold; margin-bottom: 0;">Mi, 29. Jänner 2025 um 15 Uhr</p>
+    </td>
+    </tr>
+<!-- Trauerfeier Banner : END --> 
+
+<!-- Trauerfeier Programm : BEGIN -->
+<tr>
+    <td bgcolor="#E7E2DA" valign="middle" style="text-align: center; padding: 40px; font-family: Roboto, sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 20px; color: #000000;">
+        <h2 style="margin: 0; margin-bottom: 30px; text-transform: uppercase;">Zeremonie</h2>
+        
+        <p>
+            <strong>Intermezzo Sinfonico</strong><br>
+            <em><strong>Cavalleria rusticana</strong></em><br>
+            <em>Oper von Pietro Mascagni</em>
+        </p>
+        
+        <p>
+            <strong>Liturgische Eröffnung und Gebet</strong><br>
+            mit Dompfarrer Toni Faber
+        </p>
+        
+        <p>
+            <strong>Ave Maria</strong><br>
+            <em>Johann Sebastian Bach & Charles Gounod</em><br>
+            Tamara Trojani
+        </p>
+        
+        <p>
+            <strong>Laudationen</strong>
+        </p>
+        
+        <p>
+            <strong>Vivere</strong><br>
+            <em>Eigenkomposition Konstantin Schenk</em><br>
+            Tamara Trojani
+        </p>
+        
+        <p>
+            <strong>Liturgische Aussegnung</strong><br>
+            durch Dompfarrer Toni Faber
+        </p>
+        
+        <p>
+            <strong>Adieu</strong><br>
+            <em>von Peer & Richard Heep</em><br>
+            Tamara Trojani
+        </p>
+        
+        <p>
+            <strong>Auszug aus dem Dom</strong>
+        </p>
+        
+        <p>
+            <strong>Intermezzo Sinfonico</strong><br>
+            <em><strong>Pagliacci</strong></em>
+            <em>Oper von Ruggero Leoncavallo</em>
+        </p>
+        
+        <p style="margin-bottom: 0;">
+            <strong>Verabschiedung von Otto Schenk</strong><br>
+            vor dem Riesentor des Wiener Stephansdom
+        </p>
+    </td>
+    </tr>
+<!-- Trauerfeier Programm : END --> 
+</f:section>
+
+<f:section name="programm-beisetzung">
+<!-- Beisetzung Banner : BEGIN -->
+<tr>
+    <td bgcolor="#E42C1A" valign="middle" style="text-align: center; padding: 40px; font-family: Roboto, sans-serif; font-size: 1.2rem; mso-height-rule: exactly; line-height: 20px; color: #ffffff;">
+        <h2 style="margin: 0; text-transform: uppercase;">Beisetzung</h2>
+        <p style="margin-top: 10px;">am Wiener Zentralfriedhof, Tor 2</p>
+        <p style="font-weight: bold; margin-bottom: 0;">Do, 30. Jänner 2025 um 14 Uhr</p>
+    </td>
+    </tr>
+<!-- Beisetzung Banner : END --> 
+
+<!-- Beisetzung Programm : BEGIN -->
+<tr>
+    <td bgcolor="#E7E2DA" valign="middle" style="text-align: center; padding: 40px; font-family: Roboto, sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 20px; color: #000000;">
+        
+            <p style="margin: 0;">
+            <strong>Treffpunkt 14.00 Uhr</strong><br>
+            Tor 2 unter den Arkaden
+        </p>
+        
+        <p>
+            <strong>Trauerzug zum Ehrengrab</strong><br>
+            mit musikalischer Begleitung der<br>
+            <strong>Original Hoch- und Deutschmeister</strong><br>
+            ca. 300m
+        </p>
+        
+            <p>
+            <strong>Beisetzungszeremonie</strong><br>
+            durch Dompfarrer Toni Faber
+        </p>
+        
+        <p style="margin: 30px;">
+            <img src="https://www.allegria.at/fileadmin/marketing/schenk/Otto-Schenk_Addio-Otti.png" alt="Addio Otti!" />
+        </p>
+        
+        <f:if condition="{content} == 'invite' || {content} == 'remind' || {content} == 'push'">
+            <f:then><f:render section="btn-feedback" arguments="{_all}" /></f:then>
+            <f:else><f:render section="btn-sick" arguments="{_all}" /></f:else>
+        </f:if>
+
+        <f:if condition="{accreditation.invitationType.uid}==445">
+            <div style="width: 66%; margin: auto; margin-top: 30px;">
+                <h2>inkl. Einladung zum Leichenschmaus</h2>
+                <p>Konstantin Schenk lädt sehr herzlich zum gemeinsamen Leichenschmaus in das Schönbrunner Stöckl.<br><br>Dieses findet an beiden Terminen im Anschluss statt, Sie können bei Möglichkeit einen der Termine wählen.<br><br><f:render section="btn-anfahrt" /><br><strong>Bitte geben Sie Ihre Teilnahme bei der Rückmeldung mit bekannt.</strong></p>
+            </div>
+        </f:if>
+        
+    </td>
+    </tr>
+<!-- Beisetzung Programm : END --> 
+</f:section>
+
+<f:section name="welcome">
+<tr>
+    <td align="center" valign="top" style="text-align: center; padding: 40px; font-family: Roboto, sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 20px; color: #000000;">
+        <h1 style="margin-top: 0;">Rückmeldung zur Teilnahme</h1>
+        <div style="width: 66%; margin: auto;">
+            <p>Vielen Dank für Ihre Nachricht und die Zusage.</p>
+        </div>
+        
+        <f:render section="btn-sick" arguments="{_all}" />
+    </td>
+</tr>
+</f:section>
+
+<f:section name="btn-feedback">
+<!-- Button : Begin -->
+<table cellspacing="0" cellpadding="0" border="0" class="center-on-narrow">
+    <tr>
+        <td style="border-radius: 3px; background: #E7E2DA; text-align: center;" class="button-td">
+            <f:link.typolink
+                    absolute="1"
+                    parameter="38"
+                    additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}"
+                    absolute="1"
+                    class="button-a"
+                    target="_blank"
+                    additionalAttributes="{style:'background: #E7E2DA; border: 2px solid #E42C1A; padding: 10px 20px;color: #E42C1A; font-family: Roboto, sans-serif; font-size: 1.2rem; line-height: 1.1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; border-radius: 3px; font-weight: bold;'}">
+                    <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+                </f:link.typolink>
+        </td>
+    </tr>
+</table>
+<!-- Button : END -->
+</f:section>
+
+<f:section name="btn-sick">
+<h2 style="margin-top: 40px; margin-bottom: 10px; font-family: 'Roboto', sans-serif; font-size: 1.2rem; text-transform: uppercase;">Krank oder verhindert?</h2>
+<p style="margin: 0; font-family: 'Roboto', sans-serif; font-size: 0.9rem; margin-bottom: 20px;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider Erwarten nicht kommen können.</p>
+
+<table>
+    <tr>
+        <td style="border-radius: 3px; background: #E7E2DA; text-align: center;" class="button-td"><a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank" style="background: #E7E2DA; border: 2px solid #E42C1A; padding: 10px 20px;color: #E42C1A; font-family: Roboto, sans-serif; font-size: 1.2rem; line-height: 1.1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; border-radius: 3px; font-weight: bold;" class="button-a"> 
+        <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Email senden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+        </a></td>
+    </tr>
+</table>
+</f:section>
+
+<f:section name="btn-anfahrt">
+<table>
+    <tr>
+        <td style="border-radius: 3px; background: #E7E2DA; text-align: center;" class="button-td"><a href="https://maps.app.goo.gl/Ews9XLyfsaad1vWE6" target="_blank" style="background: #E7E2DA; border: 2px solid #E42C1A; padding: 10px 20px;color: #E42C1A; font-family: Roboto, sans-serif; font-size: 1.2rem; line-height: 1.1; text-align: center; text-decoration: none; text-transform: uppercase; display: block; border-radius: 3px; font-weight: bold;" class="button-a"> 
+        <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Anfahrt planen<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+        </a></td>
+    </tr>
+</table>
+</f:section>

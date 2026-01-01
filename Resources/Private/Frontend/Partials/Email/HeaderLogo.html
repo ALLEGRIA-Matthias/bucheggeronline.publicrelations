@@ -1,0 +1,9 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:switch expression="{template}">
+  <f:case value="WienerMetropolEmail"><f:image src="fileadmin/marketing/wiener-metropol_logo_email.png" alt="Wiener Metropol" height="auto" width="100" absolute="1" /></f:case>
+  <f:case value="KulturformatEmail"></f:case>
+  <f:case value="SchlossWeitraFestivalEmail"><f:image src="presse/Schloss_Weitra_Festival.jpg" alt="Schloss Weitra Festival" height="auto" width="100" absolute="1"  /></f:case>
+  <f:case value="WachaufestspieleEmail"><img src="https://www.allegria.at/presse/wachaufestspiele_logo.png" alt="Wachaufestspiele" height="auto" width="100px" /></f:case>
+  <f:defaultCase><img src="https://www.allegria.at/fileadmin/marketing/allegria_logo_email.png" alt="{settings.company.name}" height="auto" width="100px" /></f:defaultCase>
+</f:switch>
+</html>

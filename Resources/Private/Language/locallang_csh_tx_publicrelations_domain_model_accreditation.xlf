@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:publicrelations/Resources/Private/Language/locallang_csh" date="2020-08-06T11:01:46Z" product-name="publicrelations">
+		<header/>
+		<body>
+			<trans-unit id="title.description" resname="title.description">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="first_name.description" resname="first_name.description">
+				<source>firstName</source>
+			</trans-unit>
+			<trans-unit id="middle_name.description" resname="middle_name.description">
+				<source>middleName</source>
+			</trans-unit>
+			<trans-unit id="last_name.description" resname="last_name.description">
+				<source>lastName</source>
+			</trans-unit>
+			<trans-unit id="email.description" resname="email.description">
+				<source>email</source>
+			</trans-unit>
+			<trans-unit id="phone.description" resname="phone.description">
+				<source>phone</source>
+			</trans-unit>
+			<trans-unit id="medium.description" resname="medium.description">
+				<source>medium</source>
+			</trans-unit>
+			<trans-unit id="tickets.description" resname="tickets.description">
+				<source>tickets</source>
+			</trans-unit>
+			<trans-unit id="notes.description" resname="notes.description">
+				<source>notes</source>
+			</trans-unit>
+			<trans-unit id="photographer.description" resname="photographer.description">
+				<source>photographer</source>
+			</trans-unit>
+			<trans-unit id="camerateam.description" resname="camerateam.description">
+				<source>camerateam</source>
+			</trans-unit>
+			<trans-unit id="event.description" resname="event.description">
+				<source>event</source>
+			</trans-unit>
+			<trans-unit id="journalist.description" resname="journalist.description">
+				<source>journalist</source>
+			</trans-unit>
+			<trans-unit id="medium_type.description" resname="medium_type.description">
+				<source>mediumType</source>
+			</trans-unit>
+			<trans-unit id="logs.description" resname="logs.description">
+				<source>logs</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

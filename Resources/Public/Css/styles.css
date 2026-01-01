@@ -1,0 +1,126 @@
+/* GENERAL STUFF */
+
+body {
+  padding-top: 0px !important;
+}
+
+.badge .icon {
+  width: 13px !important;
+  height: 13px !important;
+}
+
+span.avatar, span.avatar-image {
+    height: 24px;
+    width: 24px;
+}
+
+
+/* TABLES */
+
+table {
+  font-size: 12px !important;
+}
+
+.badge .badge-primary,
+.badge .badge-secondary,
+.badge .badge-success,
+.badge .badge-warning,
+.badge .badge-danger,
+.badge .badge-info {
+  color: white !important;
+}
+
+.badge-gold,
+.bg-gold {
+  background-color: #efb72e !important;
+}
+
+.bg-blue {
+  background-color: var(--bs-blue) !important;
+}
+
+.bg-pink {
+  background-color: var(--bs-pink) !important;
+}
+
+.bg-gray {
+  background-color: var(--bs-gray) !important;
+}
+
+.bg-default {
+  background-color: var(--bs-gray-dark) !important;
+}
+
+.move-left {
+  width: auto !important;
+  box-shadow: none !important;
+}
+
+.tooltip-wrapper {
+  display: inline-block; /* display: block works as well */
+}
+
+.tooltip-wrapper .btn[disabled] {
+  /* don't let button block mouse events from reaching wrapper */
+  pointer-events: none;
+}
+
+.tooltip-wrapper.disabled {
+  /* OPTIONAL pointer-events setting above blocks cursor setting, so set it here */
+  cursor: not-allowed;
+}
+
+.select2-results__option--highlighted:nth-child(odd) {
+    background-color: #ebeced; /* Ein sehr helles Grau */
+}
+
+.select2-results__option:nth-child(odd) {
+    background-color: #ebeced; /* Ein sehr helles Grau */
+}
+
+.gender-badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 0;
+    margin-right: 10px;
+}
+
+.gender-badge .icon {
+    width: 18px; /* oder eine andere Größe, die zum 30x30 Badge passt */
+    height: 18px; /* oder eine andere Größe, die zum 30x30 Badge passt */
+}
+
+
+@media (min-width: 576px) {
+  .pull-right-sm {
+    float: right !important;
+  }
+}
+
+@media print {
+
+  html {
+    height: auto !important;
+    overflow: inherit !important;
+  }
+
+  .module-body {
+    padding-top: 0px !important;
+  }
+
+  .badge svg {
+    fill: var(--dark) !important;
+  }
+
+  .badge {
+    color: var(--dark);
+    background-color: inherit;
+    border-radius: 10px;
+    border: solid 1px var(--dark);
+  }
+
+}

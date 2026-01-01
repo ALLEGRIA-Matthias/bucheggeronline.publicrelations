@@ -1,0 +1,90 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+<div class="alert alert-primary">
+  <h4>Grunddaten</h4>
+  <div class="row">
+
+    <f:if condition="{disabled}">
+      <f:else>
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="selectClients"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#crown"></use></svg>Kundenauswahl</label>
+            <div class="input-group w-100">
+              <f:form.select class="form-control tomselect-generic js-client-select"
+                            id="selectClients"
+                            property="client"
+                            optionsAfterContent="1"
+                            options="{clients}"
+                            optionValueField="uid"
+                            optionLabelField="shortName"
+                            sortByOptionLabel="sortName"
+                            required="1"
+                            data="{campaign-select-target: '#selectCampaigns'}">
+                <f:form.select.option value="">Bitte Kunden auswählen...</f:form.select.option>
+              </f:form.select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="selectCampaigns"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#star"></use></svg>Produktauswahl</label>
+            <div class="input-group w-100">
+              <f:form.select class="form-control tomselect-generic select-prefill js-campaign-select"
+                      data="{
+                        prefill-field-id:'inputTitle',
+                        placeholder-initial:'Bitte zuerst Kunden wählen...',
+                        placeholder-loading:'Lade Produkte...'
+                      }"
+                      id="selectCampaigns"
+                      property="campaign"
+                      disabled="true" >
+                <f:form.select.option value="0">Bitte zuerst Kunden wählen...</f:form.select.option>
+              </f:form.select>
+            </div>
+          </div>
+        </div>
+      </f:else>
+    </f:if>
+
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="inputTitle"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#header"></use></svg>Titel</label>
+        <div class="input-group w-100">
+          <div class="input-group-prepend">
+
+          </div>
+          <f:form.textfield class="form-control" id="inputTitle" property="title" required="1" data="{disable-target:'title'}" disabled="{f:if(condition:'{disabled}', then:'1')}" />
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-3">
+      <div class="form-group">
+        <label for="selectType"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#tag"></use></svg>Termintyp</label>
+        <div class="input-group w-100">
+          <f:form.select class="form-control tomselect-generic" id="selectType" property="type" optionsAfterContent="1" options="{eventTypes}" optionValueField="uid" optionLabelField="title" required="1" data="{disable-target:'type'}" disabled="{f:if(condition:'{disabled}', then:'1')}">
+            <f:form.select.option value="">Bitte Termintyp auswählen...</f:form.select.option>
+          </f:form.select>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-3">
+      <div class="form-group">
+        <label><svg class="icon mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-badge-lanyard"></use></svg>Akkreditierung möglich</label>
+        <div class="form-check">
+          <f:form.checkbox class="form-check-input mt-0" id="checkAccreditation" property="accreditation" value="1" checked="checked" data="{disable-target:'accreditation'}" disabled="{f:if(condition:'{disabled}', then:'1')}" />
+          <label class="form-check-label" for="checkAccreditation">Ja/Nein</label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</html>

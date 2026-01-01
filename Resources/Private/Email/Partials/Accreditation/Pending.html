@@ -1,0 +1,92 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:section name="Header">
+<tr>
+    <td valign="top" class="image" align="center" style="padding: 0px 36px; padding-bottom: 20px; color: #222222;text-align: left;">
+      <f:render partial="HeaderLogo" arguments="{_all}" />
+    </td>
+    <td valign="top" class="image" align="center" style="padding: 0px 36px; padding-bottom: 20px; text-align: right;vertical-align: middle;">
+      <h6 style="text-align: right;">Akkreditierungsanfrage</h6>
+      <p class="subtitle">zu {accreditation.event.title} am {accreditation.event.date->f:format.date(format:'%e. %B %Y')}</p>
+    </td>
+</tr>
+<tr>
+    <td valign="top" class="textContent" colspan="2" style="padding: 0px 36px;padding-top: 20px; color: var(--dark);font-family: &quot;IBM Plex Sans&quot;, Helvetica, Arial, Verdana, sans-serif;font-size: 20px;text-align: center;">
+        <strong>Neue Akkreditierungsanfrage</strong>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="Content"><tr>
+    <td valign="top" class="textContent" style="padding: 0px 36px;">
+
+        <p>
+          Liebes Team,
+        </p>
+
+        <p>
+          es wurde eine neue Akkreditierungsanfrage über allegria.at zu <strong>{accreditation.event.title->f:format.case()} am {accreditation.event.date->f:format.date(format:'%e. %B %Y um %k.%M Uhr')}</strong> übermittelt.
+        </p>
+
+        <h5>Akkreditierungsdaten</h5>
+        <table>
+          <tbody>
+            <tr>
+              <td>Medium</td>
+              <td>{accreditation.medium}</td>
+            </tr>
+            <tr>
+              <td>Redakteur*in</td>
+              <td>{accreditation.guestOutput.firstName} {accreditation.guestOutput.lastName}</td>
+            </tr>
+            <tr>
+              <td>Kontaktdaten</td>
+              <td><a href="mailto:{accreditation.guestOutput.email}" target="_blank">{accreditation.guestOutput.email}</a> | <a href="tel:{accreditation.guestOutput.phone}" target="_blank">{accreditation.guestOutput.phone}</a></td>
+            </tr>
+            <tr>
+              <td>Tickets</td>
+              <td>{accreditation.ticketsWish} Tix</td>
+            </tr>
+            <tr>
+              <td>Termin</td>
+              <td>{accreditation.event.title}</td>
+            </tr>
+            <tr>
+              <td>Datum</td>
+              <td>{accreditation.event.date->f:format.date(format:'%e. %B %Y um %k.%M Uhr')}</td>
+            </tr>
+            <tr>
+              <td>Location</td>
+              <td>{accreditation.event.location.name}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <f:if condition="{accreditation.requestNote}">
+        <p>
+          <strong>ANMERKUNG</strong><br/>
+          {accreditation.requestNote->f:format.nl2br()}
+        </p>
+        </f:if>
+
+        <hr/>
+
+        <f:if condition="{accreditation.event.ticketsQuota} && {accreditation.event.ticketsAvailable}<{accreditation.ticketsWish}">
+          <p><strong class="danger">
+            VORSICHT!<br/>
+            Bitte beachte, dass das eingegebene Kartenkontingent zum Termin bereits erschöpft ist.
+          </strong></p>
+        </f:if>
+
+        <p>
+          Die Akkreditierung kann im Akkreditierungstool geprüft werden oder <f:link.typolink absolute="1" parameter="16" additionalParams="&tx_publicrelations_presscenteroverview[controller]=Accreditation&tx_publicrelations_presscenteroverview[action]=expressApprove&tx_publicrelations_presscenteroverview[accreditation]={accreditation.uid}" absolute="1">HIER</a> direkt freigegeben werden.
+        </p>
+
+        <p>
+          Mit freundlichen Grüßen,<br/>
+          der Chef vom Dienst ;)
+        </p>
+
+    </td>
+</tr>
+</f:section>
+</html>

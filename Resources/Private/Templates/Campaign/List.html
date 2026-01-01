@@ -1,0 +1,43 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Eventcenter" />
+
+<f:section name="buttons">
+<be:link.newRecord table="tx_publicrelations_domain_model_campaign" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&action=list&controller=Campaign&tx_publicrelations_eventcenter[client]={client.uid}')}" pid="2" class="btn btn-sm btn-success"><svg class="icon icon-sm fill-white mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#circle-plus"></use></svg>Neues Produkt erstellen</be:link.newRecord>
+</f:section>
+
+<f:section name="shortcuts">
+<f:link.action controller="Campaign" action="list" arguments="{client:client}" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+    <h1>Produktübersicht <small>zu {client.name}</small></h1>
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <div class="panel panel-default">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th width="30px"></th>
+            <th>Produkt</th>
+            <th>Produkttyp</th>
+            <th align="right" width="150">Funktionen</th>
+          </tr>
+        </thead>
+        <tbody>
+          <f:for each="{client.campaigns -> v:iterator.sort(sortBy: 'title')}" as="campaign" iteration="ci">
+          <tr>
+            <td><f:image image="{campaign.logo}" height="30c" width="30c" class="rounded" /></td>
+            <td class="nowrap">{campaign.title}</td>
+            <td class="nowrap">{campaign.type.title}</td>
+            <td><f:render partial="Functions/Campaign" arguments="{campaign:campaign}" /></td>
+          </tr>
+          </f:for>
+        </tbody>
+      </table>
+    </div>
+</f:section>
+</html>

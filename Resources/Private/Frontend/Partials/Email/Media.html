@@ -1,0 +1,18 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:if condition="{content.media}">
+  <div style="margin: 3rem 0;">
+  <f:for each="{content.media}" as="medium" iteration="mi">
+    <a href="{medium.originalResource.publicUrl}" target="_blank"><f:image image="{medium}" width="528" height="auto" absolute="true" /></a>
+    <p>
+      <f:switch expression="{medium.originalResource.type}">
+        <f:case value="1"><strong>Dokument: </strong></f:case>
+        <f:case value="2"><strong>Foto: </strong></f:case>
+        <f:case value="3"><strong>Audio: </strong></f:case>
+        <f:case value="4"><strong>Video: </strong></f:case>
+        <f:case value="5"><strong>Datei: </strong></f:case>
+        <f:defaultCase><strong>Titel: </strong></f:defaultCase>
+      </f:switch> {medium.originalResource.title}</p>
+  </f:for>
+  </div>
+</f:if>
+</html>

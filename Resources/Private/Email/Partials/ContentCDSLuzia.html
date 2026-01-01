@@ -1,0 +1,117 @@
+<f:switch expression="{content}">
+<f:case value="invite">
+  <h1 style="text-transform: uppercase; font-size: 1.5rem; font-family: 'Open Sans', sans-serif;">Persönliche Einladung!</h1>
+  <f:render section="invitationCopy" arguments="{_all}" />
+</f:case>
+<f:case value="remind">
+  <h1 style="color: #FF222C; text-transform: uppercase; font-size: 1.5rem; font-family: 'Open Sans', sans-serif;">Erinnerung!</h1>
+  <f:render section="invitationCopy" arguments="{_all}" />
+</f:case>
+<f:case value="push">
+  <h1 style="color: #FF222C; text-transform: uppercase; font-size: 1.5rem; font-family: 'Open Sans', sans-serif;">Letzte Erinnerung!</h1>
+  <f:render section="invitationCopy" arguments="{_all}" />
+</f:case>
+<f:case value="approve">
+  <h1 style="text-transform: uppercase;">Ihre Zusage!</h1>
+  <f:render section="ticket" arguments="{_all}" />
+</f:case>
+<f:case value="reject">
+  <h1 style="text-transform: uppercase;">Ihre Absage!</h1>
+  <p style="margin-bottom: 30px;">Cirque du Soleil bedankt sich für Ihre Rückmeldung.<br>
+    Schade, dass Sie nicht dabei sein können.</p>
+  <img src="https://www.allegria.at/fileadmin/marketing/cds-luzia/LIVE-NATION_Luzia_Mailing-Logo.png" width="150px" height="auto">
+  <p style="margin-bottom: 0; font-weight: 800; text-transform: uppercase; font-size: 1rem;">12. April – 29. Mai 2023</p>
+  <p style="margin-top: 0;">Wien, Neu Marx</p>
+  <p style="font-weight: 700; margin-bottom: 15px; margin-top: 30px;">Für mehr Informationen<br>
+    <a href="https://www.cirquedusoleil.com/luzia" style="color: #FF222C; text-decoration: none;">www.cirquedusoleil.com/luzia</a>
+  </p>
+</f:case>
+<f:case value="waiting">
+  <h1 style="color: #FF222C; text-transform: uppercase; font-size: 1.5rem; font-family: 'Open Sans', sans-serif;">Die Nachfrage ist riesig!</h1>
+  <p style="margin-bottom: 30px;">Cirque du Soleil bedankt sich für die unglaublich großartige Nachfrage.</p>
+  <p style="margin-bottom: 30px;"><strong>Die Ticket-Kontingente sind aktuell bedauerlicherweise komplett erschöpft.</strong><p>
+  <p style="margin-bottom: 30px;">Leider können wir erst bis spätestens <strong>22. März 2023</strong> eine konkrete Rückmeldung geben, ob wir Ihrem Ticketwunsch nachkommen können.</p>
+  <p style="margin-bottom: 30px;">Wir bedanken uns für Ihr Verständnis.</p>
+  <hr>
+  <img src="https://www.allegria.at/fileadmin/marketing/cds-luzia/LIVE-NATION_Luzia_Mailing-Logo.png" width="150px" height="auto">
+  <p style="margin-bottom: 0; font-weight: 800; text-transform: uppercase; font-size: 1rem;">12. April – 29. Mai 2023</p>
+  <p style="margin-top: 0;">Wien, Neu Marx</p>
+  <p style="font-weight: 700; margin-bottom: 15px; margin-top: 30px;">Für mehr Informationen<br>
+    <a href="https://www.cirquedusoleil.com/luzia" style="color: #FF222C; text-decoration: none;">www.cirquedusoleil.com/luzia</a>
+  </p>
+</f:case>
+<f:case value="reject_after_waiting">
+  <h1 style="color: #FF222C; text-transform: uppercase; font-size: 1.5rem; font-family: 'Open Sans', sans-serif;">Es tut uns so leid!</h1>
+  <p style="margin-bottom: 30px;">
+    Wir sind von der ernormen Nachfrage überwältigt!<br>
+    <strong>Danke für Ihr Interesse.</strong>
+  </p>
+  <p style="margin-bottom: 30px;">Umso schwerer fällt es uns Ihnen sagen zu müssen, dass wir Ihnen leider keine Tickets zur Verfügung stellen können.</p>
+  <p style="margin-bottom: 30px;">Wir hoffen Sie bei einer unserer nächsten Premieren wieder begrüßen zu dürfen!</p>
+  <hr>
+  <img src="https://www.allegria.at/fileadmin/marketing/cds-luzia/LIVE-NATION_Luzia_Mailing-Logo.png" width="150px" height="auto">
+  <p style="margin-bottom: 0; font-weight: 800; text-transform: uppercase; font-size: 1rem;">12. April – 29. Mai 2023</p>
+  <p style="margin-top: 0;">Wien, Neu Marx</p>
+  <p style="font-weight: 700; margin-bottom: 15px; margin-top: 30px;">Für mehr Informationen<br>
+    <a href="https://www.cirquedusoleil.com/luzia" style="color: #FF222C; text-decoration: none;">www.cirquedusoleil.com/luzia</a>
+  </p>
+</f:case>
+<f:case value="approve_after_waiting">
+  <h1 style="color: #FF222C; text-transform: uppercase; font-size: 1.5rem; font-family: 'Open Sans', sans-serif;">Danke für's Warten!</h1>
+  <p><strong>Wir können Ihren Besuch ermöglichen!</strong></p>
+  <f:render section="ticket" arguments="{_all}" />
+</f:case>
+<f:case value="pending">
+  <h1 style="color: #FF222C; text-transform: uppercase; font-size: 1.5rem; font-family: 'Open Sans', sans-serif;">Neu auf der Warteliste:</h1>
+  <p><strong>{accreditation.guestOutput.name}</strong></p>
+</f:case>
+</f:switch>
+
+<f:section name="invitationCopy">
+    <p>Cirque du Soleil freut sich<br>
+    <span style="font-weight: 900; text-transform: uppercase;">{accreditation.guestOutput.name}</span><br>
+    zur Premiere von</p>
+    <img src="https://www.allegria.at/fileadmin/marketing/cds-luzia/LIVE-NATION_Luzia_Mailing-Logo.png" width="150px" height="auto">
+    <p>{f:if(condition: '{accreditation.guestType}==2', then: 'zur redaktionellen Berichterstattung ')}einzuladen.</p>
+    <p>Am Mittwoch, <strong>12. April 2023, Beginn</strong> um <strong>19:30 Uhr</strong><br>
+    (Einlass ab 18.30 Uhr)<br>
+    in <strong>Wien, Neu Marx</strong></p>
+    <p>Wir freuen uns auf Ihren Besuch!</p>
+    <p style="margin: 27px 0px 20px 0px"><a href="###TICKET_LINK### style="background: #FF222C; padding: 7px 14px; color: #FFFFFF; font-weight: 800; text-decoration: none;">Jetzt rückmelden</a></p>
+    <p style="font-size: 0.6rem;">
+    <i>Die Einladung gilt für 2 Personen und ist nicht übertragbar.</i><br>
+    <f:switch expression="{content}">
+        <f:case value="invite"><span style="font-weight: 600;">Um Rückmeldung wird bis 21.03.2023 gebeten.</span></f:case>
+        <f:defaultCase><span style="font-weight: 600;">Die Rückmeldung ist nur <span style="text-decoration: underline">noch bis 21.03.2023</span> möglich.</span></f:defaultCase>
+    </f:switch>
+    </p>
+    <p style="font-weight: 700; margin-bottom: 0;">
+    Für mehr Informationen<br>
+    <a href="https://www.cirquedusoleil.com/luzia" style="color: #FF222C; text-decoration: none;">www.cirquedusoleil.com/luzia</a>
+    </p>
+</f:section>
+
+<f:section name="ticket">
+    <div style="background: #FF222C; border: 3px solid #FFE543; border-radius: 15px; padding: 15px;">
+        <p style="margin: 0; font-size: 1.2rem; text-transform: uppercase; color: #FFFFFF; font-weight: 700;">{accreditation.guestOutput.name}</p>
+        <f:if condition="{accreditation.ticketsApprovedPlus}"><p style="margin-top: 0; color: #FFE543; font-size: 0.9rem; font-weight: 600; margin-bottom: 0px;">und {accreditation.ticketsApprovedPlus} Begleitperson{f:if(condition:'{accreditation.ticketsApprovedPlus}>1', then:'en')}</p></f:if>
+        <p style="margin: 0; margin-top: 10px; font-size: 0.65rem; color: #FFFFFF;">Akkreditierung Nr. #{accreditation.uid}<br>Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr gesendet.<br>
+          <i>*diese Bestätigung ist nicht übertragbar</i></p>
+      </div>
+      <p>Cirque du Soleil freut sich<br>
+        Sie zur Premiere von</p>
+      <img src="https://www.allegria.at/fileadmin/marketing/cds-luzia/LIVE-NATION_Luzia_Mailing-Logo.png" width="150px" height="auto">
+      <p>begrüßen zu dürfen.</p>
+      <h2 style="margin-top: 30px; margin-bottom: 0; text-transform: uppercase;">Ticketinformation</h2>
+      <p style="margin: 0; font-size: 0.7rem;"><span style="font-weight: 600;">Informationen zum Erhalt Ihrer Tickets versenden wir zwischen<br><span style="color: #FF222C;">dem 3. und 6. April 2023</span>.</span> Sollten Sie bis 7. April keine Information erhalten haben, wenden Sie sich gerne an <a href="mailto:office@allegria.at" target="_blank" style="text-decoration: none; color: #FF222C;">office@allegria.at</a> zur Klärung.</p>
+      <p>Am Mittwoch, <strong>12. April 2023, Beginn</strong> um <strong>19:30 Uhr</strong><br>
+        (Einlass ab 18.30 Uhr)<br>
+        in <strong>Wien, Neu Marx</strong></p>
+      <p>Wir freuen uns auf Ihren Besuch!</p>
+      <h2 style="margin-top: 30px; margin-bottom: 0; text-transform: uppercase;">Krank oder verhindert?</h2>
+      <p style="margin: 0; font-size: 0.75rem;">Bitte lassen Sie uns via Email wissen,<br>sollten Sie wider Erwarten nicht zur Premiere kommen können.</p>
+      <p style="margin: 27px 0px 20px 0px"><a href="mailto:office@allegria.at" target="_blank" style="background: #FF222C; padding: 7px 14px; color: #FFFFFF; font-weight: 500; text-decoration: none;">Email senden</a></p>
+      <p style="font-weight: 700; margin-bottom: 0; margin-top: 30px;">Für mehr Informationen<br>
+        <a href="https://www.cirquedusoleil.com/luzia" style="color: #FF222C; text-decoration: none;">www.cirquedusoleil.com/luzia</a>
+      </p>
+</f:section>

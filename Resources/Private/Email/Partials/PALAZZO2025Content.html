@@ -1,0 +1,419 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+
+<f:section name="Preview">
+    <!-- Visually Hidden Preheader Text : BEGIN -->
+    <div style="display:none; font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">
+    <f:switch expression="{content}">
+        <f:case value="invite">Ihre persönliche Einladung zur Premiere von Toni Mörwalds PALAZZO. Dieses Jahr mit der neuen Show "Better Together".</f:case>
+        <f:case value="remind">Nicht verpassen: Ihre persönliche Einladung zur Premiere von Toni Mörwalds PALAZZO. Dieses Jahr mit der neuen Show "Better Together".</f:case>
+        <f:case value="push">Letzte Chance: Ihre persönliche Einladung zur Premiere von Toni Mörwalds PALAZZO. Dieses Jahr mit der neuen Show "Better Together".</f:case>
+        <f:case value="approve">Wie schön, dass wir Sie demnächst im Toni Mörwald PALAZZO begrüßen dürfen.</f:case>
+        <f:case value="approve_after_waiting">Wie schön, dass wir Sie demnächst im Toni Mörwald PALAZZO begrüßen dürfen.</f:case>
+        <f:case value="waiting">Wichtige Information zu Ihrer Rückmeldung zur Einladung in den Toni Mörwald PALAZZO.</f:case>
+        <f:case value="reject">Schade, dass es nicht klappt. Der Toni Mörwald PALAZZO würde sich über einen baldigen Besuch freuen.</f:case>
+    </f:switch>
+    </div>
+    <!-- Visually Hidden Preheader Text : END --> 
+</f:section>
+
+<f:section name="content">
+<f:switch expression="{content}">
+    <f:case value="approve">
+        <!-- Email Header : BEGIN -->
+        <tr>
+            <td class="full-width-image" style="line-height: 0;"><img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Header-2025_Willkommen.png" alt="PALAZZO – Die Dinner-Show im Spiegelpalast" border="0" align="center" style="width: 100%; height: auto;"></td>
+        </tr>
+        <!-- Email Header : END -->
+
+        <tr>
+            <td style="text-align: center; font-family: 'Mukta', sans-serif !important; color: #000000; font-size: 1rem; line-height: 1.4; border: solid 1.6rem #FFD400; border-top: none; border-bottom: none;">
+                <img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Logo_WIEN_2023_Quer_HelleHGs.png" width="600" height="203" style="max-width: 30%; height: auto; margin-top: 30px;">
+
+                <f:render section="headline" arguments="{_all}" />
+                <f:render section="ticket-qr" arguments="{_all}" />
+                <f:render section="location" arguments="{_all}" />
+                <f:render section="images" arguments="{_all}" />
+                <f:render section="menue" arguments="{_all}" />
+            </td>
+        </tr>
+    </f:case>
+    <f:case value="reject">
+        <!-- Email Header : BEGIN -->
+        <tr>
+            <td class="full-width-image" style="line-height: 0;"><img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Header-2025_Blanko.png" alt="PALAZZO – Die Dinner-Show im Spiegelpalast" border="0" align="center" style="width: 100%; height: auto;"></td>
+        </tr>
+        <!-- Email Header : END -->
+
+        <tr>
+            <td style="text-align: center; font-family: 'Mukta', sans-serif !important; color: #000000; font-size: 1rem; line-height: 1.4; border: solid 1.6rem #FFD400; border-top: none; border-bottom: none;">
+                <f:render section="headline" arguments="{_all}" />
+                <p style="margin-top: 0; margin-bottom: 5px; font-weight: 300;">
+                    PALAZZO bedankt sich für die,<br>
+                    wenn auch negative, Rückmeldung.
+                </p>
+                <img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Logo_WIEN_2023_Quer_HelleHGs.png" width="600" height="203" style="max-width: 30%; height: auto; margin-top: 30px;">
+                <f:render section="tickets" arguments="{_all}" />
+                <f:render section="images" arguments="{_all}" />
+                <p>&nbsp;</p>
+            </td>
+        </tr>
+    </f:case>
+    <f:case value="waiting">
+        <!-- Email Header : BEGIN -->
+        <tr>
+            <td class="full-width-image" style="line-height: 0;"><img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Header-2025_Blanko.png" alt="PALAZZO – Die Dinner-Show im Spiegelpalast" border="0" align="center" style="width: 100%; height: auto;"></td>
+        </tr>
+        <!-- Email Header : END -->
+
+        <tr>
+            <td style="text-align: center; font-family: 'Mukta', sans-serif !important; color: #000000; font-size: 1rem; line-height: 1.4; border: solid 1.6rem #FFD400; border-top: none; border-bottom: none;">
+                <img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Logo_WIEN_2023_Quer_HelleHGs.png" width="600" height="203" style="max-width: 30%; height: auto; margin-top: 30px;">
+
+                <f:render section="headline" arguments="{_all}" />
+    
+                <p style="text-align: center; font-family: 'Mukta', sans-serif !important; color: #000000; font-size: 1rem; line-height: 1.4; margin-top: 20px; margin-bottom: 30px; font-weight: 700; padding: 0 40px; text-transform: uppercase;">
+                    Die Ticket-Kontingente sind aktuell Bedauerlicherweise komplett erschöpft.
+                </p>
+    
+                <p style="text-align: center; font-family: 'Mukta', sans-serif !important; color: #000000; font-size: 1rem; line-height: 1.4; margin-top: 20px; margin-bottom: 30px; font-weight: 300; padding: 0 40px;">
+                    Leider können wir erst bis spätestens  {f:format.date(format:'d.m.Y', date:'{accreditation.event.date->f:format.date(format:\'d-m-Y\')} -2 days')} eine konkrete Rückmeldung geben, ob wir Ihrem Ticketwunsch nachkommen können.<br>
+                    <br>
+                    Wir bedanken uns für Ihr Verständnis.
+                </p>
+
+                <f:render section="images" arguments="{_all}" />
+                <f:render section="menue" arguments="{_all}" />
+            </td>
+        </tr>
+    </f:case>
+    <f:case value="approve_after_waiting">
+        <!-- Email Header : BEGIN -->
+        <tr>
+            <td class="full-width-image" style="line-height: 0;"><img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Header-2025_Willkommen.png" alt="PALAZZO – Die Dinner-Show im Spiegelpalast" border="0" align="center" style="width: 100%; height: auto;"></td>
+        </tr>
+        <!-- Email Header : END -->
+
+        <tr>
+            <td style="text-align: center; font-family: 'Mukta', sans-serif !important; color: #000000; font-size: 1rem; line-height: 1.4; border: solid 1.6rem #FFD400; border-top: none; border-bottom: none;">
+                <img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Logo_WIEN_2023_Quer_HelleHGs.png" width="600" height="203" style="max-width: 30%; height: auto; margin-top: 30px;">
+
+                <f:render section="headline" arguments="{_all}" />
+
+                <p style="text-align: center; font-family: 'Mukta', sans-serif !important; color: #000000; font-size: 1rem; line-height: 1.4; margin-top: 20px; margin-bottom: 30px; font-weight: 700; padding: 0 40px; text-transform: uppercase;">
+                    Wir freuen uns, Ihnen den Besuch ermöglichen zu können.
+                </p>
+
+                <f:render section="ticket-qr" arguments="{_all}" />
+                <f:render section="location" arguments="{_all}" />
+                <f:render section="images" arguments="{_all}" />
+                <f:render section="menue" arguments="{_all}" />
+            </td>
+        </tr>
+    </f:case>
+    <f:case value="reject_after_waiting">
+        <!-- Email Header : BEGIN -->
+        <tr>
+            <td class="full-width-image" style="line-height: 0;"><img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Header-2025_Blanko.png" alt="PALAZZO – Die Dinner-Show im Spiegelpalast" border="0" align="center" style="width: 100%; height: auto;"></td>
+        </tr>
+        <!-- Email Header : END -->
+
+        <tr>
+            <td style="text-align: center; font-family: 'Mukta', sans-serif !important; color: #000000; font-size: 1rem; line-height: 1.4; border: solid 1.6rem #FFD400; border-top: none; border-bottom: none;">
+                <f:render section="headline" arguments="{_all}" />
+                <p style="text-align: center; font-family: 'Mukta', sans-serif !important; color: #000000; font-size: 1rem; line-height: 1.4; margin-top: 20px; font-weight: 300; padding: 0 40px;">
+                    Wir sind von der enormen Nachfrage überwältigt!<br>
+                    <strong>Danke für Ihr Interesse.</strong>
+                </p>
+                <p style="text-align: center; font-family: 'Mukta', sans-serif !important; color: #000000; font-size: 1rem; line-height: 1.4; margin-top: 20px; font-weight: 300; padding: 0 40px;">
+                    Umso schwerer fällt es uns Ihnen sagen zu müssen, dass wir Ihnen den Besuch der Premiere leider nicht ermöglichen können.
+                </p>
+                <p style="text-align: center; font-family: 'Mukta', sans-serif !important; color: #000000; font-size: 1rem; line-height: 1.4; margin-top: 20px; font-weight: 300; padding: 0 40px;">
+                    Wir hoffen Sie bei einer unserer nächsten Premieren wieder begrüßen zu dürfen!
+                </p>
+                <img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Logo_WIEN_2023_Quer_HelleHGs.png" width="600" height="203" style="max-width: 30%; height: auto; margin-top: 30px;">
+                <f:render section="tickets" arguments="{_all}" />
+                <f:render section="images" arguments="{_all}" />
+                <p>&nbsp;</p>
+            </td>
+        </tr>
+    </f:case>
+    <f:case value="pending">
+        <!-- Email Header : BEGIN -->
+        <tr>
+            <td class="full-width-image" style="line-height: 0;"><img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Header-2025_Blanko.png" alt="PALAZZO – Die Dinner-Show im Spiegelpalast" border="0" align="center" style="width: 100%; height: auto;"></td>
+        </tr>
+        <!-- Email Header : END -->
+
+        <tr>
+            <td style="text-align: center; font-family: 'Mukta', sans-serif !important; color: #000000; font-size: 1rem; line-height: 1.4; border: solid 1.6rem #FFD400; border-top: none; border-bottom: none;">
+                <f:render section="headline" arguments="{_all}" />
+                <p style="text-align: center; font-family: 'Mukta', sans-serif !important; color: #000000; font-size: 2rem; line-height: 1.4; margin-top: 20px; margin-bottom: 40px; font-weight: 300; padding: 0 40px;">
+                    <strong>{accreditation.guestOutput.name}</strong>
+                </p>
+            </td>
+        </tr>
+    </f:case>
+    <f:defaultCase>
+        <!-- Email Header : BEGIN -->
+        <tr>
+            <td class="full-width-image" style="line-height: 0;"><img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Header-2025_Einladung.png" alt="PALAZZO – Die Dinner-Show im Spiegelpalast" border="0" align="center" style="width: 100%; height: auto;"></td>
+        </tr>
+        <!-- Email Header : END -->
+
+        <tr>
+            <td style="text-align: center; font-family: 'Mukta', sans-serif !important; color: #000000; font-size: 1rem; line-height: 1.4; border: solid 1.6rem #FFD400; border-top: none; border-bottom: none;">
+                <img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Logo_WIEN_2023_Quer_HelleHGs.png" width="600" height="203" style="max-width: 30%; height: auto; margin-top: 30px;">
+
+                <f:render section="headline" arguments="{_all}" />
+                <f:render section="eventinfo" arguments="{_all}" />
+                <f:render section="location" arguments="{_all}" />
+                <f:render section="images" arguments="{_all}" />
+                <f:render section="menue" arguments="{_all}" />
+            </td>
+        </tr>
+    </f:defaultCase>
+</f:switch>
+</f:section>
+
+<f:section name="headline">
+    <f:switch expression="{content}">
+        <f:case value="invite"><h1 style="font-size: 2rem; text-transform: uppercase; line-height: 1;">Persönliche Einladung</h1></f:case>
+        <f:case value="remind"><h1 style="font-size: 2rem; text-transform: uppercase;">Erinnerung!</h1></f:case>
+        <f:case value="push"><h1 style="font-size: 2rem; text-transform: uppercase; color: #A62055; font-weight: 800;">Letzte Erinnerung!</h1></f:case>
+        <f:case value="approve"><h1 style="font-size: 1.6rem; text-transform: uppercase;">Wir freuen uns über die Zusage!</h1></f:case>
+        <f:case value="reject"><h1 style="font-size: 2rem; text-transform: uppercase; color: #A62055; font-weight: 800; margin-top: 40px; margin-bottom: 10px;">Wie schade!</h1></f:case>
+        <f:case value="waiting"><h1 style="font-size: 2rem; text-transform: uppercase;">Die Nachfrage ist riesig!</h1></f:case>
+        <f:case value="approve_after_waiting"><h1 style="font-size: 2rem; text-transform: uppercase;">Danke für Ihre Geduld!</h1></f:case>
+        <f:case value="reject_after_waiting"><h1 style="font-size: 2rem; text-transform: uppercase; color: #A62055; font-weight: 800; margin-top: 40px; margin-bottom: 10px;">Es tut uns so leid!</h1></f:case>
+        <f:case value="pending"><h1 style="font-size: 2rem; text-transform: uppercase; color: #A62055; font-weight: 800; margin-top: 40px; margin-bottom: 10px;">Neu auf der Warteliste!</h1></f:case>
+    </f:switch>
+</f:section>
+
+<f:section name="eventinfo">
+    <p style="text-align: center; font-family: 'Mukta', sans-serif !important; color: #000000; font-size: 1rem; line-height: 1.4; margin-top: 30px; font-weight: 300; padding: 0 40px;">
+        <f:render section="salutation" arguments="{_all}" /><br>
+        <f:if condition="{content} == 'invite'">
+            <f:then>
+                erleben Sie gemeinsam mit uns einen Abend voller Lebens- und Sinnesfreude, voller wunderbarer Augenblicke und magischer Momente.<br>
+                <br>
+                Unter dem Titel „Better Together“ nimmt die aktuelle Show das Publikum mit auf eine Reise voller Rhythmus, Leichtigkeit und Lebensfreude. Mitreißend, herzlich, humorvoll – eine energiegeladene Inszenierung, die Nähe schafft, das Miteinander feiert und jeden Abend in ein unvergessliches Erlebnis verwandelt. Inspirierende Persönlichkeiten und überraschende Wendungen machen „Better Together“ zu einer Show, die unter die Haut geht.<br>
+                <br>
+                Lassen Sie uns die neue Spielzeit in Wien gemeinsam beginnen und fernab des Alltags einen Abend lang den Zauber von PALAZZO in einzigartiger Atmosphäre zelebrieren. Wir möchten Sie herzlich einladen, bei der PALAZZO-Gala-Premiere unser Gast zu sein.<br>
+                <strong>Wir freuen uns auf Sie!</strong><br>
+                <br>
+                Herzlichst<br>
+                Michaela Töpfer & Toni Mörwald
+            </f:then>
+            <f:else>herzliche Einladung zur Gala-Premiere 2025!</f:else>
+        </f:if>
+        
+    </p>
+    
+    <h2 style="font-size: 1.6rem; text-transform: uppercase; margin-bottom: 0; margin-top: 30px;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'day')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}</h2>
+    
+    <p style="margin-top: 0; margin-bottom: 40px; font-weight: 300;">
+        Empfang ab 17:30<br>
+        Showbeginn {accreditation.event.date->f:format.date(format:'%k.%M')}
+    </p>
+
+    <f:render section="btn-feedback" arguments="{_all}" />
+    
+    <p style="text-align: center; font-family: 'Mukta', sans-serif !important; color: #000000; font-size: 0.8rem; line-height: 1.4; margin-top: 30px; font-weight: 300; padding: 0 40px; margin-top: 10px;">
+        Um Rückmeldung wird <strong>bis spätestens {accreditation.invitationType.feedbackDate->f:format.date(format:'d.')} {mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'month', lang: 'at')} {accreditation.invitationType.feedbackDate->f:format.date(format:'%Y')}</strong> gebeten.<br>
+        Aufgrund des beschränkten Platzangebotes werden die Plätze nach dem First-come-first-serve-Prinzip vergeben.<br>
+        Die Einladung ist persönlich, gilt für {accreditation.ticketsWish} Person{f:if(condition:'{accreditation.ticketsWish}==1', else:'en')} und ist nicht übertragbar!
+    </p>
+</f:section>
+
+<f:section name="location">
+    <p style="text-align: center; margin-top: 30px; padding: 0 40px; margin-bottom: 40px;">
+        <a href="https://maps.app.goo.gl/amoBzyJn4CrprXna8" target="_blank" style="font-family: 'Mukta', sans-serif !important; color: #A62055; font-size: 0.9rem; line-height: 1.4; text-decoration: none; font-weight: 500; ">
+            <img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Location.png" style="width: auto; height: 40px; margin-top: 10px; margin-bottom: 10px;"><br>
+            <strong><u>Prater 121, 1020 Wien</u></strong><br>
+            Für genaue Details hier klicken!
+        </a>
+    </p>
+</f:section>
+
+<f:section name="images">
+    <!-- Four Even Columns : BEGIN -->
+    <table cellspacing="0" cellpadding="0" border="0" width="100%" style="padding: 0 30px;">
+        <tr>
+            <td width="25%" class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                <td style="padding: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Menue-2025_Vorspeise.png" width="112" height="94" alt="Vorspeise" border="0" class="fluid" style="width: 100%; height: auto;"></td>
+            </tr>
+            </table></td>
+            <td width="25%" class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                <td style="padding: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Menue-2025_Zwischengang.png" width="112" height="94" alt="Zwischengang klassisch" border="0" class="fluid" style="width: 100%; height: auto;"></td>
+            </tr>
+            </table></td>
+            <td width="25%" class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                <td style="padding: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Menue-2025_Hauptgang.png" width="112" height="94" alt="Hauptgang klassisch" border="0" class="fluid" style="width: 100%; height: auto;"></td>
+            </tr>
+            </table></td>
+            <td width="25%" class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                <td style="padding: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Menue-2025_Dessert.png" width="112" height="94" alt="Dessert" border="0" class="fluid" style="width: 100%; height: auto;"></td>
+            </tr>
+            </table></td>
+        </tr>
+        <tr>
+            <td width="50%" colspan="2" class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                <td style="padding: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Foto-01.png" width="233" height="94" alt="alt_text" border="0" class="fluid" style="width: 100%; height: auto;"></td>
+            </tr>
+            </table></td>
+            <td width="50%" colspan="2" class="stack-column-center"><table cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                <td style="padding: 10px; text-align: center"><img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Foto-02.png" width="233" height="94" alt="alt_text" border="0" class="fluid" style="width: 100%; height: auto;"></td>
+            </tr>
+            </table></td>
+        </tr>
+    </table>
+    <!-- Four Even Columns : END --> 
+</f:section>
+
+<f:section name="menue">
+    <!-- Button : Begin -->
+    <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto; padding: 10px 20px;">
+    <tr>
+        <td style="border-radius: 5px; background: #A62055; color: #ffffff; text-align: center;" class="button-td">
+            <a href="https://www.palazzo.org/wien/de/home/Kulinarik/menue.html" target="_blank" style="display: inline-block; background-color: #A62055; font-family: 'Mukta', sans-serif; font-weight: 400; color: white; text-decoration: none; padding: 5px 15px; margin: 0px auto; font-size: 1rem; border-radius: 5px;">
+                Zum Menü
+            </a>
+        </td>
+    </tr>
+    </table>         
+    <!-- Button : END -->
+    
+    <p style="text-align: center; font-family: 'Mukta', sans-serif !important; font-size: 1rem; line-height: 1.4; margin-top: 10px; margin-bottom: 40px; font-weight: 400; padding: 0 40px;">
+        Mehr Infos unter<br>
+        <a href="https://www.palazzo.org/wien" target="_blank" style="text-decoration: none; font-size: 1.2rem; font-weight: 800; color: #A62055;">www.palazzo.org/wien</a>
+    </p>
+</f:section>
+
+<f:section name="ticketinfo">
+    <div style="background: #A62055; border: 1px solid #A62055; border-radius: 0px; padding: 15px; text-align: center; margin-bottom: 10px; margin-left: 10%; margin-right: 10%;">
+        <p style="margin: 0; font-family: 'Mukta', sans-serif; font-size: 1.6rem; color: #FFFFFF; font-weight: 700; text-transform: uppercase;">{accreditation.guestOutput.fullName}</p>
+        <p style="margin-top: 0; color: #FFFFFF; font-family: 'Mukta', sans-serif; font-size: 1.2rem; font-weight: 400; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+        <p style="margin: 0; margin-top: 10px; font-family: 'Mukta', sans-serif; font-size: 0.65rem; color: #FFFFFF;">
+            <span style="font-size: 0.8rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong> versandt am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr.</span><br>
+            *diese Bestätigung ist nicht übertragbar</p>
+    </div>
+    
+    <h2 style="font-size: 1.6rem; text-transform: uppercase; margin-bottom: 0; margin-top: 30px;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'day')}, {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}</h2>
+    <p style="margin-top: 0; margin-bottom: 5px; font-weight: 300;">
+        Empfang ab 17:30<br>
+        Showbeginn {accreditation.event.date->f:format.date(format:'%k.%M')}
+    </p>
+    
+    <h2 style="font-size: 1.8rem; text-transform: uppercase; margin-bottom: 0; margin-top: 30px;">Ticketinformation</h2>
+    <p style="margin-top: 0; margin-bottom: 5px; font-weight: 300;">
+        Die Übergabe der Tickets erfolgt vor Ort ab einer Stunde vor Beginn.
+    </p>
+    
+    <h2 style="font-size: 1.8rem; text-transform: uppercase; margin-bottom: 0; margin-top: 30px;">Krank oder verhindert?</h2>
+    <p style="margin-top: 0; margin-bottom: 5px; font-weight: 300;">
+        Bitte lassen Sie uns via E-Mail wissen,<br>
+        sollten Sie wider Erwarten nicht zur Premiere kommen können.
+    </p>
+    <p style="margin: 27px 0px 0px 0px"><a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank" style="background: #A62055; padding: 7px 14px; color: #FFFFFF; font-weight: 500; text-decoration: none;">E-Mail senden</a></p>
+</f:section>
+
+<f:section name="tickets">
+    <h2 style="font-size: 1.6rem; text-transform: uppercase; margin-bottom: 0; margin-top: 30px;">6. November 2025 – 22. März 2026</h2>
+    <!-- Button : Begin -->
+    <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto; padding: 10px 20px;">
+    <tr>
+        <td style="border-radius: 0px; background: #A62055; color: #ffffff; text-align: center;" class="button-td">
+            <a href="https://www.palazzo.org/wien" target="_blank" style="display: inline-block; background-color: #A62055; font-family: 'Mukta', sans-serif; font-weight: 400; color: white; text-decoration: none; padding: 5px 15px; margin: 0px auto; font-size: 1rem; border-radius: 0px;">
+                Tickets buchen
+            </a>
+        </td>
+    </tr>
+    </table>         
+    <!-- Button : END -->
+    
+    <p style="text-align: center; font-family: 'Mukta', sans-serif !important; font-size: 1rem; line-height: 1.4; margin-top: 10px; margin-bottom: 40px; font-weight: 400; padding: 0 40px;">
+        Mehr Infos unter<br>
+        <a href="https://www.palazzo.org/wien" target="_blank" style="text-decoration: none; font-size: 1.4rem; font-weight: 800; color: #A62055;">www.palazzo.org/wien</a>
+    </p>
+</f:section>
+
+<f:section name="salutation">
+    <f:if condition="{guestOutput.specialTitle}">
+    <f:then>
+        {guestOutput.specialTitle},
+    </f:then>
+    <f:else>
+        <f:switch expression="{guestOutput.gender}">
+        <f:case value="f">Liebe Frau {guestOutput.lastName},</f:case>
+        <f:case value="m">Lieber Herr {guestOutput.lastName},</f:case>
+        <f:defaultCase>Einen wunderschönen Tag,</f:defaultCase>
+        </f:switch>
+    </f:else>
+    </f:if>
+</f:section>
+
+<f:section name="ticket-qr">
+  <!-- Ticket : BEGIN -->
+          <h2>Ihr Zugangs-QR zum Toni Mörwald PALAZZO</h2>
+          <p>Um schnellstmöglich zu Ihrem Tisch zu kommen,<br>bitte folgenden QR-Code am Check-In im Spiegelpalast vorweisen.</p>
+          <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="400" class="email-container" style="border: #000000 thin solid;">
+              
+              <!-- Foto 400x200px : BEGIN -->
+              <tbody><tr>
+                  <td class="full-width-image"><img src="https://www.allegria.at/fileadmin/marketing/palazzo/PALAZZO_Wien-2025_Ticket-Header.png" width="600" alt="Ticket-Header" border="0" align="center" style="width: 100%; max-width: 400; height: auto;"></td>
+              </tr>
+              <!-- Foto 400x200px : END -->
+              
+              <!-- QR-Code : BEGIN -->
+                  <tr>
+                  <td align="center" style="padding-top: 25px;">
+                      <img src="{mb:qrCode(data:'{accreditation.uid}', label:'KEIN TICKET – Gilt am VIP-Schalter.')}" width="300" alt="Ticket-QR-{accreditation.uid}" border="0" style="width: 100%; max-width: 200px; height: auto;">
+                      </td></tr>
+              <!-- QR-Code : END -->
+              
+              <!-- Titel : BEGIN -->
+              <tr>
+                  <td style="text-align: center; font-family: sans-serif; color: #000000; font-size: 1.1rem;">
+                      <h2 style="font-size: 1.8rem; line-height: 1.2; color: #000; margin: 20px 0 10px 0;">Toni Mörwald PALAZZO<br><small>Better Together</small></h2>
+                      <p style="margin-bottom: 10px; line-height: 1.2;">
+                          {accreditation.event.location.name}<br>
+                          <strong>{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'m', lang: 'at')}. {accreditation.event.date->f:format.date(format:'%Y')} | Einlass 17.00<br>
+                            Showstart {f:format.date(date:'{accreditation.event.date}', format: 'H.i')}</strong>
+                      </p>
+                      <div style="background-color: #FFD400; font-family: sans-serif; text-align: center; color: #000; padding: 15px 0;">
+                          <p style="font-size: 1.3rem; line-height: 1.2; margin: 0;">
+                              <strong>{accreditation.guestOutput.fullName}</strong><br>
+                              <small>{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</small><br>
+                              <span style="font-size: 0.8rem; line-height: 1.2;">Akkr.Nr. #{accreditation.uid}</span>
+                          </p>
+                      </div>
+              </td>
+              </tr>
+              <!-- Titel : END --> 
+          </tbody></table>
+  <!-- Ticket : BEGIN --> 
+</f:section>
+
+<f:section name="btn-feedback">
+    <!-- Button : Begin -->
+    <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto; padding: 10px 20px;">
+    <tr>
+        <td style="border-radius: 5px; background: #A62055; color: #ffffff; text-align: center;" class="button-td">
+            <a href="###FEEDBACK_LINK###" style="display: inline-block; background-color: #A62055; font-family: 'Mukta', sans-serif; font-weight: 500; color: white; text-decoration: none; text-transform: uppercase; padding: 5px 15px; margin: 0px auto; font-size: 1rem; border-radius: 5px;">
+                Jetzt rückmelden
+            </a>
+        </td>
+    </tr>
+    </table>         
+    <!-- Button : END -->
+</f:section>
+</html>

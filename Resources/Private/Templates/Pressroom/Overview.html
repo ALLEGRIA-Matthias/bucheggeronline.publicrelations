@@ -1,0 +1,59 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+    data-namespace-typo3-fluid="true" >
+<f:layout name="Eventcenter" />
+
+<f:section name="shortcuts">
+  <f:link.action action="overview" class="btn btn-sm btn-default"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#refresh"></use></svg></f:link.action>
+</f:section>
+
+<f:section name="content">
+<h1 class="mb-5">Termincenter</h1>
+<f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+
+<f:if condition="!{pendingOverview}"><f:be.infobox title="Keine Akkreditierungen ausständig, niemand auf der Warteliste" state="0">Derzeit warten keine Akkreditierungen oder Einladungen auf eine Rückmeldung. Alles im grünen Bereich.<svg class="icon fill-success ml-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#hand-like"></use></svg></f:be.infobox></f:if>
+
+<f:if condition="{pendingOverview}">
+<f:then>
+  <div class="row">
+    <div class="col-12 col-lg-6">
+      <h2>Abklärung nötig</h2>
+      <f:render partial="PendingOverview" arguments="{requests:pendingOverview}" />
+    </div>
+    <div class="col-12 col-lg-6">
+        <h2>14-Tage-Überblick</h2>
+
+        <div class="row row-cols-auto align-items-end g-3 mb-4">
+            <div class="col-12">
+              <label for="selectEvents" class="form-label">Direktsuche Events</label>
+              <select id="selectEvents" 
+                  class="form-control select-event"
+                  data-menu="true" 
+                  data-menu-target="_self"
+                  placeholder="Nach Event suchen...">
+              </select>
+            </div>
+        </div>
+      <f:render partial="EventOverview" arguments="{events:eventOverview}" />
+    </div>
+  </div>
+</f:then>
+<f:else>
+<h2>14-Tage-Überblick</h2>
+<div class="row row-cols-auto align-items-end g-3 mb-4">
+    <div class="col-12">
+      <label for="selectEvents" class="form-label">Direktsuche Events</label>
+      <select id="selectEvents" 
+          class="form-control select-event"
+          data-menu="true" 
+          data-menu-target="_self"
+          placeholder="Nach Event suchen...">
+      </select>
+    </div>
+</div>
+<f:render partial="EventOverview" arguments="{events:eventOverview, singleView:1}" />
+</f:else>
+</f:if>
+</f:section>
+</html>

@@ -1,0 +1,174 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Eventcenter" />
+
+<f:section name="buttons">
+    <f:if condition="{currentInvitation}">
+        <be:link.editRecord uid="{currentInvitation.uid}" table="tx_publicrelations_domain_model_invitation" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'event={event.uid}&invitation={currentInvitation.uid}&accreditation={accreditation.uid}&action=mailPreview&controller=Accreditation')}" class="btn btn-default btn-sm"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg><span class="ml-2 d-none d-sm-inline">Einladungslayout ändern</span></be:link.editRecord>
+    </f:if>
+</f:section>
+
+<f:section name="content">
+    <div data-module="ac-pr-mail-preview" data-ajax-url-send-test="{testSendAjaxUrl}">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1><span class="badge badge-info">{currentInvitation.title}</span></h1>
+        
+        <div class="d-flex align-items-center">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Varianten-Auswahl">
+                <f:for each="{allVariantCodes}" as="variant">
+                    <f:variable name="linkArguments" value="{event: event, invitation: currentInvitation, variantCode: variant.code}" />
+                    <f:if condition="{accreditation.uid}">
+                        <f:variable name="linkArguments" value="{accreditation: accreditation, invitation: currentInvitation, variantCode: variant.code}" />
+                    </f:if>
+                    
+                    <f:link.action action="mailPreview" arguments="{linkArguments}" class="btn {f:if(condition:'{variant.code}=={currentVariantCode}', then: 'btn-notice', else: 'btn-default')}" title="{f:translate(key: variant.labelLLL)}">
+                        <f:if condition="{variant.exists}">
+                            <f:then><i class="bi bi-envelope-check-fill text-success"></i></f:then>
+                            <f:else><i class="bi bi-envelope-exclamation-fill text-danger"></i></f:else>
+                        </f:if>
+                        <span class="ms-1"><f:translate key="{variant.labelLLL}" /></span>
+                    </f:link.action>
+                </f:for>
+            </div>
+        </div>
+        
+    </div>
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="mail-controls text-center" style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6; padding: 0.5rem 1rem;">
+                        <span class="fw-bold me-2 small text-uppercase">Vorschau:</span>
+                        <div class="btn-group" role="group" aria-label="Viewport Resizer">
+                            <button type="button" class="btn btn-sm btn-outline-dark" 
+                                    data-action="resize-preview" data-width="375" 
+                                    title="Smartphone (375px)">
+                                <i class="bi bi-phone"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-dark" 
+                                    data-action="resize-preview" data-width="768" 
+                                    title="Tablet (768px)">
+                                <i class="bi bi-tablet"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-dark" 
+                                    data-action="resize-preview" data-width="1000" 
+                                    title="Desktop (1000px)">
+                                <i class="bi bi-display"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-dark" 
+                                    data-action="resize-preview" data-width="100%" 
+                                    title="Volle Breite">
+                                <i class="bi bi-arrows-fullscreen"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <template id="mail-html-content">
+                        <f:format.raw>{renderedHtml}</f:format.raw>
+                    </template>
+                    
+                    <iframe id="mail-content-iframe" 
+                            style="width: 100%; max-width: 800px; height: 800px; /* Höhe anpassbar */
+                                display: block;
+                                margin: 0 auto; border: 1px solid #ccc; 
+                                box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+                                transition: width 0.3s ease-in-out;
+                                resize: vertical; /* Erlaubt dem User, die Höhe zu ändern */
+                                background: white;"
+                            frameborder="0">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <f:if condition="{accreditation.uid}">
+                <f:then>
+                    <div class="panel panel-default panel-info" id="test-send-panel">
+                        <div class="panel-heading" role="button" data-bs-toggle="collapse" data-bs-target="#collapse-test-send" aria-expanded="false" aria-controls="collapse-test-send">
+                            Test-Versand (mit Daten von "{accreditation.guestOutput.name}")
+                            <i class="bi bi-chevron-down float-end"></i>
+                        </div>
+                        <div class="panel-body collapse" id="collapse-test-send">
+                            <f:form id="testSendForm">
+                                <div class="mb-3">
+                                    <label for="testEmails" class="form-label">E-Mail(s) (komma-getrennt):</label>
+                                    <f:form.textfield id="testEmails" name="emailList" value="{beUserEmail}" class="form-control form-control-sm" />
+                                    <f:form.hidden name="accreditation" value="{accreditation.uid}" />
+                                    <f:form.hidden name="event" value="{event.uid}" />
+                                    <f:form.hidden name="invitation" value="{currentInvitation.uid}" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Zu sendende Varianten:</label>
+                                    <div style="max-height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
+                                        <f:for each="{allVariantCodes}" as="variant">
+                                            <div class="form-check">
+                                                <f:form.checkbox id="code-{variant.code}" name="variantCodes" value="{variant.code}" checked="true" class="form-check-input" />
+                                                <label class="form-check-label" for="code-{variant.code}">
+                                                    <f:translate key="{variant.labelLLL}" />
+                                                </label>
+                                            </div>
+                                        </f:for>
+                                    </div>
+                                    <div class="btn-group btn-group-sm mt-1">
+                                        <button type="button" class="btn btn-default" data-action="toggle-checkboxes-all">Alle</button>
+                                        <button type="button" class="btn btn-default" data-action="toggle-checkboxes-none">Keine</button>
+                                    </div>
+                                </div>
+                                <f:form.button id="testSendButton" class="btn btn-primary">
+                                    <i class="bi bi-send"></i> Test-Mails senden
+                                </f:form.button>
+                            </f:form>
+                        </div>
+                    </div>
+                </f:then>
+                <f:else>
+                    <div class="alert alert-warning">
+                        <h3 class="m-0">Vorsicht – Dies ist eine Vorschau</h3>
+                        <p class="m-0">Die Daten beziehen sich auf "Margarete Mustermann". Der Test-Versand ist nur bei einer echten, gespeicherten Akkreditierung verfügbar.</p>
+                    </div>
+                </f:else>
+            </f:if>
+            <div class="panel panel-default">
+                <div class="panel-heading">Debug-Informationen</div>
+                <div class="panel-body">
+                    <dl>
+                        <dt>Akkreditierung:</dt>
+                        <dd>{accreditation.uid} - {accreditation.guestOutput.name}</dd>
+                        
+                        <dt>Aktion (Code):</dt>
+                        <dd>{currentVariantCode}</dd>
+                        
+                        <dt>Typ:</dt>
+                        <dd>{resolvedData.render_type}</dd>
+                        
+                        <dt>Template:</dt>
+                        <dd>
+                            <f:if condition="{resolvedData.render_type} == 'html'">
+                                <f:then>{resolvedData.template_file}</f:then>
+                                <f:else>{resolvedData.template_layout}</f:else>
+                            </f:if>
+                        </dd>
+                        
+                        <dt>Betreff (aufgelöst):</dt>
+                        <dd>{resolvedData.subject}</dd>
+                        
+                        <dt>Preheader (aufgelöst):</dt>
+                        <dd>{resolvedData.preheader}</dd>
+                    </dl>
+                    
+                    <details>
+                        <summary>Vollständige Resolved-Daten (gesäubert)</summary>
+                        <pre style="font-size: 0.7rem;">
+                        </pre>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div> <f:asset.module identifier="@allegria/publicrelations/library/MailPreview.js"/>
+</f:section>
+</html>

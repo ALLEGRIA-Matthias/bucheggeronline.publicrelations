@@ -1,0 +1,13 @@
+module.tx_publicrelations {
+  view {
+    templateRootPaths {
+      100 = EXT:publicrelations/Resources/Private/Backend/Templates
+    }
+    partialRootPaths {
+      100 = EXT:publicrelations/Resources/Private/Backend/Partials
+    }
+    layoutRootPaths {
+      100 = EXT:publicrelations/Resources/Private/Backend/Layouts
+    }
+  }
+}

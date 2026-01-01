@@ -1,0 +1,36 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+       xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+       xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+       v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+       data-namespace-typo3-fluid="true">
+ <li>
+     <f:variable name="hasChildren" value="{f:if(condition: treeItems.childs, then: 1, else: 0)}" />
+     <f:variable name="collapseId" value="collapse-tree-{treeItems.uid -> f:format.raw()}-{iteration.parentIteration.cycle}" />
+
+     <f:if condition="{hasChildren}">
+         <f:then>
+             <typo3-backend-tree-node-toggle
+                 class="treelist-control collapsed"
+                 data-bs-toggle="collapse"
+                 data-bs-target="#{collapseId}"
+                 aria-expanded="true">
+                 </typo3-backend-tree-node-toggle>
+             <span class="treelist-group treelist-group-monospace">
+                <span class="treelist-label js-copy-to-clipboard" data-copy-value="{treeItems.title} [{treeItems.uid}]"">{treeItems.title}</span>
+             </span>
+             <div class="treelist-collapse collapse show" id="{collapseId}">
+                 <ul class="treelist">
+                     <f:for each="{treeItems.childs -> v:iterator.sort(sortBy: 'title')}" as="childItem" iteration="for">
+                         <f:render partial="TreeBuild" arguments="{treeItems: childItem, iteration: '{for:iteration}'}" />
+                     </f:for>
+                 </ul>
+             </div>
+         </f:then>
+         <f:else>
+             <span class="treelist-group treelist-group-monospace">
+                  <span class="treelist-label js-copy-to-clipboard" data-copy-value="{treeItems.title} [{treeItems.uid}]"">{treeItems.title}</span>
+             </span>
+         </f:else>
+     </f:if>
+ </li>
+ </html>

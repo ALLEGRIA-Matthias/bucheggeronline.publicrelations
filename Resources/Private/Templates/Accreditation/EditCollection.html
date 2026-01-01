@@ -1,0 +1,48 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Eventcenter" />
+<f:section name="buttons">
+  <f:link.action action="show" controller="Event" class="btn btn-sm btn-default" arguments="{event:event}"><svg class="icon icon-sm fill-dark mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#times"></use></svg>Abbrechen</f:link.action>
+</f:section>
+
+<f:section name="content">
+    <h1>Akkreditierungen ändern</h1>
+    <p><span class="badge badge-warning">Es wurden {accreditations->f:count()} Akkreditierungen ausgewählt!</span></p>
+
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+    <f:form action="updateCollection" enctype="multipart/form-data" name="accreditationsUpdate" arguments="{event:event, accreditations:accreditations}">
+    <p class="font-weight-bold">Wähle aus was du ändern möchtest:</p>
+    <p>
+      <label class="checkbox-inline"><f:form.checkbox class="checkbox-disable" data="{disable-id:'guestType'}" property="changes.guestType" value="1" />Gästetyp</label>
+      <label class="checkbox-inline"><f:form.checkbox class="checkbox-disable" data="{disable-id:'facie'}" property="changes.facie" value="1" />Facie</label>
+      <label class="checkbox-inline"><f:form.checkbox class="checkbox-disable" data="{disable-id:'ticketsApproved'}" property="changes.ticketsApproved" value="1" />Tickets</label>
+      <label class="checkbox-inline"><f:form.checkbox class="checkbox-disable" data="{disable-id:'program'}" property="changes.program" value="1" />Programm</label>
+      <label class="checkbox-inline"><f:form.checkbox class="checkbox-disable" data="{disable-id:'pass'}" property="changes.pass" value="1" />Fotopass</label>
+      <label class="checkbox-inline"><f:form.checkbox class="checkbox-disable" data="{disable-id:'notesSelect'}" property="changes.notesSelect" value="1" />Hinweisauswahl</label>
+      <label class="checkbox-inline"><f:form.checkbox class="checkbox-disable" data="{disable-id:'notes'}" property="changes.notes" value="1" />Hinweis manuell</label>
+      <label class="checkbox-inline"><f:form.checkbox class="checkbox-disable" data="{disable-id:'invitationType'}" property="changes.invitationType" value="1" />Einladungstyp</label>
+      <f:for each="{event.additionalFields}" as="field">
+      <label class="checkbox-inline"><f:form.checkbox class="checkbox-disable" data="{disable-id:'field{field.uid}'}" property="changes.additionalfields.{field.uid}" value="1" />{field.label}</label>
+      </f:for>
+    </p>
+
+    <f:render partial="Accreditation/FormBasics" arguments="{disabled:'1'}" />
+
+    <f:render partial="Accreditation/FormAdditional" arguments="{event:event, disabled:'1'}" />
+
+    <f:render partial="Accreditation/FormOptions" arguments="{event:event, notesItems:notesItems, noMail:noMail, disabled:'1'}" />
+
+    <div class="col-12">
+      <f:form.button class="btn btn-success"><svg class="icon icon-sm fill-white mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg>Änderungen bestätigen</f:form.button>
+      <f:link.action controller="Accreditation" action="delete" class="btn btn-danger mr-3" arguments="{event:event, accreditations:accreditations}"><svg class="icon icon-sm fill-white mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#bin"></use></svg>Akkr. LÖSCHEN!</f:link.action>
+    </div>
+
+
+    </div>
+
+    </f:form>
+</f:section>
+</html>

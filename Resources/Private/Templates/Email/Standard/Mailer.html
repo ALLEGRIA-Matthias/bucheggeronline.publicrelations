@@ -1,0 +1,51 @@
+<f:layout name="Email/{template}" />
+
+<f:section name="Title">
+    <f:render partial="Email/DefaultMailingContent.html" arguments="{_all}" section="Title" />
+</f:section>
+
+<f:section name="Preview">
+    <f:render partial="Email/DefaultMailingContent.html" arguments="{_all}" section="Preview" />
+</f:section>
+
+<f:section name="HeaderNew">
+    <f:render partial="Email/DefaultMailingContent.html" arguments="{_all}" section="Header" />
+</f:section>
+
+<f:section name="ContentNew">
+    <f:render partial="Email/DefaultMailingContent.html" arguments="{_all}" section="Content" />
+</f:section>
+
+<f:section name="Header">
+<tr>
+    <td valign="top" class="image" align="center" style="padding: 0px 36px; padding-bottom: 20px; color: #222222;text-align: left;">
+      <f:if condition="{template}=='OhneAllegria'"><f:else><f:render partial="Email/HeaderLogo" arguments="{_all}" /></f:else></f:if>
+    </td>
+    <td valign="top" class="image" align="center" style="padding: 0px 36px; padding-bottom: 20px; text-align: right;vertical-align: middle;">
+      <h6 style="text-align: right;">{mailing.typeOutput}</h6>
+    </td>
+</tr>
+<tr>
+    <td valign="top" class="textContent" colspan="2" style="padding: 0px 36px;padding-top: 20px; color: var(--bs-dark);font-family: &quot;Quicksand&quot;, Helvetica, Arial, Verdana, sans-serif;font-size: 20px;text-align: center;">
+      <f:if condition="!{mailing.noLogo}"><f:render partial="Email/LogoInMailingHeader" arguments="{_all}" /><br></f:if>
+      <strong>{mailing.subject->f:format.raw()}</strong>
+    </td>
+</tr>
+</f:section>
+
+<f:section name="Content">
+<tr>
+  <td valign="top" class="textContent" style="padding: 0px 36px;">
+  <f:render partial="Email/Salutation" arguments="{guestOutput:guestOutput}" />
+  <f:render partial="Email/Contents" arguments="{contents:mailing.contents}" />
+  <f:if condition="!{mailing.altTemplate}"><f:render partial="Email/Signature" arguments="{staff:staff, altSender:mailing.altSender}" /></f:if>
+  </td>
+</tr>
+</f:section>
+
+<f:section name="HeaderKulturformat">
+    <td style="padding: 30px; padding-bottom: 0; text-align: left; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+        <h1 style="font-size: 1.4rem; line-height: 1.2; color: #008EA6;">{mailing.subject}</h1>
+        <f:if condition="!{mailing.noSalutation}"><p style="margin-bottom: 0;"><f:render partial="KulturformatAnrede" arguments="{_all}" /></p></f:if>
+    </td>
+</f:section>

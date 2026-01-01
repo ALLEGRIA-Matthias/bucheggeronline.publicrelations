@@ -1,0 +1,69 @@
+<f:switch expression="{content}">
+<f:case value="eticket">
+  <h1 style="text-transform: uppercase; font-size: 1.5rem; font-family: 'Open Sans', sans-serif;">Ticketinformation!</h1>
+  <p>Herzlichen Dank für Ihre positive Rückmeldung<br>
+    zur Einladung zur Premiere von<br>
+    <strong>LUZIA – Ein Traum von Mexiko!</strong></p>
+  <p style="font-size: 1.2rem;">Ihr Platz wurde fixiert und Ihre Karte wird<br>
+    als e-ticket am <span style="color: #FF222C; font-weight: bold;">11. April bis 12 Uhr</span><br>
+    <strong>an Ihre E-Mail-Adresse</strong> zugestellt.</p>
+  
+  <f:render section="general" arguments="{_all}" />
+</f:case>
+<f:case value="etickets">
+  <h1 style="text-transform: uppercase; font-size: 1.5rem; font-family: 'Open Sans', sans-serif;">Ticketinformation!</h1>
+  <p>Herzlichen Dank für Ihre positive Rückmeldung<br>
+    zur Einladung zur Premiere von<br>
+    <strong>LUZIA – Ein Traum von Mexiko!</strong></p>
+  <p style="font-size: 1.2rem;">Ihre Plätze wurden fixiert und Ihre Karten<br>
+    werden als e-tickets am <span style="color: #FF222C; font-weight: bold;">11. April bis 12 Uhr</span><br>
+    <strong>an Ihre E-Mail-Adresse</strong> zugestellt.</p>
+  
+  <f:render section="general" arguments="{_all}" />
+</f:case>
+<f:case value="hard">
+    <h1 style="text-transform: uppercase; font-size: 1.5rem; font-family: 'Open Sans', sans-serif;">Ticketinformation!</h1>
+    <p>Herzlichen Dank für Ihre positive Rückmeldung<br>
+        zur Einladung zur Premiere von<br>
+        <strong>LUZIA – Ein Traum von Mexiko!</strong></p>
+    <p style="font-size: 1.2rem;">Ihr Ticket wurde bereits kuvertiert<br>
+        und liegt <span style="color: #FF222C; font-weight: bold;">am Veranstaltungstag<br>
+        zur Abholung bereit.</span></p>
+    
+    <h2 style="margin-top: 30px; margin-bottom: 0; text-transform: uppercase;">Zutrittskontrolle</h2>
+    <p>Wir übermitteln Ihnen am <strong style="text-decoration: underline; color: #FF222C;">11. April bis 12 Uhr</strong><br>Ihren <strong style="text-decoration: underline; color: #FF222C;">digitalen Zutrittspass</strong>!</p>
+    <p>Mit diesem erhalten Sie über die Security<br>Zugang zum Gelände.<br>
+      Ihre Tickets sind nicht am Box Office (Abendkassa),<br>
+      sondern im Empfangszelt für geladene Gäste.</p>
+
+    <f:render section="general" arguments="{_all}" />
+</f:case>
+<f:case value="hards">
+    <h1 style="text-transform: uppercase; font-size: 1.5rem; font-family: 'Open Sans', sans-serif;">Ticketinformation!</h1>
+    <p>Herzlichen Dank für Ihre positive Rückmeldung<br>
+        zur Einladung zur Premiere von<br>
+        <strong>LUZIA – Ein Traum von Mexiko!</strong></p>
+    <p style="font-size: 1.2rem;">Ihre Tickets wurden bereits kuvertiert<br>
+        und liegen <span style="color: #FF222C; font-weight: bold;">am Veranstaltungstag<br>
+        zur Abholung bereit.</span></p>
+    
+    <h2 style="margin-top: 30px; margin-bottom: 0; text-transform: uppercase;">Zutrittskontrolle</h2>
+    <p>Wir übermitteln Ihnen am <strong style="text-decoration: underline; color: #FF222C;">11. April bis 12 Uhr</strong><br>Ihren <strong style="text-decoration: underline; color: #FF222C;">digitalen Zutrittspass</strong>!</p>
+    <p>Mit diesem erhalten Sie über die Security<br>Zugang zum Gelände.<br>
+      Ihre Tickets sind nicht am Box Office (Abendkassa),<br>
+      sondern im Empfangszelt für geladene Gäste.</p>
+
+    <f:render section="general" arguments="{_all}" />
+</f:case>
+</f:switch>
+
+<f:section name="general">
+    <p>Wir freuen uns auf Ihren Besuch!</p>
+    <h2 style="margin-top: 30px; margin-bottom: 0; text-transform: uppercase;">Krank oder verhindert?</h2>
+    <p style="margin: 0; font-size: 0.75rem;">Die Produktion erfreut sich sehr großer Beliebtheit und wir führen aktuell Wartelisten. Bitte lassen Sie uns via Email wissen, sollten Sie wider Erwarten
+    nicht zur Premiere kommen können.</p>
+    <p style="margin: 27px 0px 20px 0px"><a href="mailto:office@allegria.at" target="_blank" style="background: #FF222C; padding: 7px 14px; color: #FFFFFF; font-weight: 500; text-decoration: none;">Email senden</a></p>
+    <p style="font-weight: 700; margin-bottom: 0; margin-top: 30px;">Für mehr Informationen zur Show<br>
+    <a href="https://www.cirquedusoleil.com/luzia" style="color: #FF222C; text-decoration: none;">www.cirquedusoleil.com/luzia</a>
+    </p>
+</f:section>

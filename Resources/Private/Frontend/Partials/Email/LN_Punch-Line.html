@@ -1,0 +1,362 @@
+<f:section name="preview">
+    <!-- Visually Hidden Preheader Text : BEGIN -->
+    <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;">
+    <f:switch expression="{content}">
+        <f:case value="invitation">Live Nation und Michael Mittermeier laden herzlich zum GRAND OPENING des Punch L!ne Club Berlin. Deine persönliche Einladung!</f:case>
+        <f:case value="remind">Nicht verpassen! Live Nation und Michael Mittermeier laden herzlich zum GRAND OPENING des Punch L!ne Club Berlin. Deine persönliche Einladung!</f:case>
+        <f:case value="push">Letzte Chance! Live Nation und Michael Mittermeier laden herzlich zum GRAND OPENING des Punch L!ne Club Berlin. Deine persönliche Einladung!</f:case>
+        <f:case value="approve">Wie schön, dass wir dich beim GRAND OPENING begrüßen dürfen.</f:case>
+        <f:case value="reject">Schade, dass es nicht klappt. Live Nation und Michael Mittermeier würden sich über einen baldigen Besuch freuen.</f:case>
+    </f:switch>
+    </div>
+    <!-- Visually Hidden Preheader Text : END --> 
+</f:section>
+
+<f:section name="headline">
+<f:switch expression="{content}">
+    <f:case value="invitation">Persönliche Einladung</f:case>    
+    <f:case value="remind"><span style="font-size: 80%;">Erinnerung zur</span><br>persönlichen Einladung</f:case>
+    <f:case value="push"><span style="font-size: 80%;">Finale Erinnerung</span><br>zur persönlichen Einladung</f:case>
+    <f:case value="approve">Wir freuen uns sehr!</f:case>
+    <f:case value="reject">Deine Absage!</f:case>
+    <f:case value="waiting">Bitte um Geduld!</f:case>
+    <f:case value="waitingNO">Es tut uns leid!</f:case>
+    <f:case value="waitingOK">Wir freuen uns sehr!</f:case>
+    <f:case value="pending">Neu auf der Warteliste!</f:case>
+</f:switch>
+</f:section>
+
+<f:section name="content">
+    <f:switch expression="{content}">
+        <f:defaultCase>
+            <f:for each="{mailing.contents}" as="content" iteration="contentI">
+                <f:switch expression="{content.type}">
+                    <f:case value="0">
+                        <!-- 1 Column Text : BEGIN -->
+                        <tr>
+                            <td style="padding: {f:if(condition:'{content.padding}', then:'{content.padding}', else:'40px')}; {f:if(condition:'{contentI.isFirst}', then:'padding-top: 0;')} text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: {f:if(condition:'{content.color}', then:'{content.color}', else:'#030305')}; background-color: {f:if(condition:'{content.bgcolor}', then:'{content.bgcolor}', else:'#FFFFFF')}">
+                                <v:render.inline>{content.content->f:format.html()}</v:render.inline>
+                            </td>
+                        </tr>
+                        <!-- 1 Column Text : END -->
+                    </f:case>
+                    <f:case value="100">
+                        <!-- 1 Column Text : BEGIN -->
+                        <tr>
+                            <td style="padding: {f:if(condition:'{content.padding}', then:'{content.padding}', else:'40px')}; {f:if(condition:'{contentI.isFirst}', then:'padding-top: 0;')} text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; line-height: 1.4; color: {f:if(condition:'{content.color}', then:'{content.color}', else:'#030305')}; background-color: {f:if(condition:'{content.bgcolor}', then:'{content.bgcolor}', else:'#FFFFFF')}">
+                                <v:render.inline>{content.content->f:format.html()}</v:render.inline>
+                            </td>
+                        </tr>
+                        <!-- 1 Column Text : END -->
+                    </f:case>
+                    <f:case value="1">
+                        <!-- HTML : BEGIN -->
+                        <tr>
+                            {content.content->v:render.inline()}
+                        </tr>
+                        <!-- HTML : END -->
+                    </f:case>
+                    <f:case value="12">
+                        <!-- HTML : BEGIN -->
+                        <tr>
+                            <v:render.inline>{content.content->f:format.raw()}</v:render.inline>
+                        </tr>
+                        <!-- HTML : END -->
+                    </f:case>
+                </f:switch>
+            </f:for>
+        </f:defaultCase>
+        <f:case value="invitation">
+            <f:render section="defaultInvitation" arguments="{_all}" />
+        </f:case>
+        <f:case value="remind">
+            <f:render section="defaultInvitation" arguments="{_all}" />
+        </f:case>
+        <f:case value="push">
+            <f:render section="defaultInvitation" arguments="{_all}" />
+        </f:case>
+        <f:case value="approve">
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+            <f:render section="sujet" arguments="{_all}" />
+            <f:render section="trailer" arguments="{_all}" />
+        </f:case>
+        <f:case value="reject">
+            <f:render section="header" arguments="{_all}" />
+            <!-- Rejection: BEGIN -->
+            <tr>
+                <td bgcolor="#998ec4" style="background-color: #998ec4; padding: 40px; text-align: center; font-family: 'Rubik', sans-serif;font-size: 1rem; font-weight: 400; color: white; mso-height-rule: exactly; line-height: 1.2;">
+                    <h1 style="text-transform: uppercase; font-size: 1.25rem; font-weight: bold; color: #fffa00;">Schade, dass es nicht klappt.</h1>
+                    <p>
+                        Live Nation und Michael Mittermeier<br>bedanken sich für deine Rückmeldung.
+                    </p>
+                </td>
+            </tr>
+            <!-- Rejection: END -->
+            <f:render section="trailer" arguments="{_all}" />
+        </f:case>
+        <f:case value="waiting">
+            <f:render section="header" arguments="{_all}" />
+            <!-- Waiting-List: BEGIN -->
+            <tr>
+                <td bgcolor="#998ec4" style="background-color: #998ec4; padding: 40px; text-align: center; font-family: 'Rubik', sans-serif;font-size: 1rem; font-weight: 400; color: white; mso-height-rule: exactly; line-height: 1.2;">
+                    <h1 style="text-transform: uppercase; font-size: 1.25rem; font-weight: bold; color: #fffa00;">Vielen Dank für dein Interesse.</h1>
+                    <p>
+                        <strong>Die Nachfrage ist unglaublich groß.</strong><br><br>
+                        
+                        Wir versuchen deinen Besuch zu ermöglichen<br>und melden uns bei dir, sobald ein Platz frei wird.
+                    </p>
+                </td>
+            </tr>
+            <!-- Waiting-List: END -->
+            <f:render section="trailer" arguments="{_all}" />
+        </f:case>
+        <f:case value="pending">
+            <f:render section="header" arguments="{_all}" />
+            <!-- Wartetext intern -->
+            <tr>
+                <td valign="middle" style="text-align: center; padding: 40px; font-family: 'Rubik', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.3; color: white; background-color: #998ec4;">
+                    <h1 style="text-transform: uppercase; font-size: 1.25rem; color: #fffa00; font-weight: bold;">{f:render(section:'headline', arguments:'{_all}')}</h1>
+                    <p style="margin-top: 0px; padding: 0 40px; font-size: 1rem; line-height: 1.4;"><strong style="font-size: 1.4rem;">{accreditation.guestOutput.fullName}</strong><br>zu <strong>{accreditation.event.title}</strong> am <strong>{accreditation.event.date->f:format.date(format:'d.m.Y')}</strong>, in <strong>{accreditation.event.location.city}</strong>.</p>
+                </td>
+            </tr>
+        </f:case>
+        <f:case value="waitingOK">
+            <f:render section="header" arguments="{_all}" />
+            <!-- Zusage möglich -->
+            <tr>
+                <td align="center" valign="top" style="padding: 40px; padding-bottom: 0; font-family: 'Rubik', sans-serif; font-size: 1rem; line-height: 1.2; background-color: #978ec4; color: white;">
+                    <div style="width: 100%;">
+                        <h2 style="margin-bottom: 0;">Tolle Neuigkeiten!</h2>
+                        <p style="margin-top: 0; font-size: 1rem;">Danke für die Geduld.<br>Wir können deinen Besuch ermöglichen!</p>
+                        <hr style="border: solid white thin;">
+                    </div>
+                </td>
+            </tr>
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+            <f:render section="sujet" arguments="{_all}" />
+            <f:render section="trailer" arguments="{_all}" />
+        </f:case>
+        <f:case value="waitingNO">
+            <f:render section="header" arguments="{_all}" />
+            <!-- Absagetext -->
+            <tr>
+                <td align="center" valign="top" style="padding: 40px; font-family: 'Rubik', sans-serif; font-size: 1rem; line-height: 1.2; background-color: #978ec4; color: white;">
+                    <div style="width: 100%;">
+                        <p>
+                            Wir sind von der Nachfrage überwältigt!<br>
+                            Danke für das riesige Interesse.
+                        </p>
+                        <p>
+                            Umso schwerer fällt es uns sagen zu müssen, dass wir <strong>leider keine Kapazitäten mehr</strong> freischaufeln konnten.
+                        </p>
+                        <p><strong style="color: #fffa00;">Wir würden uns sehr auf ein baldiges Wiedersehen freuen.</strong></p>
+                    </div>
+                </td>
+            </tr>
+        </f:case>
+    </f:switch>
+</f:section>
+
+<f:section name="defaultInvitation">
+    <f:render section="header" arguments="{_all}" />
+    <f:render section="sujet" arguments="{_all}" />
+    <f:render section="invitation" arguments="{_all}" />
+    <f:render section="trailer" arguments="{_all}" />
+</f:section>
+
+<f:section name="ticket">
+<!-- Ticket : BEGIN -->
+<tr>
+    <td bgcolor="#998ec4" style="background-color: #998ec4; padding: 40px; text-align: center; font-family: 'Rubik', sans-serif;font-size: 1rem; font-weight: 400; color: white; mso-height-rule: exactly; line-height: 1.2;">
+        <p>Deine Tickets wurden reserviert.</p>
+        <div style="border: 0px solid #FFFFFF; background-color: #fffa00; padding: 20px; text-align: center; margin-bottom: 30px; margin-left: 10%; margin-right: 10%;">
+            <p style="margin: 0; font-family: 'Rubik', sans-serif;font-size: 1.4rem; color: #000000; font-weight: 700; text-transform: uppercase;">{accreditation.guestOutput.fullName}</p>
+            <p style="margin-top: 0; color: #000000; font-family: 'Rubik', sans-serif;font-size: 1rem; font-weight: 400; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+            <p style="margin: 0; margin-top: 10px; font-family: 'Rubik', sans-serif;font-size: 0.65rem; color: #000000;">
+                <span style="font-size: 0.7rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong>. Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr versendet.</span><br>
+                *diese Bestätigung ist nicht übertragbar</p>
+        </div>
+        <p style="margin: 0;">
+            <strong>Live Nation und Michael Mittermeier</strong><br>freuen sich euch am<br>
+            <strong style="font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 1.4rem; color: #fffa00;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')}</strong><br>
+            begrüßen zu dürfen.<br>
+            <br>
+            <small>Tickets können mit dieser Email <strong>ab {f:format.date(format:'%k.%M Uhr', date:'{accreditation.event.date->f:format.date(format:\'H:i\')} -90 minutes')}</strong> an der Abendkasse abgeholt werden.</small>
+        </p>
+    </td>
+</tr>
+<!-- Ticket : BEGIN --> 
+</f:section>
+
+<f:section name="sick">
+<tr>
+    <td align="center" valign="top" style="padding: 40px; font-family: 'Rubik', sans-serif; font-size: 1rem; line-height: 1.2; background-color: #000000; color: white;">
+        <h2 style="margin-top: 0px; margin-bottom: 20px; font-family: 'Rubik', sans-serif; font-size: 1.6rem; ">Krank oder verhindert?</h2>
+        <p style="margin: 0; margin-bottom: 20px;">Bitte lasst uns via Email wissen,<br>solltet ihr wider Erwarten nicht<br>zum GRAND OPENING kommen können.</p>
+        <f:render section="btn-sick" arguments="{_all}" />
+    </td>
+</tr>
+</f:section>
+
+<f:section name="header">
+<!-- Persönliche Einladung Schriftzug : BEGIN -->
+<tr>
+    <td style="background-color: #000000; color: #ffffff; text-transform: uppercase; text-align: center; font-family: 'Rubik', sans-serif; font-weight: 800; padding: 20px " >
+        {f:render(section:'headline', arguments:'{_all}')}
+    </td>
+</tr>
+<!-- Persönliche Einladung Schriftzug : END -->
+</f:section>
+
+<f:section name="sujet">
+<!-- Sujet : BEGIN -->
+<tr>
+    <td class="full-width-image" style="background-color: #978ec4; text-align: center;"><img src="https://www.allegria.at/fileadmin/marketing/live-nation/LN_Punch-Line_Sujet.png" width="500" alt="Sujet GRAND OPENING Punch L!ne Club Berlin" border="0" align="center" style="width: 100%; max-width: 500px; height: auto;"></td>
+    </tr>
+<!-- Sujet : END --> 
+</f:section>
+
+<f:section name="invitation">
+<!-- Invitation: BEGIN -->
+<tr>
+    <td style="padding: 5px 0px 40px 0px; text-align: center; font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 1rem; mso-height-rule: exactly; line-height: 1.4; color: #000000; background-color: #998ec4;">
+        <span style="font-weight: 500;">Live Nation und Michael Mittermeier</span><br>
+        freuen sich<br><br>
+        <span style="color: #ffffff; font-weight: 700; text-transform: uppercase;">{accreditation.guestOutput.fullName}</span><br><br>
+        zum GRAND OPENING<br>
+        <span style="font-weight: 600;">des Punch L!ne Clubs Berlin</span><br>
+        einzuladen.
+        <br><br>
+        <f:render section="eventinfo" arguments="{_all}" />
+        
+    </td>
+</tr>
+<!-- Invitation: END --> 	
+</f:section>
+
+<f:section name="eventinfo">
+<!-- Eventinfo : BEGIN -->
+<table align="center" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td valign="middle" style="color: #000000; text-align: center; font-family: 'Rubik', sans-serif; font-weight: 100; font-size: 15px; line-height: 1.4;">
+            <span style="color: #fffa00; font-weight: 800; text-transform: uppercase;">{mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}. {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')} | {accreditation.event.date->f:format.date(format:'%k:%M')} Uhr</span><br>
+            <span style="color: #fffa00; font-weight: 100;">PUNCH L!NE CLUB BERLIN</span><br><br>
+        
+            <f:if condition="{content} == 'invite' || {content} == 'remind' || {content} == 'push'">
+                <f:render section="btn-feedback" arguments="{_all}" /><br><br>
+            </f:if>
+        
+            Für mehr Informationen<br>
+            <a href="https://punchlineberlin.com" target="_blank" style="text-transform: uppercase; font-weight: 600; text-decoration: underline; text-decoration-color: #ffffff; text-underline-offset: 2px; text-decoration-thickness: 3px; color: #000000;">punchlineberlin.com</a>
+        </td>
+    </tr>
+</table>
+<!-- Eventinfo : END -->
+</f:section>
+
+<f:section name="trailer">
+<!-- Trailer : BEGIN -->	
+<tr>
+    <td style="background-color: #000000; color: #ffffff; text-transform: uppercase; text-align: center; font-family: 'Rubik', sans-serif; font-weight: 800; padding: 40px;">
+        <a href="https://youtu.be/CXsMICUMPy4" target="_blank">
+            <img src="https://www.allegria.at/fileadmin/marketing/live-nation/LN_Punch-Line_Trailer.png" width="600" alt="Teaser GRAND OPENING" border="0" align="center" style="width: 80%; max-width: 600px; height: auto;">
+        </a><br><br><br>
+        
+        <f:if condition="{content} == 'invite' || {content} == 'remind' || {content} == 'push'">
+            <f:then><f:render section="btn-feedback-b" arguments="{_all}" /><br><br></f:then>
+            <f:else><f:render section="btn-website" arguments="{_all}" /><br><br></f:else>
+        </f:if>
+        
+    </td>
+</tr>  
+<!-- Trailer : END -->
+</f:section>
+
+<f:section name="btn-feedback">
+<!-- Button : Begin -->
+<div style="margin: 0 0 20px;"><table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+    <tr>
+        <td style="border-radius: 0px; background: #000000; text-align: center;" class="button-td">
+            <f:link.typolink
+                absolute="1"
+                parameter="38"
+                additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}"
+                absolute="1"
+                class="button-a"
+                target="_blank"
+                additionalAttributes="{style:'background: #000000; border: 8px solid #000000; padding: 0 5px;color: #ffffff; font-family: \'Rubik\', sans-serif; text-transform: uppercase; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 0px; font-weight: bold;'}">
+                <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+            </f:link.typolink>
+        </td>
+    </tr>
+</table></div>
+<!-- Button : END -->
+
+<span style="font-size: 0.9rem;">
+    Die Einladung gilt für <span style="font-weight: 500;">2 Personen</span> und ist nicht übertragbar.
+    <br>Um Rückmeldung wird bis <span style="font-weight: 500;"><f:if condition="{accreditation.invitationType.feedbackDate}"><f:then>{mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'d')}, {accreditation.invitationType.feedbackDate->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.invitationType.feedbackDate}', type:'month', lang: 'de')} {accreditation.invitationType.feedbackDate->f:format.date(format:'%Y')}</f:then><f:else><f:format.date date="{accreditation.event.date->f:format.date(format:'d.m.Y')} - 2weeks friday" format="d.m.Y" /></f:else></f:if></span> gebeten.
+</span>
+</f:section>
+
+
+
+<f:section name="btn-feedback-b">
+<!-- Button : Begin -->
+<div style="margin: 0 0 20px;"><table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+    <tr>
+        <td style="border-radius: 0px; background: #FDFA00; text-align: center;" class="button-td">
+            <f:link.typolink
+                absolute="1"
+                parameter="38"
+                additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}"
+                absolute="1"
+                class="button-b"
+                target="_blank"
+                additionalAttributes="{style:'background: #FDFA00; border: 8px solid #FDFA00; padding: 0 5px;color: #000000; font-family: \'Rubik\', sans-serif; text-transform: uppercase; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 0px; font-weight: bold;'}">
+                <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt Rückmelden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+            </f:link.typolink>
+        </td>
+    </tr>
+</table></div>
+<!-- Button : END -->
+</f:section>
+
+<f:section name="btn-sick">
+<!-- Button : Begin -->
+<table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+    <tr>
+        <td style="border-radius: 0px; background: #FDFA00; text-align: center;" class="button-td"><a href="mailto:info@punchlineberlin.com?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}%20in%20{accreditation.event.location.city->f:format.htmlentities()}" target="_blank" style="background: #FDFA00; border: 8px solid #FDFA00; padding: 0 10px;color: #000000; font-family: 'Be Vietnam Pro', sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 0px; font-weight: bold;" class="button-b"> 
+        <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->E-Mail senden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+        </a></td>
+    </tr>
+</table>
+<!-- Button : END -->
+</f:section>
+
+<f:section name="btn-sick-mailing">
+<f:variable name="titel">Grand Opening des Punch L!ne Club Berlin</f:variable>
+<!-- Button : Begin -->
+<table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+    <tr>
+        <td style="border-radius: 0px; background: #000000; text-align: center;" class="button-td"><a href="mailto:info@punchlineberlin.com?Subject=Rückmeldung%20zu%20meiner%20Zusage%20zum%20{titel->f:format.htmlentities()}" target="_blank" style="background: #000000; border: 8px solid #000000; padding: 0 10px;color: #ffffff; font-family: 'Be Vietnam Pro', sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 0px; font-weight: bold;" class="button-a"> 
+        <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->E-Mail senden<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
+        </a></td>
+    </tr>
+</table>
+<!-- Button : END -->
+</f:section>
+
+<f:section name="btn-website">
+<!-- Button : Begin -->
+<table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+    <tr>
+        <td style="border-radius: 0px; background: #FDFA00; text-align: center;" class="button-td">
+            <a href="https://punchlineberlin.com" target="_blank" style="background: #FDFA00; border: 8px solid #FDFA00; padding: 0 10px;color: #000000; font-family: 'Rubik', sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 0px; font-weight: bold;" class="button-b">Zur Website</a>
+        </td>
+    </tr>
+</table>
+<!-- Button : END -->
+</f:section>

@@ -1,0 +1,122 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:be.container
+        includeCssFiles="{
+                      0: '{f:uri.resource(path:\'Css/mailing.css\')}'
+                      }"
+        includeRequireJsModules="{
+                      0: '{f:uri.resource(path:\'JavaScript/scripts.js\')}'
+                      }"
+        pageTitle="Mail Preview"
+        >
+<div class="module" data-module-id="" data-module-name="">
+    <div class="module-loading-indicator"></div>
+    <div class="module-docheader t3js-module-docheader d-print-none">
+        <div class="module-docheader-bar module-docheader-bar-navigation t3js-module-docheader-bar t3js-module-docheader-bar-navigation row">
+            <div class="module-docheader-bar-column-left col-12 col-sm-7 col-md-8">
+                <div class="form-inline">
+                  <div class="form-group form-group-sm">
+                  </div>
+                </div>
+            </div>
+            <div class="module-docheader-bar-column-right d-none d-sm-block col-sm-5 col-md-4 text-right">
+                <f:be.pagePath />
+                <f:be.pageInfo />
+            </div>
+        </div>
+        <div class="module-docheader-bar module-docheader-bar-buttons t3js-module-docheader-bar t3js-module-docheader-bar-buttons">
+          <div class="module-docheader-bar-column-left">
+            <div class="btn-toolbar" role="toolbar" aria-label="">
+              <f:render section="buttons" optional="true" />
+            </div>
+          </div>
+          <div class="module-docheader-bar-column-right">
+            <div class="btn-toolbar" role="toolbar" aria-label="">
+                <f:render section="shortcuts" optional="true" />
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="module-body t3js-module-body" style="padding:0px;">
+        <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable"><tr><td align="center" valign="top" id="bodyCell" style="background-color:#f2f4f0">
+            <tbody>
+              <tr>
+                <td align="center" valign="top" id="bodyCell" style="background-color:#f2f4f0">
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                      <tr>
+                        <td align="center" valign="top" id="templateHeader" style="background-color: #efb72e">
+                          <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px !important;"><tr><td valign="top" style="background-color:#ffffff;
+                      background-image:none;
+                      background-repeat:no-repeat;
+                      background-position:center;
+                      background-size:cover;
+                      border-top:1px none ;
+                      border-bottom:0;
+                      padding-top:36px;
+                      padding-bottom:36px;" class="headerContainer">
+                              <table border="0" cellpadding="0" cellspacing="0" width="100%" class="textBlock" style="min-width:100%;"><tbody class="textBlockOuter"><tr><td valign="top" class="textBlockInner" style="padding-top:9px;">
+          
+                                  <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="textContentContainer">
+                                      <f:render section="Header" />
+                                  </table>
+                                  
+                              </td></tr></tbody></table>
+                          </td></tr></table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center" valign="top" id="templateBody">
+          
+                          <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px !important;"><tr><td valign="top" style="background-color:#ffffff;
+                              background-image:none;
+                              background-repeat:no-repeat;
+                              background-position:center;
+                              background-size:cover;
+                              border-top:1px none ;
+                              border-bottom:0;
+                              padding-top:36px;
+                              padding-bottom:36px;" class="headerContainer">
+                              <table border="0" cellpadding="0" cellspacing="0" width="100%" class="textBlock" style="min-width:100%;"><tbody class="textBlockOuter"><tr><td valign="top" class="textBlockInner" style="padding: 36px 0px;">
+          
+                                  <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="textContentContainer">
+                                      <f:render section="Content" />
+                                  </table>
+          
+                              </td></tr></tbody></table>
+                          </td></tr></table>
+          
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center" valign="top" id="templateFooter">
+                          <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px !important;">
+                            <tbody>
+                              <tr>
+                                <td valign="top" class="footerContainer">
+                                  <table border="0" cellpadding="0" cellspacing="0" width="100%" class="textBlock" style="min-width:100%;">
+                                    <tbody class="textBlockOuter"><tr><td valign="top" class="textBlockInner">
+                                      <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="textContentContainer">
+                                        <tbody>
+                                          <f:render partial="Email/FooterStandard" arguments="{_all}" />
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+          </table>
+    </div>
+</div>
+</f:be.container>
+</html>

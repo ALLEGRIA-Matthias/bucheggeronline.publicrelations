@@ -1,0 +1,20 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Eventcenter" />
+
+<f:section name="content">
+    <h1>Terminverschiebung rückgängig machen</h1>
+    <f:flashMessages queueIdentifier="allegria.publicrelations.flashMessages" />
+
+    <p>Nach der Bestätigung wird der neue Termin gelöscht und der alte Termin wird nicht mehr als "verschoben" angezeigt. Außerdem werden sämtliche Akkreditierungen erneut dem alten Termin zugewiesen!</p>
+    <p>
+      <strong>Termin: </strong>{event.title} am {f:format.date(date:'{event.date}', format:'%d.%m.%Y %H:%M')} -> wird auf {f:format.date(date:'{event.oldEvent.date}', format:'%d.%m.%Y %H:%M')} zurückgesetzt!
+      <f:if condition="{event.accreditations}"><br/><strong class="text-danger">Hinweis - Akkreditierungen vorhanden: </strong>Es werden damit <strong>{event.accreditations->f:count()} Akkreditierungen</strong> auf den ursprünglichen Termin übergeben.</f:if>
+    </p>
+    <f:link.action class="btn btn-danger" action="updateCollection" arguments="{undoPostpone:1, event:event}"><svg class="icon fill-white mr-2"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#undo"></use></svg>Bestätigen und Terminverschiebung rückgängig machen!</f:link.action>
+
+</f:section>
+</html>

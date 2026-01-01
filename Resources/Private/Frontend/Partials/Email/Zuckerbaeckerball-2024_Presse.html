@@ -1,0 +1,202 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+    <f:switch expression="{content}">
+        <f:defaultCase>
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="invitation" arguments="{_all}" />
+            <f:render section="eventinfo" arguments="{_all}" />
+            <f:render section="website" arguments="{_all}" />
+            <f:render section="photos" arguments="{_all}" />
+        </f:defaultCase>
+        <f:case value="approve">
+            <f:render section="header" arguments="{_all}" />
+            <f:render section="ticket" arguments="{_all}" />
+            <f:render section="eventinfo" arguments="{_all}" />
+            <f:render section="website" arguments="{_all}" />
+            <f:render section="photos" arguments="{_all}" />
+        </f:case>
+        <f:case value="reject">
+            <f:render section="header" arguments="{_all}" />
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; padding-bottom: 20px; text-align: center; font-family: 'Lato', sans-serif; font-size: 1rem; mso-height-rule: exactly; line-height: 1.4; color: #000000;">
+                    <p style="margin-top: 0; margin-bottom: 0px; font-weight: 500;">
+                        <strong>Ballmutti Vizehonorarkonsulin<br><span style="color: #BB3C5C; font-size: 1.2rem;">Prof. Birgit Sarata</span></strong><br>bedankt sich für die Rückmeldung.
+                    </p>
+                </td>
+            </tr>
+            <!-- 1 Column Text : BEGIN --> 
+            <f:render section="website" arguments="{_all}" />
+            <f:render section="photos" arguments="{_all}" />
+        </f:case>
+        <f:case value="waitingOK">Wie schön, dass wir Sie demnächst bei der Verleihung des KULTURFORMAT Kunstawards "Kunststück" 2023 im Toni Mörwald PALAZZO begrüßen dürfen.</f:case>
+        <f:case value="waiting">Wichtige Information zu Ihrer Antwort zur Verleihung des KULTURFORMAT Kunstawards "Kunststück" 2023.</f:case>
+    </f:switch>
+
+        <f:section name="header">
+            <f:switch expression="{content}">
+                <f:case value="invitation"><f:variable name="headerimage" value="https://www.allegria.at/fileadmin/marketing/zuckerbaeckerball/Zuckerbaeckerball_Header.png" /></f:case>
+                <f:case value="remind"><f:variable name="headerimage" value="https://www.allegria.at/fileadmin/marketing/zuckerbaeckerball/Zuckerbaeckerball_Header_Erinnerung-a.png" /></f:case>
+                <f:case value="push"><f:variable name="headerimage" value="https://www.allegria.at/fileadmin/marketing/zuckerbaeckerball/Zuckerbaeckerball_Header_Erinnerung-b.png" /></f:case>
+                <f:case value="approve"><f:variable name="headerimage" value="https://www.allegria.at/fileadmin/marketing/zuckerbaeckerball/Zuckerbaeckerball_Header_Zusage.png" /></f:case>
+                <f:case value="reject"><f:variable name="headerimage" value="https://www.allegria.at/fileadmin/marketing/zuckerbaeckerball/Zuckerbaeckerball_Header_WieSchade.png" /></f:case>
+            </f:switch>
+            
+            <tr>
+                <td class="full-width-image">
+                    <img src="{headerimage}" width="600" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;">
+                </td>
+            </tr>
+        </f:section>
+        
+        <f:section name="invitation">
+            <tr>
+                <td style="padding: 40px; text-align: center; font-family: 'Roboto', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #000000; padding-bottom: 20px; font-weight: 300;"> 
+                    Ballmutti Vizehonorarkonsulin <br>
+                    Prof. Birgit Sarata lädt <br><br>
+                    <strong>{accreditation.guestOutput.fullName}</strong><br>
+                    zur
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <div style=" border: 2px solid #BB3C5C; border-radius: 2.4rem; padding: 15px; text-align: center; margin-bottom: 10px; margin-left: 10%; margin-right: 10%;">
+                        <p style="margin: 0; font-family: 'Roboto', sans-serif; font-size: 1rem; color: #BB3C5C; font-weight: 800;">
+                            Präsentation und Bekanntgabe <br>
+                            des Stargasts des
+                        </p>
+                        <div style="text-align: center;">
+                            <img src="https://www.allegria.at/fileadmin/marketing/zuckerbaeckerball/Zuckerbaeckerball_Schriftzug_2025.png" alt="122. Zuckerbäckerball" border="0" align="center"  style="width: 100%; max-width: 291px; height: auto;">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            
+            <!-- Einleitung Ende -->
+            <tr>
+                <td style="padding-top: 0px; padding-bottom: 30px; text-align: center; font-family: 'Roboto', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #000000;"> ein.
+                </td>
+            </tr>
+        </f:section>
+
+        <f:section name="eventinfo">
+            <tr>
+                <td style="padding: 0 0 40px 0; text-align: center; font-family: 'Roboto', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #000000; padding-bottom: 0px;">
+                        <h2 style="font-family: 'Roboto', sans-serif; font-size: 1.4rem; text-transform: uppercase; margin-bottom: 15px; font-weight: 600;">
+                            {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}, {accreditation.event.date->f:format.date(format:'j.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month', lang: 'at')} {accreditation.event.date->f:format.date(format:'%Y')}<br>
+                            <span style="font-size: 1rem; font-weight: 300; text-transform: none; line-height: 1.4;">um {accreditation.event.date->f:format.date(format:'%k.%M Uhr')}</span>
+                        </h2>
+                        <p style="margin: 0; font-family: 'Roboto', sans-serif; font-size: 1rem; color: #000000; font-weight: 300;">
+                            {accreditation.event.location.street}<br>
+                            {accreditation.event.location.zip} {accreditation.event.location.city}<br>
+                            Garage vor der Tür!
+                        </p>
+
+                        <f:switch expression="{content}">
+                            <f:case value="approve">
+                                <h2 style="font-family: 'Roboto', sans-serif; font-size: 1.4rem; text-transform: uppercase; margin-bottom: 0; margin-top: 40px; font-weight: 600;">Krank oder verhindert?</h2>
+                                <p style="font-family: 'Roboto', sans-serif; margin-top: 0; margin-bottom: 5px; font-weight: 300;">
+                                    Bitte lassen Sie uns via E-Mail wissen,<br>
+                                    sollten Sie wider Erwarten nicht zur Veranstaltung kommen können.
+                                </p>
+                                <p style="margin: 27px 0px 20px 0px"><a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank" style="display: inline-block; background-color: #BB3C5C; font-family: 'Roboto', sans-serif; font-weight: 500; color: white; text-decoration: none; padding: 5px 15px; margin: 0px auto; font-size: 1rem; border-radius: 1rem; text-transform: uppercase;">E-Mail senden</a></p>
+                            </f:case>
+                            <f:defaultCase>
+                                <!-- Button : Begin -->
+                                <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                                    <tr>
+                                    <td style="border-radius: 0px; background: #FFFFFF; text-align: center;" class="button-td">
+                                        <f:link.typolink
+                                            absolute="1"
+                                            parameter="38"
+                                            additionalParams="&tx_publicrelations_accreditationform[controller]=Accreditation&tx_publicrelations_accreditationform[action]=report&tx_publicrelations_accreditationform[accreditation]={accreditation.uid}"
+                                            absolute="1"
+                                            additionalAttributes="{style:'display: inline-block; background-color: #BB3C5C; font-family: \'Roboto\', sans-serif; font-weight: 500; color: white; text-decoration: none; padding: 5px 15px; margin: 30px auto; font-size: 1.2rem; border-radius: 1rem; text-transform: uppercase;'}"
+                                            class="button-a">
+                                            Jetzt zu-/absagen
+                                        </f:link.typolink>
+                                    </td>
+                                    </tr>
+                                </table>
+                                <!-- Button : END -->
+                        
+                                <p style="margin: 0; font-family: 'Roboto', sans-serif; font-size: 1rem; color: #BB3C5C; font-weight: 300;">
+                                    Der Champagner ist bereits eingekühlt!
+                                </p>
+                            </f:defaultCase>
+                        </f:switch>
+                </td>
+            </tr>
+        </f:section>
+        
+        <f:section name="ticket">
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td style="padding: 40px; text-align: center; font-family: 'Roboto', sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 1.4; color: #000000;">
+                    <p style="font-size: 0.8rem; margin-bottom: 0px;"><strong>Ihr Ticket</strong><br>zur Präsentation und Bekanntgabe<br>des Stargasts des</p>
+                    <div style="text-align: center;">
+                        <img src="https://www.allegria.at/fileadmin/marketing/zuckerbaeckerball/Zuckerbaeckerball_Schriftzug.png" alt="alt_text" border="0" align="center"  style="width: 100%; max-width: 291px; height: auto;">
+                    </div>
+
+                    <div style=" border: 2px solid #BB3C5C; border-radius: 2.4rem; padding: 20px; text-align: center; margin-top: 30px; margin-bottom: 10px; margin-left: 10%; margin-right: 10%;">
+                        <p style="margin: 0; font-family: 'Roboto', sans-serif; font-size: 1.4rem; color: #BB3C5C; font-weight: 700; text-transform: uppercase;">{accreditation.guestOutput.fullName}</p>
+                        <p style="margin-top: 0; color: #000000; font-family: 'Roboto', sans-serif; font-size: 1rem; font-weight: 400; margin-bottom: 0px;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved}==1', else:'en')}</p>
+                        <p style="margin: 0; margin-top: 10px; font-family: 'Roboto', sans-serif; font-size: 0.65rem; color: #000000;">
+                            <span style="font-size: 0.7rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong> versandt am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr.</span><br>
+                            *diese Bestätigung ist nicht übertragbar</p>
+                    </div>
+                </td>
+            </tr>
+            <!-- 1 Column Text : BEGIN --> 
+        </f:section>
+
+        <f:section name="website">
+            <tr>
+                <td style="padding-top: 0px; padding-bottom: 30px; text-align: center; font-family: 'Roboto', sans-serif; font-size: 0.85rem; mso-height-rule: exactly; line-height: 20px; color: #000000; padding-top: 15px; font-weight: 300;">
+                    Für mehr Informationen <br>
+                    <a href="https://www.zuckerbaeckerball.com" target="_blank" style="color: #000000; text-decoration: none; font-weight: 600;">www.zuckerbaeckerball.com</a>
+                </td>
+            </tr>
+        </f:section>
+        
+        <f:section name="photos">
+            <tr>
+                <td align="center" valign="top" style="padding: 0 0 30px 0;">
+                    <table cellspacing="0" cellpadding="0" border="0" width="85%">
+                        <tr>
+                            <td width="33.33%" class="stack-column-center">
+                                <table cellspacing="0" cellpadding="0" border="0">
+                                    <tr>
+                                        <td style="padding: 5px; text-align: center">
+                                            <img src="https://www.allegria.at/fileadmin/marketing/zuckerbaeckerball/Zuckerbaeckerball_BirgitSarata_Torte.png" width="150" height="auto" alt="Torte" border="0" class="fluid">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="33.33%" class="stack-column-center">
+                                <table cellspacing="0" cellpadding="0" border="0">
+                                    <tr>
+                                        <td style="padding: 5px; text-align: center">
+                                            <img src="https://www.allegria.at/fileadmin/marketing/zuckerbaeckerball/Zuckerbaeckerball_Eroeffnung.png" width="150" height="auto" alt="Eröffnung" border="0" class="fluid">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="33.33%" class="stack-column-center">
+                                <table cellspacing="0" cellpadding="0" border="0">
+                                    <tr>
+                                        <td style="padding: 5px; text-align: center">
+                                            <img src="https://www.allegria.at/fileadmin/marketing/zuckerbaeckerball/Zuckerbaeckerball_BirgitSarata-2024.png" width="150" height="auto" alt="Birgit Sarata" border="0" class="fluid">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </f:section>
+    </html>
