@@ -180,8 +180,12 @@ class ContactAjaxController
         $searchTerms = explode(' ', $searchTerm);
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tt_address');
         $query = $queryBuilder
-            ->select('uid', 'pid', 'first_name', 'middle_name', 'last_name', 'stage_name', 'email', 'gender', 'company', 'position', 'client')
+            ->select('uid', 'pid', 'first_name', 'middle_name', 'last_name', 'email', 'gender', 'company', 'position', 'client')
             ->from('tt_address');
+
+        // $query = $queryBuilder
+        //     ->select('uid', 'pid', 'first_name', 'middle_name', 'last_name', 'stage_name', 'email', 'gender', 'company', 'position', 'client')
+        //     ->from('tt_address');
 
         $conditions = [
             $queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)),
@@ -219,7 +223,7 @@ class ContactAjaxController
                 $queryBuilder->expr()->like('first_name', $queryBuilder->createNamedParameter("%$term%")),
                 $queryBuilder->expr()->like('middle_name', $queryBuilder->createNamedParameter("%$term%")),
                 $queryBuilder->expr()->like('last_name', $queryBuilder->createNamedParameter("%$term%")),
-                $queryBuilder->expr()->like('stage_name', $queryBuilder->createNamedParameter("%$term%")),
+                // $queryBuilder->expr()->like('stage_name', $queryBuilder->createNamedParameter("%$term%")),
                 $queryBuilder->expr()->like('company', $queryBuilder->createNamedParameter("%$term%")),
                 $queryBuilder->expr()->like('email', $queryBuilder->createNamedParameter("%$term%"))
             );
@@ -243,7 +247,8 @@ class ContactAjaxController
         $formattedResults = array_map(function ($item) use ($contactCategories) {
             $nameParts = array_filter([$item['first_name'], $item['middle_name'], $item['last_name']]);
             $fullName = implode(' ', $nameParts);
-            $displayName = !empty($item['stage_name']) ? $item['stage_name'] : $fullName;
+            // $displayName = !empty($item['stage_name']) ? $item['stage_name'] : $fullName;
+            $displayName = $fullName;
             $companyDisplay = !empty($item['company']) ? ' [' . $item['company'] . ']' : '';
 
             if (empty($displayName) && empty($companyDisplay)) {
