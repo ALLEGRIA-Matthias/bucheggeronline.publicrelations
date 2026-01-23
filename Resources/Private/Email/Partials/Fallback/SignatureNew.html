@@ -14,7 +14,12 @@
         </td>
     </tr>
     <tr>
-        <td class="full-width-image"><img src="https://www.allegria.at/fileadmin/marketing/allegria/AC_Footer_2025-10.png" width="600" alt="Team Allegria" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;"></td>
-      </tr>
+        <td class="full-width-image">
+          <f:if condition="{f:format.date(date: 'now', format: 'U')} >= 1768201200">
+            <f:then><img src="https://www.allegria.at/fileadmin/marketing/allegria/AC_Footer_2026-01.png" width="600" alt="Team Allegria" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;"></f:then>
+            <f:else><img src="https://www.allegria.at/fileadmin/marketing/allegria/AC_Footer_2025-10.png" width="600" alt="Team Allegria" border="0" align="center" style="width: 100%; max-width: 600px; height: auto;"></f:else>
+          </f:if>
+        </td>
+    </tr>
     <!-- 1 Column Text : END -->
 </html>

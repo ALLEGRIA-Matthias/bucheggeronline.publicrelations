@@ -11,10 +11,10 @@
     <!-- The title tag shows in email notifications, like Android 4.4. -->
     <!-- Please use an inliner tool to convert all CSS to inline as inpage or external CSS is removed by email clients -->
     <!-- important in CSS is used to prevent the styles of currently inline CSS from overriding the ones mentioned in media queries when corresponding screen sizes are encountered -->
-
+		
     <!-- CSS Reset -->
     <style type="text/css">
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,500;0,700;1,300;1,500;1,700&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 /* What it does: Remove spaces around the email design added by some email clients. */
       /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
 html,  body {
@@ -75,9 +75,8 @@ a[x-apple-data-detectors] {
         }
         .button-td:hover,
         .button-a:hover {
-            background: #FFFFFF !important;
-            border-color: #FFFFFF !important;
-			color: #030305 !important;
+            background: #030305 !important;
+            border-color: #030305 !important;
         }
 
         /* Media Queries */
@@ -130,14 +129,13 @@ a[x-apple-data-detectors] {
 
     </style>
     </head>
-    <body bgcolor="#EEEEEE" width="100%" style="margin: 0;" yahoo="yahoo">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+    <body bgcolor="#e0e0e0" width="100%" style="margin: 0;" yahoo="yahoo">
+    
+    <table bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
       <tr>
         <td><center style="width: 100%;">
-            
             <f:render section="Preview" optional="true" />
-            <f:render section="HeaderNew" />
-        
+			<f:render section="HeaderNew" />
         </center></td>
       </tr>
     </table>
@@ -145,36 +143,15 @@ a[x-apple-data-detectors] {
     <table bgcolor="#EEEEEE" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
         <tr>
           <td><center style="width: 100%;">
-
+            
             <!-- Email Body : BEGIN -->
             <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="600" class="email-container">
-
-                <f:render section="ContentNew" />
-                    
+                <f:render section="ContentNew" />            
             </table>
             <!-- Email Body : END --> 
             
-            <!-- Email Footer : BEGIN -->
-            <table align="center" width="600" class="email-container">
-                <tr>
-                    <td style="padding: 20px 10px;width: 100%; font-size: 0.8rem; font-family: 'IBM Plex Sans', sans-serif; mso-height-rule: exactly; line-height: 1.2; text-align: center; color: #888888; font-weight: 400;">
-                        <p style="font-size: 0.5rem; font-weight: 500; color: #062230;">
-                        Versand im Auftrag von<br>
-                        {mailing.client.name}{accreditation.event.client.name} durch:
-                        </p>
-                        <p style="font-size: 0.5rem; font-weight: 400; color: #062230;">
-                        <span style="font-weight: 500;">Allegria Communications GmbH</span><br>
-                        Firmensitz: Wien | Firmenbuch: FN 637275 w, Handelsgericht Wien<br>
-                        tel +43 1 / 479 02 60 | mail office@allegria.at
-                        </p>
-                    </td>
-                </tr>
-            </table>
-            <!-- Email Footer : END -->
-        
-        
-            </center></td>
-        </tr>
+          </center></td>
+      </tr>
     </table>
 </body>
 </html>

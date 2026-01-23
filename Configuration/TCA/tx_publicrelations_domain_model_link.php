@@ -43,7 +43,7 @@ return [
     'palettes' => [
         'paletteGeneral' => [
             'showitem' => '
-                url, title, type',
+                url, title',
             'canNotColapse' => 1
         ],
         'paletteAccess' => TCA::getPaletteAccess(),

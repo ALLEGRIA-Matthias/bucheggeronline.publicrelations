@@ -64,7 +64,8 @@
                 <div class="card h-100">
                     <div class="card-body text-center">
                         <h5 class="card-title">Gäste / Tickets</h5>
-                        <p class="card-text fs-md-3 fs-5" id="stats-guests-tickets">...</p>
+                        <div id="stats-capacity"></div>
+                        <p class="card-text fs-md-3 fs-5 mt-2" id="stats-guests-tickets">...</p>
                     </div>
                 </div>
             </div>
@@ -149,6 +150,17 @@
                                     <label class="form-label">Bestätigte Tickets</label>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <select class="form-select" name="guest_type" data-mdb-select-init>
+                                <option value="4">Gast</option>
+                                <option value="1">VIP</option>
+                                <option value="2">Presse</option>
+                                <option value="6">Talent</option>
+                                <option value="5">Staff</option>
+                            </select>
+                            <label class="form-label select-label">"Special" Gästevermerk</label>
                         </div>
 
                         <div class="form-outline mb-4" data-mdb-input-init>
@@ -312,6 +324,17 @@
                                         <label class="form-label">Bestätigte Tickets</label>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <select class="form-select" name="guest_type" data-mdb-select-init>
+                                    <option value="4" selected>Gast</option>
+                                    <option value="1">VIP</option>
+                                    <option value="2">Presse</option>
+                                    <option value="6">Talent</option>
+                                    <option value="5">Staff</option>
+                                </select>
+                                <label class="form-label select-label">"Special" Gästevermerk</label>
                             </div>
 
                             <div class="form-outline mb-4" data-mdb-input-init>

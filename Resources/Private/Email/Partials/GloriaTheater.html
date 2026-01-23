@@ -1,0 +1,299 @@
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+  xmlns:acdist="http://typo3.org/ns/Allegria/AcDistribution/ViewHelpers"
+  data-namespace-typo3-fluid="true">
+<f:section name="content">
+    <f:switch expression="{content}">
+        <f:defaultCase>
+            <f:render section="invite" arguments="{_all}" />
+            <f:render section="seeyou" arguments="{_all}" />
+        </f:defaultCase>
+        <f:case value="approve">
+            <tr>
+                <td style="
+                font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.4rem;  text-transform: uppercase; text-align: center; padding: 10px 0px; color: #891628; background: #EBE6EA;">
+                    Wir freuen uns auf Ihr kommen!
+                </td>
+            </tr>
+            <f:render section="confirmation" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+        </f:case>
+        <f:case value="reject">
+            <tr>
+                <td style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.4rem;  text-transform: uppercase; text-align: center; padding: 10px 0px; color: #891628; background: #EBE6EA;">
+                    Danke für die Rückmeldung!
+                </td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 1rem; text-align: center; padding: 40px; color: #891628; background: #FFFFFF;">
+                    <p style="font-weight: 700;">Das Gloria Theater bedankt sich für Ihre Rückmeldung.</p>
+                    <p style="color:#000000">Wir hoffen auf ein Wiedersehen bei einer der nächsten Veranstaltungen.</p>
+                    <p>
+                        <a href="https://www.gloria-theater.at" target="_blank"><img src="https://www.allegria.at/fileadmin/marketing/gloria-theater/gloriatheater_button-website.png" alt="Button zur Website" style="max-width: 150px; height: auto;" /></a>
+                    </p>
+                </td>
+            </tr>
+        </f:case>
+        <f:case value="waiting">
+            <tr>
+                <td style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.4rem;  text-transform: uppercase; text-align: center; padding: 10px 0px; color: #891628; background: #EBE6EA;">
+                    Danke für das große Interesse!
+                </td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 1rem; text-align: center; padding: 40px; color: #891628; background: #FFFFFF;">
+                    <p>
+                        <span style="text-transform: uppercase; font-weight: 700;">Wichtiger Hinweis!</span><br>
+                        Wir bedanken uns für das große Interesse an unserer Veranstaltung, allerdings ist unser Kontingent an Tickets aktuell komplett aufgebraucht.</p>
+                        <p style="color:#000000">
+                            Leider können wir erst <strong>bis spätestens {f:format.date(format:'d.m.Y', date:'{accreditation.event.date->f:format.date(format:\'d-m-Y\')} -2 days')}</strong> eine konkrete Rückmeldung geben, ob wir Ihrem Wunsch nachkommen können.<br>
+                            <br>
+                            Wir melden uns verlässlich und schnellstmöglich.
+                        </p>
+                    <p>
+                        <a href="https://www.gloria-theater.at" target="_blank"><img src="https://www.allegria.at/fileadmin/marketing/gloria-theater/gloriatheater_button-website.png" alt="Button zur Website" style="max-width: 150px; height: auto;" /></a>
+                    </p>
+                </td>
+            </tr>
+        </f:case>
+        <f:case value="pending">
+            <tr>
+                <td style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.4rem;  text-transform: uppercase; text-align: center; padding: 10px 0px; color: #891628; background: #EBE6EA;">
+                    Neu auf der Warteliste!
+                </td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 1.6rem; text-align: center; padding: 40px; color: #000; background: #FFFFFF;">
+                    <p>
+                        <strong style="color: #891628;">{guestOutput.fullName}</strong><br>
+                        <small>ist auf die Warteliste gerutscht</small>
+                    </p>
+                </td>
+            </tr>
+        </f:case>
+        <f:case value="approve_after_waiting">
+            <tr>
+                <td style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.4rem;  text-transform: uppercase; text-align: center; padding: 10px 0px; color: #891628; background: #EBE6EA;">
+                    Das Warten hat sich gelohnt!
+                </td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1rem;  text-align: center; padding: 20px 40px 0px; color: #000000; background: #FFFFFF;">
+                    Danke für Ihre Geduld, wir können Ihren Besuch ermöglichen.
+                </td>
+            </tr>
+            <f:render section="confirmation" arguments="{_all}" />
+            <f:render section="sick" arguments="{_all}" />
+        </f:case>
+        <f:case value="reject_after_waiting">
+            <tr>
+                <td style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.4rem;  text-transform: uppercase; text-align: center; padding: 10px 0px; color: #891628; background: #EBE6EA;">
+                    Es tut uns leid!
+                </td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 1rem;  text-align: center; padding: 40px; color: #000000; background: #FFFFFF;">
+                    Leider müssen wir Ihnen mitteilen, dass wir <strong>komplett ausgelastet</strong> sind, wir können daher Ihren Besuch nicht ermöglichen.<br><br>
+                    Wir sind so unglaublich dankbar für das rege Interesse und hoffen Sie ganz bald bei einer der kommenden Veranstaltungen wieder begrüßen zu dürfen.<br>
+                    <br>
+                    <a href="https://www.gloria-theater.at" target="_blank"><img src="https://www.allegria.at/fileadmin/marketing/gloria-theater/gloriatheater_button-website.png" alt="Button zur Website" style="max-width: 150px; height: auto;" /></a>
+                </td>
+            </tr>            
+        </f:case>
+    </f:switch>
+</f:section>
+
+<f:section name="header">
+<!-- Email Header : BEGIN -->
+<table align="center" width="600" class="email-container" style="border-spacing: 0 !important; border-collapse: collapse !important; table-layout: fixed !important; margin: 0 auto !important;">
+    <tbody>
+        <!-- Hero Image, Flush : BEGIN -->
+        <tr>
+            <td class="full-width-image" style="padding: 0; margin: 0;  mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important;">
+                <img src="https://www.allegria.at/fileadmin/marketing/gloria-theater/2026-gloria-theater-mailheader.png" width="600" alt="Gloria Theater Email Header" border="0" align="center" style="-ms-interpolation-mode: bicubic; width: 100%; max-width: 600px; height: auto;">
+            </td>
+        </tr>
+        <!-- Hero Image, Flush : END -->
+    </tbody>
+</table>
+<!-- Email Header : END --> 
+</f:section>
+
+<f:section name="invite">
+<f:switch expression="{content}">
+    <f:case value="invite"><f:variable name="headline">Personliche Einladung</f:variable></f:case>    
+    <f:case value="remind"><f:variable name="headline">Erinnerung zur<br>persönlichen Einladung</f:variable></f:case>
+    <f:case value="push"><f:variable name="headline">Finale Erinnerung<br>zur persönlichen Einladung</f:variable></f:case>
+</f:switch>
+<tr>
+    <td style="
+    font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.4rem;  text-transform: uppercase; text-align: center; padding: 10px 0px; color: #891628; background: #EBE6EA;">
+        {headline->f:format.raw()}<br>
+        <span style="font-size: 1.4rem; font-weight: 400;">für</span>
+    </td>
+</tr>
+<tr>
+    <td style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 180%;  text-transform: uppercase; text-align: center; padding: 20px 0px; color: #891628; background: #FFFFFF;">
+        {guestOutput.fullName}
+    </td>
+</tr>
+<tr>
+    <td style="font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 1.8rem; text-align: center; padding: 20px 0px; color: #891628; background: #FFFFFF;">
+        <h1 style="font-size: 1.8rem; margin: 0; font-weight: 600; text-transform: uppercase;">{accreditation.event.title}</h1>
+        <f:if condition="{accreditation.event.campaign.subtitle}"><p style="font-size: 0.8rem; margin-top: 0; font-weight: 600;">{accreditation.event.campaign.subtitle}</p></f:if>
+        <f:if condition="{accreditation.event.opening}"><p style="font-size: 1rem; font-weight: 600; margin-top: 10px; text-transform: uppercase;">Premiere</p></f:if>
+    </td>
+</tr>
+
+<tr>
+    <td style="font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 1rem; text-align: center; padding: 0px 0px; color: #891628; background: #FFFFFF;">
+        {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}., {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}<br>
+        Beginn: {accreditation.event.date->f:format.date(format:'%k:%M')} Uhr
+    </td>
+</tr>
+
+<f:render section="eventinfo" arguments="{_all}" />
+
+<!-- Background Image with Text : BEGIN -->
+<tr>
+    <td bgcolor="#FFFFFF" valign="middle" style="text-align: center; background-position: center center !important; background-size: cover !important; padding: 20px;">
+        <div> 
+            <!-- Button : Begin -->
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto; border-collapse: collapse; table-layout: fixed;">
+                <tbody>
+                <tr>
+                    <td style="text-align: center;"><a href="###FEEDBACK_LINK###" target="_blank"> <img src="https://www.allegria.at/fileadmin/marketing/gloria-theater/gloriatheater_button-rueckmelden.png" alt="Button – Jetzt Rückmelden" style="display: block; border: 0; width: 200px; max-width: 100%; height: auto;"> </a></td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- Button : END --> 
+        </div>
+        <p style="font-family: 'Roboto Slab'; line-height: 1.2; font-optical-sizing: auto; font-style: normal; font-size: 0.8rem; color: black;">
+            Die Einladung ist persönlich, gültig für {accreditation.ticketsWish} Person{f:if(condition:'{accreditation.ticketsWish}==1', else:'en')}, und ist nicht übertragbar.<br>
+            Um Rückmeldung wird bis längstens <span style="font-weight: 700;">###FEEDBACK_UNTIL_DATE###</span> gebeten.
+        </p>
+    </td>
+</tr>
+<!-- Background Image with Text : END --> 
+</f:section>
+
+<f:section name="eventinfo">
+<f:if condition="{accreditation.invitationType.contents.0} && ({accreditation.invitationType.contents.0.type} == 'acmailer_text' || {accreditation.invitationType.contents.0.type} == '100')">
+    <!-- Two Even Columns : BEGIN -->
+    <tr>
+        <td align="center" valign="top" style="padding: 40px 10px 40px 10px;">
+            <table cellspacing="0" cellpadding="0" border="0" width="100%" style="border-spacing: 0 !important; border-collapse: collapse !important; table-layout: fixed !important; margin: 0 auto !important;">
+                <tbody>
+                    <tr>
+                        <td class="stack-column-center" valign="top" style="">
+                            <table cellspacing="0" cellpadding="0" border="0" style="border-spacing: 0 !important; border-collapse: collapse !important; table-layout: fixed !important; margin: 0 auto !important;">
+                                <tbody>
+                                    <tr>
+                                        <td style=" text-align: center;">
+                                            <acdist:absoluteImage image="{f:if(condition:accreditation.invitationType.logo, then:accreditation.invitationType.logo , else:accreditation.event.campaign.logo)}" width="400" height="auto" class="fluid" style="width: 100%; height: auto;" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="stack-column-center" valign="top" style="">
+                            <table cellspacing="0" cellpadding="0" border="0" style="border-spacing: 0 !important; border-collapse: collapse !important; table-layout: fixed !important; margin: 0 auto !important;">
+                            <tbody>
+                                <tr>
+                                    <td style="padding-left:20px;  mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; font-family: 'Roboto Slab'; line-height: 20px; font-optical-sizing: auto; font-style: normal; font-size: 1rem; mso-height-rule: exactly; color: black;  text-align: left;" class="center-on-narrow">
+                                        {accreditation.invitationType.contents.0.content->f:format.raw()}
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <!-- Two Even Columns : END -->
+</f:if>
+</f:section>
+
+<f:section name="seeyou">
+<tr>
+    <td style="font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 1.6rem;  text-transform: uppercase; text-align: center; padding: 20px 0px; color: #891628; background: #FFFFFF;">
+        Wir freuen uns auf Ihren Besuch!
+    </td>
+</tr>
+</f:section>
+
+<f:section name="footer">
+<f:if condition="{accreditation.invitationType.image}">
+    <!-- Image Placeholder : BEGIN -->
+    <table align="center" width="600" class="email-container" style="border-spacing: 0 !important; border-collapse: collapse !important; table-layout: fixed !important; margin: 0 auto !important;">
+        <tbody>
+            <tr>
+                <td class="full-width-image" style="padding:0; margin:0; line-height: 0;">
+                    <acdist:absoluteImage image="{accreditation.invitationType.image}" width="600" height="auto" class="fluid" style="width: 100%; height: auto; line-height: 0;" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- Image Placeholder : END -->
+</f:if>
+</f:section>
+
+<f:section name="confirmation">
+<!-- Confirmation : BEGIN -->
+<tr>
+    <td style="text-align: center; padding: 40px; font-family: 'Montserrat', sans-serif; color: #891628; background: #FFFFFF;">
+        <h2 style="margin-top: 0px; font-size: 1.4rem; font-weight: 500;">Folgend Ihre Reservierungsdaten.</h2>
+        <h1 style="margin: 0; font-size: 1.8rem; font-weight: 600; text-transform: uppercase;">{accreditation.event.title}</h1>
+        <f:if condition="{accreditation.event.campaign.subtitle}"><p style="font-size: 0.8rem; margin-top: 0; font-weight: 600;">{accreditation.event.campaign.subtitle}</p></f:if>
+        <f:if condition="{accreditation.event.opening}">
+            <p style="font-size: 1rem; font-weight: 600; margin-top: 10px; text-transform: uppercase;">Premiere</p>
+        </f:if>
+        <p>
+            {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'d')}., {accreditation.event.date->f:format.date(format:'%d.')} {mb:dateFormatLocal(date:'{accreditation.event.date}', type:'month')} {accreditation.event.date->f:format.date(format:'%Y')}<br>
+            Beginn: {accreditation.event.date->f:format.date(format:'%k:%M')} Uhr
+        </p>
+
+        <div style="display: inline-block; padding: 20px 40px; margin: 20px 0; border-radius: 1rem; background-color: #891628; color: #FFFFFF;">
+            <p style="margin: 0;">
+                <span style="font-size: 1.4rem; font-weight: 700;">{guestOutput.fullName}</span><br>
+                <span style="font-weight: 700;">{accreditation.ticketsApproved} Person{f:if(condition:'{accreditation.ticketsApproved} == 1', else:'en')}</span>
+            </p>
+            <p style="font-size: 0.7rem; margin: 0; margin-top: 10px;">
+                Akkreditierung Nr. #{accreditation.uid}<br>
+                Am {f:format.date(date:'now', format: 'd.m.Y H:i')} Uhr gesendet.
+            </p>
+        </div>
+        
+        <p>
+            <a href="https://maps.app.goo.gl/XZSF4QnXZ9uEdJuVA" target="_blank"><img src="https://www.allegria.at/fileadmin/marketing/gloria-theater/gloriatheater_button-anreise.png" alt="Button Anreise" class="fluid" style="max-width: 150px; height: auto;" /></a>
+        </p>
+    </td>
+</tr>
+<!-- Confirmation : END -->
+<f:render section="eventinfo" arguments="{_all}" />
+
+</f:section>
+
+<f:section name="sick">
+<tr>
+    <td style="text-align: center; padding: 40px; font-family: 'Montserrat', sans-serif; color: #891628; background: #EBE6EA;">
+        <h2 style="margin-top: 0px; font-size: 1.4rem; text-transform: uppercase; font-weight: 700;">Krank oder verhindert?</h2>
+        <p>
+            Bitte lassen Sie uns via Email wissen,<br>
+            sollten Sie wider Erwarten nicht zur Veranstaltung kommen können.
+        </p>
+        <p>
+            <a href="mailto:office@allegria.at?Subject=Rückmeldung%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20{accreditation.event.title->f:format.htmlentities()}" target="_blank"><img src="https://www.allegria.at/fileadmin/marketing/gloria-theater/gloriatheater_button-email.png" alt="Button Rückmeldung per Email im Krankheitsfall" class="fluid" style="max-width: 150px; height: auto;" /></a>
+        </p>
+        <p>
+            Mehr Informationen finden Sie unter<br>
+            <a href="https://www.gloria-theater.at" target="_blank" style="color: #891628; text-decoration: none; font-weight: 700;">www.gloria-theater.at</a>
+        </p>
+    </td>
+</tr>
+</f:section>
+</html>

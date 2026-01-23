@@ -315,30 +315,69 @@ class EventRepository extends Repository
 
   public function findICalForRendering() // Evtl. eine neue Methode für optimiertes Laden
   {
-    $query = $this->createQuery();
-    $querySettings = $query->getQuerySettings();
-
-    // Hier sagst du Extbase, dass es die 'location'-Eigenschaft direkt mitladen soll.
-    // Ersetze 'location' durch den exakten Namen der Property in deinem Event-Modell.
-    // $querySettings->setLoadEagerlyForProperty('location', true);
-    // Füge hier weitere Properties hinzu, die Eager Loading benötigen, z.B. 'campaign' falls du $event->getCampaign()->getTitle() bräuchtest
-
-    // Füge hier deine Filterbedingungen für den iCal-Export hinzu
-    // z.B. nur zukünftige, nicht abgesagte Events:
-    $constraints = [
-      $query->greaterThanOrEqual('date', new \DateTimeImmutable('today')),
-      $query->logicalOr(
-        $query->equals('accreditation', 1),
-        $query->equals('accreditations.status', 1),
-        $query->greaterThanOrEqual('ticketsQuota', 1)
-      )
+    // --- QUERY 1: Checkboxen und Quoten (Die "Einfachen" Felder) ---
+    $query1 = $this->createQuery();
+    $constraints1 = [
+        $query1->greaterThanOrEqual('date', new \DateTimeImmutable('today')),
+        $query1->logicalOr(
+            $query1->equals('accreditation', 1),
+            $query1->greaterThan('ticketsQuota', 0)
+        )
     ];
-    $query->matching($query->logicalAnd(...$constraints));
+    $results1 = $query1->matching($query1->logicalAnd(...$constraints1))->execute()->toArray();
 
-    $query->setOrderings(['date' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING]);
+    // --- QUERY 2: Existenz von Akkreditierungen (Die Relation) ---
+    $query2 = $this->createQuery();
+    $constraints2 = [
+        $query2->greaterThanOrEqual('date', new \DateTimeImmutable('today')),
+        $query2->greaterThan('accreditations.uid', 0) // Erzwingt den Join separat
+    ];
+    $results2 = $query2->matching($query2->logicalAnd(...$constraints2))->execute()->toArray();
 
-    return $query->execute();
+    // --- MERGE: Ergebnisse kombinieren und Duplikate entfernen ---
+    // Wir nutzen die UID als Key im Array, um doppelte Events (die beide Kriterien erfüllen) zu filtern.
+    $combinedResults = [];
+    foreach (array_merge($results1, $results2) as $event) {
+        $combinedResults[$event->getUid()] = $event;
+    }
+
+    // Sortierung wiederherstellen (da durch den Merge verloren gegangen)
+    usort($combinedResults, function($a, $b) {
+        return $a->getDate() <=> $b->getDate();
+    });
+
+    return $combinedResults;
   }
+
+// public function findICalForRendering()
+// {
+//     $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+//         ->getQueryBuilderForTable('tx_publicrelations_domain_model_event');
+
+//     $today = (new \DateTimeImmutable('today'))->getTimestamp();
+
+//     // Wir nutzen hier Connection::PARAM_INT oder lassen den Typ weg, 
+//     // damit Doctrine ihn selbst erkennt (was meist stabiler ist).
+//     $todayParam = $queryBuilder->createNamedParameter($today, Connection::PARAM_INT);
+//     $activeParam = $queryBuilder->createNamedParameter(1, Connection::PARAM_INT);
+
+//     $result = $queryBuilder
+//         ->select('e.*')
+//         ->from('tx_publicrelations_domain_model_event', 'e')
+//         ->where(
+//             $queryBuilder->expr()->gte('e.date', $todayParam),
+//             $queryBuilder->expr()->or(
+//                 $queryBuilder->expr()->eq('e.accreditation', $activeParam),
+//                 $queryBuilder->expr()->gt('e.tickets_quota', $activeParam),
+//                 // Der EXISTS-Teil als sauberer String
+//                 'EXISTS (SELECT 1 FROM tx_publicrelations_domain_model_accreditation a WHERE a.event = e.uid AND a.deleted = 0)'
+//             )
+//         )
+//         ->orderBy('e.date', 'ASC')
+//         ->executeQuery();
+
+//     return $result->fetchAllAssociative();
+// }
 
 
 

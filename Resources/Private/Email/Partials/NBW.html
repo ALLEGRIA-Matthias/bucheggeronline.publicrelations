@@ -187,11 +187,7 @@
                             </td>
                         </tr>
                     </table>
-                    <!-- Button : END --><br>
-                    
-                    <p style="font-size: 0.7rem; line-height: 1.2; margin-top: 0px;">
-                        Die Einladung gilt für <strong>{accreditation.ticketsWish} Person{f:if(condition:'{accreditation.ticketsWish}==1', else:'en')}</strong> und ist <strong>nicht übertragbar</strong>. Um Rückmeldung wird bis <span style="font-weight: 700"><f:if condition="{accreditation.invitationType.feedbackDate}"><f:then>{f:format.date(date:'{accreditation.invitationType.feedbackDate}', format:'d.m.Y')}</f:then><f:else><f:format.date date="{accreditation.event.date->f:format.date(format:'d.m.Y')} - 2weeks friday" format="d.m.Y" /></f:else></f:if></span> gebeten.
-                    </p>
+                    <!-- Button : END -->
                 </f:if>
             </td>
           </tr>

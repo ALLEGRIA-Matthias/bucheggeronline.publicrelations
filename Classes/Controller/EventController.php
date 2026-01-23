@@ -395,8 +395,7 @@ class EventController extends AbstractPublicrelationsController
    */
   public function newAction(): ResponseInterface
   {
-    // Extension-Konfiguration laden
-
+    $events = $this->eventRepository->findICalForRendering();
 
     // Daten aus den Repositories holen
     $clients = $this->clientRepository->findAll();

@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const statsGuestsTickets = document.getElementById('stats-guests-tickets');
     const statsFiltered = document.getElementById('stats-filtered');
     const chartCanvas = document.getElementById('accreditation-chart');
+    const statsCapacity = document.getElementById('stats-capacity');
 
     const accreditationModalElement = document.getElementById('accreditationModal');
     const accreditationModal = new mdb.Modal(accreditationModalElement);
@@ -216,6 +217,11 @@ document.addEventListener('DOMContentLoaded', () => {
      * @returns {string} - Der HTML-String für das Badge.
      */
     const getStatusBadge = (acc) => {
+        // PRIORITÄT: Aktiver Versandjob (Lock)
+        if (acc.distribution_job > 0) {
+            return '<span class="badge badge-info"><i class="fas fa-spinner fa-spin me-1"></i> in Arbeit...</span>';
+        }
+
         switch (acc.status) {
             case 1:
                 return '<span class="badge badge-success">akkreditiert</span>';
@@ -256,7 +262,33 @@ document.addEventListener('DOMContentLoaded', () => {
             <div><i class="fas fa-filter fa-fw me-2"></i>${data.accreditations.length}</div>
         `;
 
-        // 2. Tortendiagramm erstellen oder aktualisieren
+        // 2. Kapazitäts-Anzeige (Progress Bar)
+        if (statsCapacity) {
+            const used = data.stats.tickets;
+            const quota = data.stats.quota;
+            if (quota > 0) {
+                const percent = Math.min(100, Math.round((used / quota) * 100));
+                let barColor = 'bg-success';
+                if (percent > 70) barColor = 'bg-warning';
+                if (percent > 90) barColor = 'bg-danger';
+
+                statsCapacity.innerHTML = `
+                    <div class="mt-2">
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span class="fw-bold text-uppercase">Kapazität</span>
+                            <span>${used} / ${quota} (${percent}%)</span>
+                        </div>
+                        <div class="progress shadow-0" style="height: 10px;">
+                            <div class="progress-bar ${barColor}" role="progressbar" style="width: ${percent}%" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                statsCapacity.innerHTML = '<div class="mt-3 small text-muted text-uppercase fw-bold">Kapazität: Unbegrenzt</div>';
+            }
+        }
+
+        // 3. Tortendiagramm erstellen oder aktualisieren
         const chartData = {
             type: 'pie',
             data: {
@@ -321,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
             accreditationChart = new Chart(chartCanvas, chartData, chartOptions);
         }
 
-        // 3. Tabellendaten erstellen
+        // 4. Tabellendaten erstellen
 
         const accessLevel = data.accessLevel;
 
@@ -342,9 +374,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Spalten-Definition dynamisch erstellen ---
         const columns = [
             { label: 'Status', field: 'status', sort: true, width: 130 },
-            { label: 'Pax', field: 'tickets', sort: true, width: 60 },
+            { label: 'Pax', field: 'tickets', sort: true, width: 80 },
             { label: 'Gast', field: 'guest', sort: true, width: 300 },
-            // { label: 'Special', field: 'type', sort: true, width: 100 },
+            { label: 'Special', field: 'type', sort: true, width: 100 },
             { label: 'Platzierung', field: 'seats', sort: true, width: 150 },
             { label: 'Hinweise', field: 'notes', sort: true }
         ];
@@ -390,6 +422,14 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (guest.position) {
                 // Fall 3: Weder Name noch Firma, nur eine Position (unwahrscheinlich, aber sicher ist sicher).
                 guestHtmlOutput = `<small class="text-muted">${guest.position}</small>`;
+            }
+
+            // Pax-Logik: 0 / 2 (muted), wenn noch nicht approved
+            let paxDisplay = acc.tickets_approved;
+            if (acc.status === 0 || acc.status === -2) {
+                paxDisplay = `<span class="text-muted" title="Vorgemerkt">${acc.tickets_approved} / ${acc.tickets_wish}</span>`;
+            } else if (acc.status === -1) {
+                paxDisplay = `<span class="text-muted">0</span>`;
             }
 
             let notesHtml = '';
@@ -441,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="btn-group" role="group">
                         <button 
                             type="button" 
-                            class="btn btn-link px-2" 
+                            class="btn btn-link px-2 ${acc.distribution_job > 0 ? 'disabled' : ''}" 
                             data-mdb-dropdown-init 
                             data-mdb-ripple-init 
                             data-mdb-container="body" 
@@ -450,10 +490,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         </button>
                         <ul class="dropdown-menu">
                             <li class="${acc.status === 1 ? '' : 'd-none'}"><a class="dropdown-item" href="#" data-mail-action="confirm" data-acc-uid="${acc.uid}"><i class="fas fa-paper-plane fa-fw me-2"></i>Bestätigung versenden</a></li>
-                            <li class="${acc.status === 1 ? '' : 'd-none'}"><a class="dropdown-item d-flex justify-content-between align-items-center" href="${acc.links.view_confirmation}" target="_blank"><i class="fas fa-eye fa-fw me-2"></i>Bestätigung ansehen<i class="far fa-copy ms-2" data-copy-link="${acc.links.view_confirmation}"></i></a></li>
+                            <li class="d-none ${acc.status === 1 ? '' : 'd-none'}"><a class="dropdown-item d-flex justify-content-between align-items-center" href="${acc.links.view_confirmation}" target="_blank"><i class="fas fa-eye fa-fw me-2"></i>Bestätigung ansehen<i class="far fa-copy ms-2" data-copy-link="${acc.links.view_confirmation}"></i></a></li>
                             <li class="${acc.invitation_status === 2 ? '' : 'd-none'}"><a class="dropdown-item" href="#" data-mail-action="push" data-acc-uid="${acc.uid}"><i class="fas fa-paper-plane fa-fw me-2"></i>Pusher senden</a></li>
                             <li class="${acc.invitation_status === 1 ? '' : 'd-none'}"><a class="dropdown-item" href="#" data-mail-action="remind" data-acc-uid="${acc.uid}"><i class="fas fa-paper-plane fa-fw me-2"></i>Erinnerung senden</a></li>
-                            <li class="${acc.status === 0 ? '' : 'd-none'}"><a class="dropdown-item d-flex justify-content-between align-items-center" href="${acc.links.view_invitation}" target="_blank"><i class="fas fa-eye fa-fw me-2"></i>Einladung ansehen<i class="far fa-copy ms-2" data-copy-link="${acc.links.view_invitation}"></i></a></li>
+                            <li class="d-none ${acc.status === 0 ? '' : 'd-none'}"><a class="dropdown-item d-flex justify-content-between align-items-center" href="${acc.links.view_invitation}" target="_blank"><i class="fas fa-eye fa-fw me-2"></i>Einladung ansehen<i class="far fa-copy ms-2" data-copy-link="${acc.links.view_invitation}"></i></a></li>
                             <li class="${(acc.status === 0 && acc.invitation_status === 0) ? '' : 'd-none'}"><a class="dropdown-item" href="#" data-mail-action="invite" data-acc-uid="${acc.uid}"><i class="fas fa-paper-plane fa-fw me-2"></i>Einladung versenden</a></li>
                             <li class="${acc.status === 0 ? '' : 'd-none'}"><a class="dropdown-item" href="#" data-mail-action="resend" data-acc-uid="${acc.uid}"><i class="fas fa-copy fa-fw me-2"></i>Einladungskopie</a></li>
                         </ul>
@@ -463,9 +503,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             return {
                 status: statusHtml,
-                tickets: acc.tickets_approved,
+                tickets: paxDisplay,
                 guest: guestHtmlOutput,
-                // type: acc.guestTypeOutput,
+                type: acc.guestTypeOutput,
                 seats: seatsHtml,
                 notes: notesHtml,
                 actions: actionsHtml
@@ -554,6 +594,9 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const statusSelect = mdb.Select.getInstance(accreditationForm.querySelector('[name="status"]'));
             statusSelect.setValue(acc.status.toString());
+            
+            const guestTypeSelect = mdb.Select.getInstance(accreditationForm.querySelector('[name="guest_type"]'));
+            guestTypeSelect.setValue(acc.guest_type.toString());
             
             accreditationForm.querySelectorAll('.form-outline').forEach(formOutline => new mdb.Input(formOutline).update());
             
@@ -766,6 +809,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const statusSelect = mdb.Select.getInstance(document.getElementById('create-accreditation-form').querySelector('[name="status"]'));
         if (statusSelect) statusSelect.setValue('0'); else new mdb.Select(document.getElementById('create-accreditation-form').querySelector('[name="status"]'));
+        
+        const guestTypeSelect = mdb.Select.getInstance(document.getElementById('create-accreditation-form').querySelector('[name="guest_type"]'));
+        if (guestTypeSelect) guestTypeSelect.setValue('4'); else new mdb.Select(document.getElementById('create-accreditation-form').querySelector('[name="guest_type"]'));
         
         // 4. UI auf Schritt 1 setzen
         createAccStep1Wrapper.classList.remove('d-none');

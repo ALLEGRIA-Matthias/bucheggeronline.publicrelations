@@ -403,8 +403,21 @@ class ImportRssTask extends AbstractTask
                         if (($media['@attributes']['type'] ?? '') === 'application/pdf') {
                             $tempPdfPath = null;
                             $tempThumbPath = null;
+                            $thumbUrl = null;
+
                             try {
                                 $mediaTitle = $media['media_title'] ?? '';
+
+                                // ⚠️ FIX: Array zu String Konvertierung für leere XML-Tags
+                                // Wenn <media:title type="plain" /> leer ist, liefert der JSON-Parser ein Array mit @attributes.
+                                // preg_match stürzt dann ab.
+                                if (is_array($mediaTitle)) {
+                                    // Versuch, Text-Content zu finden (bei SimpleXML oft nicht direkt im Array, wenn Attribute da sind)
+                                    // Im Kontext dieses Feeds bedeutet ein Array hier meist: Es gibt keinen Titel.
+                                    $mediaTitle = '';
+                                }
+
+                                // Jetzt ist es sicher ein String
                                 $pageSuffix = '';
                                 if (preg_match('/Seite\s*(\d+)/i', $mediaTitle, $matches))
                                     $pageSuffix = 'Seite-' . $matches[1];
@@ -413,7 +426,12 @@ class ImportRssTask extends AbstractTask
                                 $pdfCounter++;
 
                                 $pdfUrl = $media['@attributes']['url'];
-                                $thumbUrl = $media['media_thumbnail']['@attributes']['url'] ?? null;
+                                if (isset($media['media_thumbnail']['@attributes']['url'])) {
+                                    $thumbUrl = $media['media_thumbnail']['@attributes']['url'];
+                                } elseif (isset($media['media_thumbnail']) && is_string($media['media_thumbnail'])) {
+                                    // Fallback, falls URL direkt drin steht (manchmal bei RSS der Fall)
+                                    $thumbUrl = $media['media_thumbnail'];
+                                }
 
                                 $pdfFileName = $baseFileName . '_' . $pageSuffix . '.pdf';
                                 $tempPdfPath = GeneralUtility::tempnam('rss_import_pdf_');
@@ -423,16 +441,6 @@ class ImportRssTask extends AbstractTask
                                 // FAL-Link für E-Mail-Report speichern ===
                                 $currentClippingData['files'][] = $newPdfFile->getPublicUrl();
 
-                                $thumbPublicUrl = '';
-                                if ($thumbUrl) {
-                                    $thumbExtension = pathinfo(parse_url($thumbUrl, PHP_URL_PATH), PATHINFO_EXTENSION) ?: 'jpg';
-                                    $thumbFileName = $baseFileName . '_' . $pageSuffix . '_thumb.' . $thumbExtension;
-                                    $tempThumbPath = GeneralUtility::tempnam('rss_import_thumb_');
-                                    $this->requestFactory->request($thumbUrl, 'GET', ['sink' => $tempThumbPath]);
-                                    $newThumbFile = $currentTargetFolder->addFile($tempThumbPath, $thumbFileName, \TYPO3\CMS\Core\Resource\DuplicationBehavior::RENAME);
-                                    $thumbPublicUrl = $newThumbFile->getPublicUrl();
-                                }
-
                                 $tempFileRefId = 'NEW_FILEREF_' . uniqid();
                                 $dataMapStep2['sys_file_reference'][$tempFileRefId] = [
                                     'uid_local' => $newPdfFile->getUid(),
@@ -441,9 +449,23 @@ class ImportRssTask extends AbstractTask
                                     'fieldname' => 'files',
                                     'pid' => $storagePid,
                                     'source' => 'APA Defacto',
-                                    'description' => $thumbPublicUrl,
-                                    'title' => $mediaTitle,
+                                    // Description (Thumb URL) tragen wir gleich unten nach, falls es klappt
+                                    'description' => '',
+                                    'title' => is_string($mediaTitle) ? $mediaTitle : '', // Sicherheits-Check nutzen
                                 ];
+
+                                $thumbPublicUrl = '';
+                                if ($thumbUrl) {
+                                    $thumbExtension = pathinfo(parse_url($thumbUrl, PHP_URL_PATH), PATHINFO_EXTENSION) ?: 'jpg';
+                                    $thumbFileName = $baseFileName . '_' . $pageSuffix . '_thumb.' . $thumbExtension;
+                                    $tempThumbPath = GeneralUtility::tempnam('rss_import_thumb_');
+                                    $this->requestFactory->request($thumbUrl, 'GET', ['sink' => $tempThumbPath]);
+                                    $newThumbFile = $currentTargetFolder->addFile($tempThumbPath, $thumbFileName, \TYPO3\CMS\Core\Resource\DuplicationBehavior::RENAME);
+                                    $thumbPublicUrl = $newThumbFile->getPublicUrl();
+
+                                    // URL nachträglich ins Array schreiben
+                                    $dataMapStep2['sys_file_reference'][$tempFileRefId]['description'] = $thumbPublicUrl;
+                                }
 
                             } catch (\Exception $e) {
                                 $this->logger->warning('FEHLER bei Datei-Download für Report UID ' . $newReportUid, ['exception' => $e]);
@@ -452,6 +474,44 @@ class ImportRssTask extends AbstractTask
                                     GeneralUtility::unlink_tempfile($tempPdfPath);
                                 if ($tempThumbPath && file_exists($tempThumbPath))
                                     GeneralUtility::unlink_tempfile($tempThumbPath);
+                            }
+                        }
+                    }
+
+                    // === NEUER FALLBACK: Wenn in media_content kein PDF war, aber ressource_pdflink existiert ===
+                    $fallbackPdfLink = $item['ressource_pdflink'] ?? null;
+
+                    // Prüfen: Haben wir noch keine Files gesammelt? Und gibt es den Link?
+                    if (empty($currentClippingData['files']) && !empty($fallbackPdfLink)) {
+                        try {
+                            $pdfFileName = $baseFileName . '_Fallback.pdf';
+                            $tempPdfPath = GeneralUtility::tempnam('rss_import_fallback_');
+
+                            // Download
+                            $this->requestFactory->request($fallbackPdfLink, 'GET', ['sink' => $tempPdfPath]);
+                            $newPdfFile = $currentTargetFolder->addFile($tempPdfPath, $pdfFileName, \TYPO3\CMS\Core\Resource\DuplicationBehavior::RENAME);
+
+                            // Ins Array für E-Mail
+                            $currentClippingData['files'][] = $newPdfFile->getPublicUrl();
+
+                            // ⚠️ FIX VOM VORHERIGEN SCHRITT (Sofort zuordnen)
+                            $tempFileRefId = 'NEW_FILEREF_' . uniqid();
+                            $dataMapStep2['sys_file_reference'][$tempFileRefId] = [
+                                'uid_local' => $newPdfFile->getUid(),
+                                'uid_foreign' => $newReportUid,
+                                'tablenames' => 'tx_publicrelations_domain_model_report',
+                                'fieldname' => 'files',
+                                'pid' => $storagePid,
+                                'source' => 'APA Defacto Fallback',
+                                'description' => '', // Fallback hat meist kein Thumb
+                                'title' => $itemTitle, // Nehmen wir den Artikeltitel
+                            ];
+
+                        } catch (\Exception $e) {
+                            $this->logger->warning('FEHLER bei Fallback-PDF Download für Report UID ' . $newReportUid, ['exception' => $e]);
+                        } finally {
+                            if (isset($tempPdfPath) && file_exists($tempPdfPath)) {
+                                GeneralUtility::unlink_tempfile($tempPdfPath);
                             }
                         }
                     }

@@ -760,6 +760,7 @@ class AccreditationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 'acc.middle_name',
                 'acc.last_name',
                 'acc.medium as company',
+                'acc.distribution_job',
                 'guest.uid AS guest_uid',
                 'guest.client AS guest_client',
                 'guest.title AS guest_title',
@@ -889,6 +890,15 @@ class AccreditationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             ->getQueryBuilderForTable('tx_publicrelations_domain_model_accreditation');
         $expr = $queryBuilder->expr();
 
+        // Subquery für das Kontingent aus der Event-Tabelle
+        $quotaSubquery = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable('tx_publicrelations_domain_model_event')
+            ->select('tickets_quota')
+            ->from('tx_publicrelations_domain_model_event')
+            ->where($expr->eq('uid', $queryBuilder->createNamedParameter($eventUid, Connection::PARAM_INT)))
+            ->setMaxResults(1)
+            ->getSQL();
+
         $queryBuilder
             ->selectLiteral(
                 // Zählt alle Gäste mit Status 1 oder 2
@@ -898,7 +908,8 @@ class AccreditationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 // Zählt alle Akkreditierungen mit Status 0
                 "COUNT(CASE WHEN status = 0 THEN 1 END) AS pending",
                 // Zählt alle Akkreditierungen mit Status -1
-                "COUNT(CASE WHEN status = -1 THEN 1 END) AS rejected"
+                "COUNT(CASE WHEN status = -1 THEN 1 END) AS rejected",
+                "($quotaSubquery) AS quota"
             )
             ->from('tx_publicrelations_domain_model_accreditation')
             ->where($expr->eq('event', $queryBuilder->createNamedParameter($eventUid, Connection::PARAM_INT)));
@@ -911,6 +922,7 @@ class AccreditationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             'tickets' => (int) ($stats['tickets'] ?? 0),
             'pending' => (int) ($stats['pending'] ?? 0),
             'rejected' => (int) ($stats['rejected'] ?? 0),
+            'quota' => (int) ($stats['quota'] ?? 0)
         ];
     }
 

@@ -10,6 +10,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 
 use BucheggerOnline\Publicrelations\Utility\MailGenerator;
 use BucheggerOnline\Publicrelations\Service\ContactService;
@@ -22,18 +23,23 @@ use BucheggerOnline\Publicrelations\Domain\Repository\ClientRepository;
 use BucheggerOnline\Publicrelations\Domain\Repository\EventRepository;
 use BucheggerOnline\Publicrelations\Domain\Repository\AccreditationRepository;
 use BucheggerOnline\Publicrelations\Domain\Repository\InvitationRepository;
+use Allegria\AcDistribution\Domain\Repository\JobRepository;
 
 use BucheggerOnline\Publicrelations\Domain\Model\Client;
 use BucheggerOnline\Publicrelations\Domain\Model\Event;
 use BucheggerOnline\Publicrelations\Domain\Model\Log;
 use BucheggerOnline\Publicrelations\Domain\Model\Accreditation;
 
+// Neue Services
+use BucheggerOnline\Publicrelations\Service\AccreditationService;
+use BucheggerOnline\Publicrelations\DataResolver\AccreditationDataResolver;
+use Allegria\AcDistribution\Service\DistributionService;
+
 /**
  * AjaxController
  */
 class AjaxController extends ActionController
 {
-    private MailGenerator $mailGenerator;
     private AccessClientRepository $accessClientRepository;
     private TtAddressRepository $ttAddressRepository;
     private SysCategoryRepository $sysCategoryRepository;
@@ -42,11 +48,13 @@ class AjaxController extends ActionController
     private EventRepository $eventRepository;
     private AccreditationRepository $accreditationRepository;
     private InvitationRepository $invitationRepository;
+    private JobRepository $jobRepository;
     private ContactService $contactService;
+    private AccreditationService $accreditationService;
+    private DistributionService $distributionService;
     private PersistenceManager $persistenceManager;
 
     public function __construct(
-        MailGenerator $mailGenerator,
         AccessClientRepository $accessClientRepository,
         TtAddressRepository $ttAddressRepository,
         SysCategoryRepository $sysCategoryRepository,
@@ -54,11 +62,13 @@ class AjaxController extends ActionController
         ClientRepository $clientRepository,
         EventRepository $eventRepository,
         AccreditationRepository $accreditationRepository,
+        JobRepository $jobRepository,
         InvitationRepository $invitationRepository,
         ContactService $contactService,
+        AccreditationService $accreditationService,
+        DistributionService $distributionService,
         PersistenceManager $persistenceManager
     ) {
-        $this->mailGenerator = $mailGenerator;
         $this->accessClientRepository = $accessClientRepository;
         $this->ttAddressRepository = $ttAddressRepository;
         $this->sysCategoryRepository = $sysCategoryRepository;
@@ -66,8 +76,11 @@ class AjaxController extends ActionController
         $this->clientRepository = $clientRepository;
         $this->eventRepository = $eventRepository;
         $this->accreditationRepository = $accreditationRepository;
+        $this->jobRepository = $jobRepository;
         $this->invitationRepository = $invitationRepository;
         $this->contactService = $contactService;
+        $this->accreditationService = $accreditationService;
+        $this->distributionService = $distributionService;
         $this->persistenceManager = $persistenceManager;
     }
 
@@ -838,74 +851,105 @@ class AjaxController extends ActionController
      */
     public function sendAccreditationMailAction(int $accreditation, string $mailCode): ResponseInterface
     {
+        /** @var Accreditation|null $accObject */
         $accObject = $this->accreditationRepository->findByUid($accreditation);
         if (!$accObject) {
-            return new JsonResponse(['error' => 'Accreditation not found'], 404);
+            return new JsonResponse(['error' => 'Akkreditierung nicht gefunden'], 404);
         }
 
-        // Sicherheitsprüfung: Hat der User die Berechtigung für dieses Event?
+        // 1. Sicherheitsprüfung
         $clientUid = $accObject->getEvent()->getClient()->getUid();
         $eventUid = $accObject->getEvent()->getUid();
         $accessMap = $this->getAccessMap();
         $eventAccess = $accessMap[$clientUid]['events'][$eventUid] ?? null;
         $accessLevel = $eventAccess['level'] ?? null;
+
         if ($accessLevel !== 'edit' && $accessLevel !== 'manage') {
-            return new JsonResponse(['error' => 'Access denied'], 403);
+            return new JsonResponse(['error' => 'Keine Berechtigung für diesen Vorgang'], 403);
         }
 
-        // 1. Definiere die Regeln für jeden Mail-Typ
-        $rules = match ($mailCode) {
-            'resend' => ['requiredInvitationStatus' => null, 'newInvitationStatus' => null, 'mailCode' => 'AI-Email-I1', 'logSubject' => 'Einladungskopie versandt'],
-            'invite' => ['requiredInvitationStatus' => 0, 'newInvitationStatus' => 1, 'mailCode' => 'AI-Email-I1', 'logSubject' => 'Einladung versandt'],
-            'remind' => ['requiredInvitationStatus' => 1, 'newInvitationStatus' => 2, 'mailCode' => 'AI-Email-I2', 'logSubject' => 'Erinnerung versandt'],
-            'push' => ['requiredInvitationStatus' => 2, 'newInvitationStatus' => 3, 'mailCode' => 'AI-Email-I3', 'logSubject' => 'Pusher versandt'],
-            'confirm' => ['requiredInvitationStatus' => null, 'newInvitationStatus' => null, 'mailCode' => 'AI-Email-A', 'logSubject' => 'Bestätigung versandt'],
-            'reject' => ['requiredInvitationStatus' => null, 'newInvitationStatus' => null, 'mailCode' => 'AI-Email-R', 'logSubject' => 'Absage versandt'],
-            default => null,
-        };
-
-        if ($rules === null) {
-            return new JsonResponse(['error' => 'Unbekannter Mail-Typ'], 400);
+        // 2. Validierung der Aktion (Ist der Status-Übergang logisch erlaubt?)
+        // Wir nutzen den AccreditationService, um die Logik zentral zu halten.
+        if (!$this->accreditationService->isValidStatusTransition($accObject, $mailCode)) {
+            return new JsonResponse(['error' => 'Aktion für den aktuellen Status nicht erlaubt.'], 409);
         }
 
-        // 2. Prüfe, ob die Status-Änderung erlaubt ist
-        if ($rules['requiredInvitationStatus'] !== null && $accObject->getInvitationStatus() !== $rules['requiredInvitationStatus']) {
-            return new JsonResponse(['error' => 'Aktion für den aktuellen Status nicht erlaubt.'], 409); // 409 Conflict
+        // 3. Prüfung auf bereits laufende Jobs
+        if ($accObject->getDistributionJob() > 0) {
+            return new JsonResponse(['error' => 'Ein Versand für diesen Gast ist bereits in Vorbereitung.'], 409);
         }
 
-        // 3. Setze den neuen Status, falls einer definiert ist
-        if ($rules['newInvitationStatus'] !== null) {
-            $accObject->setInvitationStatus($rules['newInvitationStatus']);
+        $feUsername = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('frontend.user', 'username', 'Unbekannt');
+
+        try {
+            // 4. Kontext für den DistributionService bauen
+            $context = [
+                'dataSource' => [
+                    'function' => $mailCode, // invite, remind, approve, etc.
+                    'dataResolverClass' => AccreditationDataResolver::class,
+                    'uids' => [$accObject->getUid()]
+                ],
+                'context' => 'Frontend-Versand durch ' . $feUsername . ': ' . $mailCode . ' zu Event – ' . $accObject->getEvent()->getTitle(),
+                'sender_profile' => 1, // Standardprofil
+                'report' => [
+                    'no_report' => true // Im Frontend brauchen wir keinen Einzel-Report pro Klick
+                ]
+            ];
+
+            // 5. Versand anstoßen
+            // Da wir im Frontend (isLoggedIn FE) sind, gibt der Service automatisch 'queued' zurück
+            $dispatchResult = $this->distributionService->send($context);
+
+            if ($dispatchResult['status'] === 'queued') {
+                $jobUid = (int) $dispatchResult['job_uid'];
+                $distributionJob = $this->jobRepository->findByUid($jobUid);
+
+                // 6. Lokale Akkreditierung sperren (Job-ID hinterlegen)
+                // Wir ändern NICHT den Einladungs-Status, das macht der Worker nach Erfolg!
+                $accObject->setDistributionJob($distributionJob);
+
+                // 7. Log für den angestoßenen Prozess erstellen
+                $logData = $this->accreditationService->prepareLogData($accObject, 'A-job-created', [
+                    'jobUid' => $jobUid
+                ]);
+
+                $log = new Log();
+                $log->setCrdate(new \DateTime());
+                $log->setTstamp(new \DateTime());
+                $log->setCode($logData['code']);
+                $log->setFunction($logData['function']);
+                $log->setSubject($logData['details']);
+                $log->setNotes('Versand von "' . $mailCode . '" durch ' . $feUsername . ' eingeplant.');
+                $log->setAccreditation($accObject);
+                $this->logRepository->add($log);
+
+                // Speichern
+                $this->accreditationRepository->update($accObject);
+                $this->persistenceManager->persistAll();
+
+                return new JsonResponse([
+                    'success' => true,
+                    'message' => 'Der Versand der E-Mail wurde eingeplant – die Zustellung erfolgt in den nächsten Minuten.'
+                ]);
+            }
+
+            return new JsonResponse(['error' => 'Job konnte nicht erstellt werden: ' . ($dispatchResult['message'] ?? 'Unbekannter Fehler')], 500);
+
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'Systemfehler beim Versand: ' . $e->getMessage()], 500);
         }
-
-        $context = GeneralUtility::makeInstance(Context::class);
-        $feUsername = $context->getPropertyFromAspect('frontend.user', 'username');
-
-        $log = new Log();
-        $log->setCrdate(new \DateTime());
-        $log->setTstamp(new \DateTime());
-        $log->setCode('FE_send-mail');
-        $log->setFunction($mailCode);
-        $log->setSubject($rules['logSubject'] . ' durch ' . $feUsername);
-        $log->setAccreditation($accObject);
-        $this->logRepository->add($log);
-
-        // 5. Rufe den MailGenerator auf. Er kümmert sich um den Versand und das finale Speichern des geänderten Objekts.
-        $this->mailGenerator->createAccreditationMail($rules['mailCode'], $accObject, $this->settings);
-
-        return new JsonResponse(['success' => true, 'message' => 'E-Mail wurde versandt.']);
     }
 
     // Private Hilfsfunktion, um guest_type zu mappen
     private function mapGuestType(int $type): string
     {
         return match ($type) {
-            1 => '',
-            2 => 'Presse',
+            1 => 'VIP',
+            2 => 'Press',
             6 => 'Talent',
             3 => 'Gewinner',
             4 => '',
-            5 => 'Personal',
+            5 => 'Staff',
             default => 'Unbekannt',
         };
     }

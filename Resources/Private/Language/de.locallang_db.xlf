@@ -80,7 +80,7 @@
 				<target state="translated">Bitte wählen...</target>
 			</trans-unit>
 			<trans-unit id="tx_publicrelations_general.field.logo" resname="tx_publicrelations_general.field.logo">
-				<target state="translated">Logo</target>
+				<target state="translated">Logo / Sujet</target>
 			</trans-unit>
 			<trans-unit id="tx_publicrelations_general.field.logo_email" resname="tx_publicrelations_general.field.logo_email">
 				<source>Mailing-Crop</source>
@@ -426,8 +426,8 @@
 				<target state="translated">Foto zur Einladung</target>
 			</trans-unit>
 			<trans-unit id="tx_publicrelations_domain_model_event.invitation_logo" resname="tx_publicrelations_domain_model_event.invitation_logo">
-				<source>Invitation Logo Overwrite</source>
-				<target state="translated">Logo zur Einladung überschreiben</target>
+				<source>Invitation Logo/Sujet Overwrite</source>
+				<target state="translated">Logo/Sujet zur Einladung überschreiben</target>
 			</trans-unit>
 			<trans-unit id="tx_publicrelations_domain_model_event.invitation_report_stop" resname="tx_publicrelations_domain_model_event.invitation_report_stop">
 				<source>Invitation Report Stop (in Hours)</source>

@@ -89,7 +89,7 @@
 				<source>Please select...</source>
 			</trans-unit>
 			<trans-unit id="tx_publicrelations_general.field.logo" resname="tx_publicrelations_general.field.logo">
-				<source>Logo</source>
+				<source>Logo / Sujet</source>
 			</trans-unit>
 			<trans-unit id="tx_publicrelations_general.field.logo_email" resname="tx_publicrelations_general.field.logo_email">
 				<source>Mailing-Crop</source>
