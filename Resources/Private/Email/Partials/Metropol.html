@@ -1,16 +1,9 @@
-<f:section name="preview">
-    <!-- Visually Hidden Preheader Text : BEGIN -->
-    <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: 'Roboto Slab', sans-serif">
-    <f:switch expression="{content}">
-        <f:case value="invite">Das WIENER METROPOL präsentiert: {accreditation.event.title}. Ihre persönliche Einladung!</f:case>
-        <f:case value="remind">Nicht verpassen! Das WIENER METROPOL präsentiert: {accreditation.event.title}. Ihre persönliche Einladung!</f:case>
-        <f:case value="push">Letzte Chance! Das WIENER METROPOL präsentiert: {accreditation.event.title}. Ihre persönliche Einladung!</f:case>
-        <f:case value="approve">Wie schön, dass wir Sie demnächst bei {accreditation.event.title} begrüßen dürfen.</f:case>
-        <f:case value="reject">Schade, dass es nicht klappt. Das WIENER METROPOL würde sich über einen baldigen Besuch freuen.</f:case>
-    </f:switch>
-    </div>
-    <!-- Visually Hidden Preheader Text : END --> 
-</f:section>
+<html
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mb="http://typo3.org/ns/BucheggerOnline/Publicrelations/ViewHelpers"
+  xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+  xmlns:acdist="http://typo3.org/ns/Allegria/AcDistribution/ViewHelpers"
+  data-namespace-typo3-fluid="true">
 
 <f:section name="headline">
 <f:switch expression="{content}">
@@ -125,7 +118,9 @@
 <f:if condition="{accreditation.invitationType.header}">
 <!-- Header-Foto : BEGIN -->
 <tr>
-    <td class="full-width-image"><p style="line-height: 0; margin: 0;"><f:image image="{accreditation.invitationType.header}" width="600c" height="auto" style="width: 100%; max-width: 600px; height: auto; border: none;" absolute="1" /></p></td>
+    <td class="full-width-image"><p style="line-height: 0; margin: 0;">
+        <acdist:absoluteImage image="{accreditation.invitationType.header}" width="600" height="auto" class="fluid" style="width: 100%; max-width: 600px; height: auto; border: none;" />
+    </p></td>
 </tr>
 <!-- Header-Foto : END --> 
 </f:if>
@@ -253,3 +248,5 @@
 </table>
 <!-- Button : END -->
 </f:section>
+
+</html>

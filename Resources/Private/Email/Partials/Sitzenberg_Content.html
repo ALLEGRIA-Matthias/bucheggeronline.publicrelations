@@ -165,7 +165,7 @@
         <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
             <tr>
             <td style="border-radius: 0 10px; background: #009de0; text-align: center;" class="button-td">
-                <a href="###TICKET_LINK### style="background: #009de0; border: 8px solid #009de0; padding: 0 10px; color: #ffffff; font-family: sans-serif; font-size: 1rem; line-height: 1.4; text-align: center; text-decoration: none; text-transform: uppercase; display: block; border-radius: 20px; font-weight: 700;'}" class="button-a">
+                <a href="###TICKET_LINK###" style="background: #009de0; border: 8px solid #009de0; padding: 0 10px; color: #ffffff; font-family: sans-serif; font-size: 1rem; line-height: 1.4; text-align: center; text-decoration: none; text-transform: uppercase; display: block; border-radius: 20px; font-weight: 700;" class="button-a">
                     <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Jetzt rückmelden!<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
                 </a></td>
           </tr>
@@ -225,7 +225,7 @@
                 <p style="margin: 0; margin-top: 10px; font-family: 'Source Sans', sans-serif; font-size: 0.65rem; color: #000000;"><span style="font-size: 0.8rem;">Akkreditierung Nr. <strong>#{accreditation.uid}</strong></span><br>Am {f:format.date(date:'now', format: 'd.m.Y')} um {f:format.date(date:'now', format: 'H:i')} Uhr gesendet.</p>
             </div>
             <p style="font-size: 1rem;">Die Ausgabe der Karten findet ab <f:format.date date="{accreditation.event.date->f:format.date(format:'%k.%M')} - 1 hour" format="%k.%M Uhr" /> am Empfang statt.</p>
-            <f:if condition="{accreditation.guestType}==2"><h3 style="font-family: 'Source Sans', sans-serif; font-weight: 600; font-size: 1.4rem; text-align: center; color: #009de0; margin-bottom: 0; margin-top: 40px;">Pressematerial</h3><p style="font-size: 0.9rem;">Pressematerial zur redaktionellen Berichterstattung finden Sie <f:link.typolink absolute="1" parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={accreditation.event.campaign.uid}" absolute="1">HIER</a>!<br>Wir freuen uns auf Ihren Beitrag!</p></f:if>
+            <f:if condition="{accreditation.guestType}==2"><h3 style="font-family: 'Source Sans', sans-serif; font-weight: 600; font-size: 1.4rem; text-align: center; color: #009de0; margin-bottom: 0; margin-top: 40px;">Pressematerial</h3><p style="font-size: 0.9rem;">Pressematerial zur redaktionellen Berichterstattung finden Sie <f:link.typolink absolute="1" parameter="39" additionalParams="&tx_publicrelations_clientshow[controller]=Campaign&tx_publicrelations_clientshow[action]=show&tx_publicrelations_clientshow[campaign]={accreditation.event.campaign.uid}" absolute="1">HIER</f:link.typolink>!<br>Wir freuen uns auf Ihren Beitrag!</p></f:if>
         </td>
     </tr>
     <!-- 1 Column Approval : END -->

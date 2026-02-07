@@ -1149,9 +1149,18 @@ Otherwise your changes will be overwritten the next time you save the extension 
                                 </f:then>
                                 <f:else>
                                 <div class="alert alert-danger">
-                                    <h4>Gästeliste bereits vorbereitet</h4>
-                                    <p>Leider ist es nicht mehr möglich eine Rückmeldung zu geben, die Gästeliste wurde bereits vorbereitet. Gerne <f:if condition="{accreditation.guest.personally}"><f:then>kannst du</f:then><f:else>können Sie</f:else></f:if> uns telefonisch bzw. via Email kontaktieren, evtl. ist es noch kurzfristig möglich <f:if condition="{accreditation.guest.personally}"><f:then>dich</f:then><f:else>Sie</f:else></f:if> auf die Gästeliste zu schreiben.</p>
-                                    <p>Danke für <f:if condition="{accreditation.guest.personally}"><f:then>dein</f:then><f:else>Ihr</f:else></f:if> Verständnis.</p>
+                                    <f:switch expression="{accreditation.event.uid}">
+                                        <f:case value="4963">
+                                            <h4>Gästeliste bereits vorbereitet</h4>
+                                            <p>Leider ist es nicht mehr möglich eine Rückmeldung zu geben, die Gästeliste wurde bereits vorbereitet. Gerne können Sie unser zuständiges Team unter <a href="mailto:office@beeck-kommunikation.de?subject=R%C3%BCckfrage%20zur%20Akkreditierung%20{accreditation.uid}%20zu%20Cirque%20du%20Soleils%20ALEGR%C3%8DA%20in%20M%C3%BCnchen" target="_blank" class="text-danger" style="font-weight: bold">office@beeck-kommunikation.de</a> bzw. telefonisch unter <a href="mailto:00491775442170" target="_blank" class="text-danger" style="font-weight: bold">+49 177 / 544 21 70</a> kontaktieren, evtl. ist es noch kurzfristig möglich Sie auf die Gästeliste zu schreiben.</p>
+                                            <p>Danke für Ihr Verständnis.</p>
+                                        </f:case>
+                                        <f:defaultCase>
+                                            <h4>Gästeliste bereits vorbereitet</h4>
+                                            <p>Leider ist es nicht mehr möglich eine Rückmeldung zu geben, die Gästeliste wurde bereits vorbereitet. Gerne <f:if condition="{accreditation.guest.personally}"><f:then>kannst du</f:then><f:else>können Sie</f:else></f:if> uns telefonisch bzw. via Email kontaktieren, evtl. ist es noch kurzfristig möglich <f:if condition="{accreditation.guest.personally}"><f:then>dich</f:then><f:else>Sie</f:else></f:if> auf die Gästeliste zu schreiben.</p>
+                                            <p>Danke für <f:if condition="{accreditation.guest.personally}"><f:then>dein</f:then><f:else>Ihr</f:else></f:if> Verständnis.</p>
+                                        </f:defaultCase>
+                                    </f:switch>
                                 </div>
                                 </f:else>
                             </f:if>
