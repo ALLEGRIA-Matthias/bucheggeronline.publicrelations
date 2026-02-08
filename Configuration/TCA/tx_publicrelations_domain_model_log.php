@@ -119,7 +119,7 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'foreign_table' => 'tt_address',
+                'foreign_table' => 'ac_contact',
                 'maxitems' => 1,
                 'readOnly' => true,
             ],

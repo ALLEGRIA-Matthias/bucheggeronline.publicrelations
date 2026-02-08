@@ -89,8 +89,8 @@ return [
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
-                'allowed' => 'tt_address',
-                'foreign_table' => 'tt_address',
+                'allowed' => 'ac_contact',
+                'foreign_table' => 'ac_contact',
                 'size' => 1,
                 'minitems' => 0,
                 'maxitems' => 1,

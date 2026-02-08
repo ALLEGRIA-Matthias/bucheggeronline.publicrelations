@@ -11,7 +11,7 @@ use BucheggerOnline\Publicrelations\Domain\Model\TtAddress;
 use BucheggerOnline\Publicrelations\Domain\Repository\TtAddressRepository as BackendTtAddressRepository;
 
 /**
- * Repository für Frontend-spezifische Kontakt-Abfragen (tt_address)
+ * Repository für Frontend-spezifische Kontakt-Abfragen (ac_contact)
  */
 class TtAddressRepository extends BackendTtAddressRepository
 {
@@ -28,7 +28,7 @@ class TtAddressRepository extends BackendTtAddressRepository
     public function findByClient($client, string $search = '', int $mailinglist = 0): array
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
-            ->getQueryBuilderForTable('tt_address');
+            ->getQueryBuilderForTable('ac_contact');
 
         // Die Spalten, die wir für die Anzeige benötigen
         $queryBuilder->select(
@@ -44,7 +44,7 @@ class TtAddressRepository extends BackendTtAddressRepository
             'company',
             'position',
             'mailing_exclude'
-        )->from('tt_address');
+        )->from('ac_contact');
 
         // Basis-Bedingung: Nur Kontakte des aktuellen Kunden
         $queryBuilder->where(
@@ -118,7 +118,7 @@ class TtAddressRepository extends BackendTtAddressRepository
                 // --- HIER IST DIE KORREKTUR ---
                 // Wir filtern nach der lokalen UID (dem Kontakt), nicht der fremden UID.
                 $queryBuilder->expr()->in('mm.uid_local', $queryBuilder->createNamedParameter($contactUids, Connection::PARAM_INT_ARRAY)),
-                $queryBuilder->expr()->eq('mm.tablenames', $queryBuilder->createNamedParameter('tt_address')),
+                $queryBuilder->expr()->eq('mm.tablenames', $queryBuilder->createNamedParameter('ac_contact')),
                 $queryBuilder->expr()->eq('mm.fieldname', $queryBuilder->createNamedParameter('categories'))
             )
             ->executeQuery()

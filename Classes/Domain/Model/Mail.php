@@ -68,7 +68,7 @@ class Mail extends AbstractEntity
     /**
      * receiver
      *
-     * @var \BucheggerOnline\Publicrelations\Domain\Model\TtAddress
+     * @var \Allegria\AcContacts\Domain\Model\Contact
      */
     protected $receiver;
 
@@ -307,7 +307,7 @@ class Mail extends AbstractEntity
     /**
      * Returns the receiver
      *
-     * @param \BucheggerOnline\Publicrelations\Domain\Model\TtAddress $receiver
+     * @param \Allegria\AcContacts\Domain\Model\Contact $receiver
      * @return void
      */
     public function getReceiver()
@@ -320,7 +320,7 @@ class Mail extends AbstractEntity
      *
      * @return void
      */
-    public function setReceiver(\BucheggerOnline\Publicrelations\Domain\Model\TtAddress $receiver)
+    public function setReceiver(\Allegria\AcContacts\Domain\Model\Contact $receiver)
     {
         $this->receiver = $receiver;
     }

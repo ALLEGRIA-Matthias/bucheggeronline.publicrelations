@@ -99,7 +99,7 @@
   </a>
   <f:if condition="{accreditation.guest}">
     <f:then>
-      <be:link.editRecord uid="{accreditation.guest.uid}" table="tt_address" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&action=show&controller=Event&event={accreditation.event.uid}')}" class="btn btn-default btn-sm" additionalAttributes="{data-toggle:'tooltip', data-placement:'top'}" title="Kontakt bearbeiten">
+      <be:link.editRecord uid="{accreditation.guest.uid}" table="ac_contact" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', query:'&action=show&controller=Event&event={accreditation.event.uid}')}" class="btn btn-default btn-sm" additionalAttributes="{data-toggle:'tooltip', data-placement:'top'}" title="Kontakt bearbeiten">
       <span class="t3js-icon icon icon-size-small icon-state-default">
         <span class="icon-markup">
           <svg class="icon-color"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-squared"></use></svg>

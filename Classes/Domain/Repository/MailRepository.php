@@ -109,7 +109,7 @@ class MailRepository extends Repository
      * Findet die UIDs von Empfänger:innen, die bereits einem Mailing zugewiesen wurden.
      * Nutzt den QueryBuilder für optimale Performance.
      *
-     * @param array $receiverUids Array von TtAddress UIDs.
+     * @param array $receiverUids Array von AcContact UIDs.
      * @param int $mailingUid UID des Mailings.
      * @return array Ein Array von UIDs der bereits zugewiesenen Empfänger:innen.
      */
@@ -221,7 +221,7 @@ class MailRepository extends Repository
         $query->matching(
             $query->logicalAnd(...[
                 $query->equals('mailing', $mailingUid),
-                $query->in('receiver.uid', $receiverUids) // Greift auf die UID des TtAddress-Objekts zu
+                $query->in('receiver.uid', $receiverUids) // Greift auf die UID des AcContact-Objekts zu
             ])
         );
 

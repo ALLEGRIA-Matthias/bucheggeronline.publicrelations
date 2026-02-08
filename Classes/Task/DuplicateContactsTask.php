@@ -75,9 +75,9 @@ class DuplicateContactsTask extends AbstractTask
         }
 
         // 1. Alle Daten der Duplikat-Gruppe holen und nach Erstellungsdatum sortieren (neueste zuerst)
-        $qb = $this->connectionPool->getQueryBuilderForTable('tt_address');
+        $qb = $this->connectionPool->getQueryBuilderForTable('ac_contact');
         $allDuplicatesData = $qb->select('*') // Wichtig: Alle Spalten holen für die Anreicherung
-            ->from('tt_address')
+            ->from('ac_contact')
             ->where($qb->expr()->in('uid', $duplicateUids))
             ->orderBy('crdate', 'DESC')
             ->executeQuery()
@@ -153,12 +153,12 @@ class DuplicateContactsTask extends AbstractTask
         // --- PHASE 3: Duplikate markieren (1. DataHandler-Lauf: NUR UPDATES) ---
         $this->logger->error('    -> Setze Verweise (duplicate_of)...');
         $updateDataMap = [];
-        $updateDataMap['tt_address'][(int) $masterUid] = [
+        $updateDataMap['ac_contact'][(int) $masterUid] = [
             'pid' => $masterPid,
             'duplicates' => implode(',', $uidsToDelete),
         ];
         foreach ($uidsToDelete as $deletedUid) {
-            $updateDataMap['tt_address'][(int) $deletedUid] = [
+            $updateDataMap['ac_contact'][(int) $deletedUid] = [
                 'pid' => $pidsOfDuplicates[$deletedUid],
                 'duplicate_of' => $masterUid,
             ];
@@ -178,7 +178,7 @@ class DuplicateContactsTask extends AbstractTask
         $this->logger->error('    -> Lösche Duplikate...');
         $deleteCmdMap = [];
         foreach ($uidsToDelete as $deletedUid) {
-            $deleteCmdMap['tt_address'][(int) $deletedUid]['delete'] = true;
+            $deleteCmdMap['ac_contact'][(int) $deletedUid]['delete'] = true;
         }
 
         $deleteHandler = GeneralUtility::makeInstance(DataHandler::class);
@@ -196,7 +196,7 @@ class DuplicateContactsTask extends AbstractTask
      *
      * @param string $tableName Die MM- oder FAL-Tabelle
      * @param string $relationKeyColumn Die Spalte, die die ID der Relation selbst enthält (z.B. Kategorie-UID)
-     * @param string $recordUidColumn Die Spalte, die die UID des tt_address-Kontakts enthält
+     * @param string $recordUidColumn Die Spalte, die die UID des ac_contact-Kontakts enthält
      * @param int $masterUid Die UID des Master-Kontakts
      * @param array $uidsToDelete Array mit den UIDs der zu löschenden Kontakte
      */
@@ -252,10 +252,10 @@ class DuplicateContactsTask extends AbstractTask
     {
         $allGroups = [];
         // Interne
-        $qb_internal = $this->connectionPool->getQueryBuilderForTable('tt_address');
+        $qb_internal = $this->connectionPool->getQueryBuilderForTable('ac_contact');
         $internalDuplicates = $qb_internal
             ->selectLiteral('GROUP_CONCAT(uid) AS uids')
-            ->from('tt_address')
+            ->from('ac_contact')
             ->where(
                 $qb_internal->expr()->eq('deleted', 0),
                 $qb_internal->expr()->neq('email', $qb_internal->createNamedParameter('')),
@@ -272,17 +272,17 @@ class DuplicateContactsTask extends AbstractTask
         // Pro Kunde
         // BITTE PRÜFEN: Dies ist eine Annahme für den Namen deiner Kundentabelle.
         $clientTableName = 'tx_publicrelations_domain_model_client';
-        $clientQueryBuilder = $this->connectionPool->getQueryBuilderForTable('tt_address');
-        $clients = $clientQueryBuilder->select('c.uid')->from('tt_address', 't')
+        $clientQueryBuilder = $this->connectionPool->getQueryBuilderForTable('ac_contact');
+        $clients = $clientQueryBuilder->select('c.uid')->from('ac_contact', 't')
             ->join('t', $clientTableName, 'c', $clientQueryBuilder->expr()->eq('t.client', $clientQueryBuilder->quoteIdentifier('c.uid')))
             ->where($clientQueryBuilder->expr()->gt('t.client', 0), $clientQueryBuilder->expr()->eq('t.deleted', 0))
             ->distinct()->executeQuery()->fetchFirstColumn();
 
         foreach ($clients as $clientId) {
-            $qb_client = $this->connectionPool->getQueryBuilderForTable('tt_address');
+            $qb_client = $this->connectionPool->getQueryBuilderForTable('ac_contact');
             $clientDuplicates = $qb_client
                 ->selectLiteral('GROUP_CONCAT(uid) AS uids')
-                ->from('tt_address')
+                ->from('ac_contact')
                 ->where(
                     $qb_client->expr()->eq('deleted', 0),
                     $qb_client->expr()->neq('email', $qb_client->createNamedParameter('')),
@@ -346,7 +346,7 @@ class DuplicateContactsTask extends AbstractTask
     private function findInternalDuplicatesByEmail($fileHandle): void
     {
         $this->logger->error('Phase 1: Suche Duplikate bei internen Kontakten (ohne Kunde)...');
-        $queryBuilder = $this->connectionPool->getQueryBuilderForTable('tt_address');
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable('ac_contact');
 
         $duplicates = $queryBuilder
             ->select('email')
@@ -354,7 +354,7 @@ class DuplicateContactsTask extends AbstractTask
                 'COUNT(uid) AS count',
                 'GROUP_CONCAT(uid ORDER BY uid) AS uids'
             )
-            ->from('tt_address')
+            ->from('ac_contact')
             ->where(
                 $queryBuilder->expr()->eq('deleted', 0),
                 $queryBuilder->expr()->neq('email', $queryBuilder->createNamedParameter('')),
@@ -380,11 +380,11 @@ class DuplicateContactsTask extends AbstractTask
     private function findInternalDuplicatesByName($fileHandle): void
     {
         $this->logger->error('Phase 1/Name: Suche Duplikate bei internen Kontakten...');
-        $queryBuilder = $this->connectionPool->getQueryBuilderForTable('tt_address');
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable('ac_contact');
         $duplicates = $queryBuilder
             ->select('email', 'first_name', 'last_name') // NEU: Namen auswählen
             ->addSelectLiteral('COUNT(uid) AS count', 'GROUP_CONCAT(uid) AS uids')
-            ->from('tt_address')
+            ->from('ac_contact')
             ->where(
                 $queryBuilder->expr()->eq('deleted', 0),
                 $queryBuilder->expr()->neq('email', $queryBuilder->createNamedParameter('')),
@@ -416,14 +416,14 @@ class DuplicateContactsTask extends AbstractTask
         $this->logger->error('Phase 2: Suche Duplikate pro Kunde...');
 
         // KORREKTUR: Ersetze die alten Abfragen durch einen JOIN, um den echten Kundennamen zu holen.
-        $clientQueryBuilder = $this->connectionPool->getQueryBuilderForTable('tt_address');
+        $clientQueryBuilder = $this->connectionPool->getQueryBuilderForTable('ac_contact');
 
         // WICHTIGE ANNAHME: Bitte den Tabellennamen für deine Kunden hier prüfen und ggf. anpassen!
         $clientTableName = 'tx_publicrelations_domain_model_client';
 
         $clients = $clientQueryBuilder
             ->select('c.uid', 'c.name')
-            ->from('tt_address', 't')
+            ->from('ac_contact', 't')
             ->join(
                 't',
                 $clientTableName,
@@ -449,14 +449,14 @@ class DuplicateContactsTask extends AbstractTask
             $clientLabel = sprintf('%s [%d]', $clientName, $clientId);
             $this->logger->error(sprintf('--> Prüfe Kunde: %s', $clientLabel));
 
-            $clientDuplicatesQb = $this->connectionPool->getQueryBuilderForTable('tt_address');
+            $clientDuplicatesQb = $this->connectionPool->getQueryBuilderForTable('ac_contact');
             $duplicates = $clientDuplicatesQb
                 ->select('email')
                 ->addSelectLiteral(
                     'COUNT(uid) AS count',
                     'GROUP_CONCAT(uid ORDER BY uid) AS uids'
                 )
-                ->from('tt_address')
+                ->from('ac_contact')
                 ->where(
                     $clientDuplicatesQb->expr()->eq('deleted', 0),
                     $clientDuplicatesQb->expr()->neq('email', $clientDuplicatesQb->createNamedParameter('')),
@@ -483,7 +483,7 @@ class DuplicateContactsTask extends AbstractTask
     private function findClientDuplicatesByName($fileHandle): void
     {
         $this->logger->error('Phase 2/Name: Suche Duplikate pro Kunde...');
-        $clientQueryBuilder = $this->connectionPool->getQueryBuilderForTable('tt_address');
+        $clientQueryBuilder = $this->connectionPool->getQueryBuilderForTable('ac_contact');
 
         // BITTE PRÜFEN: Dies ist eine Annahme für den Namen deiner Kundentabelle.
         $clientTableName = 'tx_publicrelations_domain_model_client';
@@ -491,7 +491,7 @@ class DuplicateContactsTask extends AbstractTask
         // Schritt 1: Hole alle Kunden (UID und Name), die Kontakten zugeordnet sind.
         $clients = $clientQueryBuilder
             ->select('c.uid', 'c.name')
-            ->from('tt_address', 't')
+            ->from('ac_contact', 't')
             ->join(
                 't',
                 $clientTableName,
@@ -516,14 +516,14 @@ class DuplicateContactsTask extends AbstractTask
             $clientLabel = sprintf('%s [%d]', $clientName, $clientId);
             $this->logger->error(sprintf('--> Prüfe Kunde (Name): %s', $clientLabel));
 
-            $clientDuplicatesQb = $this->connectionPool->getQueryBuilderForTable('tt_address');
+            $clientDuplicatesQb = $this->connectionPool->getQueryBuilderForTable('ac_contact');
             $duplicates = $clientDuplicatesQb
                 ->select('email', 'first_name', 'last_name')
                 ->addSelectLiteral(
                     'COUNT(uid) AS count',
                     'GROUP_CONCAT(uid) AS uids'
                 )
-                ->from('tt_address')
+                ->from('ac_contact')
                 ->where(
                     $clientDuplicatesQb->expr()->eq('deleted', 0),
                     $clientDuplicatesQb->expr()->neq('email', $clientDuplicatesQb->createNamedParameter('')),

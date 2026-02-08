@@ -35,7 +35,7 @@ class Contact extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * staff
      *
-     * @var \FriendsOfTYPO3\TtAddress\Domain\Model\Address
+     * @var \Allegria\AcContacts\Domain\Model\Contact
      */
     protected $staff;
 
@@ -134,27 +134,27 @@ class Contact extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         if ($this->types->count() && $this->getTypesOverwrite()) {
 
-          foreach ($this->types as $type)
-          $typesOutput[] = $type->getTitle();
+            foreach ($this->types as $type)
+                $typesOutput[] = $type->getTitle();
 
-          $typesOutput = array_filter($typesOutput);
-          $typeOverwrites = array_map('trim', explode("\n",$this->getTypesOverwrite()));
-          $typeOverwrites = array_filter($typeOverwrites);
+            $typesOutput = array_filter($typesOutput);
+            $typeOverwrites = array_map('trim', explode("\n", $this->getTypesOverwrite()));
+            $typeOverwrites = array_filter($typeOverwrites);
 
-          $output = array_replace($typesOutput, $typeOverwrites);
+            $output = array_replace($typesOutput, $typeOverwrites);
 
         } elseif ($this->types->count()) {
 
-          foreach ($this->types as $type)
-          $output[] = $type->getTitle();
+            foreach ($this->types as $type)
+                $output[] = $type->getTitle();
 
         } elseif ($this->getTypesOverwrite()) {
 
-          $output = array_map('trim', explode("\n",$this->getTypesOverwrite()));
+            $output = array_map('trim', explode("\n", $this->getTypesOverwrite()));
 
         } else {
 
-          $output = NULL;
+            $output = NULL;
 
         }
 
@@ -164,7 +164,7 @@ class Contact extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the staff
      *
-     * @return \FriendsOfTYPO3\TtAddress\Domain\Model\Address staff
+     * @return \Allegria\AcContacts\Domain\Model\Contact staff
      */
     public function getStaff()
     {

@@ -89,7 +89,7 @@
           </f:if>
         </td>
         <td>
-          <be:link.editRecord uid="{contact.uid}" table="tt_address" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', arguments:'{id:2}', query:'&tx_publicrelations_contacts[action]=imported&tx_publicrelations_contacts[controller]=Contact')}" class="btn btn-default btn-sm"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg></be:link.editRecord>
+          <be:link.editRecord uid="{contact.uid}" table="ac_contact" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', arguments:'{id:2}', query:'&tx_publicrelations_contacts[action]=imported&tx_publicrelations_contacts[controller]=Contact')}" class="btn btn-default btn-sm"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg></be:link.editRecord>
           <f:link.action action="finisher" arguments="{function:'delete', uid:contact.uid}" class="btn btn-danger btn-sm"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#bin"></use></svg></f:link.action>
         </td>
         <td class="{f:if(condition: '{contact.categories}', else: 'danger')}">
@@ -118,7 +118,7 @@
         <tr class="info">
           <td><svg class="icon fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#axes-two-dimensional"></use></svg></td>
           <td></td>
-          <td><be:link.editRecord uid="{duplicate.uid}" table="tt_address" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', arguments:'{id:2}', query:'&tx_publicrelations_contacts[action]=imported&tx_publicrelations_contacts[controller]=Contact')}" class="btn btn-default btn-sm"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg></be:link.editRecord></td>
+          <td><be:link.editRecord uid="{duplicate.uid}" table="ac_contact" returnUrl="{be:moduleLink(route: 'allegria_eventcenter', arguments:'{id:2}', query:'&tx_publicrelations_contacts[action]=imported&tx_publicrelations_contacts[controller]=Contact')}" class="btn btn-default btn-sm"><svg class="icon icon-sm fill-dark"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#pencil"></use></svg></be:link.editRecord></td>
           <td>
             <f:for each="{duplicate.categories}" as="category">{category.title}<br></f:for>
           </td>

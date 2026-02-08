@@ -65,7 +65,7 @@ class AssignClientContactsTask extends AbstractTask
             ->from('sys_category_record_mm', 'mm')
             ->join(
                 'mm',
-                'tt_address',
+                'ac_contact',
                 't',
                 $relationsQueryBuilder->expr()->eq('t.uid', $relationsQueryBuilder->quoteIdentifier('mm.uid_foreign'))
             )
@@ -76,7 +76,7 @@ class AssignClientContactsTask extends AbstractTask
                 $relationsQueryBuilder->expr()->eq('c.uid', $relationsQueryBuilder->quoteIdentifier('mm.uid_local'))
             )
             ->where(
-                $relationsQueryBuilder->expr()->eq('mm.tablenames', $relationsQueryBuilder->createNamedParameter('tt_address')),
+                $relationsQueryBuilder->expr()->eq('mm.tablenames', $relationsQueryBuilder->createNamedParameter('ac_contact')),
                 $relationsQueryBuilder->expr()->eq('mm.fieldname', $relationsQueryBuilder->createNamedParameter('categories')),
                 $relationsQueryBuilder->expr()->in('mm.uid_local', $this->customerCategoryUids),
                 $relationsQueryBuilder->expr()->eq('t.client', 0), // Nur die, die noch keinen Client haben
@@ -112,7 +112,7 @@ class AssignClientContactsTask extends AbstractTask
             if (count($clientsOnContact) === 1) {
                 // Fall 2: Nur ein Kunde, alles gut. Client zuweisen.
                 $clientId = array_key_first($clientsOnContact);
-                $singleClientContactsDataMap['tt_address'][$contactUid] = [
+                $singleClientContactsDataMap['ac_contact'][$contactUid] = [
                     'client' => $clientId
                 ];
                 $this->logger->error(sprintf('  -> Kontakt %d wird Client %d zugewiesen.', $contactUid, $clientId));
@@ -137,8 +137,8 @@ class AssignClientContactsTask extends AbstractTask
         $this->logger->error(sprintf('[Schritt 3] %d Kontakte mit mehreren Kunden gefunden. Starte Splitting...', count($multiClientContacts)));
 
         // KORREKTUR: Neuen, sauberen QueryBuilder verwenden und `fetchAllAssociativeIndexedBy` ersetzen
-        $contactDataQueryBuilder = $this->connectionPool->getQueryBuilderForTable('tt_address');
-        $allContactsRaw = $contactDataQueryBuilder->select('*')->from('tt_address')
+        $contactDataQueryBuilder = $this->connectionPool->getQueryBuilderForTable('ac_contact');
+        $allContactsRaw = $contactDataQueryBuilder->select('*')->from('ac_contact')
             ->where($contactDataQueryBuilder->expr()->in('uid', array_keys($multiClientContacts)))
             ->executeQuery()
             ->fetchAllAssociative();
@@ -152,7 +152,7 @@ class AssignClientContactsTask extends AbstractTask
             foreach ($clients as $clientId => $catsForClient) {
                 if ($isFirstClient) {
                     // Der erste Kunde bleibt auf dem Original-Kontakt
-                    $dataMap['tt_address'][$uid] = [
+                    $dataMap['ac_contact'][$uid] = [
                         'client' => $clientId,
                         'categories' => implode(',', $catsForClient)
                     ];
@@ -166,7 +166,7 @@ class AssignClientContactsTask extends AbstractTask
                     $copyData['original_address'] = $uid;
                     $copyData['client'] = $clientId;
                     $copyData['categories'] = implode(',', $catsForClient);
-                    $dataMap['tt_address'][$tempId] = $copyData;
+                    $dataMap['ac_contact'][$tempId] = $copyData;
                     $this->logger->error(sprintf('  -> Kontakt %d: Kopie %s für Client %d wird erstellt.', $uid, $tempId, $clientId));
                 }
             }

@@ -1189,21 +1189,6 @@
 			<trans-unit id="tx_publicrelations_pressroom.description" resname="tx_publicrelations_pressroom.description">
 				<source>Plugin to output actual Press Data from Database.</source>
 			</trans-unit>
-			<trans-unit id="tt_address.personally" resname="tt_address.personally">
-				<source>Personally Mailing</source>
-			</trans-unit>
-			<trans-unit id="tt_address.special_title" resname="tt_address.special_title">
-				<source>Special Title</source>
-			</trans-unit>
-			<trans-unit id="tt_address.mailing_exclude" resname="tt_address.mailing_exclude">
-				<source>Exclude from Mailings</source>
-			</trans-unit>
-			<trans-unit id="tt_address.mailing_no_html" resname="tt_address.mailing_no_html">
-				<source>Mailings without HTML</source>
-			</trans-unit>
-			<trans-unit id="tt_address.contact_types" resname="tt_address.contact_types">
-				<source>Contact Types</source>
-			</trans-unit>
 
             <trans-unit id="tx_publicrelations_domain_model_socialprofile">
                 <source>Social Media Profile</source>
@@ -1301,10 +1286,6 @@
             <trans-unit id="tx_publicrelations_domain_model_contactgroup.contacts">
                 <source>Contacts</source>
                 <target>Kontakte</target>
-            </trans-unit>
-            <trans-unit id="tt_address.tx_publicrelations_contactgroups">
-                 <source>Contact Groups</source>
-                 <target>Kontaktgruppen</target>
             </trans-unit>
 			<trans-unit id="tx_publicrelations_domain_model_accessclient">
                 <source>Client Access</source>

@@ -50,11 +50,11 @@ class CleanupTask extends AbstractTask
         $contentCreatorUids = $redakteureExcludeUids1;
 
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
-        $queryBuilder = $connectionPool->getQueryBuilderForTable('tt_address');
+        $queryBuilder = $connectionPool->getQueryBuilderForTable('ac_contact');
 
         $allContactsToProcess = $queryBuilder
             ->select('uid', 'pid')
-            ->from('tt_address')
+            ->from('ac_contact')
             ->executeQuery()
             ->fetchAllAssociative();
 
@@ -77,7 +77,7 @@ class CleanupTask extends AbstractTask
             ->select('uid_local', 'uid_foreign')
             ->from('sys_category_record_mm')
             ->where(
-                $mmQueryBuilder->expr()->eq('tablenames', $mmQueryBuilder->createNamedParameter('tt_address')),
+                $mmQueryBuilder->expr()->eq('tablenames', $mmQueryBuilder->createNamedParameter('ac_contact')),
                 $mmQueryBuilder->expr()->eq('fieldname', $mmQueryBuilder->createNamedParameter('categories')),
                 $mmQueryBuilder->expr()->in('uid_foreign', $mmQueryBuilder->createNamedParameter($contactUidsToProcess, Connection::PARAM_INT_ARRAY))
             )
@@ -152,7 +152,7 @@ class CleanupTask extends AbstractTask
         $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
         $dataMap = [];
         foreach ($contactsToUpdate as $uid => $typeUidsArray) {
-            $dataMap['tt_address'][$uid] = ['contact_types' => implode(',', $typeUidsArray)];
+            $dataMap['ac_contact'][$uid] = ['contact_types' => implode(',', $typeUidsArray)];
         }
         $dataHandler->start($dataMap, []);
         $dataHandler->process_datamap();

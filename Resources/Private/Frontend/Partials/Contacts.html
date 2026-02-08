@@ -7,13 +7,13 @@
         
         <!-- Kontaktbild -->
         <div class="flex-shrink-0 me-3">
-          <f:image image="{contact.staff.image.0}" class="rounded-circle img-fluid" style="width: 50px; height: 50px;" alt="{contact.staff.name}" />
+          <f:image image="{contact.staff.image}" class="rounded-circle img-fluid" style="width: 50px; height: 50px;" alt="{contact.staff.name}" />
         </div>
         
         <!-- Kontaktinfo -->
         <div class="flex-grow-1">
           <p class="mb-1">
-            <strong>{contact.staff.fullName}</strong><br/>
+            <strong>{contact.staff.displayName}</strong><br/>
             <f:if condition="{contact.typesOutput}">
               <small class="text-muted d-block mb-0">
                 <f:for each="{contact.typesOutput}" as="type" iteration="wi">

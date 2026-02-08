@@ -56,9 +56,9 @@ return [
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
-                'allowed' => 'tt_address',
-                'foreign_table' => 'tt_address',
-                'foreign_table_where' => ' AND (tt_address.pid = ' . $configuration->getStaffPid() . ')',
+                'allowed' => 'ac_contact',
+                'foreign_table' => 'ac_contact',
+                'foreign_table_where' => ' AND (ac_contact.pid = ' . $configuration->getStaffPid() . ')',
                 'size' => 1,
                 'minitems' => 1,
                 'maxitems' => 1,

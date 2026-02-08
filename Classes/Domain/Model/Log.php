@@ -82,7 +82,7 @@ class Log extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * address
      *
-     * @var \BucheggerOnline\Publicrelations\Domain\Model\TtAddress
+     * @var \Allegria\AcContacts\Domain\Model\Contact
      */
     protected $address;
 
@@ -291,7 +291,7 @@ class Log extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the address
      *
-     * @return \BucheggerOnline\Publicrelations\Domain\Model\TtAddress $address
+     * @return \Allegria\AcContacts\Domain\Model\Contact $address
      */
     public function getAddress()
     {
@@ -303,7 +303,7 @@ class Log extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return void
      */
-    public function setAddress(\BucheggerOnline\Publicrelations\Domain\Model\TtAddress|\BucheggerOnline\Publicrelations\Domain\Model\Frontend\TtAddress $address)
+    public function setAddress(\Allegria\AcContacts\Domain\Model\Contact $address)
     {
         $this->address = $address;
     }

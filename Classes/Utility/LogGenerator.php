@@ -14,7 +14,6 @@ use BucheggerOnline\Publicrelations\Domain\Repository\LogRepository;
 
 use BucheggerOnline\Publicrelations\Domain\Model\Event;
 use BucheggerOnline\Publicrelations\Domain\Model\Accreditation;
-use BucheggerOnline\Publicrelations\Domain\Model\TtAddress;
 use BucheggerOnline\Publicrelations\Domain\Model\Mail;
 
 
@@ -307,7 +306,7 @@ class LogGenerator extends AbstractEntity
    * @param string $code
    * @param int $accreditationUid
    * @param int $eventUid
-   * @param int $ttAddressUid
+   * @param int $contactUid
    * @param string $email
    * @param string $notes
    * @param bool $returnAsArray
@@ -317,7 +316,7 @@ class LogGenerator extends AbstractEntity
     string $code,
     int $accreditationUid,
     int $eventUid = 0,
-    int $ttAddressUid = 0,
+    int $contactUid = 0,
     string $email = '',
     string $notes = '',
     bool $returnAsArray = false
@@ -492,7 +491,7 @@ class LogGenerator extends AbstractEntity
       'subject' => $subject,
       'notes' => $notes,
       'accreditation' => $accreditationUid,
-      'tt_address' => $ttAddressUid,
+      'address' => $contactUid,
       'event' => $eventUid,
     ];
 
@@ -507,49 +506,6 @@ class LogGenerator extends AbstractEntity
     $dataHandler->process_datamap();
 
     return null;
-  }
-
-  /**
-   * Returns the createAddressLog
-   *
-   * @return $createAddressLog
-   */
-  public function createAddressLog($code, TtAddress $address, $changes = null)
-  {
-    $newLog = new Log();
-
-    $newLog->setTtAddress($address);
-    $newLog->setFunction('Kontakt');
-    $newLog->setCode($code);
-
-    switch ($code) {
-      case 'C-CR1':
-        $newLog->setSubject('Erstellt - via Akkreditierung');
-        break;
-      case 'C-CR2':
-        $newLog->setSubject('Erstellt - via Importer');
-        break;
-      case 'C-E':
-        $newLog->setSubject('Geändert - via Importer');
-        break;
-      case 'C-M1':
-        $newLog->setSubject('Zusammengeführt - via Importer');
-        $newLog->setNotes($changes);
-        break;
-      case 'C-M0':
-        $newLog->setSubject('Nach Zusammenführung gelöscht - via Importer');
-        $newLog->setNotes($changes);
-        break;
-      case 'C-O':
-        $newLog->setSubject('Kontakt Überschrieben - via Importer');
-        $newLog->setNotes($changes);
-        break;
-      case 'C-D':
-        $newLog->setSubject('Gelöscht - via Importer');
-        $newLog->setNotes($changes);
-        break;
-    }
-    return $this->createLog($newLog);
   }
 
   /**

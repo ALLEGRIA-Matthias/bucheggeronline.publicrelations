@@ -57,7 +57,7 @@ class SplitContactsTask extends AbstractTask
         $this->logger->error('[Schritt 1] Suche nach Kontakten mit gemischten Kategorien (intern/extern)...');
 
         // Abfrage aller Kontakte und ihrer Kategorien
-        $queryBuilder = $this->connectionPool->getQueryBuilderForTable('tt_address');
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable('ac_contact');
         $relationsRaw = $queryBuilder
             ->select(
                 'mm.uid_foreign AS contact_uid', // Wir nehmen uid_foreign, weil das der KONTAKT ist.
@@ -66,7 +66,7 @@ class SplitContactsTask extends AbstractTask
             ->from('sys_category_record_mm', 'mm')
             ->join(
                 'mm',
-                'tt_address',
+                'ac_contact',
                 't',
                 $queryBuilder->expr()->eq('t.uid', $queryBuilder->quoteIdentifier('mm.uid_foreign'))
             )
@@ -77,7 +77,7 @@ class SplitContactsTask extends AbstractTask
                 $queryBuilder->expr()->eq('c.uid', $queryBuilder->quoteIdentifier('mm.uid_local'))
             )
             ->where(
-                $queryBuilder->expr()->eq('mm.tablenames', $queryBuilder->createNamedParameter('tt_address')),
+                $queryBuilder->expr()->eq('mm.tablenames', $queryBuilder->createNamedParameter('ac_contact')),
                 $queryBuilder->expr()->eq('mm.fieldname', $queryBuilder->createNamedParameter('categories')),
                 $queryBuilder->expr()->eq('t.deleted', 0),
                 $queryBuilder->expr()->eq('c.deleted', 0)
@@ -121,10 +121,10 @@ class SplitContactsTask extends AbstractTask
         $this->logger->error(sprintf('[Schritt 1] %d gemischte Kontakte gefunden. Starte Splitting...', count($contactsToSplit)));
 
         // Hole die kompletten Daten der zu splittenden Kontakte
-        $contactDataQueryBuilder = $this->connectionPool->getQueryBuilderForTable('tt_address');
+        $contactDataQueryBuilder = $this->connectionPool->getQueryBuilderForTable('ac_contact');
         $allContacts = $contactDataQueryBuilder
             ->select('*')
-            ->from('tt_address')
+            ->from('ac_contact')
             ->where(
                 $contactDataQueryBuilder->expr()->in('uid', array_keys($contactsToSplit))
             )
@@ -144,10 +144,10 @@ class SplitContactsTask extends AbstractTask
             unset($copyData['uid']); // Wichtig: UID entfernen!
             $copyData['original_address'] = $uid;
             $copyData['categories'] = implode(',', $categories['customer']);
-            $dataMap['tt_address'][$tempId] = $copyData;
+            $dataMap['ac_contact'][$tempId] = $copyData;
 
             // 2. Original bereinigen
-            $dataMap['tt_address'][$uid]['categories'] = implode(',', $categories['internal']);
+            $dataMap['ac_contact'][$uid]['categories'] = implode(',', $categories['internal']);
 
             $this->logger->error(sprintf('  -> Kontakt %d wird gesplittet. Kopie %s wird erstellt.', $uid, $tempId));
         }

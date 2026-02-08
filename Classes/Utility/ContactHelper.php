@@ -107,7 +107,7 @@ class ContactHelper
             ->from('sys_file_reference')
             ->where(
                 $queryBuilder->expr()->eq('sys_file_reference.uid_foreign', $queryBuilder->createNamedParameter($contactId, ParameterType::INTEGER)),
-                $queryBuilder->expr()->eq('sys_file_reference.tablenames', $queryBuilder->createNamedParameter('tt_address', ParameterType::STRING)),
+                $queryBuilder->expr()->eq('sys_file_reference.tablenames', $queryBuilder->createNamedParameter('ac_contact', ParameterType::STRING)),
                 $queryBuilder->expr()->eq('sys_file_reference.fieldname', $queryBuilder->createNamedParameter('image', ParameterType::STRING))
             )
             ->setMaxResults(1)
@@ -183,7 +183,7 @@ class ContactHelper
             )
             ->where(
                 $queryBuilder->expr()->eq('sys_tag_record_mm.uid_foreign', $queryBuilder->createNamedParameter($contactId, ParameterType::INTEGER)),
-                $queryBuilder->expr()->eq('sys_tag_record_mm.tablenames', $queryBuilder->createNamedParameter('tt_address', ParameterType::STRING))
+                $queryBuilder->expr()->eq('sys_tag_record_mm.tablenames', $queryBuilder->createNamedParameter('ac_contact', ParameterType::STRING))
             )
             ->executeQuery()
             ->fetchAllAssociative();
@@ -213,7 +213,7 @@ class ContactHelper
             )
             ->where(
                 $queryBuilder->expr()->eq('tx_accontacts_mm.uid_foreign', $queryBuilder->createNamedParameter($contactId, ParameterType::INTEGER)),
-                $queryBuilder->expr()->eq('tx_accontacts_mm.tablenames', $queryBuilder->createNamedParameter('tt_address', ParameterType::STRING)),
+                $queryBuilder->expr()->eq('tx_accontacts_mm.tablenames', $queryBuilder->createNamedParameter('ac_contact', ParameterType::STRING)),
                 $queryBuilder->expr()->eq('tx_accontacts_mm.fieldname', $queryBuilder->createNamedParameter('groups', ParameterType::STRING))
             )
             ->executeQuery()
@@ -244,7 +244,7 @@ class ContactHelper
             )
             ->where(
                 $queryBuilder->expr()->eq('sys_category_record_mm.uid_foreign', $queryBuilder->createNamedParameter($contactId, ParameterType::INTEGER)),
-                $queryBuilder->expr()->eq('sys_category_record_mm.tablenames', $queryBuilder->createNamedParameter('tt_address', ParameterType::STRING))
+                $queryBuilder->expr()->eq('sys_category_record_mm.tablenames', $queryBuilder->createNamedParameter('ac_contact', ParameterType::STRING))
             )
             ->executeQuery()
             ->fetchAllAssociative();
@@ -274,9 +274,9 @@ class ContactHelper
     }
 
     /**
-     * Generiert einen Backend-Link zum Bearbeiten eines tt_address Datensatzes.
+     * Generiert einen Backend-Link zum Bearbeiten eines ac_contact Datensatzes.
      *
-     * @param int $uid Die UID des tt_address Datensatzes
+     * @param int $uid Die UID des ac_contact Datensatzes
      * @return string Die generierte URL
      */
     public static function generateEditLink(int $uid): string
@@ -293,7 +293,7 @@ class ContactHelper
         //    Das ist der Standardweg in TYPO3, um einen beliebigen Datensatz zu bearbeiten.
         $editUrl = (string) $uriBuilder->buildUriFromRoute('record_edit', [
             'edit' => [
-                'tt_address' => [
+                'ac_contact' => [
                     $uid => 'edit'
                 ]
             ],
@@ -367,12 +367,12 @@ class ContactHelper
      */
     private static function findDuplicates(string $email, string $contactType, int $clientId): array
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tt_address');
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('ac_contact');
         $expr = $queryBuilder->expr();
 
         $query = $queryBuilder
             ->select('uid', 'first_name', 'last_name', 'company', 'client')
-            ->from('tt_address')
+            ->from('ac_contact')
             ->where(
                 $expr->eq('email', $queryBuilder->createNamedParameter($email, ParameterType::STRING)),
                 $expr->eq('deleted', 0)

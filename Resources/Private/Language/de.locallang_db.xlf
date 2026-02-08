@@ -1382,34 +1382,6 @@
 			<trans-unit id="tx_publicrelations_pressroom.description" resname="tx_publicrelations_pressroom.description">
 				<target state="translated">Plugin zur Ausgabe von aktuellen Pressedaten aus der Datenbank.</target>
 			</trans-unit>
-			<trans-unit id="tt_address.personally" resname="tt_address.personally">
-				<source>Personally Mailing</source>
-				<target state="translated">Persönliche Anrede (per du)</target>
-			</trans-unit>
-			<trans-unit id="tt_address.special_title" resname="tt_address.special_title">
-				<source>Special Title</source>
-				<target state="translated">Manuelle persönliche Anrede</target>
-			</trans-unit>
-			<trans-unit id="tt_address.mailing_exclude" resname="tt_address.mailing_exclude">
-				<source>Exclude from Mailings</source>
-				<target state="translated">Aus Mailings ausschließen</target>
-			</trans-unit>
-			<trans-unit id="tt_address.mailing_no_html" resname="tt_address.mailing_no_html">
-				<source>Mailings without HTML</source>
-				<target state="translated">Mailings ohne HTML</target>
-			</trans-unit>
-			<trans-unit id="tt_address.duplicates" resname="tt_address.duplicates">
-				<source>Detected duplicates</source>
-				<target state="translated">Gefundene Duplikate</target>
-			</trans-unit>
-			<trans-unit id="tt_address.valid" resname="tt_address.valid">
-				<source>Validation Status</source>
-				<target state="translated">Prüfungsstatus</target>
-			</trans-unit>
-			<trans-unit id="tt_address.contact_types" resname="tt_address.contact_types">
-				<source>Contact Types</source>
-				<target state="translated">Kontakttypen</target>
-			</trans-unit>
 
             <trans-unit id="tx_publicrelations_domain_model_socialprofile">
                 <source>Social Media Profile</source>
@@ -1590,11 +1562,7 @@
                 <source>Advanced Events</source>
                 <target>Erweiterte Events</target>
             </trans-unit>
-
-            <trans-unit id="tt_address.tx_publicrelations_contactgroups">
-                 <source>Contact Groups</source>
-                 <target>Kontaktgruppen</target>
-            </trans-unit>
+			
 			<trans-unit id="tx_publicrelations_domain_model_client.tab.access">
 				<source>Access Control</source>
 				<target>Zugriffsrechte</target>

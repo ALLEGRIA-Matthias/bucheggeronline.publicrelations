@@ -74,10 +74,10 @@ class AccreditationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     }
 
     /**
-     * Findet die UIDs von Gästen (TtAddress UIDs), die bereits eine Akkreditierung
+     * Findet die UIDs von Gästen (AcContact UIDs), die bereits eine Akkreditierung
      * für ein spezifisches Event haben.
      *
-     * @param array $guestUids Array von TtAddress UIDs (potenzielle Gäste)
+     * @param array $guestUids Array von AcContact UIDs (potenzielle Gäste)
      * @param int $eventUid UID des Events
      * @return array Ein Array, das nur die UIDs derjenigen Gäste aus $guestUids enthält,
      * die bereits für das angegebene Event akkreditiert sind.
@@ -591,21 +591,21 @@ class AccreditationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 'tx_publicrelations_domain_model_accreditation.ignored_duplicates',
                 'tx_publicrelations_domain_model_accreditation.guest',
                 'tx_publicrelations_domain_model_accreditation.crdate',
-                'tt_address.email AS guest_email',
-                'tt_address.first_name AS guest_first_name',
-                'tt_address.middle_name AS guest_middle_name',
-                'tt_address.last_name AS guest_last_name',
-                'tt_address.company AS guest_company',
-                'tt_address.client AS guest_client',
+                'ac_contact.email AS guest_email',
+                'ac_contact.first_name AS guest_first_name',
+                'ac_contact.middle_name AS guest_middle_name',
+                'ac_contact.last_name AS guest_last_name',
+                'ac_contact.company AS guest_company',
+                'ac_contact.client AS guest_client',
             )
             ->from('tx_publicrelations_domain_model_accreditation')
             ->leftJoin(
                 'tx_publicrelations_domain_model_accreditation',
-                'tt_address',
-                'tt_address',
+                'ac_contact',
+                'ac_contact',
                 $queryBuilder->expr()->eq(
                     'tx_publicrelations_domain_model_accreditation.guest',
-                    $queryBuilder->quoteIdentifier('tt_address.uid')
+                    $queryBuilder->quoteIdentifier('ac_contact.uid')
                 )
             )
             ->where(
@@ -775,10 +775,10 @@ class AccreditationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 'guest.mobile AS guest_mobile'
             )
             ->from('tx_publicrelations_domain_model_accreditation', 'acc')
-            // LEFT JOIN auf tt_address, um den Namen des Gastes zu holen
+            // LEFT JOIN auf ac_contact, um den Namen des Gastes zu holen
             ->leftJoin(
                 'acc',
-                'tt_address',
+                'ac_contact',
                 'guest',
                 $expr->eq('acc.guest', $queryBuilder->quoteIdentifier('guest.uid'))
             );
@@ -927,7 +927,7 @@ class AccreditationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     }
 
     /**
-     * Prüft, ob ein Gast (tt_address UID) bereits für ein Event akkreditiert ist.
+     * Prüft, ob ein Gast (ac_contact UID) bereits für ein Event akkreditiert ist.
      * Gibt die UID der bestehenden Akkreditierung zurück oder null.
      */
     public function findExistingAccreditation(int $guestUid, int $eventUid): ?int

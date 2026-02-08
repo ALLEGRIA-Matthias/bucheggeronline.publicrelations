@@ -14,10 +14,11 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 
+use TYPO3\CMS\Core\Page\AssetCollector;
+
 use BucheggerOnline\Publicrelations\Domain\Model\Dto\EmConfiguration;
 use BucheggerOnline\Publicrelations\Utility\GeneralFunctions;
 use BucheggerOnline\Publicrelations\Utility\LogGenerator;
-use BucheggerOnline\Publicrelations\Utility\MailGenerator;
 
 use BucheggerOnline\Publicrelations\Service\AccreditationService;
 use BucheggerOnline\Publicrelations\DataResolver\AccreditationDataResolver;
@@ -28,14 +29,15 @@ use Allegria\AcDistribution\Service\DistributionService;
 use Allegria\AcDistribution\Service\MailBuildService;
 use Allegria\AcDistribution\Service\SmtpService;
 
+use Allegria\AcContacts\Domain\Model\Contact;
+use Allegria\AcContacts\Domain\Repository\ContactRepository;
+
 use BucheggerOnline\Publicrelations\Domain\Repository\EventRepository;
 use BucheggerOnline\Publicrelations\Domain\Model\Event;
 use BucheggerOnline\Publicrelations\Domain\Repository\InvitationRepository;
 use BucheggerOnline\Publicrelations\Domain\Model\Invitation;
 use BucheggerOnline\Publicrelations\Domain\Repository\SysCategoryRepository;
 use BucheggerOnline\Publicrelations\Domain\Model\SysCategory;
-use BucheggerOnline\Publicrelations\Domain\Repository\TtAddressRepository;
-use BucheggerOnline\Publicrelations\Domain\Model\TtAddress;
 use BucheggerOnline\Publicrelations\Domain\Repository\AdditionalfieldRepository;
 use BucheggerOnline\Publicrelations\Domain\Model\Additionalfield;
 use BucheggerOnline\Publicrelations\Domain\Repository\AdditionalanswerRepository;
@@ -50,15 +52,15 @@ class AccreditationController extends AbstractPublicrelationsController
 {
   public function __construct(
     private readonly PersistenceManager $persistenceManager,
+    private readonly AssetCollector $assetCollector,
     private readonly AccreditationRepository $accreditationRepository,
     private readonly EventRepository $eventRepository,
     private readonly InvitationRepository $invitationRepository,
     private readonly AdditionalfieldRepository $additionalfieldRepository,
     private readonly AdditionalanswerRepository $additionalanswerRepository,
     private readonly SysCategoryRepository $sysCategoryRepository,
-    private readonly TtAddressRepository $ttAddressRepository,
+    private readonly ContactRepository $contactRepository,
     private readonly EmConfiguration $emConfiguration,
-    private readonly MailGenerator $mailGenerator,
     private readonly LogGenerator $logGenerator,
     private readonly GeneralFunctions $generalFunctions,
     private readonly AccreditationService $accreditationService,
@@ -161,6 +163,11 @@ class AccreditationController extends AbstractPublicrelationsController
     $notesItems = $this->sysCategoryRepository->findByParentUid(
       $this->emConfiguration->getAccreditationNotesRootUid()
     );
+
+    $this->assetCollector->addJavaScriptModule('@ac/base/TomSelectEngine.js');
+    $this->assetCollector->addJavaScriptModule('@ac/contacts/TomSelectContact.js');
+    $this->assetCollector->addJavaScriptModule('@allegria/publicrelations/NewAction.js');
+
     $this->view->assignMultiple([
       'notesItems' => $notesItems,
       'event' => $event,
@@ -178,6 +185,10 @@ class AccreditationController extends AbstractPublicrelationsController
     $notesItems = $this->sysCategoryRepository->findByParentUid(
       $this->emConfiguration->getAccreditationNotesRootUid()
     );
+
+    $this->assetCollector->addJavaScriptModule('@ac/base/TomSelectEngine.js');
+    $this->assetCollector->addJavaScriptModule('@ac/contacts/TomSelectContact.js');
+
     $this->view->assignMultiple([
       'notesItems' => $notesItems,
       'event' => $event,
@@ -187,255 +198,6 @@ class AccreditationController extends AbstractPublicrelationsController
     $this->setModuleTitle('Akkr.-Wizzard' . (isset($event) ? (' – ' . $event->getTitle()) : ''));
     return $this->backendResponse();
   }
-
-  public function invitationManagerAction(Event $event, array $invitations = []): ResponseInterface
-  {
-    $this->view->assignMultiple([
-      'event' => $event,
-      'invitations' => $invitations
-    ]);
-
-    $this->setModuleTitle('1/3 Einladungsmanager – Einladungen ' . (isset($event) ? ('zu ' . $event->getTitle()) : '') . 'zuordnen');
-    return $this->backendResponse();
-  }
-
-  public function invitationManagerCategoriesAction(Event $event, array $invitations): ResponseInterface
-  {
-    $listType = $invitations['listType'] ?? '';
-    $mailingLists = [];
-    $clientUidList = '';
-
-    // Bestimme die Daten basierend auf dem neuen listType
-    switch ($listType) {
-      case 'internal':
-        $mailingLists = $this->sysCategoryRepository->findByParentUid($this->emConfiguration->getContactRootUid());
-        break;
-      case 'client':
-        $clientUids = [];
-
-        // 1. UID des Haupt-Clients hinzufügen
-        $mainClient = $event->getClient();
-        if ($mainClient) {
-          $clientUids[] = $mainClient->getUid();
-        }
-
-        // 2. UIDs der zugewiesenen Partner hinzufügen
-        // Wir gehen davon aus, dass getPartners() eine Sammlung von Objekten zurückgibt
-        $partners = $event->getPartners();
-        if (!empty($partners)) {
-          foreach ($partners as $partner) {
-            // Füge die UID des Partners hinzu.
-            // Jeder Partner wird hier als potenzieller Client behandelt.
-            $clientUids[] = $partner->getUid();
-          }
-        }
-
-        // 3. UIDs bereinigen: Duplikate und ungültige Werte (z.B. 0) entfernen
-        $uniqueUids = array_filter(array_unique($clientUids));
-
-        // Die Variable für die finale, komma-separierte Liste
-        $clientUidList = implode(',', $uniqueUids);
-
-        // Optional: Wenn du die $mailingLists basierend auf ALLEN diesen Clients laden willst
-        if (!empty($uniqueUids)) {
-          // Annahme: Dein Repository hat eine Methode, die mit einem Array von UIDs umgehen kann.
-          // Falls nicht, müsstest du eine eigene Repository-Methode erstellen.
-          // Beispiel: findByClientUids(array $uids)
-          $mailingLists = $this->sysCategoryRepository->findByProperty('client', $uniqueUids);
-
-        } else {
-          $mailingLists = [];
-        }
-        break;
-      default:
-        // Standardfall
-        $mailingLists = [];
-        break;
-    }
-
-    // Ergebnis an das Template übergeben
-    $this->view->assignMultiple([
-      'event' => $event,
-      'mailingLists' => $mailingLists,
-      'client' => $clientUidList,
-      'invitations' => $invitations,
-      'listType' => $listType,
-    ]);
-
-    $this->setModuleTitle('2/3 Kontaktauswahl – Einladungen ' . (isset($event) ? ('zu ' . $event->getTitle()) : '') . 'zuordnen');
-    return $this->backendResponse();
-  }
-
-  // public function invitationManagerCategoriesAction(Event $event, array $invitations): ResponseInterface
-  // {
-
-  //   $listType = $invitations['listType'] ?? '';
-
-  //   // match liefert ein assoziatives Array mit mailingLists, contacts und pid
-  //   $result = match ($listType) {
-  //     '1' => [
-  //       'mailingLists' => $this->sysCategoryRepository->findByParentUid($this->emConfiguration->getCelebRootUid()),
-  //       'contacts' => $this->ttAddressRepository->findByPage($this->emConfiguration->getCelebPid()),
-  //       'pid' => $this->emConfiguration->getCelebPid(),
-  //     ],
-  //     '2' => [
-  //       'mailingLists' => $this->sysCategoryRepository->findByParentUid($this->emConfiguration->getJournalistsRootUid()),
-  //       'contacts' => $this->ttAddressRepository->findByPage($this->emConfiguration->getJournalistsPid()),
-  //       'pid' => $this->emConfiguration->getJournalistsPid(),
-  //     ],
-  //     '3' => [
-  //       'mailingLists' => $this->sysCategoryRepository->findByParentUid($this->emConfiguration->getMailingListsRootUid()),
-  //       'contacts' => $this->ttAddressRepository->findByPage($this->emConfiguration->getMailingListsPid()),
-  //       'pid' => $this->emConfiguration->getMailingListsPid(),
-  //     ],
-  //     '4' => [
-  //       'mailingLists' => array_values(array_filter(
-  //         $this->eventRepository->findAll(),
-  //         fn(Event $e): bool => $e->getAccreditations()->count() > 0
-  //       )),
-  //       'contacts' => null,
-  //       'pid' => null,
-  //     ],
-  //     '5' => [
-  //       'mailingLists' => $this->sysCategoryRepository->findByProperty('client', 0, false),
-  //       'contacts' => null,
-  //       'pid' => null,
-  //     ],
-  //     default => [
-  //       'mailingLists' => [],
-  //       'contacts' => null,
-  //       'pid' => null,
-  //     ],
-  //   };
-
-  //   // Ergebnis an das Template übergeben
-  //   $this->view->assignMultiple([
-  //     'event' => $event,
-  //     'mailingLists' => $result['mailingLists'],
-  //     'contacts' => $result['contacts'],
-  //     'pid' => $result['pid'],
-  //     'invitations' => $invitations,
-  //   ]);
-
-  //   $this->setModuleTitle('2/3 Kontaktauswahl – Einladungen ' . (isset($event) ? ('zu ' . $event->getTitle()) : '') . 'zuordnen');
-  //   return $this->backendResponse();
-  // }
-
-
-  public function invitationManagerSummaryAction(Event $event, array $invitations = []): ResponseInterface
-  {
-    // Konfiguration laden (falls nötig)
-    \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\BucheggerOnline\Publicrelations\Domain\Model\Dto\EmConfiguration::class);
-
-    // 1. UIDs aus Mailing-Listen sammeln
-    $checkedMailingListUids = [];
-    if (!empty($invitations['mailingLists']) && is_iterable($invitations['mailingLists'])) {
-      foreach ($invitations['mailingLists'] as $uid => $c) {
-        if ((string) $c === '1') {
-          $checkedMailingListUids[] = (int) $uid;
-        }
-      }
-    }
-
-    $allGuestUids = [];
-    if (!empty($checkedMailingListUids)) {
-      // Annahme: findUidsByCategoryUids holt alle verknüpften tt_address UIDs in einer Abfrage
-      $contactUidsFromMailingLists = $this->ttAddressRepository->findUidsByCategoryUids($checkedMailingListUids);
-      $allGuestUids = array_merge($allGuestUids, $contactUidsFromMailingLists);
-    }
-
-    // 2. UIDs aus manueller Auswahl hinzufügen
-    if (!empty($invitations['manualReceiver']) && is_iterable($invitations['manualReceiver'])) {
-      $manualReceiverUids = array_map('intval', $invitations['manualReceiver']);
-      $allGuestUids = array_merge($allGuestUids, $manualReceiverUids);
-    }
-
-    // 3) Event-basiert (Akkreditierungen) hinzufügen
-    if (isset($invitations['event'])) {
-      $eventFilter = [
-        'event' => $invitations['event'],
-        'status' => '1',
-        'guestType' => $invitations['guestType'] ?? '',
-        'facie' => $invitations['facie'] ?? '',
-        'tickets' => $invitations['tickets'] ?? '',
-      ];
-
-      $accreditations = $this->accreditationRepository->findFiltered($eventFilter);
-
-      // Sammle die UIDs aus den Akkreditierungen
-      $accreditationUids = [];
-      foreach ($accreditations as $accreditation) {
-        if ($accreditation->getGuest() !== null) {
-          $accreditationUids[] = $accreditation->getGuest()->getUid();
-        }
-      }
-
-      // Füge die gesammelten UIDs zum Haupt-Array hinzu
-      $allGuestUids = array_merge($allGuestUids, $accreditationUids);
-    }
-
-    $allGuestUids = array_unique($allGuestUids);
-
-    // 3. Fehlende Auswahl abfangen
-    if (empty($allGuestUids)) {
-      $this->addModuleFlashMessage(
-        'Es wurden keine Verteiler oder Kontakte ausgewählt.',
-        'AUSWAHL LEER!',
-        'WARNING'
-      );
-      return $this->redirect('invitationManager', 'Accreditation', null, ['event' => $event]);
-    }
-
-    // 4. Alle Kontaktdaten in einem einzigen Aufruf holen
-    // Annahme: findForSummaryByUids gibt nur die benötigten Felder als Array zurück
-    $receivers = $this->ttAddressRepository->findForSummaryByUids($allGuestUids);
-
-    // // 5. Duplikate (nach E-Mail) entfernen
-    // $guestType = $invitations['guestType'] ?? '';
-    // if ($guestType === '1') {
-    //   // Bei Gast-Typ 1 nach UID deduplizieren (schon durch array_unique erledigt)
-    // } else {
-    //   // Bei anderen Typen nach E-Mail deduplizieren
-    //   $receivers = $this->unique_multidim_array($receivers, 'email');
-    // }
-
-    // 6. View-Variablen setzen
-    $this->view->assignMultiple([
-      'event' => $event,
-      'invitations' => array_merge(
-        $invitations,
-        ['receiver' => $receivers]
-      ),
-    ]);
-
-    $this->setModuleTitle('3/3 Zusammenfassung – Einladungen ' . (isset($event) ? ('zu ' . $event->getTitle()) : '') . 'zuordnen');
-    return $this->backendResponse();
-  }
-
-  // public function invitationPreviewAction(Event $event): ResponseInterface
-  // {
-  //   if (!$event->isInvitationAllowed()) {
-  //     $this->addModuleFlashMessage(
-  //       'Anhand der aktuellen Einstellungen kann keine Einladung versandt werden.',
-  //       'TEST NICHT MÖGLICH!',
-  //       'ERROR'
-  //     );
-  //     return $this->redirect('show', 'Event', ['event' => $event]);
-  //   }
-  //   foreach ($event->getInvitations() as $inv) {
-  //     $acr = new Accreditation();
-  //     $acr->setGuest($this->ttAddressRepository->findByUid(1));
-  //     $acr->setEvent($event);
-  //     $acr->setInvitationType($inv);
-  //     $this->mailGenerator
-  //       ->createAccreditationMail('AI-Email-PV', $acr, $this->settings);
-  //     $this->addModuleFlashMessage(
-  //       'Test-Einladungen verschickt.',
-  //       'TEST-EINLADUNG VERSANDT!'
-  //     );
-  //   }
-  //   return $this->redirect('show', 'Event', null, ['event' => $event]);
-  // }
 
   public function createAction(Event $event, ?Accreditation $newAccreditation = null): ResponseInterface
   {
@@ -490,7 +252,7 @@ class AccreditationController extends AbstractPublicrelationsController
     }
     // bestehender Gast?
     elseif ($guestArg !== 'manual' && $guestArg !== '0') {
-      $guest = $this->ttAddressRepository->findByUid((int) $guestArg);
+      $guest = $this->contactRepository->findByUid((int) $guestArg);
       $duplicate = $this->accreditationRepository->findGuestByEvent($guest->getUid(), $event->getUid());
       if ($duplicate) {
         $this->addModuleFlashMessage(
@@ -550,7 +312,7 @@ class AccreditationController extends AbstractPublicrelationsController
     }
 
     // Datensatz speichern
-    if (!$newAccreditation->getGuest()?->isMailingExclude()) {
+    if (!$newAccreditation->getGuest()?->isNoMailing()) {
       $this->accreditationRepository->add($newAccreditation);
       if ($this->request->hasArgument('invitation')) {
         $this->addModuleFlashMessage(
@@ -637,7 +399,7 @@ class AccreditationController extends AbstractPublicrelationsController
 
       // a) Gast-Fall
       if (!empty($v['guest'] ?? '')) {
-        $guest = $this->ttAddressRepository->findByUid((int) $v['guest']);
+        $guest = $this->contactRepository->findByUid((int) $v['guest']);
         $dup = $this->accreditationRepository->findGuestByEvent(
           $guest->getUid(),
           $event->getUid()
@@ -725,423 +487,13 @@ class AccreditationController extends AbstractPublicrelationsController
   }
 
   /**
-   * Fall 3: Invitation-Manager
-   */
-  protected function handleInvitationManager(Event $event): ResponseInterface
-  {
-    $invitationsInput = $this->request->getArgument('invitations') ?? [];
-    $selectedGuestUidsString = $invitationsInput['selectedGuestUids'] ?? '';
-
-    // UIDs aus dem komma-separierten String extrahieren
-    $selectedGuestUids = GeneralUtility::intExplode(',', $selectedGuestUidsString, true);
-
-    if (empty($selectedGuestUids)) {
-      $this->addModuleFlashMessage('Keine Gäste ausgewählt.', 'KEINE AKTION', 'INFO');
-      return $this->redirect('show', 'Event', null, ['event' => $event]);
-    }
-
-    // 1. Alle benötigten Gast-Daten in einem Rutsch abrufen (nur die notwendigen Felder)
-    // findGuestsForBulkProcessing holt nur die benötigten Felder als Array zurück, ohne Hydration.
-    $guestsData = $this->ttAddressRepository->findGuestsForBulkProcessing($selectedGuestUids);
-    $guestsById = array_column($guestsData, null, 'uid');
-
-    // 2. Bestehende Akkreditierungen für diese Gäste und dieses Event auf einmal prüfen
-    $existingAccreditationGuestUids = $this->accreditationRepository->findGuestUidsByEvent($selectedGuestUids, $event->getUid());
-    $isAlreadyAccredited = array_flip($existingAccreditationGuestUids);
-
-    // 3. InvitationType einmalig laden (als UID, um Hydration zu vermeiden)
-    $invitationTypeUid = (int) ($invitationsInput['invitationType'] ?? 0);
-
-    $tcaUpdates = [];
-    $createdCount = 0;
-    $duplicateNames = [];
-    $excludedNames = [];
-    $logData = [];
-
-    foreach ($selectedGuestUids as $guestUid) {
-      $guestData = $guestsById[$guestUid] ?? null;
-
-      if (!$guestData) {
-        continue; // Gast wurde nicht gefunden, ignorieren
-      }
-
-      // Hilfsfunktion zur Erstellung des Anzeigenamens
-      $guestName = $this->formatGuestName($guestData);
-
-      // Prüfung 1: Ist der Gast von Mailings ausgeschlossen?
-      if ((int) $guestData['mailing_exclude'] === 1) {
-        $excludedNames[] = $guestName;
-        continue;
-      }
-
-      // Prüfung 2: Gibt es bereits eine Akkreditierung für dieses Event?
-      if (isset($isAlreadyAccredited[$guestUid])) {
-        $duplicateNames[] = $guestName;
-        continue;
-      }
-
-      // Gast ist nicht ausgeschlossen und kein Duplikat -> DataHandler-Array erstellen
-      $newAccreditationData = [
-        'pid' => $event->getPid(),
-        'event' => $event->getUid(),
-        'status' => 0,
-        'invitation_status' => 0,
-        'type' => 2,
-        'guest_type' => (int) ($invitationsInput['guestType'] ?? 0),
-        'tickets_wish' => (int) ($invitationsInput['ticketsWish'] ?? 0),
-        'guest' => $guestUid,
-        'invitation_type' => $invitationTypeUid,
-      ];
-
-      $tempId = 'NEW_' . $guestUid;
-      $tcaUpdates['tx_publicrelations_domain_model_accreditation'][$tempId] = $newAccreditationData;
-      $logData[$tempId] = ['logCode' => 'AI-CR2'];
-      $createdCount++;
-    }
-
-    // Alle Änderungen auf einmal persistieren
-    if ($createdCount > 0) {
-      $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
-      $dataHandler->start($tcaUpdates, []);
-      $dataHandler->process_datamap();
-
-      // // NEU: Fehler des ersten DataHandler-Laufs prüfen und ausgeben
-      // if (!empty($dataHandler->errorLog)) {
-      //   $this->addModuleFlashMessage(
-      //     'Fehler beim Erstellen der Akkreditierungen. Bitte prüfen Sie die Eingaben.',
-      //     'DATENBANKFEHLER',
-      //     'ERROR'
-      //   );
-      //   // Optional: Spezifische Fehlerdetails loggen
-      //   \TYPO3\CMS\Core\Utility\DebugUtility::debug($dataHandler->errorLog);
-      // }
-
-      // Logs erstellen, da wir jetzt die echten UIDs haben
-      $newlyCreatedUids = $dataHandler->substNEWwithIDs;
-      $logTcaUpdates = [];
-      $logCounter = 0;
-
-      foreach ($newlyCreatedUids as $tempId => $newUid) {
-        if (isset($logData[$tempId])) {
-          // Holen der tt_address UID aus der ursprünglichen newAccreditationData-Struktur
-          $guestUid = $tcaUpdates['tx_publicrelations_domain_model_accreditation'][$tempId]['guest'];
-
-          // Log-Daten-Array erstellen
-          $logEntryData = [
-            'pid' => 2,
-            'cruser_id' => $GLOBALS['BE_USER']->user['uid'] ?? 0,
-            'function' => 'Akkreditierung',
-            'code' => $logData[$tempId]['logCode'],
-            'subject' => 'Erstellt - Wizzard',
-            'accreditation' => (int) $newUid,
-            'tt_address' => (int) $guestUid,
-            'event' => (int) $event->getUid(),
-          ];
-
-          // Log-Daten dem gesammelten Array für den DataHandler hinzufügen
-          $logTcaUpdates['tx_publicrelations_domain_model_log']['NEW_' . $logCounter] = $logEntryData;
-          $logCounter++;
-        }
-      }
-
-      // 2. Log-Einträge mit EINEM DataHandler-Aufruf erstellen
-      if (!empty($logTcaUpdates)) {
-        $dataHandler->start($logTcaUpdates, []);
-        $dataHandler->process_datamap();
-
-        // NEU: Fehler des zweiten DataHandler-Laufs prüfen und ausgeben
-        if (!empty($dataHandler->errorLog)) {
-          $this->addModuleFlashMessage(
-            'Fehler beim Erstellen der Log-Einträge.',
-            'LOG-FEHLER',
-            'WARNING'
-          );
-        }
-      }
-    }
-
-    // Flash Messages
-    if (count($excludedNames) > 0) {
-      $message = sprintf('%d Gäste wollten keine Mailings erhalten und wurden nicht akkreditiert: <br> %s', count($excludedNames), implode(', ', $excludedNames));
-      $this->addModuleFlashMessage($message, 'EINIGE GÄSTE AUSGESCHLOSSEN', 'WARNING');
-    }
-    if (count($duplicateNames) > 0) {
-      $message = sprintf('Nicht alle Einladungen konnten erstellt werden. %d Duplikat(e) gefunden: <br> %s', count($duplicateNames), implode(', ', $duplicateNames));
-      $this->addModuleFlashMessage($message, 'DUPLIKATE NICHT ERSTELLT', 'WARNING');
-    }
-    if ($createdCount > 0) {
-      $message = sprintf("Es wurden %d Einladungen erfolgreich erstellt. Der Versand muss noch angestoßen werden.", $createdCount);
-      $this->addModuleFlashMessage($message, 'EINLADUNGEN ERSTELLT!', 'OK');
-    } elseif ($createdCount === 0 && count($duplicateNames) === 0 && count($excludedNames) === 0) {
-      $this->addModuleFlashMessage('Es wurden keine Gäste ausgewählt oder es gab ein Problem mit den Eingabedaten.', 'KEINE AKTION', 'INFO');
-    }
-
-    return $this->redirect('show', 'Event', null, ['event' => $event]);
-  }
-
-  /**
-   * Hilfsmethode zur Formatierung des Anzeigenamens aus einem Daten-Array.
-   */
-  private function formatGuestName(array $guestData): string
-  {
-    $name = trim($guestData['first_name'] . ' ' . $guestData['middle_name'] . ' ' . $guestData['last_name']);
-    if (empty($name) && !empty($guestData['company'])) {
-      return $guestData['company'];
-    }
-    return $name;
-  }
-
-
-
-
-  // /**
-  //  * Fall 3: Invitation-Manager
-  //  */
-  // protected function handleInvitationManager(Event $event): ResponseInterface
-  // {
-
-  //   $invitationsInput = $this->request->getArgument('invitations') ?? [];
-  //   if (empty($invitationsInput['guest'])) {
-  //     $this->addModuleFlashMessage( // Verwenden Sie addFlashMessage aus dem ActionController
-  //       'Das sollte eigentlich nicht passieren. Es kamen keine zu generierenden Daten an.',
-  //       'KEINE DATEN ÜBERGEBEN!',
-  //       'ERROR' // Verwenden Sie die Konstanten
-  //     );
-  //     return $this->redirect('show', 'Event', null, ['event' => $event]);
-  //   }
-
-  //   $selectedGuestUids = [];
-  //   foreach ($invitationsInput['guest'] as $uid => $selected) {
-  //     if ($selected === '1') {
-  //       $selectedGuestUids[] = (int) $uid;
-  //     }
-  //   }
-
-  //   if (empty($selectedGuestUids)) {
-  //     $this->addModuleFlashMessage(
-  //       'Keine Gäste ausgewählt.',
-  //       'INFORMATION',
-  //       'INFO'
-  //     );
-  //     return $this->redirect('show', 'Event', null, ['event' => $event]);
-  //   }
-
-  //   // 1. Alle benötigten Gast-Objekte (TtAddress) auf einmal laden
-  //   $guestsById = [];
-  //   $ttAddressObjects = $this->ttAddressRepository->findByUids($selectedGuestUids);
-  //   foreach ($ttAddressObjects as $guest) {
-  //     /** @var TtAddress $guest */
-  //     $guestsById[$guest->getUid()] = $guest;
-  //   }
-
-  //   // 2. Bestehende Akkreditierungen für diese Gäste und dieses Event auf einmal prüfen
-  //   // Annahme: findGuestUidsByEvent gibt ein Array der UIDs von Gästen zurück, die bereits akkreditiert sind.
-  //   $existingAccreditationGuestUids = $this->accreditationRepository->findGuestUidsByEvent(
-  //     $selectedGuestUids,
-  //     $event->getUid()
-  //   );
-  //   // Umwandeln in ein assoziatives Array für schnellen Lookup
-  //   $isAlreadyAccredited = array_flip($existingAccreditationGuestUids);
-
-  //   // 3. InvitationType einmalig laden, wenn vorhanden
-  //   $invitationTypeObject = null;
-  //   if (!empty($invitationsInput['invitationType'])) {
-  //     $invitationTypeObject = $this->invitationRepository->findByUid((int) $invitationsInput['invitationType']);
-  //     if (!$invitationTypeObject) {
-  //       $this->addModuleFlashMessage(
-  //         sprintf('Der angegebene Einladungstyp mit UID %d konnte nicht gefunden werden.', (int) $invitationsInput['invitationType']),
-  //         'FEHLERHAFTER EINLADUNGSTYP',
-  //         'ERROR'
-  //       );
-  //       // Eventuell hier abbrechen, wenn ein gültiger InvitationType zwingend ist
-  //       return $this->redirect('show', 'Event', null, ['event' => $event]);
-  //     }
-  //   }
-
-  //   $createdCount = 0;
-  //   $duplicateCount = 0;
-  //   $excludedCount = 0;
-  //   $accreditationsToPersist = [];
-
-  //   foreach ($selectedGuestUids as $guestUid) {
-  //     $guest = $guestsById[$guestUid] ?? null;
-
-  //     if (!$guest) {
-  //       // Sollte nicht passieren, wenn findByUids korrekt funktioniert und alle UIDs gültig waren
-  //       $duplicateCount++; // Zählen als nicht verarbeitet
-  //       continue;
-  //     }
-
-  //     /** @var TtAddress $guest */
-  //     if ($guest->isMailingExclude()) {
-  //       $this->addModuleFlashMessage(
-  //         sprintf(
-  //           "Der Gast %s (%s) will keine Mailings mehr erhalten, es wurde keine Akkreditierung/Einladung erstellt!",
-  //           htmlspecialchars($guest->getFullName() ?: 'Unbekannt', ENT_QUOTES),
-  //           htmlspecialchars($guest->getEmail() ?: 'Keine E-Mail', ENT_QUOTES) // Zusätzliche Info
-  //         ),
-  //         'GAST AUSGESCHLOSSEN', // Titel angepasst
-  //         'WARNING' // Eventuell WARNING statt ERROR, da es eine Gast-Eigenschaft ist
-  //       );
-  //       $excludedCount++;
-  //       continue;
-  //     }
-
-  //     if (isset($isAlreadyAccredited[$guestUid])) {
-  //       $duplicateCount++;
-  //       continue;
-  //     }
-
-  //     // Gast ist nicht ausgeschlossen und kein Duplikat -> Akkreditierung erstellen
-  //     $newAccreditation = new Accreditation();
-  //     $newAccreditation->setEvent($event);
-  //     $newAccreditation->setStatus(0); // Default Status
-  //     $newAccreditation->setInvitationStatus(0); // Default Invitation Status
-  //     $newAccreditation->setType(2); // Typ 2 für Invitation-Manager?
-  //     $newAccreditation->setGuestType((int) ($invitationsInput['guestType'] ?? 0));
-  //     $newAccreditation->setTicketsWish((int) ($invitationsInput['ticketsWish'] ?? 0));
-  //     $newAccreditation->setGuest($guest);
-
-  //     if ($invitationTypeObject) {
-  //       $newAccreditation->setInvitationType($invitationTypeObject);
-  //     }
-
-  //     // Log erstellen und hinzufügen
-  //     // Annahme: $this->logGenerator->createAccreditationLog gibt ein persistierbares Log-Objekt zurück
-  //     // und $newAccreditation->addLog() ist korrekt konfiguriert (z.B. mit cascade persist)
-  //     $logEntry = $this->logGenerator->createAccreditationLog('AI-S-C', $newAccreditation); // Typ 'Accreditation created from Invitation System - Controller'
-  //     $newAccreditation->addLog($logEntry);
-
-  //     $this->accreditationRepository->add($newAccreditation); // Dem Repository hinzufügen (noch nicht persistiert)
-  //     // Wenn LogEntry ein eigenes persistierbares Objekt ist und nicht via Kaskadierung von Accreditation persistiert wird:
-  //     // $this->logEntryRepository->add($logEntry);
-
-  //     $createdCount++;
-  //   }
-
-  //   // 4. Alle Änderungen auf einmal persistieren, wenn etwas erstellt wurde
-  //   if ($createdCount > 0) {
-  //     // Da Sie $this->accreditationRepository->add() verwenden, sollte ein
-  //     // $this->persistenceManager->persistAll() am Ende ausreichen,
-  //     // wenn es nicht automatisch am Ende des Action-Controller-Zyklus passiert.
-  //     // Um sicherzugehen, explizit aufrufen:
-  //     $this->persistenceManager->persistAll();
-  //   }
-
-  //   // Flash Messages
-  //   if ($excludedCount > 0) {
-  //     $this->addModuleFlashMessage(
-  //       sprintf('%d Gäste wollten keine Mailings erhalten und wurden nicht akkreditiert.', $excludedCount),
-  //       'EINIGE GÄSTE AUSGESCHLOSSEN',
-  //       'WARNING'
-  //     );
-  //   }
-  //   if ($duplicateCount > 0) {
-  //     $this->addModuleFlashMessage(
-  //       sprintf('Nicht alle Einladungen konnten erstellt werden. %d Duplikat(e) oder Fehler beim Laden der Gastdaten.', $duplicateCount),
-  //       'DUPLIKATE NICHT ERSTELLT',
-  //       'WARNING'
-  //     );
-  //   }
-  //   if ($createdCount > 0) {
-  //     $this->addModuleFlashMessage(
-  //       sprintf(
-  //         "Es wurden %d Einladungen erfolgreich erstellt. Bitte beachte, dass dies nur intern erstellt wurde, bisher hat noch niemand eine Einladung via E-Mail erhalten. Der Versand muss noch angestoßen werden.",
-  //         $createdCount
-  //       ),
-  //       'EINLADUNGEN ERSTELLT!',
-  //       'OK'
-  //     );
-  //   } elseif ($createdCount === 0 && $duplicateCount === 0 && $excludedCount === 0 && !empty($selectedGuestUids)) {
-  //     $this->addModuleFlashMessage(
-  //       'Es wurden keine Gäste ausgewählt oder es gab ein Problem mit den Eingabedaten.',
-  //       'KEINE AKTION',
-  //       'INFO'
-  //     );
-  //   }
-
-  //   // $this->handleDuplicateCheck($event);
-
-  //   return $this->redirect('show', 'Event', null, ['event' => $event]);
-  // }
-
-
-  // /**
-  //  * Fall 3: Invitation-Manager
-  //  */
-  // protected function handleInvitationManager(Event $event): ResponseInterface
-  // {
-  //   $inv = $this->request->getArgument('invitations') ?? [];
-  //   if (empty($inv['guest'])) {
-  //     $this->addModuleFlashMessage(
-  //       'Das sollte eigentlich nicht passieren. Es kamen keine zu generierenden Daten an.',
-  //       'KEINE DATEN ÜBERGEBEN!',
-  //       'ERROR'
-  //     );
-  //     return $this->redirect('show', 'Event', null, ['event' => $event]);
-  //   }
-
-  //   $created = $dup = 0;
-  //   foreach ($inv['guest'] as $uid => $sel) {
-  //     if ($sel !== '1') {
-  //       continue;
-  //     }
-  //     $guest = $this->ttAddressRepository->findByUid((int) $uid);
-  //     $duplicate = $this->accreditationRepository->findGuestByEvent($guest->getUid(), $event->getUid());
-  //     if ($guest->isMailingExclude()) {
-  //       $this->addModuleFlashMessage(
-  //         "Der Gast {$guest->getFullName()} will keine Mailings mehr erhalten, es wurde keine Akkreditierung/Einladung erstellt!",
-  //         'AKKREDITIERUNG KONNTE NICHT ERSTELLT WERDEN!',
-  //         'ERROR'
-  //       );
-  //     } elseif ($duplicate) {
-  //       $dup++;
-  //     } else {
-  //       $newAk = new Accreditation();
-  //       $newAk->setEvent($event);
-  //       $newAk->setStatus(0);
-  //       $newAk->setInvitationStatus(0);
-  //       $newAk->setType(2);
-  //       $newAk->setGuestType((int) ($inv['guestType'] ?? 0));
-  //       $newAk->setTicketsWish((int) ($inv['ticketsWish'] ?? 0));
-  //       $newAk->setGuest($guest);
-
-  //       if (!empty($inv['invitationType'])) {
-  //         $newAk->setInvitationType(
-  //           $this->invitationRepository->findByUid((int) $inv['invitationType'])
-  //         );
-  //       }
-  //       $log = $this->logGenerator
-  //         ->createAccreditationLog('AI-S-C', $newAk);
-  //       $newAk->addLog($log);
-  //       $this->accreditationRepository->add($newAk);
-  //       $created++;
-  //     }
-  //   }
-
-  //   if ($dup > 0) {
-  //     $this->addModuleFlashMessage(
-  //       "Nicht alle Einladungen konnten erstellt werden. {$dup} Duplikat(e).",
-  //       'DUPLIKATE WURDEN NICHT ERSTELLT!',
-  //       'WARNING'
-  //     );
-  //   }
-  //   $this->addModuleFlashMessage(
-  //     "Es wurden {$created} Einladungen erfolgreich erstellt. Bitte beachte, dass dies nur intern erstellt wurde, bisher hat noch niemand eine Einladung via E-Mail erhalten. Der Versand muss noch angestoßen werden.",
-  //     'EINLADUNGEN ERSTELLT!'
-  //   );
-
-  //   return $this->redirect('show', 'Event', null, ['event' => $event]);
-  // }
-
-  /**
    * Fall 4: Manuelle Frontend-Anfrage
    */
   protected function handleManualFrontend(Event $event): ResponseInterface
   {
     $data = $this->request->getArgument('newAccreditation') ?? [];
     $email = trim(strtolower($data['email'] ?? ''));
-    $guest = $this->ttAddressRepository->findByProperty('email', $email);
+    $guest = $this->contactRepository->findByProperty('email', $email);
 
     if ($guest !== null) {
       $dup = $this->accreditationRepository->findGuestByEvent($guest->getUid(), $event->getUid());
@@ -1565,7 +917,7 @@ class AccreditationController extends AbstractPublicrelationsController
     );
 
     // Journalisten-Kontakte holen
-    $press = $this->ttAddressRepository->findByPage(
+    $press = $this->contactRepository->findByPage(
       $this->emConfiguration->getJournalistsPid()
     );
 
@@ -1790,7 +1142,7 @@ class AccreditationController extends AbstractPublicrelationsController
 
     } elseif ($this->request->hasArgument('createContact')) {
 
-      $guest = $this->ttAddressRepository->findByProperty('email', trim(strtolower($accreditation->getEmail())));
+      $guest = $this->contactRepository->findByProperty('email', trim(strtolower($accreditation->getEmail())));
 
       if ($guest)
         $accreditation->setGuest($guest);

@@ -8,8 +8,8 @@ defined('TYPO3') || die();
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['livesearch']['news'] = 'tx_publicrelations_domain_model_news';
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['livesearch']['mailing'] = 'tx_publicrelations_domain_model_mailing';
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['livesearch']['mail'] = 'tx_publicrelations_domain_model_mail';
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['livesearch']['kontakt'] = 'tt_address';
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['livesearch']['vip'] = 'tt_address';
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['livesearch']['presse'] = 'tt_address';
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['livesearch']['kontakt'] = 'ac_contact';
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['livesearch']['vip'] = 'ac_contact';
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['livesearch']['presse'] = 'ac_contact';
 }
 )();

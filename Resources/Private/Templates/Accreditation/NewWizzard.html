@@ -42,16 +42,17 @@
         <label for="selectGuest"><svg class="icon icon-sm mr-1"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user"></use></svg>Kontaktauswahl</label>
         <div class="input-group w-100">
             <f:form.select 
-                class="form-control select-contact"
-                id="contactSelect{accrId}" 
-                property="newAccreditations.{accrId}.guest"
-                style="width: 100%;" 
-                data="{
-                    contacts-nomailing:'false',
-                    contacts-maxresults:'20',
-                    contacts-pid:'6,40,44'
-                }" 
-                placeholder="Kontakt suchen..." />
+                    id="contactSelect{accrId}" 
+                    property="newAccreditations.{accrId}.guest"
+                    class="js-tom-select"
+                    data="{
+                      tom-select:'',
+                      tom-select-url:'accontacts_contact_search',
+                      tom-select-format:'contact',
+                      tom-select-where-client-equals:'0'
+                    }"
+                    placeholder="Kontakt suchen und hinzufügen..."
+            />
         </div>
       </div>
     </div>

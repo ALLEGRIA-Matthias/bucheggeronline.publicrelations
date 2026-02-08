@@ -16,7 +16,6 @@ use BucheggerOnline\Publicrelations\Utility\MailGenerator;
 use BucheggerOnline\Publicrelations\Service\ContactService;
 
 use BucheggerOnline\Publicrelations\Domain\Repository\AccessClientRepository;
-use BucheggerOnline\Publicrelations\Domain\Repository\TtAddressRepository;
 use BucheggerOnline\Publicrelations\Domain\Repository\SysCategoryRepository;
 use BucheggerOnline\Publicrelations\Domain\Repository\LogRepository;
 use BucheggerOnline\Publicrelations\Domain\Repository\ClientRepository;
@@ -34,6 +33,7 @@ use BucheggerOnline\Publicrelations\Domain\Model\Accreditation;
 use BucheggerOnline\Publicrelations\Service\AccreditationService;
 use BucheggerOnline\Publicrelations\DataResolver\AccreditationDataResolver;
 use Allegria\AcDistribution\Service\DistributionService;
+use Allegria\AcContacts\Domain\Repository\ContactRepository;
 
 /**
  * AjaxController
@@ -41,7 +41,7 @@ use Allegria\AcDistribution\Service\DistributionService;
 class AjaxController extends ActionController
 {
     private AccessClientRepository $accessClientRepository;
-    private TtAddressRepository $ttAddressRepository;
+    private ContactRepository $contactRepository;
     private SysCategoryRepository $sysCategoryRepository;
     private LogRepository $logRepository;
     private ClientRepository $clientRepository;
@@ -49,14 +49,13 @@ class AjaxController extends ActionController
     private AccreditationRepository $accreditationRepository;
     private InvitationRepository $invitationRepository;
     private JobRepository $jobRepository;
-    private ContactService $contactService;
     private AccreditationService $accreditationService;
     private DistributionService $distributionService;
     private PersistenceManager $persistenceManager;
 
     public function __construct(
         AccessClientRepository $accessClientRepository,
-        TtAddressRepository $ttAddressRepository,
+        ContactRepository $contactRepository,
         SysCategoryRepository $sysCategoryRepository,
         LogRepository $logRepository,
         ClientRepository $clientRepository,
@@ -64,13 +63,12 @@ class AjaxController extends ActionController
         AccreditationRepository $accreditationRepository,
         JobRepository $jobRepository,
         InvitationRepository $invitationRepository,
-        ContactService $contactService,
         AccreditationService $accreditationService,
         DistributionService $distributionService,
         PersistenceManager $persistenceManager
     ) {
         $this->accessClientRepository = $accessClientRepository;
-        $this->ttAddressRepository = $ttAddressRepository;
+        $this->contactRepository = $contactRepository;
         $this->sysCategoryRepository = $sysCategoryRepository;
         $this->logRepository = $logRepository;
         $this->clientRepository = $clientRepository;
@@ -96,29 +94,8 @@ class AjaxController extends ActionController
     {
         $clientUid = $client->getUid();
 
-        // // 1. Sicherheitsprüfung: Hat der User Zugriff auf diesen Client und die Kontakte?
-        // $context = GeneralUtility::makeInstance(Context::class);
-        // $userId = (int) $context->getPropertyFromAspect('frontend.user', 'id');
-        // if ($userId === 0) {
-        //     return new JsonResponse(['error' => 'Access denied'], 403);
-        // }
-        // $userGroupIds = $context->getPropertyFromAspect('frontend.user', 'groupIds');
-        // $accessPermissions = $this->accessClientRepository->findForUserAndGroups($userId, $userGroupIds);
-
-        // $hasAccess = false;
-        // foreach ($accessPermissions as $permission) {
-        //     if ($permission->getClient()->getUid() === $client->getUid() && $permission->isViewContacts()) {
-        //         $hasAccess = true;
-        //         break;
-        //     }
-        // }
-
-        // if (!$hasAccess) {
-        //     return new JsonResponse(['error' => 'Access denied for this client'], 403);
-        // }
-
         // 2. Daten abrufen
-        $contacts = $this->ttAddressRepository->feFindByClient($clientUid, $search, $mailinglist);
+        $contacts = $this->contactRepository->feFindByClient($clientUid, $search, $mailinglist);
         $mailinglists = $this->sysCategoryRepository->feFindByClient($clientUid);
 
         // Mailinglisten formatieren
@@ -163,7 +140,7 @@ class AjaxController extends ActionController
 
         // 3. JSON-Antwort erstellen
         $response = [
-            'totalContacts' => $this->ttAddressRepository->countByClient($clientUid),
+            'totalContacts' => $this->contactRepository->countByClient($clientUid),
             'filteredContacts' => count($contacts),
             'contacts' => $processedContacts,
             'mailinglists' => $mailinglistData,
@@ -184,8 +161,8 @@ class AjaxController extends ActionController
         }
 
         // 2. Kontakt-Objekt laden
-        /** @var \BucheggerOnline\Publicrelations\Domain\Model\TtAddress|null $contactObject */
-        $contactObject = $this->ttAddressRepository->findByUid($contact);
+        /** @var \Allegria\AcContacts\Domain\Model\Contact|null $contactObject */
+        $contactObject = $this->contactRepository->findByUid($contact);
 
         // 3. Prüfen, ob der Kontakt existiert UND zum richtigen Client gehört
         if ($contactObject && $contactObject->getClient() && $contactObject->getClient()->getUid() === $client) {
@@ -238,7 +215,7 @@ class AjaxController extends ActionController
         $uid = (int) ($contactData['uid'] ?? 0);
 
         // 3a. Bestehendes Kontakt-Objekt laden
-        $contact = $this->ttAddressRepository->findByUid($uid);
+        $contact = $this->contactRepository->findByUid($uid);
         if ($contact === null) {
             return new JsonResponse(['success' => false, 'error' => 'Kontakt nicht gefunden oder kein Zugriff gewährt.'], 404);
         }
@@ -273,7 +250,7 @@ class AjaxController extends ActionController
         }
 
         // 4. Geändertes Objekt (ggf. inkl. neuem Log) persistieren
-        $this->ttAddressRepository->update($contact);
+        $this->contactRepository->update($contact);
 
         return new JsonResponse(['success' => true]);
     }
@@ -511,9 +488,9 @@ class AjaxController extends ActionController
             $position = '';
             $sortingName = '';
 
-            // Prüfen, ob ein verknüpfter Gast (tt_address) existiert
+            // Prüfen, ob ein verknüpfter Gast (ac_contact) existiert
             if (!empty($acc['guest_uid'])) {
-                // Fall 1: Daten vom tt_address-Datensatz verwenden
+                // Fall 1: Daten vom ac_contact-Datensatz verwenden
                 $nameParts = array_filter([$acc['guest_title'], $acc['guest_first_name'], $acc['guest_middle_name'], $acc['guest_last_name']]);
                 $fullName = implode(' ', $nameParts);
                 if (!empty($acc['guest_title_suffix'])) {
@@ -710,7 +687,7 @@ class AjaxController extends ActionController
 
             // 3. Prüfen, ob dieser Kontakt (E-Mail sollte eindeutig sein) bereits akkreditiert ist
             //    Wir müssen den Kontakt anhand der E-Mail finden, da wir noch keine UID haben
-            $existingContact = $this->ttAddressRepository->findOneByEmail($contactData['email'], $clientUid);
+            $existingContact = $this->contactRepository->findOneByEmail($contactData['email'], $clientUid);
             if ($existingContact) {
                 $existingAccreditationUid = $this->accreditationRepository->findExistingAccreditation($existingContact->getUid(), $event->getUid());
                 if ($existingAccreditationUid !== null) {
@@ -765,7 +742,7 @@ class AjaxController extends ActionController
 
         if ($existingContactUid > 0) {
             // Fall A: User hat ein Duplikat ausgewählt.
-            $contact = $this->ttAddressRepository->findByUid($existingContactUid);
+            $contact = $this->contactRepository->findByUid($existingContactUid);
 
             // Sicherheitscheck: Gehört dieser Kontakt überhaupt zum Client?
             if (!$contact || $contact->getClient()->getUid() !== $clientUid) {

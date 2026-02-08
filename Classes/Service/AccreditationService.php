@@ -280,7 +280,7 @@ class AccreditationService
             'code' => $logCode,
             'subject' => $subject . (str_contains($logCode, 'email') ? ' [' . $accreditation->getGuestOutput()['email'] . ']' : ''),
             'accreditation' => $accreditation->getUid(),
-            'tt_address' => $accreditation->getGuest() ? $accreditation->getGuest()->getUid() : 0,
+            'address' => $accreditation->getGuest() ? $accreditation->getGuest()->getUid() : 0,
             'event' => $accreditation->getEvent() ? $accreditation->getEvent()->getUid() : 0,
             'details' => $this->formatLogDetails($logCode, $accreditation, $additionalData), // Pass code and accr. too
         ];

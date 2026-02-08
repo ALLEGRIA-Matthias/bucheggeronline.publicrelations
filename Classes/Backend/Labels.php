@@ -72,12 +72,12 @@ class Labels
     $row = $params['row'] ?? [];
     $guestId = (int) ($row['guest'] ?? 0);
     $guest = $guestId > 0
-      ? BackendUtility::getRecord('tt_address', $guestId)
+      ? BackendUtility::getRecord('ac_contact', $guestId)
       : null;
 
     $parts = [];
     if (is_array($guest)) {
-      // tt_address-Daten
+      // ac_contact-Daten
       if (!empty($guest['last_name'])) {
         $parts[] = trim($guest['last_name']);
       }

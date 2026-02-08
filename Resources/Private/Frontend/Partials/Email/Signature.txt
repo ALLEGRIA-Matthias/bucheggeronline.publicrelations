@@ -1,3 +1,0 @@
-Liebe Grüße
-Mario Reiner
-{settings.company.name}

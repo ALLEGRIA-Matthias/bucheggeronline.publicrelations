@@ -287,7 +287,7 @@ class Accreditation extends AbstractEntity
     /**
      * guest
      *
-     * @var \BucheggerOnline\Publicrelations\Domain\Model\TtAddress
+     * @var \Allegria\AcContacts\Domain\Model\Contact
      */
     protected $guest;
 
@@ -1403,7 +1403,7 @@ class Accreditation extends AbstractEntity
     /**
      * Returns the guest
      *
-     * @param \BucheggerOnline\Publicrelations\Domain\Model\TtAddress $guest
+     * @param \Allegria\AcContacts\Domain\Model\Contact $guest
      * @return void
      */
     public function getGuest()
@@ -1419,7 +1419,7 @@ class Accreditation extends AbstractEntity
     public function getGuestOutput(): array
     {
         // 1. Datenquelle bestimmen
-        $source = $this->guest; // TtAddress object or null
+        $source = $this->guest; // Contact object or null
 
         // 2. Daten normalisieren (PHP 8 null-safe ?: operator)
         $company = $source?->getCompany() ?? $this->getMedium();
@@ -1431,10 +1431,10 @@ class Accreditation extends AbstractEntity
         $titleSuffix = $source?->getTitleSuffix() ?? '';
         $phone = $source?->getMobile() ?? $this->getPhone();
         $email = $source?->getEmail() ?? $this->getEmail();
-        $fullName = $source?->getFullName() ?? $this->getFullName();
+        $fullName = $source?->getDisplayName() ?? $this->getFullName();
 
         // Spezielle Felder
-        $specialTitle = $source?->getSpecialTitle() ?? '';
+        $specialTitle = $source?->getSalutationSpecial() ?? '';
         $rawGender = $source?->getGender() ?? $this->getGender();
 
         // 3. Gender normalisieren (String 'm'/'f' -> Int 1/2) für Ausgabe im Frontend
@@ -1486,7 +1486,7 @@ class Accreditation extends AbstractEntity
     {
         // Special Title Check
         $source = $this->guest;
-        $specialTitle = $source?->getSpecialTitle() ?? '';
+        $specialTitle = $source?->getSalutationSpecial() ?? '';
         if (!empty($specialTitle)) {
             return $specialTitle;
         }
@@ -1515,7 +1515,7 @@ class Accreditation extends AbstractEntity
     {
         // Special Title Check
         $source = $this->guest;
-        $specialTitle = $source?->getSpecialTitle() ?? '';
+        $specialTitle = $source?->getSalutationSpecial() ?? '';
         if (!empty($specialTitle)) {
             return $specialTitle;
         }
@@ -1545,7 +1545,7 @@ class Accreditation extends AbstractEntity
      *
      * @return void
      */
-    public function setGuest(\BucheggerOnline\Publicrelations\Domain\Model\TtAddress $guest)
+    public function setGuest(\Allegria\AcContacts\Domain\Model\Contact $guest)
     {
         $this->guest = $guest;
     }

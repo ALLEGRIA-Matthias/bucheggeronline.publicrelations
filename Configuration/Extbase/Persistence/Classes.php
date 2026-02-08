@@ -13,9 +13,6 @@ return [
     \BucheggerOnline\Publicrelations\Domain\Model\StaticInfoCountry::class => [
         'tableName' => 'static_countries',
     ],
-    \BucheggerOnline\Publicrelations\Domain\Model\TtAddress::class => [
-        'tableName' => 'tt_address',
-    ],
     \BucheggerOnline\Publicrelations\Domain\Model\Tag::class => [
         'tableName' => 'sys_tag',
     ],
@@ -24,11 +21,6 @@ return [
     ],
     \BucheggerOnline\Publicrelations\Domain\Model\AcMailerContent::class => [
         'tableName' => 'tx_acmailer_domain_model_content',
-    ],
-    \FriendsOfTYPO3\TtAddress\Domain\Model\Address::class => [
-        'subclasses' => [
-            \BucheggerOnline\Publicrelations\Domain\Model\TtAddress::class,
-        ],
     ],
     \BucheggerOnline\Publicrelations\Domain\Model\TtContent::class => [
         'tableName' => 'tt_content',
