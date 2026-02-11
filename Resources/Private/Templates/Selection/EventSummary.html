@@ -1,0 +1,163 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Module" />
+<f:section name="Content">
+    <div class="card shadow-sm border-0" id="contact-selection-summary">
+        <div class="card-header bg-transparent py-3 border-bottom d-flex justify-content-between align-items-center">
+            <h3 class="card-title m-0"><i class="bi bi-check2-circle me-2 text-success"></i> {moduleTitle}</h3>
+            
+            <f:if condition="{contacts}">
+                <!-- Header-Button für bessere UX -->
+                <button type="submit" form="transfer-form" class="btn btn-success px-4 shadow-sm fw-bold js-submit-btn">
+                    <i class="bi bi-check-circle me-1"></i> <span class="js-btn-count">{stats.total}</span> Empfänger übertragen
+                </button>
+            </f:if>
+        </div>
+        
+        <div class="card-body">
+            <!-- Stats: Jetzt mit 4 Spalten inkl. Illegal -->
+            <div class="row text-center mb-4 g-2">
+                <div class="col-md-3">
+                    <div class="p-2 border rounded bg-success bg-opacity-10 text-success shadow-sm">
+                        <div class="fs-4 fw-bold">{stats.total}</div>
+                        <div class="text-muted small">Zu übertragen</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-2 border rounded bg-danger bg-opacity-10 text-danger shadow-sm">
+                        <div class="fs-4 fw-bold">{stats.illegal}</div>
+                        <div class="text-muted small">Nicht erlaubt (Falscher Mandant)</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-2 border rounded bg-danger bg-opacity-10 text-danger shadow-sm">
+                        <div class="fs-4 fw-bold">{stats.blocked}</div>
+                        <div class="text-muted small">Gesperrt (Opt-Out)</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-2 border rounded bg-warning bg-opacity-10 text-warning shadow-sm">
+                        <div class="fs-4 fw-bold">{stats.duplicates}</div>
+                        <div class="text-muted small">Bereits im Mailing</div>
+                    </div>
+                </div>
+            </div>
+
+            <f:if condition="{contacts}">
+                <f:then>
+                    <div class="alert alert-info py-2 small d-flex align-items-center mb-3">
+                        <i class="bi bi-info-circle me-2"></i>
+                        Gesperrte, unbefugte Kontakte oder Duplikate sind farblich markiert und können nicht übertragen werden.
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="input-group w-50">
+                            <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                            <input type="text" class="form-control js-filter-input" placeholder="In Auswahl suchen...">
+                        </div>
+                        <div class="text-muted small js-count-display">
+                            <span class="js-visible-count">{contacts -> f:count()}</span> Datensätze in der Liste
+                        </div>
+                    </div>
+
+                    <div class="table-responsive border rounded mb-3" style="max-height: 55vh; overflow-y: auto;">
+                        <table class="table table-hover table-sm align-middle mb-0">
+                            <thead class="bg-light sticky-top" style="z-index: 5;">
+                                <tr>
+                                    <th style="width: 50px;" class="text-center">
+                                        <div class="form-check d-flex justify-content-center my-0">
+                                            <input type="checkbox" class="form-check-input js-toggle-all" style="cursor: pointer;" checked title="Alle auswählbaren markieren">
+                                        </div>
+                                    </th>
+                                    <th>Name</th>
+                                    <th>Firma</th>
+                                    <th>E-Mail</th>
+                                    <th>Event-Info</th>
+                                </tr>
+                            </thead>
+                            <tbody class="js-table-body">
+                                <f:for each="{contacts}" as="contact">
+                                    <f:variable name="isInvalid" value="{f:if(condition: '{contact.is_blocked} || {contact.is_duplicate} || {contact.is_illegal}', then: 1, else: 0)}" />
+                                    
+                                    <tr data-uid="{contact.uid}" 
+                                        data-email="{contact.email}"
+                                        data-search="{contact.first_name} {contact.last_name} {contact.email} {contact.company} {contact.info}"
+                                        class="{f:if(condition: contact.is_illegal, then: 'danger text-muted fw-bold')} {f:if(condition: contact.is_blocked, then: 'danger text-muted')} {f:if(condition: contact.is_duplicate, then: 'warning text-muted')}">
+                                        
+                                        <td class="text-center">
+                                            <f:if condition="{isInvalid}">
+                                                <f:then>
+                                                    <i class="bi {f:if(condition: contact.is_illegal, then: 'bi-shield-lock-fill text-danger', else: '{f:if(condition: contact.is_blocked, then: \'bi-slash-circle text-danger\', else: \'bi-exclamation-triangle text-warning\')}')}" 
+                                                       title="{f:if(condition: contact.is_illegal, then: 'ZUGRIFF VERWEIGERT: Falscher Mandant', else: '{f:if(condition: contact.is_blocked, then: \'Gesperrt / Kein Mailing erwünscht\', else: \'Bereits diesem Mailing zugeordnet\')}')}"></i>
+                                                </f:then>
+                                                <f:else>
+                                                    <div class="form-check d-flex justify-content-center my-0">
+                                                        <input type="checkbox" class="form-check-input js-row-checkbox" checked>
+                                                    </div>
+                                                </f:else>
+                                            </f:if>
+                                        </td>
+                                        
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <span>
+                                                    <f:if condition="{contact.first_name} || {contact.last_name}">
+                                                        <f:then>{contact.first_name} {contact.last_name}</f:then>
+                                                        <f:else><span class="text-muted small fst-italic">(Kein Name)</span></f:else>
+                                                    </f:if>
+                                                </span>
+                                                <f:if condition="{contact.is_illegal}">
+                                                    <span class="badge badge-danger ms-2 small" style="font-size: 0.65rem;">ILLEGAL</span>
+                                                </f:if>
+                                                <f:if condition="{contact.is_blocked}">
+                                                    <span class="badge badge-danger ms-2 small" style="font-size: 0.65rem;">GESPERRT</span>
+                                                </f:if>
+                                                <f:if condition="{contact.is_duplicate}">
+                                                    <span class="badge badge-warning ms-2 small" style="font-size: 0.65rem;">DUPLIKAT</span>
+                                                </f:if>
+                                            </div>
+                                        </td>
+                                        <td>{contact.company}</td>
+                                        <td>{contact.email}</td>
+                                        <td><span class="badge bg-light text-dark border">{contact.info}</span></td>
+                                    </tr>
+                                </f:for>
+                            </tbody>
+                        </table>
+                    </div>
+                </f:then>
+                <f:else>
+                    <div class="alert alert-warning shadow-sm">
+                        Keine Gäste für die gewählten Kriterien gefunden.
+                    </div>
+                </f:else>
+            </f:if>
+        </div>
+
+        <div class="card-footer d-flex justify-content-between align-items-center py-3 bg-transparent border-top">
+            <!-- Link zurück zum Wizard: Jetzt inkl. allowedClientUids -->
+            <f:link.action action="wizard" 
+                controller="EventSelection"
+                extensionName="AcPublicRelations"
+                arguments="{finishConfiguration: finishConfiguration, allowedClientUids: allowedClientUids}" 
+                class="btn btn-outline-secondary">
+                <i class="bi bi-pencil"></i> Auswahl anpassen
+            </f:link.action>
+            
+            <f:if condition="{contacts}">
+                <f:form action="transfer" controller="EventSelection" extensionName="AcPublicRelations" method="post" id="transfer-form">
+                    <f:form.hidden name="finishConfiguration" value="{finishConfiguration -> f:format.json()}" />
+                    <f:form.hidden name="selectionData" id="final-payload-input" />
+                    
+                    <button type="submit" class="btn btn-success px-4 shadow-sm fw-bold js-submit-btn">
+                        <i class="bi bi-check-circle me-1"></i> <span class="js-btn-count">{stats.total}</span> Empfänger übertragen
+                    </button>
+                </f:form>
+            </f:if>
+        </div>
+    </div>
+
+    <style>
+        .module-body { padding: 0 !important; }
+    </style>
+</f:section>
+</html>

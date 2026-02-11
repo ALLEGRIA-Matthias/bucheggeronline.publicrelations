@@ -17,8 +17,8 @@ use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Page\AssetCollector;
 
 use BucheggerOnline\Publicrelations\Domain\Model\Dto\EmConfiguration;
-use BucheggerOnline\Publicrelations\Utility\GeneralFunctions;
 use BucheggerOnline\Publicrelations\Utility\LogGenerator;
+use BucheggerOnline\Publicrelations\Utility\MailGenerator;
 
 use BucheggerOnline\Publicrelations\Service\AccreditationService;
 use BucheggerOnline\Publicrelations\DataResolver\AccreditationDataResolver;
@@ -43,6 +43,8 @@ use BucheggerOnline\Publicrelations\Domain\Model\Additionalfield;
 use BucheggerOnline\Publicrelations\Domain\Repository\AdditionalanswerRepository;
 use BucheggerOnline\Publicrelations\Domain\Model\Additionalanswer;
 
+use BucheggerOnline\Publicrelations\Event\GatherInvitationWizardsEvent;
+
 use BucheggerOnline\Publicrelations\Domain\Model\Dto\PreviewSelector;
 
 /**
@@ -62,7 +64,7 @@ class AccreditationController extends AbstractPublicrelationsController
     private readonly ContactRepository $contactRepository,
     private readonly EmConfiguration $emConfiguration,
     private readonly LogGenerator $logGenerator,
-    private readonly GeneralFunctions $generalFunctions,
+    private readonly MailGenerator $mailGenerator,
     private readonly AccreditationService $accreditationService,
     private readonly DistributionService $distributionService,
     private readonly AccreditationDataResolver $accreditationDataResolver,
@@ -215,7 +217,7 @@ class AccreditationController extends AbstractPublicrelationsController
     return match ($formType) {
       'singleBackend' => $this->handleSingleBackend($event, $newAccreditation),
       'wizzardBackend' => $this->handleWizardBackend($event),
-      'invitationManager' => $this->handleInvitationManager($event),
+      // 'invitationManager' => $this->handleInvitationManager($event),
       'manualFrontend' => $this->handleManualFrontend($event),
       default => $this->redirectToUri('https://www.allegria.at/'),
     };
@@ -493,9 +495,21 @@ class AccreditationController extends AbstractPublicrelationsController
   {
     $data = $this->request->getArgument('newAccreditation') ?? [];
     $email = trim(strtolower($data['email'] ?? ''));
-    $guest = $this->contactRepository->findByProperty('email', $email);
 
-    if ($guest !== null) {
+    $dup = null;
+    $guest = null;
+
+    if ($email !== '') {
+      // Fix: Nutze findOneByEmail, um ein einzelnes Objekt (oder null) zu erhalten.
+      // Falls der ContactDuplicateService oder andere Stellen einen Client-Scope erfordern,
+      // übergeben wir hier sicherheitshalber die Client-UID, wie im AjaxController gesehen.
+      $clientUid = $event->getClient() ? $event->getClient()->getUid() : 0;
+
+      // Annahme: findOneByEmail unterstützt den Client-Parameter (siehe AjaxController)
+      $guest = $this->contactRepository->findOneByEmail($email, $clientUid);
+    }
+
+    if ($guest instanceof Contact) {
       $dup = $this->accreditationRepository->findGuestByEvent($guest->getUid(), $event->getUid());
     }
     if (!empty($dup)) {
@@ -2502,5 +2516,241 @@ class AccreditationController extends AbstractPublicrelationsController
       return false;
     }
   }
+
+  /**
+   * SCHRITT 1: Start des Wizards (ersetzt teilweise die alte invitationManagerAction)
+   */
+  public function invitationManagerWizardAction(Event $event): ResponseInterface
+  {
+    // 1. Client Context ermitteln
+    $allowedClientUids = [];
+    if ($event->getClient()) {
+      $allowedClientUids[] = $event->getClient()->getUid();
+    }
+    // Partner (falls im Event Model vorhanden)
+    if (method_exists($event, 'getPartners')) {
+      foreach ($event->getPartners() as $partner) {
+        $allowedClientUids[] = $partner->getUid();
+      }
+    }
+    $allowedClientUids = array_unique(array_map('intval', $allowedClientUids));
+    $clientScope = empty($allowedClientUids) ? '0' : implode(',', $allowedClientUids);
+
+    // 2. Event feuern
+    $gatherEvent = new GatherInvitationWizardsEvent($event->getUid(), $clientScope);
+    $this->eventDispatcher->dispatch($gatherEvent);
+
+    $this->assetCollector->addStyleSheet('icons-bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+    $this->assetCollector->addStyleSheet('icons-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+    // 3. View
+    // Nutze am besten ein neues Template "InvitationManagerWizard.html", 
+    // das dem vom Mailer ähnlich sieht (Karten-Layout)
+    $this->view->assignMultiple([
+      'event' => $event,
+      'allowedClientUids' => $allowedClientUids,
+      'wizards' => $gatherEvent->getWizards()
+    ]);
+
+
+    $this->setModuleTitle('Empfänger hinzufügen');
+    return $this->backendResponse();
+  }
+
+  /**
+   * SCHRITT 2: Konfiguration der Einladung (Tickets, Typ, etc.)
+   * Empfängt die Kontakte aus der Session von AcContacts.
+   */
+  public function configureInvitationSelectionAction(
+    Event $event,
+    string $selectionTransferId = ''
+  ): ResponseInterface {
+
+    // 1. Daten aus Session laden (aber NOCH NICHT LÖSCHEN, wir brauchen sie im nächsten Schritt!)
+    // Wir löschen sie erst im createInvitationsAction
+    $selectionData = '[]';
+    if (!empty($selectionTransferId)) {
+      $beUser = $GLOBALS['BE_USER'];
+      $selectionData = $beUser->getSessionData($selectionTransferId);
+    }
+
+    $contacts = json_decode((string) $selectionData, true);
+
+    if (empty($contacts) || !is_array($contacts)) {
+      $this->addModuleFlashMessage('Keine Kontakte ausgewählt oder Session abgelaufen.', 'Fehler', 'ERROR');
+      return $this->redirect('invitationManager', null, null, ['event' => $event]);
+    }
+
+    // 2. View aufbauen (ähnlich deinem alten invitationManagerCategories, aber simpler)
+    $this->view->assignMultiple([
+      'event' => $event,
+      'contactCount' => count($contacts),
+      'selectionTransferId' => $selectionTransferId // ID durchschleifen!
+    ]);
+
+    $this->setModuleTitle('Einladungs-Details konfigurieren');
+    return $this->backendResponse(); // Template: ConfigureInvitationSelection.html
+  }
+
+  /**
+   * SCHRITT 3: Finale Erstellung
+   */
+  public function createInvitationsAction(
+    Event $event,
+    string $selectionTransferId,
+    int $ticketsWish = 2,
+    int $guestType = 0,
+    int $invitationType = 0
+  ): ResponseInterface {
+
+    // 1. Daten endgültig holen und löschen
+    $beUser = $GLOBALS['BE_USER'];
+    $selectionData = $beUser->getSessionData($selectionTransferId);
+    $beUser->setAndSaveSessionData($selectionTransferId, null); // Cleanup
+
+    $contacts = json_decode((string) $selectionData, true);
+
+    // JSON Struktur ist [{uid: 123, email: '...'}, ...]
+    // Wir brauchen nur die UIDs als Array für deine Logik
+    $selectedGuestUids = [];
+    if (is_array($contacts)) {
+      foreach ($contacts as $c) {
+        if (isset($c['uid'])) {
+          $selectedGuestUids[] = (int) $c['uid'];
+        }
+      }
+    }
+
+    if (empty($selectedGuestUids)) {
+      $this->addModuleFlashMessage('Keine Gäste ausgewählt.', 'KEINE AKTION', 'INFO');
+      return $this->redirect('show', 'Event', null, ['event' => $event]);
+    }
+
+    // --- AB HIER DEINE LOGIK (angepasst auf die Parameter) ---
+
+    // 1. Alle benötigten Gast-Daten in einem Rutsch abrufen (findGuestsForBulkProcessing im ContactRepository)
+    // WICHTIG: Nutze $this->contactRepository statt ttAddressRepository
+    $guestsData = $this->contactRepository->findGuestsForBulkProcessing($selectedGuestUids);
+    $guestsById = array_column($guestsData, null, 'uid');
+
+    // 2. Bestehende Akkreditierungen prüfen
+    // WICHTIG: findGuestUidsByEvent muss im AccreditationRepository existieren!
+    $existingAccreditationGuestUids = $this->accreditationRepository->findGuestUidsByEvent($selectedGuestUids, $event->getUid());
+    $isAlreadyAccredited = array_flip($existingAccreditationGuestUids);
+
+    $tcaUpdates = [];
+    $createdCount = 0;
+    $duplicateNames = [];
+    $excludedNames = [];
+    $logData = [];
+
+    foreach ($selectedGuestUids as $guestUid) {
+      $guestData = $guestsById[$guestUid] ?? null;
+
+      if (!$guestData) {
+        continue;
+      }
+
+      $guestName = $this->formatGuestName($guestData);
+
+      // Prüfung 1: Mailing Exclude
+      if ((int) ($guestData['no_mailing'] ?? 0) === 1) {
+        $excludedNames[] = $guestName;
+        continue;
+      }
+
+      // Prüfung 2: Duplikat
+      if (isset($isAlreadyAccredited[$guestUid])) {
+        $duplicateNames[] = $guestName;
+        continue;
+      }
+
+      // DataHandler-Array erstellen
+      $newAccreditationData = [
+        'pid' => $event->getPid(), // oder $this->emConfiguration->getAccreditationPid()
+        'event' => $event->getUid(),
+        'status' => 0,
+        'invitation_status' => 0,
+        'type' => 2,
+        'guest_type' => $guestType,     // Aus Argument
+        'tickets_wish' => $ticketsWish, // Aus Argument
+        'guest' => $guestUid,
+        'invitation_type' => $invitationType, // Aus Argument
+      ];
+
+      $tempId = 'NEW_' . $guestUid;
+      $tcaUpdates['tx_publicrelations_domain_model_accreditation'][$tempId] = $newAccreditationData;
+      $logData[$tempId] = ['logCode' => 'AI-CR2'];
+      $createdCount++;
+    }
+
+    // Persistieren via DataHandler
+    if ($createdCount > 0) {
+      $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
+      $dataHandler->start($tcaUpdates, []);
+      $dataHandler->process_datamap();
+
+      // Logs erstellen
+      $newlyCreatedUids = $dataHandler->substNEWwithIDs;
+      $logTcaUpdates = [];
+      $logCounter = 0;
+
+      foreach ($newlyCreatedUids as $tempId => $newUid) {
+        if (isset($logData[$tempId])) {
+          $guestUid = $tcaUpdates['tx_publicrelations_domain_model_accreditation'][$tempId]['guest'];
+
+          $logEntryData = [
+            'pid' => $event->getPid(), // PID Konsistenz
+            'cruser_id' => $GLOBALS['BE_USER']->user['uid'] ?? 0,
+            'function' => 'Akkreditierung',
+            'code' => $logData[$tempId]['logCode'],
+            'subject' => 'Erstellt - Wizzard',
+            'accreditation' => (int) $newUid,
+            'tt_address' => (int) $guestUid,
+            'event' => (int) $event->getUid(),
+          ];
+
+          $logTcaUpdates['tx_publicrelations_domain_model_log']['NEW_' . $logCounter] = $logEntryData;
+          $logCounter++;
+        }
+      }
+
+      if (!empty($logTcaUpdates)) {
+        $dataHandler->start($logTcaUpdates, []);
+        $dataHandler->process_datamap();
+      }
+    }
+
+    // Flash Messages
+    if (count($excludedNames) > 0) {
+      $message = sprintf('%d Gäste wollten keine Mailings erhalten und wurden nicht akkreditiert: <br> %s', count($excludedNames), implode(', ', $excludedNames));
+      $this->addModuleFlashMessage($message, 'EINIGE GÄSTE AUSGESCHLOSSEN', 'WARNING');
+    }
+    if (count($duplicateNames) > 0) {
+      $message = sprintf('Nicht alle Einladungen konnten erstellt werden. %d Duplikat(e) gefunden: <br> %s', count($duplicateNames), implode(', ', $duplicateNames));
+      $this->addModuleFlashMessage($message, 'DUPLIKATE NICHT ERSTELLT', 'WARNING');
+    }
+    if ($createdCount > 0) {
+      $message = sprintf("Es wurden %d Einladungen erfolgreich erstellt. Der Versand muss noch angestoßen werden.", $createdCount);
+      $this->addModuleFlashMessage($message, 'EINLADUNGEN ERSTELLT!', 'OK');
+    } elseif ($createdCount === 0 && count($duplicateNames) === 0 && count($excludedNames) === 0) {
+      $this->addModuleFlashMessage('Es wurden keine Gäste ausgewählt oder es gab ein Problem mit den Eingabedaten.', 'KEINE AKTION', 'INFO');
+    }
+
+    return $this->redirect('show', 'Event', null, ['event' => $event]);
+  }
+
+  /**
+   * Hilfsmethode zur Formatierung des Anzeigenamens aus einem Daten-Array.
+   */
+  private function formatGuestName(array $guestData): string
+  {
+    $name = trim($guestData['first_name'] . ' ' . $guestData['middle_name'] . ' ' . $guestData['last_name']);
+    if (empty($name) && !empty($guestData['company'])) {
+      return $guestData['company'];
+    }
+    return $name;
+  }
+
 
 }

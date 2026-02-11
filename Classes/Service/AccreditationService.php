@@ -199,9 +199,9 @@ class AccreditationService
             return false;
         }
 
-        // 2. Check mailing_exclude flag IF a guest record is linked
+        // 2. Check no_mailing flag IF a guest record is linked
         // If $guest is null (manual entry), we assume sending is allowed if email is valid.
-        if ($guest !== null && $guest->isMailingExclude()) {
+        if ($guest !== null && ($guest->isNoMailing() || $guest->isBanned())) {
             return false; // Stop if the linked guest has opted out
         }
 

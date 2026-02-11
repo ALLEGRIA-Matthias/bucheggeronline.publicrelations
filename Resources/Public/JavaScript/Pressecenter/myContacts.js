@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const fullName = [contact.title, contact.first_name, contact.middle_name, contact.last_name, contact.titleSuffix].filter(Boolean).join(' ');
             const companyInfo = `${contact.company}<br><small>${contact.position || ''}</small>`;
             const contactInfo = [contact.email, contact.phone, contact.mobile].filter(Boolean).join('<br>');
-            const statusBadge = contact.mailing_exclude 
+            const statusBadge = contact.no_mailing 
                 ? '<span class="badge badge-danger">Deaktiviert</span>'
                 : '<span class="badge badge-success">Aktiv</span>';
 
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             let toggleButtonHtml;
-            if (contact.mailing_exclude) {
+            if (contact.no_mailing) {
                 // Kontakt ist gesperrt -> "Aktivieren"-Button anzeigen
                 toggleButtonHtml = `
                     <button class="btn btn-link text-success btn-sm" data-toggle-uid="${contact.uid}" data-current-status="1" title="Mailing aktivieren">
@@ -424,11 +424,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Funktion, die den Klick auf den Toggle-Button behandelt
     const handleToggleClick = async (contactUid, currentStatus) => {
         // Der neue Status ist das Gegenteil des aktuellen Status (0 -> 1, 1 -> 0)
-        const newStatus = currentStatus === '1' ? 0 : 1; 
+        const newStatus = currentStatus === '1' ? false : true; 
 
         const contactData = {
             uid: contactUid,
-            mailing_exclude: newStatus
+            no_mailing: newStatus
         };
 
         try {
@@ -440,7 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await response.json();
 
             if (response.ok && result.success) {
-                showToast(newStatus === 1 ? 'Kontakt für Mailings gesperrt.' : 'Kontakt für Mailings aktiviert.', 'info');
+                showToast(newStatus === true ? 'Kontakt für Mailings gesperrt.' : 'Kontakt für Mailings aktiviert.', 'info');
                 loadData(searchInput.value, currentMailinglist); // Daten neu laden, um die Ansicht zu aktualisieren
             } else {
                 showToast(result.error || 'Aktion fehlgeschlagen.', 'danger');

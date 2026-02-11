@@ -15,7 +15,7 @@
   <div class="btn-group">
     <f:link.action controller="Accreditation" action="new" class="btn btn-sm btn-success" arguments="{event:event}"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#id-badge-lanyard"></use></svg><span class="ml-2 d-none d-sm-inline">Neue Akkreditierung</span></f:link.action>
     <f:link.action controller="Accreditation" action="newWizzard" class="btn btn-sm btn-success" arguments="{event:event}"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#magic-wand"></use></svg><span class="ml-2 d-none d-sm-inline">Akkr.-Wizzard</span></f:link.action>
-    <f:link.action controller="Accreditation" action="invitationManager" class="btn btn-sm btn-success" arguments="{event:event}"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-plus"></use></svg><span class="ml-2 d-none d-sm-inline">Einladungs-Empf. wählen</span></f:link.action>
+    <f:link.action controller="Accreditation" action="invitationManagerWizard" class="btn btn-sm btn-success" arguments="{event:event}"><svg class="icon icon-sm fill-white"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-plus"></use></svg><span class="ml-2 d-none d-sm-inline">Einladungs-Empf. wählen</span></f:link.action>
   </div>
 </f:if>
 </f:section>
@@ -428,7 +428,7 @@
         <div class="form-inline mb-2">
           <div class="d-12">
             <div class="form-group">
-              <f:link.action controller="Accreditation" action="invitationManager" class="btn btn-sm btn-default mr-3 font-weight-bold d-none d-md-inline text-dark" arguments="{event:event}"><svg class="icon icon-sm fill-gold"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-plus"></use></svg><span class="ml-2 d-none d-sm-inline">Einladungs-Empf. wählen</span></f:link.action>
+              <f:link.action controller="Accreditation" action="invitationManagerWizard" class="btn btn-sm btn-default mr-3 font-weight-bold d-none d-md-inline text-dark" arguments="{event:event}"><svg class="icon icon-sm fill-gold"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-plus"></use></svg><span class="ml-2 d-none d-sm-inline">Einladungs-Empf. wählen</span></f:link.action>
             </div>
             <f:if condition="{pending}">
               <div class="form-group" style="width:auto;">

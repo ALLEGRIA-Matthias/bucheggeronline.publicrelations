@@ -1,0 +1,119 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Module" />
+<f:section name="Content">
+
+    <div class="card shadow-sm border-0" data-contact-selection-wizard>
+        <div class="card-header bg-transparent py-3 border-bottom d-flex justify-content-between align-items-center">
+            <h3 class="card-title m-0"><i class="bi bi-calendar-event me-2 text-primary"></i> {moduleTitle}</h3>
+            
+            <div>
+                <f:if condition="{finishConfiguration.cancelUrl}">
+                    <a href="{finishConfiguration.cancelUrl}" class="btn btn-outline-secondary me-2">Abbrechen</a>
+                </f:if>
+
+                <button type="submit" form="selection-submit-form" class="btn btn-primary shadow-sm">
+                    Vorschau berechnen <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="card-body p-4">
+            <!-- Das Formular -->
+            <f:form action="summary" 
+                    controller="EventSelection" 
+                    extensionName="AcPublicRelations"
+                    id="selection-submit-form" 
+                    method="post"
+                    arguments="{finishConfiguration: finishConfiguration, allowedClientUids:allowedClientUids}">
+
+                <div class="row g-4">
+                    
+                    <!-- Hauptfilter: Event -->
+                    <div class="col-12">
+                        <label class="form-label fw-bold"><i class="bi bi-calendar3 me-1"></i> Event auswählen</label>
+                        <!-- TomSelect Ajax Integration für Events -->
+                        <f:form.select id="selectEvents" 
+                            class="form-control select-event"
+                            name="filters[event]"
+                            placeholder="Nach Event suchen..." />
+                        <div class="form-text text-muted">Suche nach Event-Titel. Es werden auch archivierte Events gefunden.</div>
+                    </div>
+
+                    <div class="col-md-12"><hr class="opacity-10"></div>
+
+                    <!-- Spalte 1: Status (NEU) -->
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold mb-2"><i class="bi bi-check-circle me-1"></i> Akkreditierungs-Status</label>
+                        <div class="card bg-light border-0">
+                            <div class="card-body py-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="filters[status][]" value="1" id="st_1" checked>
+                                    <label class="form-check-label" for="st_1">Genehmigt [1]</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="filters[status][]" value="2" id="st_2" checked>
+                                    <label class="form-check-label" for="st_2">Eingecheckt [2]</label>
+                                </div>
+                                <hr class="my-2 opacity-25">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="filters[status][]" value="0" id="st_0">
+                                    <label class="form-check-label" for="st_0">Ausstehend [0]</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="filters[status][]" value="-2" id="st_m2">
+                                    <label class="form-check-label" for="st_m2">Warteliste [-2]</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="filters[status][]" value="-1" id="st_m1">
+                                    <label class="form-check-label text-danger" for="st_m1">Abgelehnt [-1]</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filter Zeile 2 -->
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold"><i class="bi bi-filter-circle me-1"></i> Gästetyp</label>
+                        <f:form.select name="filters[guestType]" class="form-select">
+                            <f:form.select.option value="">Alle Typen</f:form.select.option>
+                            <f:form.select.option value="1">VIP</f:form.select.option>
+                            <f:form.select.option value="6">Talent</f:form.select.option>
+                            <f:form.select.option value="2">Presse</f:form.select.option>
+                            <f:form.select.option value="3">Gewinnspiel</f:form.select.option>
+                            <f:form.select.option value="4">Füllkarten</f:form.select.option>
+                            <f:form.select.option value="5">Personal</f:form.select.option>
+                        </f:form.select>
+                    </div>
+
+                    <!-- Spalte 3: Facie & Tickets -->
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold"><i class="bi bi-star me-1"></i> Facie Status</label>
+                            <div class="d-flex gap-3 mt-1">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="filters[facie]" id="facieAll" value="" checked>
+                                    <label class="form-check-label" for="facieAll">Egal</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="filters[facie]" id="facieYes" value="1">
+                                    <label class="form-check-label" for="facieYes">Nur Facies</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="filters[facie]" id="facieNo" value="0">
+                                    <label class="form-check-label" for="facieNo">Keine</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="form-label fw-bold"><i class="bi bi-ticket-perforated me-1"></i> Tickets</label>
+                            <f:form.textfield name="filters[tickets]" class="form-control" placeholder="z.B. Reihe 1 oder Loge..." />
+                        </div>
+                    </div>
+
+                </div>
+            </f:form>
+        </div>
+    </div>
+</f:section>
+</html>

@@ -1,0 +1,49 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Eventcenter" />
+<f:section name="content">
+
+    <h1>Empfänger hinzufügen: {event.title}</h1>
+    
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3">
+        <f:for each="{wizards}" as="wizard">
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3 text-primary">
+                            <!-- Icon Logik -->
+                            <f:if condition="{wizard.icon}">
+                                <f:then>
+                                    <span class="d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary rounded-circle" style="width: 64px; height: 64px;">
+                                        <i class="bi {f:if(condition: '{wizard.icon} == \'actions-folder\'', then: 'bi-folder2-open', else: 'bi-person-plus-fill')} fs-2"></i>
+                                    </span>
+                                </f:then>
+                                <f:else>
+                                    <span class="d-inline-flex align-items-center justify-content-center bg-secondary-subtle text-secondary rounded-circle" style="width: 64px; height: 64px;">
+                                        <i class="bi bi-gear-wide-connected fs-2"></i>
+                                    </span>
+                                </f:else>
+                            </f:if>
+                        </div>
+                        <h4 class="card-title">{wizard.title}</h4>
+                        <p class="card-text text-muted small">{wizard.description}</p>
+                        
+                        <!-- Der Link zum Wizard (AcContacts) -->
+                        <div class="d-grid">
+                            <a href="{f:be.uri(route: wizard.route, parameters: wizard.arguments)}" class="btn btn-primary">
+                                <i class="bi bi-chevron-right me-1"></i> Auswählen
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </f:for>
+    </div>
+
+    <div class="mt-4">
+        <f:link.action action="show" controller="Event" arguments="{event: event}" class="btn btn-default">
+            Zurück zum Event
+        </f:link.action>
+    </div>
+
+</f:section>
+</html>

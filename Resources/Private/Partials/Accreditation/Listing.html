@@ -53,7 +53,7 @@
 
             <td>{accreditation.guestTypeOutput} <f:if condition="{accreditation.facie}"><svg class="icon"><use xlink:href="{f:uri.resource(path:'Images/', extensionName: 'allegria_communications', useCacheBusting: false)}glyphicons-basics.svg#user-star"></use></svg></f:if></td>
             <td data-sort="{accreditation.guestOutput.sortName}">
-              <f:render partial="ContactOutput" arguments="{contact:accreditation.guestOutput, settings:settings, uid:accreditation.uid, categories:accreditation.guest.categories}" />
+              <f:render partial="ContactOutput" arguments="{contact:accreditation.guestOutput, settings:settings, uid:accreditation.uid, categories:accreditation.guest.mailingLists}" />
               <f:if condition="{accreditation.seats}"><br/>
                 <f:switch expression="{accreditation.event.uid}">
                   <f:case value="4271">{accreditation.seats->f:format.raw()}</f:case>

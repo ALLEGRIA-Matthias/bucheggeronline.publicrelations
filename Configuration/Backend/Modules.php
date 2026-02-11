@@ -33,7 +33,7 @@ return [
             CampaignController::class => ['list'],
             NewsController::class => ['list'],
             EventController::class => ['list', 'show', 'printLabels', 'new', 'create', 'edit', 'editCollection', 'update', 'updateCollection', 'delete', 'deleteCollection', 'postponeCollection', 'undoPostpone', 'archive', 'export'],
-            AccreditationController::class => ['list', 'show', 'print', 'preview', 'new', 'newWizzard', 'invitationManager', 'invitationManagerCategories', 'invitationManagerSummary', 'invitationPreview', 'statusUpdate', 'create', 'editCollection', 'updateCollection', 'approve', 'edit', 'update', 'delete', 'checkDuplicates', 'removeFromGroup', 'swapMaster', 'mailPreview'],
+            AccreditationController::class => ['list', 'show', 'print', 'preview', 'new', 'newWizzard', 'invitationManager', 'invitationManagerCategories', 'invitationManagerSummary', 'invitationPreview', 'statusUpdate', 'create', 'editCollection', 'updateCollection', 'approve', 'edit', 'update', 'delete', 'checkDuplicates', 'removeFromGroup', 'swapMaster', 'mailPreview', 'invitationManagerWizard', 'configureInvitationSelection', 'createInvitations'],
         ],
     ],
     'allegria_checkin' => [
@@ -108,6 +108,23 @@ return [
                 // 'statusUpdate'
             ],
             MailController::class => ['list', 'show', 'delete'],
+        ],
+    ],
+
+    // Beispiel (kein File-Block nötig, nur zur Info)
+    'allegria_eventcenter_selection' => [
+        'parent' => 'allegria',
+        'access' => 'user',
+        'workspaces' => 'live',
+        'visible' => false,
+        'path' => '/module/allegria/eventcenter/selection',
+        'extensionName' => 'Publicrelations',
+        'controllerActions' => [
+            \BucheggerOnline\Publicrelations\Controller\EventSelectionController::class => [
+                'wizard',
+                'summary',
+                'transfer'
+            ]
         ],
     ],
 ];

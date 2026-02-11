@@ -1,0 +1,61 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" 
+      xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+<f:layout name="Eventcenter" />
+<f:section name="content">
+
+    <h1>Einladungs-Details</h1>
+    <p class="lead">Für <strong>{contactCount} ausgewählte Kontakte</strong> werden Akkreditierungen erstellt.</p>
+
+    <f:form action="createInvitations" controller="Accreditation" method="post">
+        <f:form.hidden name="event" value="{event.uid}" />
+        <f:form.hidden name="selectionTransferId" value="{selectionTransferId}" />
+
+        <div class="card shadow-sm p-4" style="max-width: 800px;">
+            <div class="row g-3">
+                
+                <!-- Gästetyp -->
+                <div class="col-md-6">
+                    <label class="form-label">Gästetyp</label>
+                    <f:form.select name="guestType" class="form-select" options="{
+                        1: 'Promi',
+                        2: 'Presse',
+                        6: 'Talent',
+                        3: 'Gewinnspiel',
+                        4: 'Füllkarten',
+                        5: 'Personal'
+                    }" optionValueField="uid" optionLabelField="title" />
+                </div>
+
+                <!-- Tickets -->
+                <div class="col-md-6">
+                    <label class="form-label">Tickets (Wunsch)</label>
+                    <f:form.textfield name="ticketsWish" value="2" type="number" class="form-control" />
+                </div>
+
+                <!-- Einladungstyp -->
+                <div class="col-12">
+                    <label class="form-label">Einladungs-Design</label>
+                    <f:form.select name="invitationType" class="form-select" 
+                        options="{event.invitations -> v:iterator.sort(sortBy: 'sorting')}" 
+                        optionValueField="uid" 
+                        optionLabelField="title"
+                         />
+                </div>
+
+            </div>
+
+            <div class="mt-4 d-flex justify-content-between">
+                <f:link.action action="invitationManager" arguments="{event: event}" class="btn btn-outline-secondary">
+                    Abbrechen / Zurück
+                </f:link.action>
+                
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-check-circle"></i> {contactCount} Einladungen erstellen
+                </button>
+            </div>
+        </div>
+    </f:form>
+
+</f:section>
+</html>

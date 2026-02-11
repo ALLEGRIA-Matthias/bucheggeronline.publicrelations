@@ -373,9 +373,9 @@
 </f:section>
 
 <f:section name="salutation">
-    <f:if condition="{guestOutput.specialTitle}">
+    <f:if condition="{guestOutput.salutationSpecial}">
     <f:then>
-        {guestOutput.specialTitle},
+        {guestOutput.salutationSpecial},
     </f:then>
     <f:else>
         <f:switch expression="{guestOutput.gender}">

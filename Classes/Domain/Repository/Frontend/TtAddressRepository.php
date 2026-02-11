@@ -43,7 +43,7 @@ class TtAddressRepository extends BackendTtAddressRepository
             'gender',
             'company',
             'position',
-            'mailing_exclude'
+            'no_mailing'
         )->from('ac_contact');
 
         // Basis-Bedingung: Nur Kontakte des aktuellen Kunden

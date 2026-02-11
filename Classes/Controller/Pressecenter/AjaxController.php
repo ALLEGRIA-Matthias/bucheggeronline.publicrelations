@@ -12,9 +12,6 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 
-use BucheggerOnline\Publicrelations\Utility\MailGenerator;
-use BucheggerOnline\Publicrelations\Service\ContactService;
-
 use BucheggerOnline\Publicrelations\Domain\Repository\AccessClientRepository;
 use BucheggerOnline\Publicrelations\Domain\Repository\SysCategoryRepository;
 use BucheggerOnline\Publicrelations\Domain\Repository\LogRepository;
@@ -28,12 +25,16 @@ use BucheggerOnline\Publicrelations\Domain\Model\Client;
 use BucheggerOnline\Publicrelations\Domain\Model\Event;
 use BucheggerOnline\Publicrelations\Domain\Model\Log;
 use BucheggerOnline\Publicrelations\Domain\Model\Accreditation;
+use Allegria\AcContacts\Domain\Model\Contact;
 
 // Neue Services
 use BucheggerOnline\Publicrelations\Service\AccreditationService;
 use BucheggerOnline\Publicrelations\DataResolver\AccreditationDataResolver;
 use Allegria\AcDistribution\Service\DistributionService;
 use Allegria\AcContacts\Domain\Repository\ContactRepository;
+use Allegria\AcContacts\Domain\Repository\MailingListRepository;
+use Allegria\AcContacts\Service\ContactValidationService;
+use Allegria\AcContacts\Service\ContactDuplicateService;
 
 /**
  * AjaxController
@@ -42,7 +43,7 @@ class AjaxController extends ActionController
 {
     private AccessClientRepository $accessClientRepository;
     private ContactRepository $contactRepository;
-    private SysCategoryRepository $sysCategoryRepository;
+    private MailingListRepository $mailingListRepository;
     private LogRepository $logRepository;
     private ClientRepository $clientRepository;
     private EventRepository $eventRepository;
@@ -52,11 +53,13 @@ class AjaxController extends ActionController
     private AccreditationService $accreditationService;
     private DistributionService $distributionService;
     private PersistenceManager $persistenceManager;
+    private ContactValidationService $contactValidationService;
+    private ContactDuplicateService $contactDuplicateService;
 
     public function __construct(
         AccessClientRepository $accessClientRepository,
         ContactRepository $contactRepository,
-        SysCategoryRepository $sysCategoryRepository,
+        MailingListRepository $mailingListRepository,
         LogRepository $logRepository,
         ClientRepository $clientRepository,
         EventRepository $eventRepository,
@@ -65,21 +68,24 @@ class AjaxController extends ActionController
         InvitationRepository $invitationRepository,
         AccreditationService $accreditationService,
         DistributionService $distributionService,
-        PersistenceManager $persistenceManager
+        PersistenceManager $persistenceManager,
+        ContactValidationService $contactValidationService,
+        ContactDuplicateService $contactDuplicateService
     ) {
         $this->accessClientRepository = $accessClientRepository;
         $this->contactRepository = $contactRepository;
-        $this->sysCategoryRepository = $sysCategoryRepository;
+        $this->mailingListRepository = $mailingListRepository;
         $this->logRepository = $logRepository;
         $this->clientRepository = $clientRepository;
         $this->eventRepository = $eventRepository;
         $this->accreditationRepository = $accreditationRepository;
         $this->jobRepository = $jobRepository;
         $this->invitationRepository = $invitationRepository;
-        $this->contactService = $contactService;
         $this->accreditationService = $accreditationService;
         $this->distributionService = $distributionService;
         $this->persistenceManager = $persistenceManager;
+        $this->contactValidationService = $contactValidationService;
+        $this->contactDuplicateService = $contactDuplicateService;
     }
 
     /**
@@ -96,7 +102,7 @@ class AjaxController extends ActionController
 
         // 2. Daten abrufen
         $contacts = $this->contactRepository->feFindByClient($clientUid, $search, $mailinglist);
-        $mailinglists = $this->sysCategoryRepository->feFindByClient($clientUid);
+        $mailinglists = $this->mailingListRepository->feFindByClient($clientUid);
 
         // Mailinglisten formatieren
         $mailinglistData = [];
@@ -116,9 +122,9 @@ class AjaxController extends ActionController
         $processedContacts = [];
         foreach ($contacts as $contact) {
             $categoriesOfContact = [];
-            if (!empty($contact['category_uids'])) {
+            if (!empty($contact['mailing_list_uids'])) {
                 // Den String in einzelne UIDs zerlegen
-                $uids = GeneralUtility::intExplode(',', $contact['category_uids']);
+                $uids = GeneralUtility::intExplode(',', $contact['mailing_list_uids']);
 
                 // Jede UID in unserer "Landkarte" nachschlagen
                 foreach ($uids as $uid) {
@@ -131,9 +137,9 @@ class AjaxController extends ActionController
                 }
             }
 
-            // Das 'category_uids'-Feld durch das neue 'categories'-Array ersetzen
+            // Das 'mailing_list_uids'-Feld durch das neue 'categories'-Array ersetzen
             $contact['categories'] = $categoriesOfContact;
-            unset($contact['category_uids']);
+            unset($contact['mailing_list_uids']);
 
             $processedContacts[] = $contact;
         }
@@ -201,7 +207,7 @@ class AjaxController extends ActionController
         }
 
         // Prüfen, ob es sich um einen reinen Toggle-Aufruf handelt
-        $isToggleOnly = (isset($contactData['mailing_exclude']) && count($contactData) <= 2); // uid + mailing_exclude
+        $isToggleOnly = (isset($contactData['no_mailing']) && count($contactData) <= 2); // uid + no_mailing
 
         // 2. Daten validieren (nur wenn es KEIN reiner Toggle ist)
         if (!$isToggleOnly) {
@@ -265,27 +271,38 @@ class AjaxController extends ActionController
             return new JsonResponse(['success' => false, 'error' => 'No data received.'], 400);
         }
 
-        // 1. Sicherheitsprüfung: Darf der Benutzer überhaupt Kontakte erstellen?
-        // Annahme: Gleiche Berechtigung wie für's Bearbeiten
         if (!$this->hasClientAccess($client, 'edit_contacts')) {
             return new JsonResponse(['success' => false, 'error' => 'Access denied'], 403);
         }
 
-        // 2. Daten validieren
-        $errors = $this->contactService->validateContactData($contactData);
+        // 1. Daten validieren
+        $errors = $this->validateContactData($contactData);
         if (!empty($errors)) {
             return new JsonResponse(['success' => false, 'errors' => $errors], 422);
         }
 
-        // 3. Client-Objekt holen (wird für den Service benötigt)
+        // 2. Client-Objekt holen
         $clientObject = $this->clientRepository->findByUid($client);
         if (!$clientObject) {
             return new JsonResponse(['success' => false, 'error' => 'Client not found.'], 404);
         }
 
-        // 4. Model-basiertes Erstellen (JETZT ZENTRAL IM SERVICE)
+        // 3. Model manuell erstellen und befüllen
         try {
-            $newContact = $this->contactService->createContact($contactData, $clientObject);
+            $newContact = new Contact();
+            $newContact->setClient($clientObject);
+            // Wir setzen die PID auf die des Clients, damit der Datensatz im richtigen Ordner landet
+            $newContact->setPid(4);
+
+            // Daten mappen
+            $this->mapArrayToModel($contactData, $newContact);
+
+            // Speichern
+            $this->contactRepository->add($newContact);
+
+            // Persistieren um UID zu erhalten
+            $this->persistenceManager->persistAll();
+
         } catch (\Exception $e) {
             return new JsonResponse(['success' => false, 'error' => 'Fehler beim Speichern: ' . $e->getMessage()], 500);
         }
@@ -301,30 +318,43 @@ class AjaxController extends ActionController
         $jsonPayload = json_decode($this->request->getBody()->getContents(), true);
         $contactData = $jsonPayload['contactData'] ?? [];
 
-        // 1. Validieren
-        $validationErrors = $this->contactService->validateContactData($contactData);
+        // 1. Validieren (nutzt intern den ValidationService für Email)
+        $validationErrors = $this->validateContactData($contactData);
         if (!empty($validationErrors)) {
             return new JsonResponse(['success' => false, 'errors' => $validationErrors, 'step' => 'validation'], 422);
         }
 
-        // 2. Duplikate prüfen (Client-bezogen)
-        $duplicates = $this->contactService->findPotentialDuplicates($contactData, $client);
-        if (!empty($duplicates)) {
-            // Duplikate formatieren (nur benötigte Daten senden)
-            $formattedDuplicates = [];
-            foreach (['definite', 'possible'] as $type) {
-                if (!empty($duplicates[$type])) {
-                    foreach ($duplicates[$type] as $dup) {
-                        $formattedDuplicates[$type][] = [
-                            'uid' => $dup->getUid(),
-                            'name' => $dup->getFullName(),
-                            'email' => $dup->getEmail(),
-                            'company' => $dup->getCompany()
-                        ];
-                    }
-                }
+        // 2. Duplikate prüfen (Mit neuem Service)
+        // Wir nehmen die UID 0 an, da wir einen neuen Kontakt prüfen
+        $checkResult = $this->contactDuplicateService->checkAgainstDatabase($contactData, $client, 0);
+
+        if ($checkResult['hasPotentialDuplicates']) {
+            // Mapping der Ergebnisse auf die vom Frontend erwartete Struktur (definite/possible)
+            $formattedDuplicates = [
+                'definite' => [],
+                'possible' => []
+            ];
+
+            foreach ($checkResult['matches'] as $match) {
+                // Wir mappen die flache Liste auf Kategorien basierend auf der Probability
+                $category = ($match['probability'] >= 85) ? 'definite' : 'possible';
+
+                $existing = $match['existing_record'];
+
+                $formattedDuplicates[$category][] = [
+                    'uid' => (int) $existing['uid'],
+                    // Full Name zusammenbauen für Anzeige
+                    'name' => trim(($existing['first_name'] ?? '') . ' ' . ($existing['last_name'] ?? '')),
+                    'email' => $existing['email'] ?? '',
+                    'company' => $existing['company'] ?? '',
+                    'probability' => $match['probability']
+                ];
             }
-            return new JsonResponse(['success' => false, 'duplicates' => $formattedDuplicates, 'step' => 'duplicate'], 200); // OK, aber Duplikate gefunden
+
+            // Nur zurückgeben, wenn Listen nicht leer sind
+            if (!empty($formattedDuplicates['definite']) || !empty($formattedDuplicates['possible'])) {
+                return new JsonResponse(['success' => false, 'duplicates' => $formattedDuplicates, 'step' => 'duplicate'], 200);
+            }
         }
 
         // Alles in Ordnung
@@ -339,27 +369,23 @@ class AjaxController extends ActionController
     {
         $errors = [];
 
-        // Regel 1: Mindestens Vor- oder Nachname (This is correct)
+        // Regel 1: Mindestens Vor- oder Nachname
         if (empty($contactData['first_name']) && empty($contactData['last_name'])) {
             $errors['last_name'] = 'Bitte geben Sie mindestens einen Vor- oder Nachnamen an.';
         }
 
-        // Regel 2: E-Mail-Prüfung (Corrected Logic)
+        // Regel 2: E-Mail-Prüfung via Service
         if (empty($contactData['email'])) {
-            // Fall 1: E-Mail-Feld ist leer
             $errors['email'] = 'Bitte geben Sie eine E-Mail-Adresse an.';
         } else {
-            // Fall 2: E-Mail-Feld ist ausgefüllt, jetzt validieren wir es
-            $email = strtolower(trim($contactData['email']));
-            $contactData['email'] = $email;
+            // Nutze den neuen ValidationService
+            $emailResult = $this->contactValidationService->validateAndNormalizeEmail($contactData['email']);
 
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $errors['email'] = 'Bitte geben Sie eine gültige E-Mail-Adresse an.';
+            if (!$emailResult['isValid']) {
+                $errors['email'] = $emailResult['error'];
             } else {
-                $domain = substr($email, strpos($email, '@') + 1);
-                if (!checkdnsrr($domain, 'MX')) {
-                    $errors['email'] = 'Die Domain dieser E-Mail-Adresse scheint keine E-Mails zu empfangen.';
-                }
+                // Die normalisierte Email zurückschreiben (lowercase, trim)
+                $contactData['email'] = $emailResult['email'];
             }
         }
 
@@ -649,69 +675,55 @@ class AjaxController extends ActionController
     {
         $jsonPayload = json_decode($this->request->getBody()->getContents(), true);
         $contactData = $jsonPayload['contactData'] ?? [];
-        $accData = $jsonPayload['accData'] ?? []; // Tickets Wish etc.
-        $clientUid = $event->getClient()->getUid(); // Client-Scope für Duplikatsprüfung
+        $accData = $jsonPayload['accData'] ?? [];
+        $clientUid = $event->getClient()->getUid();
 
-        // 1. Kontakt validieren
-        $validationErrors = $this->contactService->validateContactData($contactData);
+        $validationErrors = $this->validateContactData($contactData);
         if (!empty($validationErrors)) {
             return new JsonResponse(['success' => false, 'errors' => $validationErrors, 'step' => 'contact_validation'], 422);
         }
 
-        // JSON-Payload am Anfang der Funktion ergänzen:
         $forceCreate = (bool) ($jsonPayload['forceCreate'] ?? false);
 
-        // 2. Kontakt-Duplikate prüfen (NUR, wenn forceCreate nicht gesetzt ist)
         if (!$forceCreate) {
-            $duplicates = $this->contactService->findPotentialDuplicates($contactData, $clientUid);
-            if (!empty($duplicates)) {
+            // Duplikat Check via Service
+            $checkResult = $this->contactDuplicateService->checkAgainstDatabase($contactData, $clientUid, 0);
 
-                // FEHLERBEHEBUNG: $this->formatDuplicatesForResponse existiert nicht.
-                // Wir verwenden dieselbe Formatierung wie in checkContactAction.
-                $formattedDuplicates = [];
-                foreach (['definite', 'possible'] as $type) {
-                    if (!empty($duplicates[$type])) {
-                        foreach ($duplicates[$type] as $dup) {
-                            $formattedDuplicates[$type][] = [
-                                'uid' => $dup->getUid(),
-                                'name' => $dup->getFullName(),
-                                'email' => $dup->getEmail(),
-                                'company' => $dup->getCompany()
-                            ];
-                        }
-                    }
+            if ($checkResult['hasPotentialDuplicates']) {
+                $formattedDuplicates = ['definite' => [], 'possible' => []];
+                foreach ($checkResult['matches'] as $match) {
+                    $cat = $match['probability'] >= 85 ? 'definite' : 'possible';
+                    $existing = $match['existing_record'];
+                    $formattedDuplicates[$cat][] = [
+                        'uid' => $existing['uid'],
+                        'name' => trim(($existing['first_name'] ?? '') . ' ' . ($existing['last_name'] ?? '')),
+                        'email' => $existing['email'],
+                        'company' => $existing['company']
+                    ];
                 }
-
                 return new JsonResponse(['success' => false, 'duplicates' => $formattedDuplicates, 'step' => 'contact_duplicate'], 200);
             }
 
-            // 3. Prüfen, ob dieser Kontakt (E-Mail sollte eindeutig sein) bereits akkreditiert ist
-            //    Wir müssen den Kontakt anhand der E-Mail finden, da wir noch keine UID haben
+            // Check if email already accredited
             $existingContact = $this->contactRepository->findOneByEmail($contactData['email'], $clientUid);
             if ($existingContact) {
                 $existingAccreditationUid = $this->accreditationRepository->findExistingAccreditation($existingContact->getUid(), $event->getUid());
                 if ($existingAccreditationUid !== null) {
-                    // Bereits akkreditiert! Frontend soll zum Bearbeiten springen.
                     return new JsonResponse([
                         'success' => false,
                         'error' => 'Dieser Kontakt ist bereits für dieses Event akkreditiert.',
                         'step' => 'already_accredited',
                         'existingAccreditationUid' => $existingAccreditationUid
-                    ], 409); // Conflict
+                    ], 409);
                 }
             }
-
         }
 
-        // 4. Akkreditierungsdaten validieren (Beispiel: Tickets Wish > 0 ?)
-        //    Hier ggf. weitere Prüfungen einfügen
         if (!isset($accData['tickets_wish']) || (int) $accData['tickets_wish'] <= 0) {
             $errors['tickets_wish'] = 'Bitte geben Sie die gewünschte Ticketanzahl an.';
             return new JsonResponse(['success' => false, 'errors' => $errors, 'step' => 'accreditation_validation'], 422);
         }
 
-
-        // Alles OK für die Erstellung
         return new JsonResponse(['success' => true]);
     }
 
@@ -723,10 +735,8 @@ class AjaxController extends ActionController
         $jsonPayload = json_decode($this->request->getBody()->getContents(), true);
         $contactData = $jsonPayload['contactData'] ?? [];
         $accData = $jsonPayload['accData'] ?? [];
-        $forceCreate = (bool) ($jsonPayload['forceCreate'] ?? false); // Flag aus dem Frontend
         $existingContactUid = (int) ($jsonPayload['existingContactUid'] ?? 0);
 
-        // Sicherheitscheck (manage-Rechte für Erstellung)
         $clientUid = $event->getClient()->getUid();
         $eventUid = $event->getUid();
         $accessMap = $this->getAccessMap();
@@ -741,33 +751,41 @@ class AjaxController extends ActionController
         $contact = null;
 
         if ($existingContactUid > 0) {
-            // Fall A: User hat ein Duplikat ausgewählt.
             $contact = $this->contactRepository->findByUid($existingContactUid);
-
-            // Sicherheitscheck: Gehört dieser Kontakt überhaupt zum Client?
             if (!$contact || $contact->getClient()->getUid() !== $clientUid) {
                 return new JsonResponse(['success' => false, 'error' => 'Der ausgewählte Kontakt ist ungültig.'], 403);
             }
-
         } else {
+            // Kontakt neu anlegen
             try {
-                $contact = $this->contactService->createContact($contactData, $event->getClient());
+                // Validate
+                $errors = $this->validateContactData($contactData);
+                if (!empty($errors))
+                    return new JsonResponse(['success' => false, 'errors' => $errors], 422);
+
+                $contact = new Contact();
+                $contact->setClient($event->getClient());
+                $contact->setPid(4);
+                $this->mapArrayToModel($contactData, $contact);
+
+                $this->contactRepository->add($contact);
+                // Wichtig: Persistence wird unten global aufgerufen, aber für Accreditierung referenzieren wir das Object
+                // Das sollte in Extbase funktionieren solange alles in einem Request passiert
+
             } catch (\Exception $e) {
                 return new JsonResponse(['success' => false, 'error' => 'Der neue Kontakt konnte nicht erstellt werden: ' . $e->getMessage()], 500);
             }
         }
 
-        // Finale Prüfung: Wenn wir bis hierher keinen Kontakt haben, Abbruch.
         if ($contact === null) {
             return new JsonResponse(['success' => false, 'error' => 'Kontakt konnte nicht ermittelt werden.'], 500);
         }
 
-        // Akkreditierung erstellen
         $newAccreditation = new Accreditation();
         $newAccreditation->setEvent($event);
         $newAccreditation->setType((int) 2);
         $newAccreditation->setGuest($contact);
-        $newAccreditation->setGuestType((int) 1);
+        $newAccreditation->setGuestType((int) $accData['guest_type']);
 
         $status = (int) ($accData['status'] ?? 0);
         $newAccreditation->setInvitationType($invitationTypeObject);
@@ -778,9 +796,7 @@ class AjaxController extends ActionController
 
         $newAccreditation->setNotes($accData['notes'] ?? '');
         $newAccreditation->setSeats($accData['seats'] ?? '');
-        // ... weitere Felder setzen (guest_type, type=FE ?) ...
 
-        // Log erstellen
         $logSubject = 'Akkreditierung erstellt';
         if ($status === 1)
             $logSubject = 'Akkreditierung erstellt (Zugesagt)';
@@ -788,9 +804,9 @@ class AjaxController extends ActionController
             $logSubject = 'Akkreditierung erstellt (Abgesagt)';
 
         $log = $this->createAccreditationLog('FE_create', $newAccreditation, $logSubject);
-        $newAccreditation->addLog($log); // An Objekt anhängen
+        $newAccreditation->addLog($log);
 
-        $this->accreditationRepository->add($newAccreditation); // Speichern
+        $this->accreditationRepository->add($newAccreditation);
         $this->persistenceManager->persistAll();
 
         return new JsonResponse(['success' => true, 'newUid' => $newAccreditation->getUid()]);
@@ -815,7 +831,7 @@ class AjaxController extends ActionController
         // Detaillierte Notiz
         $notes = sprintf(
             "Neue Akkreditierung für '%s' (Tickets: %d) erstellt.",
-            $acc->getGuest() ? $acc->getGuest()->getFullName() : 'N/A',
+            $acc->getGuest() ? $acc->getGuest()->getDisplayName() : 'N/A',
             $acc->getTicketsWish()
         );
         $log->setNotes($notes);

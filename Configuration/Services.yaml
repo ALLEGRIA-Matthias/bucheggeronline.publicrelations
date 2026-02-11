@@ -68,3 +68,28 @@ services:
         title: 'PR: Finde doppelte Kontakte (intern/pro Kunde)'
         description: 'Erstellt eine CSV im fileadmin mit E-Mail-Duplikaten. Trennt dabei zwischen internen Kontakten (kein Kunde) und Kontakten pro Kunde.'
 
+  BucheggerOnline\Publicrelations\EventListener\AddPRWizardsToMailing:
+    tags:
+      - name: event.listener
+        identifier: 'publicrelations-add-receiver-wizards'
+        event: Allegria\AcMailer\Event\GatherReceiverWizardsEvent
+
+  BucheggerOnline\Publicrelations\EventListener\AddPRWizardsToEvent:
+    tags:
+      - name: event.listener
+        identifier: 'publicrelations-add-accreditation-wizards'
+        event: BucheggerOnline\Publicrelations\Event\GatherInvitationWizardsEvent
+
+  # Quellen hinzufügen (Event, Accreditation)
+  BucheggerOnline\Publicrelations\EventListener\GatherSourceTypesEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'ac-pr-gather-sources'
+        event: Allegria\AcContacts\Event\GatherSourceTypesEvent
+
+  # UIDs auflösen
+  BucheggerOnline\Publicrelations\EventListener\ResolveSourceUidsEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'ac-pr-resolve-uids'
+
