@@ -8,7 +8,7 @@ use Allegria\AcMailer\Event\GatherReceiverWizardsEvent;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class AddPublicRelationsWizards
+class AddPRWizardsToMailing
 {
     public function __invoke(GatherReceiverWizardsEvent $event): void
     {
