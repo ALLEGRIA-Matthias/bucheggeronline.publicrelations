@@ -16,8 +16,7 @@ return [
     'allegria' => [
         'labels' => 'LLL:EXT:publicrelations/Resources/Private/Language/locallang_allegria.xlf',
         'iconIdentifier' => 'modulegroup-allegria',
-        'position' => ['top'],
-        'access' => 'user',
+        'position' => ['before' => 'dashboard']
     ],
     'allegria_eventcenter' => [
         'parent' => 'allegria',
@@ -27,6 +26,7 @@ return [
         'labels' => 'LLL:EXT:publicrelations/Resources/Private/Language/locallang_eventcenter.xlf',
         'iconIdentifier' => 'module-allegria-eventcenter',
         'extensionName' => 'Publicrelations',
+        'position' => ['top'],
         'controllerActions' => [
             PressroomController::class => ['overview', 'test'],
             ClientController::class => ['backendList'],
@@ -44,81 +44,96 @@ return [
         'labels' => 'LLL:EXT:publicrelations/Resources/Private/Language/locallang_checkin.xlf',
         'iconIdentifier' => 'module-allegria-checkin',
         'extensionName' => 'Publicrelations',
+        'position' => ['after' => 'allegria_eventcenter'],
         'controllerActions' => [
             CheckinController::class => ['list', 'show', 'checkin', 'showDetailsForModal'],
             AccreditationController::class => ['checkin'],
         ],
     ],
-    'allegria_reports' => [
-        'parent' => 'allegria',
-        'access' => 'user',
-        'workspaces' => 'live',
-        'path' => '/module/allegria/reports',
-        'labels' => 'LLL:EXT:publicrelations/Resources/Private/Language/locallang_reports.xlf',
-        'iconIdentifier' => 'module-allegria-reports',
-        'extensionName' => 'Publicrelations',
-        'controllerActions' => [
-            ReportController::class => ['clippingRoutes', 'reports'],
-        ],
-    ],
-    'allegria_reports_clippingroutes' => [
-        'parent' => 'allegria_reports',
-        'access' => 'user',
-        'visible' => false,
-        'path' => '/module/allegria/reports/clippingroutes',
-        'extensionName' => 'Publicrelations',
-        'controllerActions' => [
-            ReportController::class => ['clippingRoutes'],
-        ],
-    ],
-    'allegria_reports_list' => [
-        'parent' => 'allegria_reports',
-        'access' => 'user',
-        'visible' => false,
-        'path' => '/module/allegria/reports/list',
-        'extensionName' => 'Publicrelations',
-        'controllerActions' => [
-            ReportController::class => ['reports'],
-        ],
-    ],
-    'allegria_mailer' => [
-        'parent' => 'allegria',
-        'access' => 'user',
-        'workspaces' => 'live',
-        'path' => '/module/allegria/mailer',
-        'navigationComponent' => '',
-        'labels' => 'LLL:EXT:publicrelations/Resources/Private/Language/locallang_mailer.xlf',
-        'iconIdentifier' => 'module-allegria-mailer',
-        'extensionName' => 'Publicrelations',
-        'controllerActions' => [
-            MailingController::class => [
-                'archive',
-                'list',
-                'show',
-                'preview',
-                // 'receiverList',
-                // 'receiverManager',
-                // 'receiverManagerCategories',
-                // 'receiverManagerSummary',
-                // 'createMails',
-                // 'sendMails',
-                // 'copyMailing',
-                // 'delete',
-                // 'deleteMails',
-                // 'statusUpdate'
-            ],
-            MailController::class => ['list', 'show', 'delete'],
-        ],
-    ],
+    // 'allegria_reports' => [
+    //     'parent' => 'allegria',
+    //     'access' => 'user',
+    //     'workspaces' => 'live',
+    //     'path' => '/module/allegria/reports',
+    //     'labels' => 'LLL:EXT:publicrelations/Resources/Private/Language/locallang_reports.xlf',
+    //     'iconIdentifier' => 'module-allegria-reports',
+    //     'extensionName' => 'Publicrelations',
+    //     'controllerActions' => [
+    //         ReportController::class => ['clippingRoutes', 'reports'],
+    //     ],
+    // ],
+    // 'allegria_reports_clippingroutes' => [
+    //     'parent' => 'allegria_reports',
+    //     'access' => 'user',
+    //     'visible' => false,
+    //     'path' => '/module/allegria/reports/clippingroutes',
+    //     'extensionName' => 'Publicrelations',
+    //     'controllerActions' => [
+    //         ReportController::class => ['clippingRoutes'],
+    //     ],
+    // ],
+    // 'allegria_reports_list' => [
+    //     'parent' => 'allegria_reports',
+    //     'access' => 'user',
+    //     'visible' => false,
+    //     'path' => '/module/allegria/reports/list',
+    //     'extensionName' => 'Publicrelations',
+    //     'controllerActions' => [
+    //         ReportController::class => ['reports'],
+    //     ],
+    // ],
+    // 'allegria_mailer' => [
+    //     'parent' => 'allegria',
+    //     'access' => 'user',
+    //     'workspaces' => 'live',
+    //     'path' => '/module/allegria/mailer',
+    //     'navigationComponent' => '',
+    //     'labels' => 'LLL:EXT:publicrelations/Resources/Private/Language/locallang_mailer.xlf',
+    //     'iconIdentifier' => 'module-allegria-mailer',
+    //     'extensionName' => 'Publicrelations',
+    //     'controllerActions' => [
+    //         MailingController::class => [
+    //             'archive',
+    //             'list',
+    //             'show',
+    //             'preview',
+    //             // 'receiverList',
+    //             // 'receiverManager',
+    //             // 'receiverManagerCategories',
+    //             // 'receiverManagerSummary',
+    //             // 'createMails',
+    //             // 'sendMails',
+    //             // 'copyMailing',
+    //             // 'delete',
+    //             // 'deleteMails',
+    //             // 'statusUpdate'
+    //         ],
+    //         MailController::class => ['list', 'show', 'delete'],
+    //     ],
+    // ],
 
     // Beispiel (kein File-Block nötig, nur zur Info)
-    'allegria_eventcenter_selection' => [
+    'ac_mailer_event_selection' => [
+        'parent' => 'ac_mailer',
+        'access' => 'user',
+        'visible' => false,
+        'path' => '/module/ac/mailer/event-selection',
+        'extensionName' => 'AcMailer',
+        'controllerActions' => [
+            \BucheggerOnline\Publicrelations\Controller\EventSelectionController::class => [
+                'wizard',
+                'summary',
+                'transfer'
+            ]
+        ],
+    ],
+    'allegria_eventcenter_event_selection' => [
         'parent' => 'allegria',
         'access' => 'user',
-        'workspaces' => 'live',
         'visible' => false,
-        'path' => '/module/allegria/eventcenter/selection',
+        'path' => '/module/allegria/eventcenter/event-selection',
         'extensionName' => 'Publicrelations',
+        'position' => ['after' => 'allegria_checkin'],
         'controllerActions' => [
             \BucheggerOnline\Publicrelations\Controller\EventSelectionController::class => [
                 'wizard',

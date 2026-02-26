@@ -31,13 +31,10 @@ class EventSelectionController extends ActionController
         array $finishConfiguration = [],
         array $allowedClientUids = []
     ): ResponseInterface {
-        // GUARD: Wenn keine Konfiguration da ist (direkter Aufruf), zurück zur PR-Übersicht (Eventcenter)
+
+        // RESET-LOGIK: Wenn keine Konfiguration vorhanden ist, kehren wir zur Haupt-Action zurück
         if (empty($finishConfiguration)) {
-            $uri = $this->backendUriBuilder->buildUriFromRoute('allegria_eventcenter', [
-                'controller' => 'Pressroom',
-                'action' => 'overview'
-            ]);
-            return new RedirectResponse((string) $uri);
+            return $this->redirectToContextMainAction();
         }
 
         $view = $this->moduleTemplateFactory->create($this->request);
@@ -52,6 +49,39 @@ class EventSelectionController extends ActionController
         ]);
 
         return $view->renderResponse('Selection/EventWizard');
+    }
+
+    /**
+     * Zentrale Methode für den Reset des Wizards.
+     * Ermittelt anhand des aktuellen Modul-Identifiers die Ziel-Action.
+     */
+    private function redirectToContextMainAction(): ResponseInterface
+    {
+        $module = $this->request->getAttribute('module');
+        $identifier = $module?->getIdentifier() ?? '';
+
+        $route = 'contacts_list';
+        // Wir übergeben keine Controller/Action Parameter im Reset-Fall.
+        // Die Route selbst ist in der Modules.php bereits fest mit dem Default-Controller verknüpft.
+        // Das verhindert, dass Extbase die Parameter gegen das falsche Modul prüft.
+        $params = [];
+
+        // Case Mailer
+        if ($identifier === 'ac_mailer_event_selection') {
+            $route = 'ac_mailer_show';
+        }
+        // Case Eventcenter
+        elseif ($identifier === 'allegria_eventcenter_event_selection') {
+            $route = 'allegria_eventcenter';
+        }
+
+        try {
+            $uri = $this->backendUriBuilder->buildUriFromRoute($route, $params);
+            return new RedirectResponse((string) $uri);
+        } catch (\Exception $e) {
+            // Letzter Fallback zur Standardliste
+            return new RedirectResponse((string) $this->backendUriBuilder->buildUriFromRoute('contacts_list'));
+        }
     }
 
     /**

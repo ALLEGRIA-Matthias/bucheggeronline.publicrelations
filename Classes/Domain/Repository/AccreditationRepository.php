@@ -386,7 +386,6 @@ class AccreditationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $search = trim($filter['query'] ?? '');
         if ($search !== '') {
             $orConstraints = [
-                $query->like('guest.name', '%' . $search . '%'),
                 $query->like('guest.firstName', '%' . $search . '%'),
                 $query->like('guest.middleName', '%' . $search . '%'),
                 $query->like('guest.lastName', '%' . $search . '%'),
@@ -440,7 +439,6 @@ class AccreditationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             $termConstraints[] = $query->like('medium', $searchTermLike);
             $termConstraints[] = $query->like('email', $searchTermLike);
             $termConstraints[] = $query->like('phone', $searchTermLike);
-            $termConstraints[] = $query->like('guest.name', $searchTermLike);
             $termConstraints[] = $query->like('guest.firstName', $searchTermLike);
             $termConstraints[] = $query->like('guest.middleName', $searchTermLike);
             $termConstraints[] = $query->like('guest.lastName', $searchTermLike);

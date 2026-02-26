@@ -532,6 +532,20 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         }
 
+        // --- FIX: Header der "Funktionen"-Spalte markieren ---
+        // Da MDB Datatable die Spalten neu rendert, setzen wir die Klasse manuell.
+        // Wir suchen die Spalte anhand ihres Feld-Namens in der Config.
+        const actionColumnIndex = columns.findIndex(c => c.field === 'actions');
+        if (actionColumnIndex > -1) {
+             // Timeout sorgt dafür, dass der DOM-Render-Zyklus abgeschlossen ist
+             setTimeout(() => {
+                const headers = datatableElement.querySelectorAll('thead th');
+                if (headers[actionColumnIndex]) {
+                    headers[actionColumnIndex].classList.add('print-hide-actions');
+                }
+             }, 0);
+        }
+
         initializeMdbComponents(datatableElement);
     };
 

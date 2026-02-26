@@ -50,7 +50,7 @@ class AddPRWizardsToMailing
             'ac_pr_events',
             'Akkreditierungen / Events',
             'Wähle Empfänger basierend auf Gästelisten',
-            'allegria_eventcenter_selection', // Route zum neuen Controller
+            'ac_mailer_event_selection', // Route zum neuen Controller
             [
                 'finishConfiguration' => $finishConfiguration,
                 'allowedClientUids' => $allowedClientUids,

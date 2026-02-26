@@ -34,7 +34,9 @@
     <!-- Einleitung : BEGIN --> 
 
     <!-- Clippings : BEGIN -->
-    <f:for each="{reports -> v:iterator.sort(sortBy: 'date', order: 'DESC')}" as="report" iteration="iterator">
+    <f:variable name="reportsArray">{f:if(condition: '{reports -> v:condition.type.isArray()}', then: reports, else: '{0: reports}')}</f:variable>
+
+    <f:for each="{reportsArray -> v:iterator.sort(sortBy: 'date', order: 'DESC')}" as="report" iteration="iterator">
         <f:render partial="Services/Clippingservice/ReportItem" arguments="{report:report, iteration:iterator}" />
         <f:if condition="!{iterator.isLast}">
         <tr>

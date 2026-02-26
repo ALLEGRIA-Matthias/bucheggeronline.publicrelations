@@ -686,36 +686,58 @@ class AjaxController extends ActionController
         $forceCreate = (bool) ($jsonPayload['forceCreate'] ?? false);
 
         if (!$forceCreate) {
-            // Duplikat Check via Service
+            $formattedDuplicates = ['definite' => [], 'possible' => []];
+            $hasDuplicates = false;
+
+            // 1. Fuzzy Duplikat Check
             $checkResult = $this->contactDuplicateService->checkAgainstDatabase($contactData, $clientUid, 0);
 
             if ($checkResult['hasPotentialDuplicates']) {
-                $formattedDuplicates = ['definite' => [], 'possible' => []];
+                $hasDuplicates = true;
                 foreach ($checkResult['matches'] as $match) {
                     $cat = $match['probability'] >= 85 ? 'definite' : 'possible';
                     $existing = $match['existing_record'];
                     $formattedDuplicates[$cat][] = [
-                        'uid' => $existing['uid'],
+                        'uid' => (int) $existing['uid'],
                         'name' => trim(($existing['first_name'] ?? '') . ' ' . ($existing['last_name'] ?? '')),
                         'email' => $existing['email'],
                         'company' => $existing['company']
                     ];
                 }
-                return new JsonResponse(['success' => false, 'duplicates' => $formattedDuplicates, 'step' => 'contact_duplicate'], 200);
             }
 
-            // Check if email already accredited
-            $existingContact = $this->contactRepository->findOneByEmail($contactData['email'], $clientUid);
-            if ($existingContact) {
-                $existingAccreditationUid = $this->accreditationRepository->findExistingAccreditation($existingContact->getUid(), $event->getUid());
-                if ($existingAccreditationUid !== null) {
-                    return new JsonResponse([
-                        'success' => false,
-                        'error' => 'Dieser Kontakt ist bereits für dieses Event akkreditiert.',
-                        'step' => 'already_accredited',
-                        'existingAccreditationUid' => $existingAccreditationUid
-                    ], 409);
+            // 2. Harter E-Mail Check (falls Fuzzy es verpasst hat)
+            if (!empty($contactData['email'])) {
+                $existingContact = $this->contactRepository->findOneByEmail($contactData['email'], $clientUid);
+
+                if ($existingContact) {
+                    $existingUid = $existingContact->getUid();
+                    $isInList = false;
+
+                    foreach (['definite', 'possible'] as $cat) {
+                        foreach ($formattedDuplicates[$cat] as $dup) {
+                            if ($dup['uid'] === $existingUid) {
+                                $isInList = true;
+                                break 2;
+                            }
+                        }
+                    }
+
+                    // Zwingend als "Sicher" hinzufügen, wenn nicht schon vorhanden
+                    if (!$isInList) {
+                        $hasDuplicates = true;
+                        $formattedDuplicates['definite'][] = [
+                            'uid' => $existingUid,
+                            'name' => trim($existingContact->getFirstName() . ' ' . $existingContact->getLastName()),
+                            'email' => $existingContact->getEmail(),
+                            'company' => $existingContact->getCompany()
+                        ];
+                    }
                 }
+            }
+
+            if ($hasDuplicates) {
+                return new JsonResponse(['success' => false, 'duplicates' => $formattedDuplicates, 'step' => 'contact_duplicate'], 200);
             }
         }
 
@@ -741,10 +763,11 @@ class AjaxController extends ActionController
         $eventUid = $event->getUid();
         $accessMap = $this->getAccessMap();
         $eventAccess = $accessMap[$clientUid]['events'][$eventUid] ?? null;
-        $accessLevel = $eventAccess['level'] ?? null;
-        if ($accessLevel !== 'manage') {
+
+        if (($eventAccess['level'] ?? null) !== 'manage') {
             return new JsonResponse(['error' => 'Keine Berechtigung zum Erstellen'], 403);
         }
+
         $invitationType = $eventAccess['invitationType'] ?? 0;
         $invitationTypeObject = $this->invitationRepository->findByUid($invitationType);
 
@@ -755,10 +778,18 @@ class AjaxController extends ActionController
             if (!$contact || $contact->getClient()->getUid() !== $clientUid) {
                 return new JsonResponse(['success' => false, 'error' => 'Der ausgewählte Kontakt ist ungültig.'], 403);
             }
+
+            // NEU: HIER prüfen, ob der ausgewählte Kontakt bereits akkreditiert ist
+            $existingAccreditationUid = $this->accreditationRepository->findExistingAccreditation($contact->getUid(), $event->getUid());
+            if ($existingAccreditationUid !== null) {
+                return new JsonResponse([
+                    'success' => false,
+                    'error' => 'Dieser Kontakt ist bereits für dieses Event akkreditiert.',
+                    'step' => 'already_accredited'
+                ], 409);
+            }
         } else {
-            // Kontakt neu anlegen
             try {
-                // Validate
                 $errors = $this->validateContactData($contactData);
                 if (!empty($errors))
                     return new JsonResponse(['success' => false, 'errors' => $errors], 422);
@@ -769,39 +800,35 @@ class AjaxController extends ActionController
                 $this->mapArrayToModel($contactData, $contact);
 
                 $this->contactRepository->add($contact);
-                // Wichtig: Persistence wird unten global aufgerufen, aber für Accreditierung referenzieren wir das Object
-                // Das sollte in Extbase funktionieren solange alles in einem Request passiert
 
             } catch (\Exception $e) {
-                return new JsonResponse(['success' => false, 'error' => 'Der neue Kontakt konnte nicht erstellt werden: ' . $e->getMessage()], 500);
+                return new JsonResponse(['success' => false, 'error' => 'Kontakt konnte nicht erstellt werden: ' . $e->getMessage()], 500);
             }
         }
 
-        if ($contact === null) {
+        if ($contact === null)
             return new JsonResponse(['success' => false, 'error' => 'Kontakt konnte nicht ermittelt werden.'], 500);
-        }
 
         $newAccreditation = new Accreditation();
         $newAccreditation->setEvent($event);
-        $newAccreditation->setType((int) 2);
+        $newAccreditation->setType(2);
         $newAccreditation->setGuest($contact);
         $newAccreditation->setGuestType((int) $accData['guest_type']);
 
         $status = (int) ($accData['status'] ?? 0);
         $newAccreditation->setInvitationType($invitationTypeObject);
         $newAccreditation->setStatus($status);
-        $newAccreditation->setInvitationStatus($accData['invitation_status'] ?? 0);
+        $newAccreditation->setInvitationStatus((int) ($accData['invitation_status'] ?? 0));
         $newAccreditation->setTicketsWish((int) $accData['tickets_wish']);
         $newAccreditation->setTicketsApproved((int) $accData['tickets_approved']);
-
         $newAccreditation->setNotes($accData['notes'] ?? '');
         $newAccreditation->setSeats($accData['seats'] ?? '');
 
-        $logSubject = 'Akkreditierung erstellt';
-        if ($status === 1)
-            $logSubject = 'Akkreditierung erstellt (Zugesagt)';
-        if ($status === -1)
-            $logSubject = 'Akkreditierung erstellt (Abgesagt)';
+        $logSubject = match ($status) {
+            1 => 'Akkreditierung erstellt (Zugesagt)',
+            -1 => 'Akkreditierung erstellt (Abgesagt)',
+            default => 'Akkreditierung erstellt'
+        };
 
         $log = $this->createAccreditationLog('FE_create', $newAccreditation, $logSubject);
         $newAccreditation->addLog($log);

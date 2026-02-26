@@ -72,10 +72,17 @@ td[data-mdb-field="actions"] {
         visibility: hidden !important;
     }
 
+    /* --- NEU: Dynamisches Ausblenden der "Funktionen"-Spalte --- */
+    /* Wir nutzen das Attribut, das MDB automatisch setzt.
+       Wirkt wie eine ID für die Spalte. Greift nur, wenn die Spalte existiert. */
+    #datatable-accreditations [data-mdb-field="actions"] {
+        display: none !important;
+    }
+
     /* --- NEU: Letzte Spalte (Funktionen) aggressiv ausblenden --- */
     /* Versteckt Header UND Body-Zellen der letzten Spalte */
-    #datatable-accreditations th:last-child,
-    #datatable-accreditations td:last-child {
+    #datatable-accreditations [data-mdb-field="actions"],
+    #datatable-accreditations th.print-hide-actions {
         display: none !important;
         visibility: hidden !important;
         width: 0 !important;

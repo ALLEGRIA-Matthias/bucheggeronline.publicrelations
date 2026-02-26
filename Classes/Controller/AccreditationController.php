@@ -1488,7 +1488,7 @@ class AccreditationController extends AbstractPublicrelationsController
         $this->accreditationRepository->update($accreditation);
 
         if ($accreditation->getGuestOutput() != '' && $accreditation->getGuestOutput() != 'noreply@allegria.at') {
-          $this->sendDistributionMail($accreditation, 'reject', true);
+          $this->sendDistributionMailInFrontend($accreditation, 'reject');
         }
 
         // if ($accreditation->getGuestOutput() != '' && $accreditation->getGuestOutput() != 'noreply@allegria.at')
@@ -1560,7 +1560,7 @@ class AccreditationController extends AbstractPublicrelationsController
           // $this->accreditationRepository->update($accreditation);
 
           if ($accreditation->getGuestOutput() != '' && $accreditation->getGuestOutput() != 'noreply@allegria.at') {
-            $this->sendDistributionMail($accreditation, 'waiting', true);
+            $this->sendDistributionMailInFrontend($accreditation, 'waiting');
           }
           $this->persistenceManager->persistAll();
 
@@ -1580,7 +1580,7 @@ class AccreditationController extends AbstractPublicrelationsController
           $this->persistenceManager->persistAll();
 
           if ($accreditation->getGuestOutput() != '' && $accreditation->getGuestOutput() != 'noreply@allegria.at') {
-            $this->sendDistributionMail($accreditation, 'approve', true);
+            $this->sendDistributionMailInFrontend($accreditation, 'approve');
           }
           $this->accreditationRepository->update($accreditation);
 
@@ -2513,6 +2513,92 @@ class AccreditationController extends AbstractPublicrelationsController
         'Kritischer Mail-Fehler',
         'ERROR'
       );
+      return false;
+    }
+  }
+
+  /**
+   * NEUER HELPER (Frontend/Job): Sendet eine E-Mail über den acDistribution Service
+   * Robust gegen Status 'sent'/'queued' Mischmasch und sicher im Frontend-Kontext.
+   *
+   * @param Accreditation $accreditation Das Akkreditierungs-Objekt
+   * @param string $functionCode Der Funktions-Code (z.B. 'invite', 'approve')
+   * @return bool True bei Erfolg, False bei Fehler
+   */
+  private function sendDistributionMailInFrontend(Accreditation $accreditation, string $functionCode): bool
+  {
+    // 1. Kontext erstellen
+    $context = [
+      'dataSource' => [
+        'function' => $functionCode,
+        'dataResolverClass' => AccreditationDataResolver::class,
+        'uids' => [$accreditation->getUid() ?: 0]
+      ],
+      'context' => 'Frontend-Versand: ' . $functionCode . ' [Event: ' . (
+        ($event = $accreditation->getEvent())
+        ? mb_strimwidth($event->getTitle(), 0, 100, '...') . ' [' . $event->getUid() . ']'
+        : '0'
+      ) . ']',
+      'sender_profile' => 1,
+      'report' => ['no_report' => true],
+    ];
+
+    try {
+      $dispatchResult = $this->distributionService->send($context);
+      $status = $dispatchResult['status'] ?? 'error';
+      $message = $dispatchResult['message'] ?? '';
+
+      // ERFOLG: Status ist 'queued' ODER 'sent'
+      // Wir akzeptieren 'sent' auch im Frontend, da AcDistribution manchmal direkt sendet (z.B. wenn kein Queue-Worker nötig)
+      if (in_array($status, ['queued', 'sent'], true)) {
+
+        $msgText = ($status === 'queued')
+          ? 'Danke für die Rückmeldung. Eine Bestätigung wird in Kürze via E-Mail eintreffen.'
+          : 'Danke für die Rückmeldung. Die Bestätigung wurde soeben versandt.';
+
+        $this->addModuleFlashMessage(
+          $msgText,
+          'RÜCKMELDUNG VERARBEITET!',
+          'OK'
+        );
+
+        return true;
+      }
+
+      // FEHLER-BEHANDLUNG (Soft-Fail für User)
+      $errorMessage = "Mail-Fehler Frontend ($functionCode): $message ($status)";
+
+      // Loggen statt User schocken
+      if (property_exists($this, 'logger') && $this->logger) {
+        $this->logger->error($errorMessage, ['accreditation' => $accreditation->getUid()]);
+      }
+
+      // User-Friendly Message
+      $this->addModuleFlashMessage(
+        'Ihre Rückmeldung wurde gespeichert. Die Zustellung der Bestätigungsmail verzögert sich evtl.',
+        'Hinweis',
+        'WARNING'
+      );
+
+      return false;
+
+    } catch (\Throwable $e) {
+      $criticalError = "Kritischer Exception im Frontend-Mail-Versand ($functionCode): " . $e->getMessage();
+
+      if (property_exists($this, 'logger') && $this->logger) {
+        $this->logger->critical($criticalError, [
+          'trace' => $e->getTraceAsString(),
+          'accreditation' => $accreditation->getUid()
+        ]);
+      }
+
+      // Im Frontend UI Fail verhindern, freundliche Meldung
+      $this->addModuleFlashMessage(
+        'Bei der Verarbeitung der E-Mail ist ein Fehler aufgetreten. Der Support wurde informiert.',
+        'Fehler',
+        'ERROR'
+      );
+
       return false;
     }
   }
