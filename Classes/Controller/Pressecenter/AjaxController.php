@@ -35,6 +35,7 @@ use Allegria\AcContacts\Domain\Repository\ContactRepository;
 use Allegria\AcContacts\Domain\Repository\MailingListRepository;
 use Allegria\AcContacts\Service\ContactValidationService;
 use Allegria\AcContacts\Service\ContactDuplicateService;
+use Allegria\AcContacts\Service\ContactNamingService;
 
 /**
  * AjaxController
@@ -55,6 +56,7 @@ class AjaxController extends ActionController
     private PersistenceManager $persistenceManager;
     private ContactValidationService $contactValidationService;
     private ContactDuplicateService $contactDuplicateService;
+    private ContactNamingService $contactNamingService;
 
     public function __construct(
         AccessClientRepository $accessClientRepository,
@@ -70,7 +72,8 @@ class AjaxController extends ActionController
         DistributionService $distributionService,
         PersistenceManager $persistenceManager,
         ContactValidationService $contactValidationService,
-        ContactDuplicateService $contactDuplicateService
+        ContactDuplicateService $contactDuplicateService,
+        ContactNamingService $contactNamingService
     ) {
         $this->accessClientRepository = $accessClientRepository;
         $this->contactRepository = $contactRepository;
@@ -86,6 +89,7 @@ class AjaxController extends ActionController
         $this->persistenceManager = $persistenceManager;
         $this->contactValidationService = $contactValidationService;
         $this->contactDuplicateService = $contactDuplicateService;
+        $this->contactNamingService = $contactNamingService;
     }
 
     /**
@@ -506,40 +510,76 @@ class AjaxController extends ActionController
 
             // Sensible Daten entfernen
             unset($acc['guest_email'], $acc['guest_phone'], $acc['guest_mobile']);
-
-
-            // Namensformatierungen
-            $fullName = '';
-            $company = '';
-            $position = '';
-            $sortingName = '';
-
-            // Prüfen, ob ein verknüpfter Gast (ac_contact) existiert
+            
+            // --- NAMING LOGIC ---
+            $namingSource = [];
             if (!empty($acc['guest_uid'])) {
-                // Fall 1: Daten vom ac_contact-Datensatz verwenden
-                $nameParts = array_filter([$acc['guest_title'], $acc['guest_first_name'], $acc['guest_middle_name'], $acc['guest_last_name']]);
-                $fullName = implode(' ', $nameParts);
-                if (!empty($acc['guest_title_suffix'])) {
-                    $fullName .= ', ' . $acc['guest_title_suffix'];
-                }
-                $company = $acc['guest_company'];
-                $position = $acc['guest_position'];
-                $sortingName = implode(' ', array_filter([$acc['guest_last_name'], $acc['guest_first_name'], $acc['guest_middle_name'], $acc['guest_company']]));
+                // Daten aus dem verknüpften Kontakt (Alias guest_...)
+                $namingSource = [
+                    'title' => $acc['guest_title'],
+                    'first_name' => $acc['guest_first_name'],
+                    'middle_name' => $acc['guest_middle_name'],
+                    'last_name' => $acc['guest_last_name'],
+                    'title_suffix' => $acc['guest_title_suffix'],
+                    'stage_name' => $acc['guest_stage_name'],
+                    'name_select' => $acc['guest_name_select'],
+                    'company' => $acc['guest_company'],
+                    'email' => $acc['guest_email']
+                ];
             } else {
-                // Fall 2: Fallback auf Akkreditierungsdaten
-                $nameParts = array_filter([$acc['title'], $acc['first_name'], $acc['middle_name'], $acc['last_name']]);
-                $fullName = implode(' ', $nameParts);
-                $company = $acc['company']; // acc.medium
-                $sortingName = implode(' ', array_filter([$acc['last_name'], $acc['first_name'], $acc['middle_name'], $acc['company']]));
+                // Fallback auf Rohdaten der Akkreditierung
+                $namingSource = [
+                    'title' => $acc['title'],
+                    'first_name' => $acc['first_name'],
+                    'middle_name' => $acc['middle_name'],
+                    'last_name' => $acc['last_name'],
+                    'company' => $acc['company'] // medium
+                ];
             }
 
-            // KORREKTUR: Daten als sauberes Objekt senden
+            // Zentralen NamingService nutzen
+            $acc['naming'] = $this->contactNamingService->resolve($namingSource);
+
+            // Firmen- und Positionslogik beibehalten für UI
             $acc['guestOutput'] = [
-                'fullName' => $fullName,
-                'company' => $company,
-                'position' => $position,
-                'sortingName' => $sortingName
+                'company' => !empty($acc['guest_uid']) ? $acc['guest_company'] : $acc['company'],
+                'position' => !empty($acc['guest_uid']) ? $acc['guest_position'] : '',
+                'sortingName' => $acc['naming']['sort_name'] // Nutze Sortierung aus Service
             ];
+
+
+            // // Namensformatierungen
+            // $fullName = '';
+            // $company = '';
+            // $position = '';
+            // $sortingName = '';
+
+            // // Prüfen, ob ein verknüpfter Gast (ac_contact) existiert
+            // if (!empty($acc['guest_uid'])) {
+            //     // Fall 1: Daten vom ac_contact-Datensatz verwenden
+            //     $nameParts = array_filter([$acc['guest_title'], $acc['guest_first_name'], $acc['guest_middle_name'], $acc['guest_last_name']]);
+            //     $fullName = implode(' ', $nameParts);
+            //     if (!empty($acc['guest_title_suffix'])) {
+            //         $fullName .= ', ' . $acc['guest_title_suffix'];
+            //     }
+            //     $company = $acc['guest_company'];
+            //     $position = $acc['guest_position'];
+            //     $sortingName = implode(' ', array_filter([$acc['guest_last_name'], $acc['guest_first_name'], $acc['guest_middle_name'], $acc['guest_company']]));
+            // } else {
+            //     // Fall 2: Fallback auf Akkreditierungsdaten
+            //     $nameParts = array_filter([$acc['title'], $acc['first_name'], $acc['middle_name'], $acc['last_name']]);
+            //     $fullName = implode(' ', $nameParts);
+            //     $company = $acc['company']; // acc.medium
+            //     $sortingName = implode(' ', array_filter([$acc['last_name'], $acc['first_name'], $acc['middle_name'], $acc['company']]));
+            // }
+
+            // // KORREKTUR: Daten als sauberes Objekt senden
+            // $acc['guestOutput'] = [
+            //     'fullName' => $fullName,
+            //     'company' => $company,
+            //     'position' => $position,
+            //     'sortingName' => $sortingName
+            // ];
 
             $acc['guestTypeOutput'] = $this->mapGuestType($acc['guest_type']);
 

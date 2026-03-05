@@ -394,34 +394,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const formattedAccreditations = data.accreditations.map(acc => {
             
             const guest = acc.guestOutput;
-            let guestHtmlOutput = '';
+            const naming = acc.naming;
 
-            // Prüfe, ob ein vollständiger Name vorhanden ist.
-            if (guest.fullName) {
-                // Fall 1: Name ist vorhanden und wird die fette erste Zeile.
-                guestHtmlOutput = `<div class="fw-bold">${guest.fullName}</div>`;
-                
-                // Firma und Position als nachfolgende Zeilen hinzufügen, falls vorhanden.
-                if (guest.company) {
-                    guestHtmlOutput += guest.company;
-                }
-                if (guest.company && guest.position) {
-                    guestHtmlOutput += `<br>`;
-                }
-                if (guest.position) {
-                    guestHtmlOutput += `<small class="text-muted">${guest.position}</small>`;
-                }
-            } else if (guest.company) {
-                // Fall 2: Kein Name, aber eine Firma ist vorhanden. Diese wird zur fetten ersten Zeile.
-                guestHtmlOutput = `<div class="fw-bold">${guest.company}</div>`;
-                
-                // Nur noch die Position als zweite Zeile hinzufügen, falls vorhanden.
-                if (guest.position) {
-                    guestHtmlOutput += `<br><small class="text-muted">${guest.position}</small>`;
-                }
-            } else if (guest.position) {
-                // Fall 3: Weder Name noch Firma, nur eine Position (unwahrscheinlich, aber sicher ist sicher).
-                guestHtmlOutput = `<small class="text-muted">${guest.position}</small>`;
+            let guestHtmlOutput = '';
+            
+            // Primäre Anzeige: Display Name (Stage oder Real) fett
+            if (naming.display_name) {
+                guestHtmlOutput += `<div class="fw-bold">${naming.display_name}</div>`;
+            }
+            
+            // Sekundäre Anzeige: Alternative Name (wenn vorhanden) in Klammern oder darunter
+            if (naming.alternative_name && naming.alternative_name !== naming.display_name) {
+                guestHtmlOutput += `<div class="small text-muted fst-italic">(${naming.alternative_name})</div>`;
+            }
+
+            // Firma und Position hinzufügen
+            if (guest.company) {
+                guestHtmlOutput += `<div>${guest.company}</div>`;
+            }
+            if (guest.position) {
+                guestHtmlOutput += `<small class="text-muted d-block">${guest.position}</small>`;
             }
 
             // Pax-Logik: 0 / 2 (muted), wenn noch nicht approved

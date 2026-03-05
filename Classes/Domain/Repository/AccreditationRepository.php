@@ -766,6 +766,8 @@ class AccreditationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 'guest.middle_name AS guest_middle_name',
                 'guest.last_name AS guest_last_name',
                 'guest.title_suffix AS guest_title_suffix',
+                'guest.stage_name AS guest_stage_name',
+                'guest.name_select AS guest_name_select',
                 'guest.company AS guest_company',
                 'guest.position AS guest_position',
                 'guest.email AS guest_email',
@@ -815,6 +817,7 @@ class AccreditationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                     $expr->like('guest.first_name', $queryBuilder->createNamedParameter('%' . $word . '%')),
                     $expr->like('guest.middle_name', $queryBuilder->createNamedParameter('%' . $word . '%')),
                     $expr->like('guest.last_name', $queryBuilder->createNamedParameter('%' . $word . '%')),
+                    $expr->like('guest.stage_name', $queryBuilder->createNamedParameter('%' . $word . '%')),
                     $expr->like('guest.company', $queryBuilder->createNamedParameter('%' . $word . '%')),
                     $expr->like('guest.position', $queryBuilder->createNamedParameter('%' . $word . '%'))
                 );
